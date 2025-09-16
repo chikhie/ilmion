@@ -1,0 +1,13 @@
+/obj
+/bin
+/MuslimAds/obj
+/MuslimAds/bin
+/MuslimAds/MuslimAds.csproj.user
+/MuslimAds/MuslimAds.csproj.vspscc
+/MuslimAds/MuslimAds.csproj.vssscc
+/MuslimAds/MuslimAds.csproj.vstemplate
+/MuslimAds/MuslimAds.csproj.vstemplate
+/vscode
+db.sqlite
+.vscode
+settings.json
