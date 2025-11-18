@@ -1,9 +1,9 @@
-namespace MuslimAds.Infra.Mail;
+namespace KitabStock.Infra.Mail;
 
 using System.Net;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
-using MuslimAds.Api.Interfaces;
+using KitabStock.Api.Interfaces;
 
 public class SmtpMailService : IMailService
 

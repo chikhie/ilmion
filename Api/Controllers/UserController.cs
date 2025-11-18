@@ -1,29 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
-using MuslimAds.Infra;
-using MuslimAds.Api.Services;
+using KitabStock.Infra;
+using KitabStock.Api.Services;
 using Microsoft.AspNetCore.Authorization;
-using MuslimAds.Api.Dtos;
-using MuslimAds.Infra.Entities;
+using KitabStock.Infra.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Security.Claims;
 
-namespace MuslimAds.Api.Controllers;
+namespace KitabStock.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 [Authorize (AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class UserController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
     private readonly UserManager<UserEntity> _userManager;
     private readonly IUserProvider _userProvider;
 
-    public UserController(IUserProvider userProvider, UserManager<UserEntity> userManager)
+    public UserController(
+        UserManager<UserEntity> userManager, 
+        IUserProvider userProvider)
     {
-        _userProvider = userProvider;
         _userManager = userManager;
+        _userProvider = userProvider;
     }
 
     [HttpGet("me")]
@@ -43,8 +41,8 @@ public class UserController : ControllerBase
 
         return Ok(new
         {
+            UserName = user.UserName,
             Email = user.Email,
-            Company = user.Company
         });
     }
 }

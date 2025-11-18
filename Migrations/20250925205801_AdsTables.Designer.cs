@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MuslimAds.Infra;
+using KitabStock.Infra;
 
 #nullable disable
 
-namespace MuslimAds.Migrations
+namespace KitabStock.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250925205801_AdsTables")]
@@ -148,7 +148,7 @@ namespace MuslimAds.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MuslimAds.Infra.Entities.AdEntity", b =>
+            modelBuilder.Entity("KitabStock.Infra.Entities.AdEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,7 +196,7 @@ namespace MuslimAds.Migrations
                     b.ToTable("Ads");
                 });
 
-            modelBuilder.Entity("MuslimAds.Infra.Entities.UserEntity", b =>
+            modelBuilder.Entity("KitabStock.Infra.Entities.UserEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -275,7 +275,7 @@ namespace MuslimAds.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("MuslimAds.Infra.Entities.UserEntity", null)
+                    b.HasOne("KitabStock.Infra.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -284,7 +284,7 @@ namespace MuslimAds.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("MuslimAds.Infra.Entities.UserEntity", null)
+                    b.HasOne("KitabStock.Infra.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -299,7 +299,7 @@ namespace MuslimAds.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MuslimAds.Infra.Entities.UserEntity", null)
+                    b.HasOne("KitabStock.Infra.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -308,16 +308,16 @@ namespace MuslimAds.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("MuslimAds.Infra.Entities.UserEntity", null)
+                    b.HasOne("KitabStock.Infra.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MuslimAds.Infra.Entities.AdEntity", b =>
+            modelBuilder.Entity("KitabStock.Infra.Entities.AdEntity", b =>
                 {
-                    b.HasOne("MuslimAds.Infra.Entities.UserEntity", "User")
+                    b.HasOne("KitabStock.Infra.Entities.UserEntity", "User")
                         .WithMany("Ads")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -326,7 +326,7 @@ namespace MuslimAds.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MuslimAds.Infra.Entities.UserEntity", b =>
+            modelBuilder.Entity("KitabStock.Infra.Entities.UserEntity", b =>
                 {
                     b.Navigation("Ads");
                 });

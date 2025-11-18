@@ -1,4 +1,4 @@
-namespace MuslimAds.Api.Interfaces;
+namespace KitabStock.Api.Interfaces;
 
 
 public interface IMailService

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MuslimAds.Migrations
+namespace KitabStock.Migrations
 {
     /// <inheritdoc />
     public partial class AdsTables : Migration

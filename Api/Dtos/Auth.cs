@@ -1,4 +1,4 @@
-namespace MuslimAds.Api.Dtos;
+namespace KitabStock.Api.Dtos;
 
 public class AuthResponse
 {
@@ -18,7 +18,7 @@ public class RegisterRequest
 {
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-    public string Company { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
 }
 
 public class RefreshTokenRequest

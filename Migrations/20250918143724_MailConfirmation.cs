@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MuslimAds.Migrations
+namespace KitabStock.Migrations
 {
     /// <inheritdoc />
     public partial class MailConfirmation : Migration

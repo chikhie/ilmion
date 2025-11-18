@@ -1,6 +1,6 @@
-using MuslimAds.Infra;
+using KitabStock.Infra;
 using Microsoft.AspNetCore.Identity;
-using MuslimAds.Infra.Entities;
+using KitabStock.Infra.Entities;
 
 public class UserRepo
 {

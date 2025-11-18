@@ -1,4 +1,4 @@
-namespace MuslimAds.Api.Services;
+namespace KitabStock.Api.Services;
 
 public interface IUserProvider
 {

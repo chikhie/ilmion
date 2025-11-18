@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace MuslimAds.Api.Services;
+namespace KitabStock.Api.Services;
 
 public class UserProvider : IUserProvider
 {

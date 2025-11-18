@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using MuslimAds.Infra.Entities;
-using MuslimAds.Api.Interfaces; 
+using KitabStock.Infra.Entities;
+using KitabStock.Api.Interfaces; 
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.WebUtilities;
@@ -9,11 +9,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
-using MuslimAds.Api.Dtos;
-using System.Security.Cryptography; // AJOUTER CETTE LIGNE
+using KitabStock.Api.Dtos;
+using System.Security.Cryptography;
+using KitabStock.Infra.Mail;
 
 
-namespace MuslimAds.Api.Controllers;
+namespace KitabStock.Api.Controllers;
 
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
@@ -84,7 +85,7 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        var user = new UserEntity { UserName = request.Email, Email = request.Email, Company = request.Company };
+        var user = new UserEntity {  UserName = request.Username, Email = request.Email };
         var result = await _userManager.CreateAsync(user, request.Password);
 
         if (result.Succeeded)
@@ -95,15 +96,17 @@ public class AuthController : ControllerBase
             var frontendUrl = _configuration["FrontendUrl"];
             var confirmationLink = $"{frontendUrl}/confirm-email?userId={user.Id}&token={token}";
 
+            var emailBody = EmailTemplates.GetEmailConfirmationTemplate(request.Username, confirmationLink);
+            
             await _mailService.SendEmailAsync(
                 request.Email,
-                "Confirmez votre e-mail pour MuslimAds",
-                $"Veuillez confirmer votre compte en cliquant sur ce lien : <a href='{HtmlEncoder.Default.Encode(confirmationLink!)}'>lien</a>");
+                "Confirmez votre email - Kitab",
+                emailBody);
 
-            return Ok("Utilisateur créé avec succès. Veuillez vérifier votre e-mail pour confirmer votre compte.");
+            return Ok(new { message = "Utilisateur créé avec succès. Veuillez vérifier votre e-mail pour confirmer votre compte." });
         }
 
-        return BadRequest(result.Errors);
+        return BadRequest(new { message = "Erreur lors de la création de l'utilisateur.", errors = result.Errors });
     }
 
     // Nouvel endpoint pour la confirmation d'e-mail
@@ -154,10 +157,12 @@ public class AuthController : ControllerBase
         var frontendUrl = _configuration["FrontendUrl"];
         var resetLink = $"{frontendUrl}/reset-password?email={HtmlEncoder.Default.Encode(request.Email)}&token={token}";
 
+        var emailBody = EmailTemplates.GetPasswordResetTemplate(user.UserName ?? "Utilisateur", resetLink);
+        
         await _mailService.SendEmailAsync(
             request.Email,
-            "Réinitialiser votre mot de passe pour MuslimAds",
-            $"Veuillez réinitialiser votre mot de passe en cliquant sur ce lien : <a href='{HtmlEncoder.Default.Encode(resetLink!)}'>lien</a>");
+            "Réinitialisation de mot de passe - Kitab",
+            emailBody);
 
         return Ok("Un lien de réinitialisation de mot de passe a été envoyé à votre adresse e-mail.");
     }
