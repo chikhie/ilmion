@@ -1,21 +1,21 @@
-using System.IO.Compression;
+﻿using System.IO.Compression;
 
-namespace KitabStock.Infra.Services;
+namespace Ilmanar.Infra.Services;
 
 public class VideoCompressor
 {
     /// <summary>
-    /// Compresse un fichier vidéo dans une archive ZIP
+    /// Compresse un fichier vidÃ©o dans une archive ZIP
     /// </summary>
-    /// <param name="videoPath">Chemin complet vers la vidéo à compresser</param>
-    /// <param name="outputDirectory">Dossier où sera créé le fichier ZIP</param>
-    /// <param name="zipFileName">Nom du fichier ZIP (optionnel, par défaut "original.zip")</param>
-    /// <returns>Chemin complet vers le fichier ZIP créé</returns>
+    /// <param name="videoPath">Chemin complet vers la vidÃ©o Ã  compresser</param>
+    /// <param name="outputDirectory">Dossier oÃ¹ sera crÃ©Ã© le fichier ZIP</param>
+    /// <param name="zipFileName">Nom du fichier ZIP (optionnel, par dÃ©faut "original.zip")</param>
+    /// <returns>Chemin complet vers le fichier ZIP crÃ©Ã©</returns>
     public async Task<string> CompressVideoToZipAsync(string videoPath, string outputDirectory, string zipFileName = "original.zip")
     {
         if (!File.Exists(videoPath))
         {
-            throw new FileNotFoundException($"Le fichier vidéo n'existe pas: {videoPath}");
+            throw new FileNotFoundException($"Le fichier vidÃ©o n'existe pas: {videoPath}");
         }
 
         if (!Directory.Exists(outputDirectory))
@@ -27,25 +27,25 @@ public class VideoCompressor
 
         try
         {
-            // Supprimer le fichier ZIP s'il existe déjà
+            // Supprimer le fichier ZIP s'il existe dÃ©jÃ 
             if (File.Exists(zipPath))
             {
                 File.Delete(zipPath);
             }
 
-            // Créer l'archive ZIP
+            // CrÃ©er l'archive ZIP
             using (var archive = ZipFile.Open(zipPath, ZipArchiveMode.Create))
             {
                 var videoFileName = Path.GetFileName(videoPath);
                 archive.CreateEntryFromFile(videoPath, videoFileName, CompressionLevel.Optimal);
             }
 
-            Console.WriteLine($"Vidéo compressée avec succès: {zipPath}");
+            Console.WriteLine($"VidÃ©o compressÃ©e avec succÃ¨s: {zipPath}");
             return zipPath;
         }
         catch (Exception ex)
         {
-            throw new Exception($"Erreur lors de la compression de la vidéo: {ex.Message}", ex);
+            throw new Exception($"Erreur lors de la compression de la vidÃ©o: {ex.Message}", ex);
         }
     }
 
@@ -63,4 +63,5 @@ public class VideoCompressor
         return Math.Round(fileInfo.Length / (1024.0 * 1024.0), 2);
     }
 }
+
 

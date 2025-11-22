@@ -1,6 +1,6 @@
-using KitabStock.Infra;
+﻿using Ilmanar.Infra;
 using Microsoft.AspNetCore.Identity;
-using KitabStock.Infra.Entities;
+using Ilmanar.Infra.Entities;
 
 public class UserRepo
 {

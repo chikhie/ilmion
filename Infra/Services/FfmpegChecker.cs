@@ -1,9 +1,9 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace KitabStock.Infra.Services;
+namespace Ilmanar.Infra.Services;
 
 /// <summary>
-/// Vérifie que FFmpeg et FFprobe sont installés et accessibles
+/// VÃ©rifie que FFmpeg et FFprobe sont installÃ©s et accessibles
 /// </summary>
 public static class FfmpegChecker
 {
@@ -15,16 +15,16 @@ public static class FfmpegChecker
         if (ffmpegInstalled && ffprobeInstalled)
         {
             var version = await GetFfmpegVersionAsync();
-            return (true, $"FFmpeg installé - {version}");
+            return (true, $"FFmpeg installÃ© - {version}");
         }
 
         var missingTools = new List<string>();
         if (!ffmpegInstalled) missingTools.Add("ffmpeg");
         if (!ffprobeInstalled) missingTools.Add("ffprobe");
 
-        var message = $"⚠️ Outils manquants: {string.Join(", ", missingTools)}\n\n" +
+        var message = $"âš ï¸ Outils manquants: {string.Join(", ", missingTools)}\n\n" +
                      "Pour installer FFmpeg:\n" +
-                     "Windows: Télécharger depuis https://ffmpeg.org/download.html et ajouter au PATH\n" +
+                     "Windows: TÃ©lÃ©charger depuis https://ffmpeg.org/download.html et ajouter au PATH\n" +
                      "Linux: sudo apt install ffmpeg\n" +
                      "Mac: brew install ffmpeg";
 
@@ -77,7 +77,7 @@ public static class FfmpegChecker
             var output = await process.StandardOutput.ReadToEndAsync();
             await process.WaitForExitAsync();
 
-            // Extraire la première ligne qui contient la version
+            // Extraire la premiÃ¨re ligne qui contient la version
             var lines = output.Split('\n');
             return lines.Length > 0 ? lines[0].Trim() : "Version inconnue";
         }
@@ -87,4 +87,5 @@ public static class FfmpegChecker
         }
     }
 }
+
 

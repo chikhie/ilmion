@@ -1,9 +1,9 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
-namespace KitabStock.Infra.Services;
+namespace Ilmanar.Infra.Services;
 
 public class VideoMetadata
 {
@@ -37,7 +37,7 @@ public class VideoMetadataExtractor
             using var process = Process.Start(processStartInfo);
             if (process == null)
             {
-                throw new Exception("Impossible de démarrer ffprobe");
+                throw new Exception("Impossible de dÃ©marrer ffprobe");
             }
 
             var output = await process.StandardOutput.ReadToEndAsync();
@@ -105,7 +105,7 @@ public class VideoMetadataExtractor
                             metadata.ColorSpace = colorSpace.GetString() ?? string.Empty;
                         }
 
-                        break; // On prend seulement le premier stream vidéo
+                        break; // On prend seulement le premier stream vidÃ©o
                     }
                 }
             }
@@ -114,8 +114,9 @@ public class VideoMetadataExtractor
         }
         catch (Exception ex)
         {
-            throw new Exception($"Erreur lors de l'extraction des métadonnées: {ex.Message}", ex);
+            throw new Exception($"Erreur lors de l'extraction des mÃ©tadonnÃ©es: {ex.Message}", ex);
         }
     }
 }
+
 

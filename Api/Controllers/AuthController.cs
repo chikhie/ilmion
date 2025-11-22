@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using KitabStock.Infra.Entities;
-using KitabStock.Api.Interfaces; 
+using Ilmanar.Infra.Entities;
+using Ilmanar.Api.Interfaces; 
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.WebUtilities;
@@ -9,12 +9,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
-using KitabStock.Api.Dtos;
+using Ilmanar.Api.Dtos;
 using System.Security.Cryptography;
-using KitabStock.Infra.Mail;
+using Ilmanar.Infra.Mail;
 
 
-namespace KitabStock.Api.Controllers;
+namespace Ilmanar.Api.Controllers;
 
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
@@ -41,13 +41,13 @@ public class AuthController : ControllerBase
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null || !user.EmailConfirmed)
-            return Unauthorized("Utilisateur inexistant ou e-mail non confirmé.");
+            return Unauthorized("Utilisateur inexistant ou e-mail non confirmÃ©.");
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
         if (!result.Succeeded)
             return Unauthorized("Mot de passe incorrect.");
 
-        // Générer les claims (infos stockées dans le token)
+        // GÃ©nÃ©rer les claims (infos stockÃ©es dans le token)
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
@@ -55,11 +55,11 @@ public class AuthController : ControllerBase
             new Claim(ClaimTypes.NameIdentifier, user.Id)
         };
 
-        // Clé secrète + signature
+        // ClÃ© secrÃ¨te + signature
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        // Création du token
+        // CrÃ©ation du token
         var accessToken = new JwtSecurityToken(
             issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],
@@ -67,7 +67,7 @@ public class AuthController : ControllerBase
             expires: DateTime.UtcNow.AddHours(2),
             signingCredentials: creds);
 
-        // Générer le refresh token
+        // GÃ©nÃ©rer le refresh token
         var refreshToken = GenerateRefreshToken();
         user.RefreshToken = refreshToken;
         user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7); // Expire dans 7 jours
@@ -85,9 +85,17 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        var user = new UserEntity {  UserName = request.Username, Email = request.Email };
+        var user = new UserEntity 
+        {  
+            UserName = request.Username, 
+            Email = request.Email,
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            DateOfBirth = request.DateOfBirth,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
         var result = await _userManager.CreateAsync(user, request.Password);
-
         if (result.Succeeded)
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -103,10 +111,10 @@ public class AuthController : ControllerBase
                 "Confirmez votre email - Kitab",
                 emailBody);
 
-            return Ok(new { message = "Utilisateur créé avec succès. Veuillez vérifier votre e-mail pour confirmer votre compte." });
+            return Ok(new { message = "Utilisateur crÃ©Ã© avec succÃ¨s. Veuillez vÃ©rifier votre e-mail pour confirmer votre compte." });
         }
 
-        return BadRequest(new { message = "Erreur lors de la création de l'utilisateur.", errors = result.Errors });
+        return BadRequest(new { message = "Erreur lors de la crÃ©ation de l'utilisateur.", errors = result.Errors });
     }
 
     // Nouvel endpoint pour la confirmation d'e-mail
@@ -124,12 +132,12 @@ public class AuthController : ControllerBase
             return NotFound($"Impossible de charger l'utilisateur avec l'ID '{userId}'.");
         }
 
-        token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token)); // Décoder le jeton
+        token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token)); // DÃ©coder le jeton
         var result = await _userManager.ConfirmEmailAsync(user, token);
 
         if (result.Succeeded)
         {
-            return Ok("Votre e-mail a été confirmé avec succès.");
+            return Ok("Votre e-mail a Ã©tÃ© confirmÃ© avec succÃ¨s.");
         }
 
         return BadRequest("Erreur lors de la confirmation de votre e-mail.");
@@ -139,7 +147,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
-        return Ok("Utilisateur déconnecté avec succès.");
+        return Ok("Utilisateur dÃ©connectÃ© avec succÃ¨s.");
     }
 
     [HttpPost("forgot-password")]
@@ -148,7 +156,7 @@ public class AuthController : ControllerBase
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null) 
         {
-            return NotFound("Utilisateur non trouvé."); // Ou OK pour ne pas divulguer l'existence d'un compte
+            return NotFound("Utilisateur non trouvÃ©."); // Ou OK pour ne pas divulguer l'existence d'un compte
         }
 
         var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -161,10 +169,10 @@ public class AuthController : ControllerBase
         
         await _mailService.SendEmailAsync(
             request.Email,
-            "Réinitialisation de mot de passe - Kitab",
+            "RÃ©initialisation de mot de passe - Kitab",
             emailBody);
 
-        return Ok("Un lien de réinitialisation de mot de passe a été envoyé à votre adresse e-mail.");
+        return Ok("Un lien de rÃ©initialisation de mot de passe a Ã©tÃ© envoyÃ© Ã  votre adresse e-mail.");
     }
 
     [HttpPost("reset-password")]
@@ -173,7 +181,7 @@ public class AuthController : ControllerBase
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)
         {
-            return NotFound("Utilisateur non trouvé.");
+            return NotFound("Utilisateur non trouvÃ©.");
         }
 
         var decodedToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Token));
@@ -181,7 +189,7 @@ public class AuthController : ControllerBase
 
         if (result.Succeeded)
         {
-            return Ok("Votre mot de passe a été réinitialisé avec succès.");
+            return Ok("Votre mot de passe a Ã©tÃ© rÃ©initialisÃ© avec succÃ¨s.");
         }
 
         return BadRequest(result.Errors);
@@ -195,10 +203,10 @@ public class AuthController : ControllerBase
 
         if (user == null)
         {
-            return Unauthorized("Refresh token invalide ou expiré.");
+            return Unauthorized("Refresh token invalide ou expirÃ©.");
         }
 
-        // Générer un nouvel access token
+        // GÃ©nÃ©rer un nouvel access token
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
@@ -216,7 +224,7 @@ public class AuthController : ControllerBase
             expires: DateTime.UtcNow.AddHours(2), // Nouvelle expiration pour l'access token
             signingCredentials: creds);
 
-        // Générer un nouveau refresh token
+        // GÃ©nÃ©rer un nouveau refresh token
         var newRefreshToken = GenerateRefreshToken();
         user.RefreshToken = newRefreshToken;
         user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7); // Nouvelle expiration pour le refresh token

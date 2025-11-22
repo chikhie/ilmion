@@ -1,166 +1,218 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Ilmanar.Infra.Entities;
+using Ilmanar.Infra.Services;
+using Ilmanar.Infra.repository;
+using Ilmanar.Infra;
+using Ilmanar.Api.Dtos;
+using Ilmanar.Api.Services;
 using Microsoft.EntityFrameworkCore;
-using KitabStock.Infra;
-using KitabStock.Infra.Payment;
-using System.Security.Claims;
 
-namespace KitabStock.Api.Controllers;
+namespace Ilmanar.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class PaymentController : ControllerBase
 {
+    private readonly IStripePaymentService _stripeService;
+    private readonly IModulePurchaseRepo _purchaseRepo;
     private readonly ApplicationDbContext _context;
-    private readonly StripePaymentService _stripeService;
-    private readonly IConfiguration _configuration;
+    private readonly IUserProvider _userProvider;
 
     public PaymentController(
+        IStripePaymentService stripeService,
+        IModulePurchaseRepo purchaseRepo,
         ApplicationDbContext context,
-        StripePaymentService stripeService,
-        IConfiguration configuration)
+        IUserProvider userProvider)
     {
-        _context = context;
         _stripeService = stripeService;
-        _configuration = configuration;
+        _purchaseRepo = purchaseRepo;
+        _context = context;
+        _userProvider = userProvider;
     }
 
     /// <summary>
-    /// Créer une session de paiement Stripe pour un utilisateur connecté
+    /// Créer une session de paiement Stripe
     /// </summary>
     [HttpPost("create-checkout-session")]
     [Authorize]
-    public async Task<IActionResult> CreateCheckoutSession([FromBody] CreateCheckoutRequest request)
+    public async Task<IActionResult> CreateCheckoutSession([FromBody] CreatePaymentDto dto)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var userEmail = User.FindFirstValue(ClaimTypes.Email);
-
-        if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userEmail))
+        var userId = _userProvider.GetUserId();
+        if (string.IsNullOrEmpty(userId))
         {
-            return Unauthorized("Utilisateur non authentifié.");
+            return Unauthorized();
         }
 
-        // Vérifier si la vidéo existe
-        var video = await _context.Videos.FindAsync(request.VideoId);
-        if (video == null)
+        // Vérifier si le module existe
+        var module = await _context.Modules.FindAsync(dto.ModuleId);
+        if (module == null)
         {
-            return NotFound("Vidéo non trouvée.");
+            return NotFound("Module non trouvé");
         }
 
-        // Vérifier si l'utilisateur a déjà acheté cette vidéo
-        var existingPurchase = await _context.VideoPurchases
-            .FirstOrDefaultAsync(vp => vp.UserId == userId && vp.VideoId == request.VideoId);
-
-        if (existingPurchase != null)
+        // Vérifier si le module est gratuit
+        if (module.IsFree || module.Price <= 0)
         {
-            return BadRequest("Vous avez déjà acheté cette vidéo.");
+            return BadRequest("Ce module est gratuit, aucun paiement nécessaire");
         }
 
-        var frontendUrl = _configuration["FrontendUrl"] ?? "http://localhost:3000";
-        var successUrl = $"{frontendUrl}/payment/success?session_id={{CHECKOUT_SESSION_ID}}";
-        var cancelUrl = $"{frontendUrl}/payment/cancel";
+        // Vérifier si l'utilisateur a déjà acheté ce module
+        var alreadyPurchased = await _purchaseRepo.HasUserPurchasedModuleAsync(userId, dto.ModuleId);
+        if (alreadyPurchased)
+        {
+            return BadRequest("Vous avez déjà acheté ce module");
+        }
 
         try
         {
-            var session = await _stripeService.CreateCheckoutSessionForUser(
-                video,
-                userId,
-                userEmail,
-                successUrl,
-                cancelUrl
+            var user = await _context.Users.FindAsync(userId);
+            
+            // Créer la session Stripe
+            var session = await _stripeService.CreateCheckoutSessionAsync(
+                module, 
+                userId, 
+                user?.Email
             );
 
-            return Ok(new
+            // Créer l'enregistrement d'achat en attente
+            var purchase = new ModulePurchaseEntity
             {
-                sessionId = session.Id,
-                url = session.Url,
-                publicKey = _configuration["Stripe:PublishableKey"]
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ModuleId = module.Id,
+                AmountPaid = module.Price,
+                Currency = "EUR",
+                StripeSessionId = session.Id,
+                Status = PurchaseStatus.Pending,
+                PurchaseDate = DateTime.UtcNow
+            };
+
+            await _purchaseRepo.CreateAsync(purchase);
+
+            return Ok(new PaymentSessionDto
+            {
+                SessionId = session.Id,
+                SessionUrl = session.Url,
+                PurchaseId = purchase.Id
             });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Erreur lors de la création de la session de paiement: {ex.Message}");
+            return StatusCode(500, new { message = $"Erreur lors de la création de la session de paiement: {ex.Message}" });
         }
     }
 
     /// <summary>
-    /// Créer une session de paiement Stripe pour un invité (sans compte)
+    /// Vérifier le statut d'un paiement
     /// </summary>
-    [HttpPost("create-guest-checkout-session")]
-    public async Task<IActionResult> CreateGuestCheckoutSession([FromBody] CreateGuestCheckoutRequest request)
+    [HttpGet("status/{sessionId}")]
+    [Authorize]
+    public async Task<IActionResult> GetPaymentStatus(string sessionId)
     {
-        // Validation de l'email
-        if (string.IsNullOrWhiteSpace(request.Email) || !request.Email.Contains("@"))
+        var purchase = await _purchaseRepo.GetByStripeSessionIdAsync(sessionId);
+        
+        if (purchase == null)
         {
-            return BadRequest("Email invalide.");
+            return NotFound("Paiement non trouvé");
         }
 
-        // Vérifier si la vidéo existe
-        var video = await _context.Videos.FindAsync(request.VideoId);
-        if (video == null)
+        var userId = _userProvider.GetUserId();
+        if (purchase.UserId != userId)
         {
-            return NotFound("Vidéo non trouvée.");
+            return Forbid();
         }
 
-        var frontendUrl = _configuration["FrontendUrl"] ?? "http://localhost:3000";
-        var successUrl = $"{frontendUrl}/payment/success?session_id={{CHECKOUT_SESSION_ID}}";
-        var cancelUrl = $"{frontendUrl}/payment/cancel";
-
-        try
+        return Ok(new
         {
-            var session = await _stripeService.CreateCheckoutSessionForGuest(
-                video,
-                request.Email,
-                successUrl,
-                cancelUrl
-            );
-
-            return Ok(new
-            {
-                sessionId = session.Id,
-                url = session.Url,
-                publicKey = _configuration["Stripe:PublishableKey"]
-            });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Erreur lors de la création de la session de paiement: {ex.Message}");
-        }
+            status = purchase.Status.ToString(),
+            purchaseId = purchase.Id,
+            moduleId = purchase.ModuleId,
+            amount = purchase.AmountPaid,
+            purchaseDate = purchase.PurchaseDate,
+            completedDate = purchase.CompletedDate
+        });
     }
 
     /// <summary>
-    /// Vérifier le statut d'une session de paiement
+    /// Récupérer l'historique des achats de l'utilisateur
     /// </summary>
-    [HttpGet("session-status/{sessionId}")]
-    public async Task<IActionResult> GetSessionStatus(string sessionId)
+    [HttpGet("my-purchases")]
+    [Authorize]
+    public async Task<IActionResult> GetMyPurchases()
     {
-        try
+        var userId = _userProvider.GetUserId();
+        if (string.IsNullOrEmpty(userId))
         {
-            var session = await _stripeService.GetSession(sessionId);
+            return Unauthorized();
+        }
 
-            return Ok(new
-            {
-                status = session.PaymentStatus,
-                customerEmail = session.CustomerEmail,
-                amountTotal = session.AmountTotal / 100.0m, // Convertir de centimes en euros
-                currency = session.Currency
-            });
-        }
-        catch (Exception ex)
+        var purchases = await _purchaseRepo.GetUserPurchasesAsync(userId);
+        
+        var purchaseDtos = purchases.Select(p => new ModulePurchaseDto
         {
-            return NotFound($"Session non trouvée: {ex.Message}");
-        }
+            Id = p.Id,
+            ModuleId = p.ModuleId,
+            ModuleTitle = p.Module.Title,
+            SubjectName = p.Module.Subject?.Label ?? "",
+            AmountPaid = p.AmountPaid,
+            Currency = p.Currency,
+            Status = p.Status.ToString(),
+            PurchaseDate = p.PurchaseDate,
+            CompletedDate = p.CompletedDate
+        }).ToList();
+
+        return Ok(purchaseDtos);
     }
-}
 
-public class CreateCheckoutRequest
-{
-    public Guid VideoId { get; set; }
-}
+    /// <summary>
+    /// Vérifier si l'utilisateur a acheté un module spécifique
+    /// </summary>
+    [HttpGet("has-access/{moduleId}")]
+    [Authorize]
+    public async Task<IActionResult> HasAccess(Guid moduleId)
+    {
+        var userId = _userProvider.GetUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
 
-public class CreateGuestCheckoutRequest
-{
-    public Guid VideoId { get; set; }
-    public string Email { get; set; } = string.Empty;
+        // Vérifier si le module existe et est gratuit
+        var module = await _context.Modules.FindAsync(moduleId);
+        if (module == null)
+        {
+            return NotFound("Module non trouvé");
+        }
+
+        if (module.IsFree)
+        {
+            return Ok(new { hasAccess = true, reason = "free" });
+        }
+
+        // Vérifier si l'utilisateur a acheté le module
+        var hasPurchased = await _purchaseRepo.HasUserPurchasedModuleAsync(userId, moduleId);
+        
+        return Ok(new { hasAccess = hasPurchased, reason = hasPurchased ? "purchased" : "not_purchased" });
+    }
+
+    /// <summary>
+    /// Page de succès après paiement (pour redirection)
+    /// </summary>
+    [HttpGet("success")]
+    public IActionResult PaymentSuccess([FromQuery] string session_id)
+    {
+        // Cette route peut rediriger vers le frontend ou afficher une page de confirmation
+        return Ok(new { message = "Paiement réussi!", sessionId = session_id });
+    }
+
+    /// <summary>
+    /// Page d'annulation de paiement
+    /// </summary>
+    [HttpGet("cancel")]
+    public IActionResult PaymentCancel()
+    {
+        return Ok(new { message = "Paiement annulé" });
+    }
 }
 

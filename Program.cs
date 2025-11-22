@@ -1,31 +1,40 @@
-using KitabStock;
-using Microsoft.EntityFrameworkCore; // Cette directive est nécessaire pour UseSqlite
+﻿using Ilmanar;
+using Microsoft.EntityFrameworkCore; // Cette directive est nÃ©cessaire pour UseSqlite
 using Microsoft.AspNetCore.Identity;
-using KitabStock.Infra.Entities;
-using KitabStock.Infra;
-using KitabStock.Api.Interfaces; // Ajoutez cette ligne
-using KitabStock.Infra.Mail;
+using Ilmanar.Infra.Entities;
+using Ilmanar.Infra;
+using Ilmanar.Api.Interfaces; // Ajoutez cette ligne
+using Ilmanar.Infra.Mail;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using KitabStock.Api.Services; // AJOUTER CETTE LIGNE
+using Ilmanar.Api.Services; // AJOUTER CETTE LIGNE
 using Microsoft.OpenApi.Models; // AJOUTER CETTE LIGNE
 using System.Security.Claims; // AJOUTER CETTE LIGNE
 using Microsoft.Extensions.FileProviders; // Add this line
 using Microsoft.AspNetCore.StaticFiles; // Add this line
+using System.IdentityModel.Tokens.Jwt; // AJOUTER CETTE LIGNE
+
+// Désactiver le mapping par défaut des claims JWT
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 builder.Services.AddScoped<IMailService, SmtpMailService>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // AJOUTER CETTE LIGNE
-builder.Services.AddScoped<IUserProvider, UserProvider>(); // AJOUTER CETTE LIGNE
-builder.Services.AddScoped<UserRepo>(); // AJOUTER CETTE LIGNE
-builder.Services.AddScoped<KitabStock.Infra.repository.VideoPurchaseRepo>(); // Repository pour les achats de vidéos
-builder.Services.AddScoped<KitabStock.Infra.Payment.StripePaymentService>(); // Service de paiement Stripe
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IUserProvider, UserProvider>();
+builder.Services.AddScoped<UserRepo>();
 
-// Configurer les timeouts et limites pour l'upload de vidéos
+// Services de paiement et achats
+builder.Services.AddScoped<Ilmanar.Infra.Services.IStripePaymentService, Ilmanar.Infra.Services.StripePaymentService>();
+builder.Services.AddScoped<Ilmanar.Infra.repository.IModulePurchaseRepo, Ilmanar.Infra.repository.ModulePurchaseRepo>();
+
+// Service de chiffrement des composants
+builder.Services.AddScoped<ComponentEncryptionService>();
+
+// Configurer les timeouts et limites pour l'upload de vidÃ©os
 builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
 {
     options.MultipartBodyLengthLimit = 5368709120; // 5 GB
@@ -44,7 +53,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
-    option.SwaggerDoc("v1", new OpenApiInfo { Title = "KitabStock API", Version = "v1" });
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Ilmanar API", Version = "v1" });
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
@@ -71,12 +80,38 @@ builder.Services.AddSwaggerGen(option =>
 });
 builder.Services.AddControllers();
 
+// Configuration CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options => {
     options.SignIn.RequireConfirmedEmail = true; // Ajoutez cette ligne pour exiger la confirmation d'e-mail
+    options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier; // Utiliser NameIdentifier pour l'ID utilisateur
 })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
+// Configurer Identity pour ne pas rediriger vers /Account/Login
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Events.OnRedirectToLogin = context =>
+    {
+        context.Response.StatusCode = 401;
+        return Task.CompletedTask;
+    };
+    options.Events.OnRedirectToAccessDenied = context =>
+    {
+        context.Response.StatusCode = 403;
+        return Task.CompletedTask;
+    };
+});
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -92,8 +127,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
 
-            NameClaimType = ClaimTypes.NameIdentifier,
             RoleClaimType = ClaimTypes.Role
+        };
+        
+        // Empêcher la redirection automatique vers /Account/Login
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+                var result = System.Text.Json.JsonSerializer.Serialize(new { message = "Non autorisé" });
+                return context.Response.WriteAsync(result);
+            }
         };
     });
 
@@ -101,17 +148,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI(options =>
+// Configuration Swagger (uniquement en développement)
+if (app.Environment.IsDevelopment())
 {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "KitabStock API V1");
-    options.RoutePrefix = string.Empty; // Définit Swagger UI comme page d'accueil
-});
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ilmanar API V1");
+        options.RoutePrefix = "swagger";
+    });
+}
+
+// CORS doit être avant Authentication et Authorization
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Configure static files for the videoTest directory
+// Configure static files for videos
 var videoPath = Path.Combine(Directory.GetCurrentDirectory(), "Infra", "res", "videos", "videoTest");
 if (!Directory.Exists(videoPath))
 {
@@ -119,18 +173,45 @@ if (!Directory.Exists(videoPath))
 }
 
 var provider = new FileExtensionContentTypeProvider();
-// Add .m3u8 and .ts to the MIME type mapping if not already present
 provider.Mappings[".m3u8"] = "application/x-mpegURL";
 provider.Mappings[".ts"] = "video/MP2T";
 
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(videoPath),
-    RequestPath = "/videos", // The URL path to access the files
+    RequestPath = "/videos",
     ContentTypeProvider = provider
 });
 
+// Servir le frontend Nuxt depuis wwwroot
+var wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+if (!Directory.Exists(wwwrootPath))
+{
+    Directory.CreateDirectory(wwwrootPath);
+}
+
+// Créer le dossier uploads pour les photos de profil
+var uploadsPath = Path.Combine(wwwrootPath, "uploads", "profiles");
+if (!Directory.Exists(uploadsPath))
+{
+    Directory.CreateDirectory(uploadsPath);
+}
+
+// Créer le dossier protected pour les composants chiffrés
+var protectedPath = Path.Combine(wwwrootPath, "protected", "components");
+if (!Directory.Exists(protectedPath))
+{
+    Directory.CreateDirectory(protectedPath);
+}
+
+app.UseDefaultFiles(); // Sert index.html par défaut
+app.UseStaticFiles(); // Sert tous les fichiers statiques de wwwroot
+
+// API Controllers
 app.MapControllers();
 
-app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+// Fallback pour le SPA - redirige toutes les routes non-API vers index.html
+app.MapFallbackToFile("index.html");
+
 app.Run();
+

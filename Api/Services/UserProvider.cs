@@ -1,7 +1,7 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace KitabStock.Api.Services;
+namespace Ilmanar.Api.Services;
 
 public class UserProvider : IUserProvider
 {
@@ -17,3 +17,4 @@ public class UserProvider : IUserProvider
         return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }
+

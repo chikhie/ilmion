@@ -1,9 +1,9 @@
-namespace KitabStock.Infra.Mail;
+﻿namespace Ilmanar.Infra.Mail;
 
 using System.Net;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
-using KitabStock.Api.Interfaces;
+using Ilmanar.Api.Interfaces;
 
 public class SmtpMailService : IMailService
 
@@ -41,3 +41,4 @@ public class SmtpMailService : IMailService
         await _client.SendMailAsync(mail);
     }
 }
+

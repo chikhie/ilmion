@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 public class VideoRequest
 {
@@ -15,6 +15,7 @@ public class CreateVideoDto
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; } = 0;
     public IFormFile? VideoFile { get; set; }
-    // Les autres champs (Duration, VideoResolution, VideoCode, etc.) seront extraits/générés automatiquement
+    // Les autres champs (Duration, VideoResolution, VideoCode, etc.) seront extraits/gÃ©nÃ©rÃ©s automatiquement
 }
+
 

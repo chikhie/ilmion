@@ -1,4 +1,4 @@
-namespace KitabStock.Infra;
+﻿namespace Ilmanar.Infra;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Identity;
 public class ApplicationDbContext : IdentityDbContext<UserEntity>
 {
     public DbSet<VideoEntity> Videos { get; set; }
-    public DbSet<VideoPurchaseEntity> VideoPurchases { get; set; }
+    public DbSet<SubjectEntity> Subjects { get; set; }
+    public DbSet<ModuleEntity> Modules { get; set; }
+    public DbSet<ModulePurchaseEntity> ModulePurchases { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -18,31 +20,60 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity>
     {
         base.OnModelCreating(modelBuilder);
         
-        // Configuration des relations
-        modelBuilder.Entity<VideoPurchaseEntity>()
-            .HasOne(vp => vp.User)
-            .WithMany(u => u.PurchasedVideos)
-            .HasForeignKey(vp => vp.UserId)
-            .OnDelete(DeleteBehavior.Restrict); // Ne pas supprimer les achats si user supprimé
+        // Configuration de la relation Subject -> Modules
+        modelBuilder.Entity<ModuleEntity>()
+            .HasOne(m => m.Subject)
+            .WithMany(s => s.Modules)
+            .HasForeignKey(m => m.SubjectId)
+            .OnDelete(DeleteBehavior.Cascade);
         
-        modelBuilder.Entity<VideoPurchaseEntity>()
-            .HasOne(vp => vp.Video)
+        // Configuration de la relation Module -> Video (optionnelle)
+        modelBuilder.Entity<ModuleEntity>()
+            .HasOne(m => m.Video)
             .WithMany()
-            .HasForeignKey(vp => vp.VideoId)
-            .OnDelete(DeleteBehavior.Restrict); // Ne pas supprimer les achats si vidéo supprimée
+            .HasForeignKey(m => m.VideoId)
+            .OnDelete(DeleteBehavior.SetNull);
         
-        // Index pour améliorer les performances des requêtes
-        modelBuilder.Entity<VideoPurchaseEntity>()
-            .HasIndex(vp => new { vp.UserId, vp.VideoId });
+        // Index pour améliorer les performances
+        modelBuilder.Entity<ModuleEntity>()
+            .HasIndex(m => new { m.SubjectId, m.DisplayOrder });
         
-        modelBuilder.Entity<VideoPurchaseEntity>()
-            .HasIndex(vp => vp.PurchaseDate);
+        modelBuilder.Entity<SubjectEntity>()
+            .HasIndex(s => s.Id);
         
-        // Index unique sur le code d'achat
-        modelBuilder.Entity<VideoPurchaseEntity>()
-            .HasIndex(vp => vp.PurchaseCode)
-            .IsUnique();
+        // Configuration de la relation ModulePurchase -> User
+        modelBuilder.Entity<ModulePurchaseEntity>()
+            .HasOne(mp => mp.User)
+            .WithMany(u => u.PurchasedModules)
+            .HasForeignKey(mp => mp.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        // Configuration de la relation ModulePurchase -> Module
+        modelBuilder.Entity<ModulePurchaseEntity>()
+            .HasOne(mp => mp.Module)
+            .WithMany(m => m.Purchases)
+            .HasForeignKey(mp => mp.ModuleId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        // Index pour les achats
+        modelBuilder.Entity<ModulePurchaseEntity>()
+            .HasIndex(mp => new { mp.UserId, mp.ModuleId });
+        
+        modelBuilder.Entity<ModulePurchaseEntity>()
+            .HasIndex(mp => mp.StripeSessionId);
+        
+        // Seed data pour les matières
+        SeedSubjects(modelBuilder);
+    }
+    
+    private void SeedSubjects(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<SubjectEntity>().HasData(
+            new SubjectEntity { Id = 1, Label = "Mathématiques" },
+            new SubjectEntity { Id = 2, Label = "Physique" },
+            new SubjectEntity { Id = 3, Label = "Chimie" },
+            new SubjectEntity { Id = 4, Label = "Biologie" },
+            new SubjectEntity { Id = 5, Label = "Informatique" }
+        );
     }
 }
-
-

@@ -1,4 +1,4 @@
-namespace KitabStock.Infra.Mail;
+﻿namespace Ilmanar.Infra.Mail;
 
 public static class EmailTemplates
 {
@@ -125,15 +125,15 @@ public static class EmailTemplates
     <div class='container'>
         <div class='header'>
             <h1>Kitab</h1>
-            <p>Rejoignez Kitab et accédez à des contenus authentiques sur l'Islam</p>
+            <p>Rejoignez Kitab et accÃ©dez Ã  des contenus authentiques sur l'Islam</p>
         </div>
         <div class='content'>
             {1}
         </div>
         <div class='footer'>
-            <p>© 2025 Kitab. Tous droits réservés.</p>
+            <p>Â© 2025 Kitab. Tous droits rÃ©servÃ©s.</p>
             <p style='margin-top: 10px; font-size: 12px;'>
-                Si vous n'avez pas demandé cet email, vous pouvez l'ignorer en toute sécurité.
+                Si vous n'avez pas demandÃ© cet email, vous pouvez l'ignorer en toute sÃ©curitÃ©.
             </p>
         </div>
     </div>
@@ -145,16 +145,16 @@ public static class EmailTemplates
         var content = $@"
             <div class='greeting'>Bienvenue {userName} !</div>
             <div class='message'>
-                <p>Merci de vous être inscrit sur <span class='highlight'>Kitab</span>.</p>
+                <p>Merci de vous Ãªtre inscrit sur <span class='highlight'>Kitab</span>.</p>
                 <p style='margin-top: 15px;'>
-                    Pour commencer à profiter de nos contenus authentiques sur l'Islam, 
+                    Pour commencer Ã  profiter de nos contenus authentiques sur l'Islam, 
                     veuillez confirmer votre adresse email en cliquant sur le bouton ci-dessous :
                 </p>
             </div>
             
             <div class='button-container'>
                 <a href='{confirmationLink}' class='button'>
-                    → Confirmer mon email
+                    â†’ Confirmer mon email
                 </a>
             </div>
 
@@ -168,7 +168,7 @@ public static class EmailTemplates
 
             <div class='message'>
                 <p style='font-size: 14px; color: #718096;'>
-                    Ce lien de confirmation expirera dans 24 heures pour des raisons de sécurité.
+                    Ce lien de confirmation expirera dans 24 heures pour des raisons de sÃ©curitÃ©.
                 </p>
             </div>";
 
@@ -180,15 +180,15 @@ public static class EmailTemplates
         var content = $@"
             <div class='greeting'>Bonjour {userName},</div>
             <div class='message'>
-                <p>Vous avez demandé à réinitialiser votre mot de passe sur <span class='highlight'>Kitab</span>.</p>
+                <p>Vous avez demandÃ© Ã  rÃ©initialiser votre mot de passe sur <span class='highlight'>Kitab</span>.</p>
                 <p style='margin-top: 15px;'>
-                    Cliquez sur le bouton ci-dessous pour créer un nouveau mot de passe :
+                    Cliquez sur le bouton ci-dessous pour crÃ©er un nouveau mot de passe :
                 </p>
             </div>
             
             <div class='button-container'>
                 <a href='{resetLink}' class='button'>
-                    → Réinitialiser mon mot de passe
+                    â†’ RÃ©initialiser mon mot de passe
                 </a>
             </div>
 
@@ -202,15 +202,15 @@ public static class EmailTemplates
 
             <div class='message'>
                 <p style='font-size: 14px; color: #718096;'>
-                    Ce lien de réinitialisation expirera dans 1 heure pour des raisons de sécurité.
+                    Ce lien de rÃ©initialisation expirera dans 1 heure pour des raisons de sÃ©curitÃ©.
                 </p>
                 <p style='font-size: 14px; color: #718096; margin-top: 10px;'>
-                    Si vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet email. 
-                    Votre mot de passe actuel restera inchangé.
+                    Si vous n'avez pas demandÃ© cette rÃ©initialisation, veuillez ignorer cet email. 
+                    Votre mot de passe actuel restera inchangÃ©.
                 </p>
             </div>";
 
-        return string.Format(BaseTemplate, "Réinitialisation de mot de passe - Kitab", content);
+        return string.Format(BaseTemplate, "RÃ©initialisation de mot de passe - Kitab", content);
     }
 
     public static string GetWelcomeTemplate(string userName)
@@ -218,15 +218,15 @@ public static class EmailTemplates
         var content = $@"
             <div class='greeting'>Bienvenue sur Kitab, {userName} !</div>
             <div class='message'>
-                <p>Votre compte a été confirmé avec succès ! 🎉</p>
+                <p>Votre compte a Ã©tÃ© confirmÃ© avec succÃ¨s ! ðŸŽ‰</p>
                 <p style='margin-top: 15px;'>
-                    Vous pouvez maintenant accéder à tous nos contenus authentiques sur l'Islam.
+                    Vous pouvez maintenant accÃ©der Ã  tous nos contenus authentiques sur l'Islam.
                 </p>
             </div>
             
             <div class='button-container'>
                 <a href='{{frontendUrl}}' class='button'>
-                    → Découvrir Kitab
+                    â†’ DÃ©couvrir Kitab
                 </a>
             </div>
 
@@ -237,13 +237,14 @@ public static class EmailTemplates
                     <strong>Que pouvez-vous faire maintenant ?</strong>
                 </p>
                 <ul style='margin-top: 10px; padding-left: 20px; color: #4a5568;'>
-                    <li style='margin: 8px 0;'>Parcourir notre bibliothèque de contenus</li>
-                    <li style='margin: 8px 0;'>Accéder à des vidéos authentiques</li>
-                    <li style='margin: 8px 0;'>Rejoindre notre communauté</li>
+                    <li style='margin: 8px 0;'>Parcourir notre bibliothÃ¨que de contenus</li>
+                    <li style='margin: 8px 0;'>AccÃ©der Ã  des vidÃ©os authentiques</li>
+                    <li style='margin: 8px 0;'>Rejoindre notre communautÃ©</li>
                 </ul>
             </div>";
 
         return string.Format(BaseTemplate, "Bienvenue sur Kitab", content);
     }
 }
+
 

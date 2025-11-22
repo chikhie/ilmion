@@ -11,3 +11,9 @@
 db.sqlite
 .vscode
 settings.json
+
+# Protected components - Ne jamais commit les composants chiffrés
+wwwroot/protected/components/*.enc
+
+# Uploads - Ne pas versionner les fichiers uploadés
+wwwroot/uploads/

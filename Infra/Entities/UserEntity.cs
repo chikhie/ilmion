@@ -1,12 +1,21 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace KitabStock.Infra.Entities;
+namespace Ilmanar.Infra.Entities;
 
 public class UserEntity : IdentityUser
 {
-    // Collection des vidéos achetées par l'utilisateur
-    public ICollection<VideoPurchaseEntity> PurchasedVideos { get; set; } = new List<VideoPurchaseEntity>();
-    
     public string? RefreshToken { get; set; }
     public DateTime RefreshTokenExpiryTime { get; set; }
+    
+    // Informations de profil
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public string? ProfilePicture { get; set; } // URL ou chemin de la photo
+    public string? Bio { get; set; }
+    public DateTime? DateOfBirth { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    
+    // Relations
+    public ICollection<ModulePurchaseEntity> PurchasedModules { get; set; } = new List<ModulePurchaseEntity>();
 }

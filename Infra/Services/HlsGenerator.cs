@@ -1,21 +1,21 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace KitabStock.Infra.Services;
+namespace Ilmanar.Infra.Services;
 
 public class HlsGenerator
 {
     /// <summary>
-    /// Génère les segments HLS à partir d'un fichier vidéo avec filigrane
+    /// GÃ©nÃ¨re les segments HLS Ã  partir d'un fichier vidÃ©o avec filigrane
     /// </summary>
-    /// <param name="inputVideoPath">Chemin complet vers la vidéo source</param>
-    /// <param name="outputDirectory">Dossier où seront créés les segments HLS</param>
+    /// <param name="inputVideoPath">Chemin complet vers la vidÃ©o source</param>
+    /// <param name="outputDirectory">Dossier oÃ¹ seront crÃ©Ã©s les segments HLS</param>
     /// <param name="watermarkPath">Chemin vers l'image de filigrane (optionnel)</param>
-    /// <param name="segmentDuration">Durée de chaque segment en secondes (par défaut 1s)</param>
+    /// <param name="segmentDuration">DurÃ©e de chaque segment en secondes (par dÃ©faut 1s)</param>
     public async Task GenerateHlsSegmentsAsync(string inputVideoPath, string outputDirectory, string? watermarkPath = null, int segmentDuration = 1)
     {
         if (!File.Exists(inputVideoPath))
         {
-            throw new FileNotFoundException($"Le fichier vidéo n'existe pas: {inputVideoPath}");
+            throw new FileNotFoundException($"Le fichier vidÃ©o n'existe pas: {inputVideoPath}");
         }
 
         if (!Directory.Exists(outputDirectory))
@@ -23,7 +23,7 @@ public class HlsGenerator
             Directory.CreateDirectory(outputDirectory);
         }
 
-        // Fichier master.m3u8 et segments numérotés 0.ts, 1.ts, 2.ts, etc.
+        // Fichier master.m3u8 et segments numÃ©rotÃ©s 0.ts, 1.ts, 2.ts, etc.
         var m3u8Path = Path.Combine(outputDirectory, "master.m3u8");
         var segmentPattern = Path.Combine(outputDirectory, "%d.ts");
 
@@ -39,15 +39,15 @@ public class HlsGenerator
                 // Ajouter l'image du filigrane comme input
                 inputParams = $"-i \"{inputVideoPath}\" -i \"{watermarkPath}\" ";
                 
-                // Filigrane en bas à droite avec transparence
-                // overlay=W-w-10:H-h-10 = 10px de marge depuis le coin inférieur droit
+                // Filigrane en bas Ã  droite avec transparence
+                // overlay=W-w-10:H-h-10 = 10px de marge depuis le coin infÃ©rieur droit
                 videoFilter = "-filter_complex \"[1:v]format=rgba,colorchannelmixer=aa=0.6[logo];[0:v][logo]overlay=W-w-10:H-h-10\" ";
                 
                 Console.WriteLine($"Application du filigrane: {watermarkPath}");
             }
             
-            // Commande FFmpeg complète pour générer HLS
-            // hls_time définit la durée maximale de chaque segment (1 seconde)
+            // Commande FFmpeg complÃ¨te pour gÃ©nÃ©rer HLS
+            // hls_time dÃ©finit la durÃ©e maximale de chaque segment (1 seconde)
             var arguments = inputParams +
                           videoFilter +
                           $"-c:v libx264 -preset fast -c:a aac " +
@@ -71,28 +71,28 @@ public class HlsGenerator
             using var process = Process.Start(processStartInfo);
             if (process == null)
             {
-                throw new Exception("Impossible de démarrer ffmpeg");
+                throw new Exception("Impossible de dÃ©marrer ffmpeg");
             }
 
-            // FFmpeg écrit dans stderr même pour les infos normales
+            // FFmpeg Ã©crit dans stderr mÃªme pour les infos normales
             var error = await process.StandardError.ReadToEndAsync();
             await process.WaitForExitAsync();
 
             if (process.ExitCode != 0)
             {
-                throw new Exception($"Erreur lors de la génération HLS: {error}");
+                throw new Exception($"Erreur lors de la gÃ©nÃ©ration HLS: {error}");
             }
 
-            Console.WriteLine($"Segments HLS générés avec succès dans: {outputDirectory}");
+            Console.WriteLine($"Segments HLS gÃ©nÃ©rÃ©s avec succÃ¨s dans: {outputDirectory}");
         }
         catch (Exception ex)
         {
-            throw new Exception($"Erreur lors de la génération des segments HLS: {ex.Message}", ex);
+            throw new Exception($"Erreur lors de la gÃ©nÃ©ration des segments HLS: {ex.Message}", ex);
         }
     }
 
     /// <summary>
-    /// Vérifie si FFmpeg est installé et accessible
+    /// VÃ©rifie si FFmpeg est installÃ© et accessible
     /// </summary>
     public async Task<bool> IsFfmpegAvailableAsync()
     {
@@ -120,4 +120,5 @@ public class HlsGenerator
         }
     }
 }
+
 

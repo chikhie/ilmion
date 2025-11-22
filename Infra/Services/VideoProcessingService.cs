@@ -1,4 +1,4 @@
-namespace KitabStock.Infra.Services;
+﻿namespace Ilmanar.Infra.Services;
 
 public class VideoProcessingService
 {
@@ -16,23 +16,23 @@ public class VideoProcessingService
     }
 
     /// <summary>
-    /// Traite une vidéo uploadée : extrait métadonnées, génère HLS, compresse
+    /// Traite une vidÃ©o uploadÃ©e : extrait mÃ©tadonnÃ©es, gÃ©nÃ¨re HLS, compresse
     /// </summary>
-    /// <param name="uploadedFile">Fichier vidéo uploadé</param>
-    /// <param name="videoId">ID de la vidéo (sera utilisé comme nom de dossier)</param>
-    /// <param name="title">Titre de la vidéo (sera utilisé pour nommer le ZIP)</param>
-    /// <param name="baseDirectory">Dossier de base pour les vidéos (par défaut Infra/res/videos)</param>
+    /// <param name="uploadedFile">Fichier vidÃ©o uploadÃ©</param>
+    /// <param name="videoId">ID de la vidÃ©o (sera utilisÃ© comme nom de dossier)</param>
+    /// <param name="title">Titre de la vidÃ©o (sera utilisÃ© pour nommer le ZIP)</param>
+    /// <param name="baseDirectory">Dossier de base pour les vidÃ©os (par dÃ©faut Infra/res/videos)</param>
     public async Task<VideoProcessingResult> ProcessVideoAsync(IFormFile uploadedFile, Guid videoId, string title, string? baseDirectory = null)
     {
         if (uploadedFile == null || uploadedFile.Length == 0)
         {
-            throw new ArgumentException("Le fichier vidéo est vide ou invalide");
+            throw new ArgumentException("Le fichier vidÃ©o est vide ou invalide");
         }
 
-        // Définir le dossier de base
+        // DÃ©finir le dossier de base
         baseDirectory ??= Path.Combine(Directory.GetCurrentDirectory(), "Infra", "res", "videos");
         
-        // Créer le dossier pour cette vidéo avec l'ID comme nom
+        // CrÃ©er le dossier pour cette vidÃ©o avec l'ID comme nom
         var videoDirectory = Path.Combine(baseDirectory, videoId.ToString());
         if (!Directory.Exists(videoDirectory))
         {
@@ -50,37 +50,37 @@ public class VideoProcessingService
 
         try
         {
-            // 1. Extraire les métadonnées
+            // 1. Extraire les mÃ©tadonnÃ©es
             var metadata = await _metadataExtractor.ExtractMetadataAsync(originalFilePath);
 
-            // 2. Vérifier si un filigrane par défaut existe
+            // 2. VÃ©rifier si un filigrane par dÃ©faut existe
             var watermarkPath = Path.Combine(Directory.GetCurrentDirectory(), "Infra", "res", "watermark", "default.png");
             if (!File.Exists(watermarkPath))
             {
-                Console.WriteLine("⚠️ Aucun filigrane trouvé. Le streaming HLS sera généré sans filigrane.");
-                Console.WriteLine($"💡 Pour ajouter un filigrane, placez une image PNG à: {watermarkPath}");
+                Console.WriteLine("âš ï¸ Aucun filigrane trouvÃ©. Le streaming HLS sera gÃ©nÃ©rÃ© sans filigrane.");
+                Console.WriteLine($"ðŸ’¡ Pour ajouter un filigrane, placez une image PNG Ã : {watermarkPath}");
                 watermarkPath = null;
             }
             else
             {
-                Console.WriteLine($"✅ Filigrane détecté: {watermarkPath}");
+                Console.WriteLine($"âœ… Filigrane dÃ©tectÃ©: {watermarkPath}");
             }
 
-            // 3. Générer les segments HLS (master.m3u8 et 0.ts, 1.ts, 2.ts, etc.) avec filigrane
+            // 3. GÃ©nÃ©rer les segments HLS (master.m3u8 et 0.ts, 1.ts, 2.ts, etc.) avec filigrane
             await _hlsGenerator.GenerateHlsSegmentsAsync(originalFilePath, videoDirectory, watermarkPath);
 
-            // 3.1 Générer la miniature (thumbnail) à partir de la vidéo
+            // 3.1 GÃ©nÃ©rer la miniature (thumbnail) Ã  partir de la vidÃ©o
             var thumbnailPath = Path.Combine(videoDirectory, "thumbnail.jpg");
             await _thumbnailGenerator.GenerateThumbnailAsync(originalFilePath, thumbnailPath, "00:00:02", 640);
 
             // 4. Calculer la taille du fichier original avant compression
             var originalSize = _videoCompressor.GetFileSizeInMb(originalFilePath);
 
-            // 5. Créer un nom de fichier sécurisé pour le ZIP à partir du titre
+            // 5. CrÃ©er un nom de fichier sÃ©curisÃ© pour le ZIP Ã  partir du titre
             var safeTitle = GetSafeFileName(title);
             var zipFileName = $"{safeTitle}.zip";
 
-            // 6. Compresser la vidéo originale dans un ZIP (vidéo SANS filigrane pour le téléchargement)
+            // 6. Compresser la vidÃ©o originale dans un ZIP (vidÃ©o SANS filigrane pour le tÃ©lÃ©chargement)
             var zipPath = await _videoCompressor.CompressVideoToZipAsync(
                 originalFilePath, 
                 videoDirectory, 
@@ -90,7 +90,7 @@ public class VideoProcessingService
             // 7. Calculer la taille du ZIP
             var zipSize = _videoCompressor.GetFileSizeInMb(zipPath);
 
-            // 8. Supprimer le fichier vidéo original après compression
+            // 8. Supprimer le fichier vidÃ©o original aprÃ¨s compression
             if (File.Exists(originalFilePath))
             {
                 File.Delete(originalFilePath);
@@ -113,7 +113,7 @@ public class VideoProcessingService
         }
         catch (Exception ex)
         {
-            // En cas d'erreur, nettoyer le dossier créé
+            // En cas d'erreur, nettoyer le dossier crÃ©Ã©
             if (Directory.Exists(videoDirectory))
             {
                 try
@@ -126,20 +126,20 @@ public class VideoProcessingService
                 }
             }
 
-            throw new Exception($"Erreur lors du traitement de la vidéo: {ex.Message}", ex);
+            throw new Exception($"Erreur lors du traitement de la vidÃ©o: {ex.Message}", ex);
         }
     }
 
 
     /// <summary>
-    /// Crée un nom de fichier sécurisé en supprimant les caractères invalides
+    /// CrÃ©e un nom de fichier sÃ©curisÃ© en supprimant les caractÃ¨res invalides
     /// </summary>
     private string GetSafeFileName(string fileName)
     {
         var invalidChars = Path.GetInvalidFileNameChars();
         var safeName = string.Join("_", fileName.Split(invalidChars, StringSplitOptions.RemoveEmptyEntries));
         
-        // Limiter la longueur à 100 caractères
+        // Limiter la longueur Ã  100 caractÃ¨res
         if (safeName.Length > 100)
         {
             safeName = safeName.Substring(0, 100);
@@ -163,4 +163,5 @@ public class VideoProcessingResult
     public double OriginalSizeMb { get; set; }
     public double ZipSizeMb { get; set; }
 }
+
 
