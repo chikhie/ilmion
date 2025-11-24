@@ -100,11 +100,28 @@
             </NuxtLink>
           </div>
 
-          <div class="bg-gradient-to-br from-[#082540] to-gray-900 rounded-xl p-6 border border-[#C39712]/30">
+          <!-- Carte Premium (masquée pour les abonnés) -->
+          <div v-if="!authStore.isPremium" class="bg-gradient-to-br from-[#082540] to-gray-900 rounded-xl p-6 border border-[#C39712]/30">
             <h3 class="text-lg font-bold text-[#C39712] mb-2">Accès Premium</h3>
             <p class="text-gray-300 text-sm mb-4">Débloquez tous les chapitres pour seulement 10€/an.</p>
             <NuxtLink to="/subscribe" class="block w-full py-2 bg-[#C39712] text-[#082540] text-center rounded-lg font-bold hover:bg-yellow-500 transition-colors text-sm">
               S'abonner (10€/an)
+            </NuxtLink>
+          </div>
+
+          <!-- Carte de statut Premium (affichée pour les abonnés) -->
+          <div v-else class="bg-gradient-to-br from-[#C39712] to-yellow-600 rounded-xl p-6 border border-yellow-500/30">
+            <div class="flex items-center mb-3">
+              <svg class="w-6 h-6 text-[#082540] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+              </svg>
+              <h3 class="text-lg font-bold text-[#082540]">Membre Premium</h3>
+            </div>
+            <p class="text-[#082540]/80 text-sm mb-4">
+              ✨ Vous avez accès à tous les contenus de la plateforme !
+            </p>
+            <NuxtLink to="/profile" class="block w-full py-2 bg-[#082540] text-[#C39712] text-center rounded-lg font-bold hover:bg-gray-900 transition-colors text-sm">
+              Gérer mon abonnement
             </NuxtLink>
           </div>
         </div>

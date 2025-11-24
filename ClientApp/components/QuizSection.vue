@@ -18,7 +18,7 @@
             v-for="(option, optIndex) in question.options"
             :key="optIndex"
             @click="handleAnswer(question.id, optIndex)"
-            class="w-full text-left px-4 py-3 rounded-md border transition-all duration-200 flex items-center group"
+            class="cursor-pointer text-gray-300 w-full text-left px-4 py-3 rounded-md border transition-all duration-200 flex items-center group hover:text-[#C39712] hover:border-[#C39712]"
             :class="getOptionClass(question.id, optIndex, question.correctAnswer)"
             :disabled="answers[question.id] !== undefined"
           >
@@ -26,7 +26,7 @@
               class="w-6 h-6 rounded-full border-2 flex items-center justify-center mr-3 text-xs font-bold transition-colors" 
               :class="getRadioClass(question.id, optIndex, question.correctAnswer)"
             >
-              <span v-if="answers[question.id] === optIndex" class="w-3 h-3 rounded-full bg-current"></span>
+              <span v-if="answers[question.id] === optIndex" class="color-white w-3 h-3 rounded-full bg-current"></span>
             </span>
             <span class="flex-1">{{ option }}</span>
           </button>
@@ -61,7 +61,7 @@
     <div v-if="allAnswered" class="mt-8 p-6 bg-gradient-to-r from-[#082540] to-[#0a3a5f] rounded-lg border border-[#C39712]">
       <div class="text-center">
         <p class="text-2xl font-bold text-white mb-2">
-          Score : {{ score }} / {{ quizData.questions.length }}
+          Score : {{ score }} / {{ quizData?.questions.length }}
         </p>
         <p class="text-gray-300">
           {{ getScoreMessage() }}

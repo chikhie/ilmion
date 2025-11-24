@@ -24,137 +24,139 @@ public class StripeWebhookController : ControllerBase
         _logger = logger;
     }
 
-    [HttpPost]
+    /// <summary>
+    /// Webhook pour recevoir les événements Stripe (Payment Link)
+    /// </summary>
+    [HttpPost("webhook")]
     public async Task<IActionResult> HandleWebhook()
     {
-        var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-        var webhookSecret = _configuration["Stripe:WebhookSecret"];
-
         try
         {
+            var webhookSecret = _configuration["Stripe:WebhookSecret"];
+            var stripeSignature = Request.Headers["Stripe-Signature"].ToString();
+
+            if (string.IsNullOrEmpty(stripeSignature))
+            {
+                _logger.LogError("❌ Header Stripe-Signature manquant");
+                return BadRequest("Missing Stripe-Signature header");
+            }
+
+            // Lire le body RAW sans modification (méthode recommandée par Stripe)
+            string json;
+            using (var reader = new StreamReader(HttpContext.Request.Body))
+            {
+                json = await reader.ReadToEndAsync();
+            }
+
+            _logger.LogInformation($"🔍 Webhook reçu - Body length: {json.Length}");
+            _logger.LogInformation($"🔑 Secret: whsec_{webhookSecret?.Substring(6, Math.Min(10, (webhookSecret?.Length ?? 6) - 6))}...");
+            _logger.LogInformation($"🔐 Signature: {stripeSignature.Substring(0, Math.Min(30, stripeSignature.Length))}...");
+
             var stripeEvent = EventUtility.ConstructEvent(
                 json,
-                Request.Headers["Stripe-Signature"],
-                webhookSecret
+                stripeSignature,
+                webhookSecret,
+                throwOnApiVersionMismatch: false
             );
 
-            _logger.LogInformation($"Webhook reçu: {stripeEvent.Type}");
+            _logger.LogInformation($"📥 Webhook Stripe reçu: {stripeEvent.Type}");
 
+            // Gérer les différents types d'événements
             switch (stripeEvent.Type)
             {
                 case "checkout.session.completed":
                     await HandleCheckoutSessionCompleted(stripeEvent);
                     break;
-
-                case "checkout.session.expired":
-                    await HandleCheckoutSessionExpired(stripeEvent);
-                    break;
-
+                    
                 case "payment_intent.succeeded":
-                    await HandlePaymentIntentSucceeded(stripeEvent);
+                    _logger.LogInformation("✅ Paiement réussi");
                     break;
-
+                    
                 case "payment_intent.payment_failed":
-                    await HandlePaymentIntentFailed(stripeEvent);
-                    break;
-
-                case "charge.refunded":
-                    await HandleChargeRefunded(stripeEvent);
+                    _logger.LogWarning("❌ Paiement échoué");
                     break;
 
                 default:
-                    _logger.LogInformation($"Type d'événement non géré: {stripeEvent.Type}");
+                    _logger.LogInformation($"ℹ️ Événement non géré: {stripeEvent.Type}");
                     break;
             }
 
             return Ok();
         }
-        catch (StripeException ex)
+        catch (StripeException e)
         {
-            _logger.LogError($"Erreur Stripe: {ex.Message}");
-            return BadRequest();
+            _logger.LogError($"❌ Erreur Stripe Webhook: {e.Message}");
+            return BadRequest(e.Message);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Erreur lors du traitement du webhook: {ex.Message}");
-            return StatusCode(500);
+            _logger.LogError($"❌ Erreur générique: {ex.GetType().Name} - {ex.Message}");
+            _logger.LogError($"StackTrace: {ex.StackTrace}");
+            return BadRequest(ex.Message);
         }
     }
 
+    /// <summary>
+    /// Gérer la complétion d'une session Checkout (paiement réussi)
+    /// </summary>
     private async Task HandleCheckoutSessionCompleted(Event stripeEvent)
     {
         var session = stripeEvent.Data.Object as Session;
-        if (session == null) return;
-
-        _logger.LogInformation($"Session complétée: {session.Id}");
-
-        var subscription = await _subscriptionRepo.GetByStripeSessionIdAsync(session.Id);
-        if (subscription == null)
+        if (session == null)
         {
-            _logger.LogWarning($"Abonnement non trouvé pour la session: {session.Id}");
+            _logger.LogWarning("⚠️ Session Checkout est null");
             return;
         }
 
-        subscription.Status = SubscriptionStatus.Active;
-        subscription.StartDate = DateTime.UtcNow;
-        subscription.UpdatedAt = DateTime.UtcNow;
+        _logger.LogInformation($"🎯 Session complétée: {session.Id}");
 
-        await _subscriptionRepo.UpdateAsync(subscription);
-        _logger.LogInformation($"Abonnement {subscription.Id} activé");
-    }
-
-    private async Task HandleCheckoutSessionExpired(Event stripeEvent)
-    {
-        var session = stripeEvent.Data.Object as Session;
-        if (session == null) return;
-
-        _logger.LogInformation($"Session expirée: {session.Id}");
-
-        var subscription = await _subscriptionRepo.GetByStripeSessionIdAsync(session.Id);
-        if (subscription == null) return;
-
-        subscription.Status = SubscriptionStatus.Expired;
-        subscription.UpdatedAt = DateTime.UtcNow;
-        await _subscriptionRepo.UpdateAsync(subscription);
-        _logger.LogInformation($"Abonnement {subscription.Id} marqué comme expiré");
-    }
-
-    private async Task HandlePaymentIntentSucceeded(Event stripeEvent)
-    {
-        var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
-        if (paymentIntent == null) return;
-
-        _logger.LogInformation($"PaymentIntent réussi: {paymentIntent.Id}");
+        // RÉCUPÉRER L'ID UTILISATEUR via Metadata
+        string? userId = null;
         
-        // Le CheckoutSessionCompleted devrait déjà gérer cela,
-        // mais on peut ajouter une logique supplémentaire ici si nécessaire
-    }
+        if (session.Metadata != null && session.Metadata.ContainsKey("user_id"))
+        {
+            userId = session.Metadata["user_id"];
+            _logger.LogInformation($"👤 User ID trouvé dans Metadata: {userId}");
+        }
+        else if (!string.IsNullOrEmpty(session.ClientReferenceId))
+        {
+            userId = session.ClientReferenceId;
+            _logger.LogInformation($"👤 User ID trouvé dans ClientReferenceId: {userId}");
+        }
 
-    private async Task HandlePaymentIntentFailed(Event stripeEvent)
-    {
-        var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
-        if (paymentIntent == null) return;
+        if (string.IsNullOrEmpty(userId))
+        {
+            _logger.LogError("❌ Impossible de trouver l'ID utilisateur dans la session Stripe");
+            return;
+        }
 
-        _logger.LogWarning($"PaymentIntent échoué: {paymentIntent.Id}");
-        
-        // Trouver l'achat par PaymentIntentId (si disponible)
-        // Vous devrez peut-être ajuster cette logique selon votre implémentation
-    }
+        // Vérifier si l'abonnement existe déjà
+        var existingSubscription = await _subscriptionRepo.GetByStripeSessionIdAsync(session.Id);
+        if (existingSubscription != null)
+        {
+            _logger.LogInformation($"ℹ️ Abonnement déjà créé pour cette session: {session.Id}");
+            return;
+        }
 
-    private async Task HandleChargeRefunded(Event stripeEvent)
-    {
-        var charge = stripeEvent.Data.Object as Charge;
-        if (charge == null) return;
+        // Créer l'abonnement dans la base de données
+        var subscription = new SubscriptionEntity
+        {
+            Id = Guid.NewGuid(),
+            UserId = userId,
+            Type = SubscriptionType.Annual,
+            AmountPaid = (decimal)(session.AmountTotal ?? 1000) / 100, // Stripe utilise les centimes
+            Currency = session.Currency?.ToUpper() ?? "EUR",
+            StripeSessionId = session.Id,
+            StripeCustomerId = session.CustomerId,
+            Status = SubscriptionStatus.Active,
+            StartDate = DateTime.UtcNow,
+            EndDate = DateTime.UtcNow.AddYears(1), // Abonnement annuel
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
 
-        _logger.LogInformation($"Remboursement effectué: {charge.Id}");
-
-        // Trouver l'achat correspondant et le marquer comme remboursé
-        // Vous devrez peut-être rechercher par PaymentIntentId
-        var paymentIntentId = charge.PaymentIntentId;
-        if (string.IsNullOrEmpty(paymentIntentId)) return;
-
-        // Note: Vous devrez peut-être ajouter une méthode dans le repo pour rechercher par PaymentIntentId
-        _logger.LogInformation($"Traitement du remboursement pour PaymentIntent: {paymentIntentId}");
+        await _subscriptionRepo.CreateAsync(subscription);
+        _logger.LogInformation($"✅ Abonnement créé avec succès pour l'utilisateur {userId}");
     }
 }
 

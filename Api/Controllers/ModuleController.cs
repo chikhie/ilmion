@@ -4,6 +4,7 @@ using Ilmanar.Infra;
 using Ilmanar.Infra.Entities;
 using Ilmanar.Api.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Ilmanar.Api.Controllers;
 
@@ -76,7 +77,7 @@ public class ModuleController : ControllerBase
     /// Crée un nouveau module
     /// </summary>
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult<ModuleResponseDto>> CreateModule(CreateModuleDto dto)
     {
         // Vérifier que la matière existe
@@ -114,7 +115,7 @@ public class ModuleController : ControllerBase
     /// Met à jour un module
     /// </summary>
     [HttpPut("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult<ModuleResponseDto>> UpdateModule(Guid id, UpdateModuleDto dto)
     {
         var module = await _context.Modules
@@ -150,7 +151,7 @@ public class ModuleController : ControllerBase
     /// Supprime un module
     /// </summary>
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult> DeleteModule(Guid id)
     {
         var module = await _context.Modules.FindAsync(id);

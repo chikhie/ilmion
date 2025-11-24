@@ -14,11 +14,14 @@
             Plongez dans un univers d'apprentissage interactif. Mathématiques, Physique, Chimie et Biologie n'ont jamais été aussi passionnants.
           </p>
           <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <NuxtLink to="/register" class="px-8 py-4 bg-[#C39712] text-[#082540] text-lg font-bold rounded-full hover:bg-yellow-500 transition-all transform hover:scale-105 shadow-lg shadow-yellow-900/20">
+            <NuxtLink v-if="!authStore.isAuthenticated" to="/register" class="px-8 py-4 bg-[#C39712] text-[#082540] text-lg font-bold rounded-full hover:bg-yellow-500 transition-all transform hover:scale-105 shadow-lg shadow-yellow-900/20">
               Commencer Gratuitement
             </NuxtLink>
-            <NuxtLink to="/subscribe" class="px-8 py-4 border-2 border-[#C39712] text-[#C39712] text-lg font-bold rounded-full hover:bg-[#C39712] hover:text-[#082540] transition-all">
+            <NuxtLink v-if="authStore.isAuthenticated && !authStore.isPremium" to="/subscribe" class="px-8 py-4 border-2 border-[#C39712] text-[#C39712] text-lg font-bold rounded-full hover:bg-[#C39712] hover:text-[#082540] transition-all">
               Voir l'offre Premium
+            </NuxtLink>
+            <NuxtLink v-if="authStore.isAuthenticated" to="/dashboard" class="px-8 py-4 bg-[#C39712] text-[#082540] text-lg font-bold rounded-full hover:bg-yellow-500 transition-all transform hover:scale-105 shadow-lg shadow-yellow-900/20">
+              Accéder au tableau de bord
             </NuxtLink>
           </div>
           <div class="mt-6">
@@ -113,13 +116,13 @@
     </section> -->
     
     <!-- CTA Final -->
-    <section class="py-20 bg-gradient-to-r from-[#C39712] to-yellow-600">
+    <section v-if="!authStore.isPremium" class="py-20 bg-gradient-to-r from-[#C39712] to-yellow-600">
       <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-[#082540] mb-6">Prêt à commencer votre voyage ?</h2>
         <p class="text-[#082540]/80 text-xl mb-10 max-w-2xl mx-auto">Rejoignez des milliers d'étudiants et maîtrisez les sciences dès aujourd'hui.</p>
         
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <NuxtLink to="/register" class="px-10 py-4 bg-[#082540] text-white text-lg font-bold rounded-full hover:bg-gray-900 transition-all shadow-xl">
+          <NuxtLink v-if="!authStore.isAuthenticated" to="/register" class="px-10 py-4 bg-[#082540] text-white text-lg font-bold rounded-full hover:bg-gray-900 transition-all shadow-xl">
             Créer un compte gratuit
           </NuxtLink>
           <NuxtLink to="/subscribe" class="px-10 py-4 border-2 border-[#082540] text-[#082540] text-lg font-bold rounded-full hover:bg-[#082540] hover:text-white transition-all shadow-xl">
@@ -141,12 +144,10 @@ useHead({
 const api = useApi()
 const authStore = useAuthStore()
 
-// Rediriger vers le dashboard si l'utilisateur est déjà connecté
-onMounted(() => {
-  if (authStore.isAuthenticated) {
-    navigateTo('/dashboard')
-  }
-})
+// Rediriger automatiquement vers le dashboard si l'utilisateur est connecté
+if (authStore.isAuthenticated) {
+  navigateTo('/dashboard')
+}
 
 const { data: subjects, pending, error } = await useAsyncData<Subject[]>(
   'subjects',

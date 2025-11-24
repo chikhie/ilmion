@@ -5,6 +5,7 @@ using Ilmanar.Infra.Entities;
 using Ilmanar.Infra.repository;
 using Ilmanar.Api.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
 
 namespace Ilmanar.Api.Controllers;
@@ -107,7 +108,7 @@ public class ChapterController : ControllerBase
     /// Crée un nouveau chapitre
     /// </summary>
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult<ChapterResponseDto>> CreateChapter(CreateChapterDto dto)
     {
         // Vérifier que le module existe
@@ -158,7 +159,7 @@ public class ChapterController : ControllerBase
     /// Met à jour un chapitre
     /// </summary>
     [HttpPut("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult<ChapterResponseDto>> UpdateChapter(Guid id, UpdateChapterDto dto)
     {
         var chapter = await _context.Chapters
@@ -212,7 +213,7 @@ public class ChapterController : ControllerBase
     /// Supprime un chapitre
     /// </summary>
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult> DeleteChapter(Guid id)
     {
         var chapter = await _context.Chapters.FindAsync(id);

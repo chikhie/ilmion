@@ -189,13 +189,29 @@ const subscribe = async () => {
   }
 
   loading.value = true
+  
   try {
-    const session = await api.createSubscription()
-    // Rediriger vers Stripe
-    window.location.href = session.sessionUrl
+    // Récupérer les informations de l'utilisateur
+    const user = authStore.user
+    
+    if (!user?.id) {
+      throw new Error('Utilisateur non trouvé')
+    }
+
+    // URL du Payment Link Stripe (mode test)
+    const stripePaymentLink = 'https://buy.stripe.com/test_7sY00kfmJeT9atS2qb0Fi00'
+    
+    // Construire l'URL avec les metadata
+    const params = new URLSearchParams({
+      'client_reference_id': user.id,  // ID de l'utilisateur
+      'prefilled_email': user.email || ''  // Email pré-rempli
+    })
+    
+    // Rediriger vers le Payment Link Stripe avec les paramètres
+    window.location.href = `${stripePaymentLink}?${params.toString()}`
   } catch (error: any) {
-    console.error('Erreur lors de la création de l\'abonnement:', error)
-    alert('Erreur lors de la création de l\'abonnement. Veuillez réessayer.')
+    console.error('Erreur lors de la redirection vers Stripe:', error)
+    alert('Erreur lors de la préparation du paiement. Veuillez réessayer.')
     loading.value = false
   }
 }

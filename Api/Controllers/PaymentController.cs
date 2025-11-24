@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Ilmanar.Infra.Entities;
 using Ilmanar.Infra.Services;
@@ -38,7 +39,7 @@ public class PaymentController : ControllerBase
     /// Créer une session de paiement Stripe pour abonnement annuel (10€/an)
     /// </summary>
     [HttpPost("create-subscription")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> CreateSubscription()
     {
         var userId = _userProvider.GetUserId();
@@ -105,7 +106,7 @@ public class PaymentController : ControllerBase
     /// Vérifier le statut d'un paiement
     /// </summary>
     [HttpGet("status/{sessionId}")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetPaymentStatus(string sessionId)
     {
         var subscription = await _subscriptionRepo.GetByStripeSessionIdAsync(sessionId);
@@ -136,14 +137,20 @@ public class PaymentController : ControllerBase
     /// Récupérer l'abonnement actif de l'utilisateur
     /// </summary>
     [HttpGet("my-subscription")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetMySubscription()
     {
-        var userId = _userProvider.GetUserId();
-        if (string.IsNullOrEmpty(userId))
+        var userMail = _userProvider.GetUserId();
+        if (string.IsNullOrEmpty(userMail))
         {
             return Unauthorized();
         }
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userMail);
+        if (user == null)
+        {
+            return NotFound("Utilisateur non trouvé");
+        }
+        var userId = user.Id;
 
         var subscription = await _subscriptionRepo.GetActiveSubscriptionAsync(userId);
         
@@ -176,10 +183,20 @@ public class PaymentController : ControllerBase
     /// Vérifier si l'utilisateur a un abonnement actif
     /// </summary>
     [HttpGet("has-access")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> HasAccess()
     {
-        var userId = _userProvider.GetUserId();
+        var userMail = _userProvider.GetUserId();
+        if (string.IsNullOrEmpty(userMail))
+        {
+            return Unauthorized();
+        }
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userMail);
+        if (user == null)
+        {
+            return NotFound("Utilisateur non trouvé");
+        }
+        var userId = user.Id;
         if (string.IsNullOrEmpty(userId))
         {
             return Unauthorized();
@@ -194,7 +211,7 @@ public class PaymentController : ControllerBase
     /// Annuler un abonnement
     /// </summary>
     [HttpPost("cancel-subscription")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> CancelSubscription()
     {
         var userId = _userProvider.GetUserId();

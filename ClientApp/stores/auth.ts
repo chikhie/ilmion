@@ -8,12 +8,14 @@ export const useAuthStore = defineStore('auth', {
     refreshToken: null as string | null,
     isAuthenticated: false,
     loading: false,
+    hasActiveSubscription: false,
   }),
 
   getters: {
     getUser: (state) => state.user,
     getToken: (state) => state.token,
     isLoggedIn: (state) => state.isAuthenticated,
+    isPremium: (state) => state.hasActiveSubscription,
   },
 
   actions: {
@@ -37,6 +39,9 @@ export const useAuthStore = defineStore('auth', {
             
             // Rafraîchir les données utilisateur depuis l'API
             await this.fetchUserProfile()
+            
+            // Vérifier l'état de l'abonnement
+            await this.checkAccess()
           } catch (error) {
             console.error('Error parsing user from localStorage:', error)
             this.clearAuth()
@@ -59,6 +64,9 @@ export const useAuthStore = defineStore('auth', {
         
         // Récupérer les données complètes de l'utilisateur depuis /api/user/me
         await this.fetchUserProfile()
+        
+        // Vérifier l'état de l'abonnement
+        await this.checkAccess()
         
         return { success: true }
       } catch (error: any) {
@@ -151,6 +159,7 @@ export const useAuthStore = defineStore('auth', {
       this.token = null
       this.refreshToken = null
       this.isAuthenticated = false
+      this.hasActiveSubscription = false
 
       if (process.client) {
         localStorage.removeItem('token')
@@ -182,6 +191,28 @@ export const useAuthStore = defineStore('auth', {
         }
       } catch (error) {
         console.error('Error fetching user profile:', error)
+      }
+    },
+
+    // Vérifier si l'utilisateur a un abonnement actif
+    async checkAccess() {
+      if (!this.token || !this.isAuthenticated) {
+        this.hasActiveSubscription = false
+        return false
+      }
+
+      try {
+        const config = useRuntimeConfig()
+        const response = await $fetch<{ hasAccess: boolean }>(`${config.public.apiBase}/payment/has-access`, {
+          headers: this.getAuthHeaders(),
+        })
+
+        this.hasActiveSubscription = response.hasAccess
+        return response.hasAccess
+      } catch (error) {
+        console.error('Error checking subscription access:', error)
+        this.hasActiveSubscription = false
+        return false
       }
     },
   },

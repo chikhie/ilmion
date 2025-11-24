@@ -17,3 +17,5 @@ wwwroot/protected/components/*.enc
 
 # Uploads - Ne pas versionner les fichiers uploadés
 wwwroot/uploads/
+appsettings.json
+appsettings.Development.json

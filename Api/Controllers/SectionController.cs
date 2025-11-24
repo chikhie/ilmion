@@ -4,6 +4,7 @@ using Ilmanar.Infra;
 using Ilmanar.Infra.Entities;
 using Ilmanar.Api.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Ilmanar.Api.Controllers;
 
@@ -78,7 +79,7 @@ public class SectionController : ControllerBase
     /// Crée une nouvelle section
     /// </summary>
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult<SectionResponseDto>> CreateSection(CreateSectionDto dto)
     {
         // Vérifier que le chapitre existe
@@ -129,7 +130,7 @@ public class SectionController : ControllerBase
     /// Met à jour une section
     /// </summary>
     [HttpPut("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult<SectionResponseDto>> UpdateSection(Guid id, UpdateSectionDto dto)
     {
         var section = await _context.Sections
@@ -181,7 +182,7 @@ public class SectionController : ControllerBase
     /// Supprime une section
     /// </summary>
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
     public async Task<ActionResult> DeleteSection(Guid id)
     {
         var section = await _context.Sections.FindAsync(id);

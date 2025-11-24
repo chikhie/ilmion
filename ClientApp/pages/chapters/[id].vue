@@ -54,7 +54,7 @@
       </div>
 
       <!-- No Access Message -->
-      <div v-if="!chapterData?.hasAccess" class="bg-yellow-900/30 border border-yellow-600 rounded-lg p-6 mb-8">
+      <div v-if="!hasAccess" class="bg-yellow-900/30 border border-yellow-600 rounded-lg p-6 mb-8">
         <div class="flex items-start">
           <span class="text-3xl mr-4">🔒</span>
           <div class="flex-1">
@@ -141,17 +141,28 @@
 import type { Chapter, Section } from '~/types'
 import VideoPlayer from '~/components/modules/VideoPlayer.vue'
 import QuizSection from '~/components/QuizSection.vue'
+import { useAuthStore } from '~/stores/auth'
 
 const route = useRoute()
 const api = useApi()
+const authStore = useAuthStore()
 
 const chapterId = route.params.id as string
 
-// Charger le chapitre
-const { data: chapterData, pending: chapterPending, error: chapterError } = await useAsyncData<Chapter>(
+// Charger le chapitre (désactiver le cache serveur pour toujours avoir les données fraîches)
+const { data: chapterData, pending: chapterPending, error: chapterError, refresh: refreshChapter } = await useAsyncData<Chapter>(
   `chapter-${chapterId}`,
-  () => api.getChapter(chapterId)
+  () => api.getChapter(chapterId),
+  {
+    server: false, // Toujours charger côté client
+    watch: [() => authStore.hasActiveSubscription] // Recharger quand l'abonnement change
+  }
 )
+
+// Calculer l'accès : utilisateur premium OU chapitre gratuit OU hasAccess du backend
+const hasAccess = computed(() => {
+  return authStore.isPremium || chapterData.value?.isFree || chapterData.value?.hasAccess
+})
 
 // Charger les sections du chapitre
 const { data: sections, pending: sectionsPending, error: sectionsError } = await useAsyncData<Section[]>(

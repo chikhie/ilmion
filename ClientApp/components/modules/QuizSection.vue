@@ -9,13 +9,13 @@
             v-for="(option, optIndex) in question.options"
             :key="optIndex"
             @click="handleAnswer(question.id, optIndex)"
-            class="w-full text-left px-4 py-3 rounded-md border transition-all duration-200 flex items-center"
+            class="cursor-pointer w-full text-left px-4 py-3 rounded-md border transition-all duration-200 flex items-center"
             :class="getOptionClass(question.id, optIndex)"
             :disabled="answers[`${section.title}-${question.id}`] !== undefined"
           >
-            <span class="w-6 h-6 rounded-full border flex items-center justify-center mr-3 text-xs" 
+            <span class="cursor-pointer w-6 h-6 rounded-full border flex items-center justify-center mr-3 text-xs" 
                   :class="getRadioClass(question.id, optIndex)">
-              <span v-if="answers[`${section.title}-${question.id}`] === optIndex" class="w-3 h-3 rounded-full bg-current"></span>
+              <span v-if="answers[`${section.title}-${question.id}`] === optIndex" class="colorw-3 h-3 rounded-full bg-current"></span>
             </span>
             {{ option }}
           </button>

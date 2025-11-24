@@ -19,6 +19,9 @@
              <SubjectsMenu />
           </div>
           
+          <!-- Subscription Badge -->
+          <SubscriptionBadge />
+          
           <!-- Authenticated -->
           <div v-if="isAuthenticated">
             <UserMenu />
