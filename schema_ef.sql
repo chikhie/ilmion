@@ -43,14 +43,9 @@ CREATE TABLE "Subjects" (
 CREATE TABLE "Videos" (
     "Id" TEXT NOT NULL CONSTRAINT "PK_Videos" PRIMARY KEY,
     "Title" TEXT NOT NULL,
-    "Description" TEXT NOT NULL,
     "Duration" TEXT NOT NULL,
     "VideoResolution" TEXT NOT NULL,
     "VideoFormat" TEXT NOT NULL,
-    "FrameRate" REAL NOT NULL,
-    "FilenameDownload" TEXT NOT NULL,
-    "ColorSpace" TEXT NOT NULL,
-    "Link" TEXT NOT NULL,
     "ThumbnailPath" TEXT NOT NULL,
     "CreatedAt" TEXT NOT NULL,
     "UpdatedAt" TEXT NOT NULL
@@ -106,6 +101,16 @@ CREATE TABLE "AspNetUserTokens" (
 
 CREATE TABLE "Modules" (
     "Id" TEXT NOT NULL CONSTRAINT "PK_Modules" PRIMARY KEY,
+    "Label" TEXT NOT NULL,
+    "SubjectId" INTEGER NOT NULL,
+    "CreatedAt" TEXT NOT NULL,
+    "UpdatedAt" TEXT NOT NULL,
+    CONSTRAINT "FK_Modules_Subjects_SubjectId" FOREIGN KEY ("SubjectId") REFERENCES "Subjects" ("Id") ON DELETE CASCADE
+);
+
+
+CREATE TABLE "Chapters" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Chapters" PRIMARY KEY,
     "Title" TEXT NOT NULL,
     "Description" TEXT NOT NULL,
     "DisplayOrder" INTEGER NOT NULL,
@@ -113,18 +118,19 @@ CREATE TABLE "Modules" (
     "Price" decimal(18,2) NOT NULL,
     "IsFree" INTEGER NOT NULL,
     "VideoId" TEXT NULL,
-    "SubjectId" INTEGER NOT NULL,
+    "ModuleId" TEXT NOT NULL,
     "CreatedAt" TEXT NOT NULL,
     "UpdatedAt" TEXT NOT NULL,
-    CONSTRAINT "FK_Modules_Subjects_SubjectId" FOREIGN KEY ("SubjectId") REFERENCES "Subjects" ("Id") ON DELETE CASCADE,
-    CONSTRAINT "FK_Modules_Videos_VideoId" FOREIGN KEY ("VideoId") REFERENCES "Videos" ("Id") ON DELETE SET NULL
+    "Content" TEXT NULL,
+    CONSTRAINT "FK_Chapters_Modules_ModuleId" FOREIGN KEY ("ModuleId") REFERENCES "Modules" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_Chapters_Videos_VideoId" FOREIGN KEY ("VideoId") REFERENCES "Videos" ("Id") ON DELETE SET NULL
 );
 
 
-CREATE TABLE "ModulePurchases" (
-    "Id" TEXT NOT NULL CONSTRAINT "PK_ModulePurchases" PRIMARY KEY,
+CREATE TABLE "ChapterPurchases" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_ChapterPurchases" PRIMARY KEY,
     "UserId" TEXT NOT NULL,
-    "ModuleId" TEXT NOT NULL,
+    "ChapterId" TEXT NOT NULL,
     "AmountPaid" decimal(18,2) NOT NULL,
     "Currency" TEXT NOT NULL,
     "StripeSessionId" TEXT NULL,
@@ -133,23 +139,8 @@ CREATE TABLE "ModulePurchases" (
     "PurchaseDate" TEXT NOT NULL,
     "CompletedDate" TEXT NULL,
     "GuestEmail" TEXT NULL,
-    CONSTRAINT "FK_ModulePurchases_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE RESTRICT,
-    CONSTRAINT "FK_ModulePurchases_Modules_ModuleId" FOREIGN KEY ("ModuleId") REFERENCES "Modules" ("Id") ON DELETE RESTRICT
-);
-
-
-CREATE TABLE "Sections" (
-    "Id" TEXT NOT NULL CONSTRAINT "PK_Sections" PRIMARY KEY,
-    "Title" TEXT NOT NULL,
-    "Content" TEXT NOT NULL,
-    "Type" INTEGER NOT NULL,
-    "DisplayOrder" INTEGER NOT NULL,
-    "ComponentPath" TEXT NULL,
-    "ComponentHash" TEXT NULL,
-    "ModuleId" TEXT NOT NULL,
-    "CreatedAt" TEXT NOT NULL,
-    "UpdatedAt" TEXT NOT NULL,
-    CONSTRAINT "FK_Sections_Modules_ModuleId" FOREIGN KEY ("ModuleId") REFERENCES "Modules" ("Id") ON DELETE CASCADE
+    CONSTRAINT "FK_ChapterPurchases_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_ChapterPurchases_Chapters_ChapterId" FOREIGN KEY ("ChapterId") REFERENCES "Chapters" ("Id") ON DELETE RESTRICT
 );
 
 
@@ -196,22 +187,22 @@ CREATE INDEX "EmailIndex" ON "AspNetUsers" ("NormalizedEmail");
 CREATE UNIQUE INDEX "UserNameIndex" ON "AspNetUsers" ("NormalizedUserName");
 
 
-CREATE INDEX "IX_ModulePurchases_ModuleId" ON "ModulePurchases" ("ModuleId");
+CREATE INDEX "IX_ChapterPurchases_ChapterId" ON "ChapterPurchases" ("ChapterId");
 
 
-CREATE INDEX "IX_ModulePurchases_StripeSessionId" ON "ModulePurchases" ("StripeSessionId");
+CREATE INDEX "IX_ChapterPurchases_StripeSessionId" ON "ChapterPurchases" ("StripeSessionId");
 
 
-CREATE INDEX "IX_ModulePurchases_UserId_ModuleId" ON "ModulePurchases" ("UserId", "ModuleId");
+CREATE INDEX "IX_ChapterPurchases_UserId_ChapterId" ON "ChapterPurchases" ("UserId", "ChapterId");
 
 
-CREATE INDEX "IX_Modules_SubjectId_DisplayOrder" ON "Modules" ("SubjectId", "DisplayOrder");
+CREATE INDEX "IX_Chapters_ModuleId_DisplayOrder" ON "Chapters" ("ModuleId", "DisplayOrder");
 
 
-CREATE INDEX "IX_Modules_VideoId" ON "Modules" ("VideoId");
+CREATE INDEX "IX_Chapters_VideoId" ON "Chapters" ("VideoId");
 
 
-CREATE INDEX "IX_Sections_ModuleId_DisplayOrder" ON "Sections" ("ModuleId", "DisplayOrder");
+CREATE INDEX "IX_Modules_SubjectId" ON "Modules" ("SubjectId");
 
 
 CREATE INDEX "IX_Subjects_Id" ON "Subjects" ("Id");

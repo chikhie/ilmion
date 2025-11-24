@@ -1,11 +1,11 @@
 namespace Ilmanar.Api.Dtos;
 
 /// <summary>
-/// DTO pour initier un paiement
+/// DTO pour créer un abonnement
 /// </summary>
-public class CreatePaymentDto
+public class CreateSubscriptionDto
 {
-    public Guid ModuleId { get; set; }
+    public int SubscriptionType { get; set; } // 0 = Monthly, 1 = Annual
 }
 
 /// <summary>
@@ -15,22 +15,23 @@ public class PaymentSessionDto
 {
     public string SessionId { get; set; } = string.Empty;
     public string SessionUrl { get; set; } = string.Empty;
-    public Guid PurchaseId { get; set; }
+    public Guid SubscriptionId { get; set; }
 }
 
 /// <summary>
-/// DTO pour afficher un achat
+/// DTO pour afficher un abonnement
 /// </summary>
-public class ModulePurchaseDto
+public class SubscriptionDto
 {
     public Guid Id { get; set; }
-    public Guid ModuleId { get; set; }
-    public string ModuleTitle { get; set; } = string.Empty;
-    public string SubjectName { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public string Status { get; set; } = string.Empty;
     public decimal AmountPaid { get; set; }
     public string Currency { get; set; } = "EUR";
-    public string Status { get; set; } = string.Empty;
-    public DateTime PurchaseDate { get; set; }
-    public DateTime? CompletedDate { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public DateTime? CancelledDate { get; set; }
+    public bool IsActive { get; set; }
+    public int DaysRemaining { get; set; }
 }
 

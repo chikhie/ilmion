@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   // Configuration de l'API
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:5173/api'
+      apiBase: 'http://localhost:5050/api'
     }
   },
 
@@ -27,7 +27,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Ilmanar - Plateforme Éducative',
+      title: 'ILMANAR',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

@@ -5,15 +5,8 @@ namespace Ilmanar.Api.Dtos;
 /// </summary>
 public class CreateModuleDto
 {
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public int DisplayOrder { get; set; }
-    public int DurationMinutes { get; set; }
-    public decimal Price { get; set; } = 0;
-    public bool IsFree { get; set; } = false;
+    public string Label { get; set; } = string.Empty;
     public int SubjectId { get; set; }
-    public Guid? VideoId { get; set; }
-    public string? Content { get; set; }
 }
 
 /// <summary>
@@ -21,14 +14,7 @@ public class CreateModuleDto
 /// </summary>
 public class UpdateModuleDto
 {
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-    public int? DisplayOrder { get; set; }
-    public int? DurationMinutes { get; set; }
-    public decimal? Price { get; set; }
-    public bool? IsFree { get; set; }
-    public Guid? VideoId { get; set; }
-    public string? Content { get; set; }
+    public string? Label { get; set; }
 }
 
 /// <summary>
@@ -37,18 +23,10 @@ public class UpdateModuleDto
 public class ModuleResponseDto
 {
     public Guid Id { get; set; }
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public int DisplayOrder { get; set; }
-    public int DurationMinutes { get; set; }
-    public decimal Price { get; set; }
-    public bool IsFree { get; set; }
-    public bool HasAccess { get; set; } // Si l'utilisateur a accès au module
+    public string Label { get; set; } = string.Empty;
     public int SubjectId { get; set; }
     public string SubjectName { get; set; } = string.Empty;
-    public Guid? VideoId { get; set; }
-    public string? Content { get; set; }
+    public int ChapterCount { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }
-

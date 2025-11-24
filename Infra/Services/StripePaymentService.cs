@@ -7,7 +7,7 @@ namespace Ilmanar.Infra.Services;
 
 public interface IStripePaymentService
 {
-    Task<Session> CreateCheckoutSessionAsync(ModuleEntity module, string userId, string? userEmail = null);
+    Task<Session> CreateSubscriptionCheckoutSessionAsync(decimal price, string description, string userId, string? userEmail = null);
     Task<PaymentIntent> GetPaymentIntentAsync(string paymentIntentId);
     Task<Refund> CreateRefundAsync(string paymentIntentId);
 }
@@ -29,7 +29,7 @@ public class StripePaymentService : IStripePaymentService
         StripeConfiguration.ApiKey = _apiKey;
     }
 
-    public async Task<Session> CreateCheckoutSessionAsync(ModuleEntity module, string userId, string? userEmail = null)
+    public async Task<Session> CreateSubscriptionCheckoutSessionAsync(decimal price, string description, string userId, string? userEmail = null)
     {
         var options = new SessionCreateOptions
         {
@@ -41,11 +41,11 @@ public class StripePaymentService : IStripePaymentService
                     PriceData = new SessionLineItemPriceDataOptions
                     {
                         Currency = "eur",
-                        UnitAmount = (long)(module.Price * 100), // Stripe utilise des centimes
+                        UnitAmount = (long)(price * 100), // Stripe utilise des centimes
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
-                            Name = module.Title,
-                            Description = module.Description,
+                            Name = description,
+                            Description = "Accès illimité à tous les contenus pendant 1 an + premier chapitre de chaque module gratuit sans abonnement",
                             Images = new List<string>()
                         }
                     },
@@ -58,7 +58,7 @@ public class StripePaymentService : IStripePaymentService
             ClientReferenceId = userId,
             Metadata = new Dictionary<string, string>
             {
-                { "module_id", module.Id.ToString() },
+                { "subscription_type", "Annual" },
                 { "user_id", userId }
             }
         };

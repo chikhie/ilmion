@@ -4,21 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --host 0.0.0.0",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "nuxt": "^3.13.0",
-    "vue": "latest",
     "@pinia/nuxt": "^0.5.1",
-    "pinia": "^2.1.7"
+    "hls.js": "^1.6.15",
+    "nuxt": "^3.13.0",
+    "pinia": "^2.1.7",
+    "vue": "latest"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.12.0"
   }
 }
-

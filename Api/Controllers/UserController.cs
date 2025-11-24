@@ -155,7 +155,7 @@ public class UserController : ControllerBase
         try
         {
             // Créer le dossier de profils s'il n'existe pas
-            var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads", "profiles");
+            var uploadsFolder = Path.Combine(_environment.ContentRootPath, "Infra", "res", "images", "profiles");
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
@@ -164,7 +164,7 @@ public class UserController : ControllerBase
             // Supprimer l'ancienne photo si elle existe (ProfilePicture contient uniquement le nom du fichier)
             if (!string.IsNullOrEmpty(user.ProfilePicture))
             {
-                var oldPhotoPath = Path.Combine(_environment.WebRootPath, "uploads", "profiles", user.ProfilePicture);
+                var oldPhotoPath = Path.Combine(_environment.ContentRootPath, "Infra", "res", "images", "profiles", user.ProfilePicture);
                 if (System.IO.File.Exists(oldPhotoPath))
                 {
                     System.IO.File.Delete(oldPhotoPath);
@@ -222,7 +222,7 @@ public class UserController : ControllerBase
         if (!string.IsNullOrEmpty(user.ProfilePicture))
         {
             // Construire le chemin complet du fichier (ProfilePicture contient uniquement le nom du fichier)
-            var photoPath = Path.Combine(_environment.WebRootPath, "uploads", "profiles", user.ProfilePicture);
+            var photoPath = Path.Combine(_environment.ContentRootPath, "Infra", "res", "images", "profiles", user.ProfilePicture);
             if (System.IO.File.Exists(photoPath))
             {
                 System.IO.File.Delete(photoPath);
@@ -234,6 +234,31 @@ public class UserController : ControllerBase
         }
 
         return Ok(new { message = "Photo de profil supprimée avec succès" });
+    }
+
+    [HttpGet("profile/picture/{fileName}")]
+    [AllowAnonymous]
+    public IActionResult GetProfilePicture(string fileName)
+    {
+        var filePath = Path.Combine(_environment.ContentRootPath, "Infra", "res", "images", "profiles", fileName);
+        
+        if (!System.IO.File.Exists(filePath))
+        {
+            return NotFound();
+        }
+
+        var extension = Path.GetExtension(fileName).ToLower();
+        string contentType = extension switch
+        {
+            ".jpg" => "image/jpeg",
+            ".jpeg" => "image/jpeg",
+            ".png" => "image/png",
+            ".gif" => "image/gif",
+            _ => "application/octet-stream"
+        };
+
+        var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+        return File(fileStream, contentType);
     }
 
     /// <summary>
@@ -278,6 +303,8 @@ public class UserController : ControllerBase
         if (string.IsNullOrEmpty(fileName))
             return null;
         
-        return $"{Request.Scheme}://{Request.Host}/uploads/profiles/{fileName}";
+        // Les images sont maintenant servies via une action de contrôleur car elles sont hors de wwwroot
+        // Nous devons créer une route pour servir ces images
+        return $"{Request.Scheme}://{Request.Host}/api/User/profile/picture/{fileName}";
     }
 }

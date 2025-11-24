@@ -10,16 +10,16 @@ namespace Ilmanar.Api.Controllers;
 [Route("api/[controller]")]
 public class StripeWebhookController : ControllerBase
 {
-    private readonly IModulePurchaseRepo _purchaseRepo;
+    private readonly ISubscriptionRepo _subscriptionRepo;
     private readonly IConfiguration _configuration;
     private readonly ILogger<StripeWebhookController> _logger;
 
     public StripeWebhookController(
-        IModulePurchaseRepo purchaseRepo,
+        ISubscriptionRepo subscriptionRepo,
         IConfiguration configuration,
         ILogger<StripeWebhookController> logger)
     {
-        _purchaseRepo = purchaseRepo;
+        _subscriptionRepo = subscriptionRepo;
         _configuration = configuration;
         _logger = logger;
     }
@@ -88,19 +88,19 @@ public class StripeWebhookController : ControllerBase
 
         _logger.LogInformation($"Session complétée: {session.Id}");
 
-        var purchase = await _purchaseRepo.GetByStripeSessionIdAsync(session.Id);
-        if (purchase == null)
+        var subscription = await _subscriptionRepo.GetByStripeSessionIdAsync(session.Id);
+        if (subscription == null)
         {
-            _logger.LogWarning($"Achat non trouvé pour la session: {session.Id}");
+            _logger.LogWarning($"Abonnement non trouvé pour la session: {session.Id}");
             return;
         }
 
-        purchase.Status = PurchaseStatus.Completed;
-        purchase.CompletedDate = DateTime.UtcNow;
-        purchase.StripePaymentIntentId = session.PaymentIntentId;
+        subscription.Status = SubscriptionStatus.Active;
+        subscription.StartDate = DateTime.UtcNow;
+        subscription.UpdatedAt = DateTime.UtcNow;
 
-        await _purchaseRepo.UpdateAsync(purchase);
-        _logger.LogInformation($"Achat {purchase.Id} marqué comme complété");
+        await _subscriptionRepo.UpdateAsync(subscription);
+        _logger.LogInformation($"Abonnement {subscription.Id} activé");
     }
 
     private async Task HandleCheckoutSessionExpired(Event stripeEvent)
@@ -110,12 +110,13 @@ public class StripeWebhookController : ControllerBase
 
         _logger.LogInformation($"Session expirée: {session.Id}");
 
-        var purchase = await _purchaseRepo.GetByStripeSessionIdAsync(session.Id);
-        if (purchase == null) return;
+        var subscription = await _subscriptionRepo.GetByStripeSessionIdAsync(session.Id);
+        if (subscription == null) return;
 
-        purchase.Status = PurchaseStatus.Failed;
-        await _purchaseRepo.UpdateAsync(purchase);
-        _logger.LogInformation($"Achat {purchase.Id} marqué comme échoué (session expirée)");
+        subscription.Status = SubscriptionStatus.Expired;
+        subscription.UpdatedAt = DateTime.UtcNow;
+        await _subscriptionRepo.UpdateAsync(subscription);
+        _logger.LogInformation($"Abonnement {subscription.Id} marqué comme expiré");
     }
 
     private async Task HandlePaymentIntentSucceeded(Event stripeEvent)

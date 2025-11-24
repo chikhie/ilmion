@@ -1,137 +1,137 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-    <div class="max-w-md w-full">
+  <div class="min-h-screen bg-[#082540] flex items-center justify-center px-4 py-12">
+    <div class="max-w-4xl w-full">
       <!-- Logo/Header -->
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-primary-600 mb-2">📚 Ilmanar</h1>
-        <p class="text-gray-600">Créez votre compte</p>
+        <h1 class="text-4xl font-bold text-[#C39712] mb-2">Ilmanar</h1>
+        <p class="text-gray-400">Créez votre compte</p>
       </div>
 
       <!-- Register Form -->
-      <div class="bg-white rounded-lg shadow-xl p-8">
+      <div class="bg-gray-800 rounded-lg shadow-xl p-8 border border-gray-700">
         <form @submit.prevent="handleRegister" class="space-y-6">
           <!-- Alert -->
-          <div v-if="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+          <div v-if="errorMessage" class="bg-red-900/30 border border-red-800 text-red-300 px-4 py-3 rounded-lg text-sm">
             {{ errorMessage }}
           </div>
 
-          <!-- Prénom et Nom (optionnel) -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
-                Prénom <span class="text-xs text-gray-500">(optionnel)</span>
-              </label>
-              <input
-                id="firstName"
-                v-model="form.firstName"
-                type="text"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="Jean"
-              />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Colonne Gauche -->
+            <div class="space-y-6">
+              <!-- Prénom -->
+              <div>
+                <label for="firstName" class="block text-sm font-medium text-gray-300 mb-2">
+                  Prénom <span class="text-xs text-gray-500">(optionnel)</span>
+                </label>
+                <input
+                  id="firstName"
+                  v-model="form.firstName"
+                  type="text"
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-[#C39712] focus:border-transparent placeholder-gray-400"
+                />
+              </div>
+
+              <!-- Nom -->
+              <div>
+                <label for="lastName" class="block text-sm font-medium text-gray-300 mb-2">
+                  Nom <span class="text-xs text-gray-500">(optionnel)</span>
+                </label>
+                <input
+                  id="lastName"
+                  v-model="form.lastName"
+                  type="text"
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-[#C39712] focus:border-transparent placeholder-gray-400"
+                />
+              </div>
+
+              <!-- Username -->
+              <div>
+                <label for="username" class="block text-sm font-medium text-gray-300 mb-2">
+                  Nom d'utilisateur
+                </label>
+                <input
+                  id="username"
+                  v-model="form.username"
+                  type="text"
+                  required
+                  minlength="3"
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-[#C39712] focus:border-transparent placeholder-gray-400"
+                />
+              </div>
+
+              <!-- Date de naissance -->
+              <div>
+                <label for="dateOfBirth" class="block text-sm font-medium text-gray-300 mb-2">
+                  Date de naissance <span class="text-xs text-gray-500">(optionnel)</span>
+                </label>
+                <input
+                  id="dateOfBirth"
+                  v-model="form.dateOfBirth"
+                  type="date"
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-[#C39712] focus:border-transparent placeholder-gray-400 [color-scheme:dark]"
+                />
+              </div>
             </div>
 
-            <div>
-              <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">
-                Nom <span class="text-xs text-gray-500">(optionnel)</span>
-              </label>
-              <input
-                id="lastName"
-                v-model="form.lastName"
-                type="text"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="Dupont"
-              />
+            <!-- Colonne Droite -->
+            <div class="space-y-6">
+              <!-- Email -->
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  v-model="form.email"
+                  type="email"
+                  required
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-[#C39712] focus:border-transparent placeholder-gray-400"
+                />
+              </div>
+
+              <!-- Password -->
+              <div>
+                <label for="password" class="block text-sm font-medium text-gray-300 mb-2">
+                  Mot de passe
+                </label>
+                <input
+                  id="password"
+                  v-model="form.password"
+                  type="password"
+                  required
+                  minlength="6"
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-[#C39712] focus:border-transparent placeholder-gray-400"
+                />
+              </div>
+
+              <!-- Confirm Password -->
+              <div>
+                <label for="confirmPassword" class="block text-sm font-medium text-gray-300 mb-2">
+                  Confirmer le mot de passe
+                </label>
+                <input
+                  id="confirmPassword"
+                  v-model="form.confirmPassword"
+                  type="password"
+                  required
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-2 focus:ring-[#C39712] focus:border-transparent placeholder-gray-400"
+                />
+              </div>
             </div>
           </div>
 
-          <!-- Username -->
-          <div>
-            <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
-              Nom d'utilisateur
-            </label>
-            <input
-              id="username"
-              v-model="form.username"
-              type="text"
-              required
-              minlength="3"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="johndoe"
-            />
-          </div>
-
-          <!-- Email -->
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-              Email
-            </label>
-            <input
-              id="email"
-              v-model="form.email"
-              type="email"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="votre@email.com"
-            />
-          </div>
-
-          <!-- Password -->
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-              Mot de passe
-            </label>
-            <input
-              id="password"
-              v-model="form.password"
-              type="password"
-              required
-              minlength="6"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="••••••••"
-            />
-            <p class="mt-1 text-xs text-gray-500">Minimum 6 caractères</p>
-          </div>
-
-          <!-- Confirm Password -->
-          <div>
-            <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">
-              Confirmer le mot de passe
-            </label>
-            <input
-              id="confirmPassword"
-              v-model="form.confirmPassword"
-              type="password"
-              required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <!-- Date de naissance (optionnel) -->
-          <div>
-            <label for="dateOfBirth" class="block text-sm font-medium text-gray-700 mb-2">
-              Date de naissance <span class="text-xs text-gray-500">(optionnel)</span>
-            </label>
-            <input
-              id="dateOfBirth"
-              v-model="form.dateOfBirth"
-              type="date"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            />
-          </div>
-
-          <!-- Terms -->
-          <div class="flex items-start">
+          <!-- Terms (Full Width) -->
+          <div class="flex items-start pt-4 border-t border-gray-700">
             <input
               id="terms"
               v-model="form.acceptTerms"
               type="checkbox"
               required
-              class="h-4 w-4 mt-1 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+              class="h-4 w-4 mt-1 text-[#C39712] focus:ring-[#C39712] border-gray-600 rounded bg-gray-700"
             />
-            <label for="terms" class="ml-2 text-sm text-gray-600">
-              J'accepte les <a href="#" class="text-primary-600 hover:text-primary-700">conditions d'utilisation</a>
-              et la <a href="#" class="text-primary-600 hover:text-primary-700">politique de confidentialité</a>
+            <label for="terms" class="ml-2 text-sm text-gray-400">
+              J'accepte les <a href="#" class="text-[#C39712] hover:text-yellow-500 transition-colors">conditions d'utilisation</a>
+              et la <a href="#" class="text-[#C39712] hover:text-yellow-500 transition-colors">politique de confidentialité</a>
             </label>
           </div>
 
@@ -139,7 +139,7 @@
           <button
             type="submit"
             :disabled="authStore.loading || !isFormValid"
-            class="w-full bg-primary-600 text-white py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full bg-[#C39712] text-[#082540] py-3 rounded-lg font-medium hover:bg-yellow-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span v-if="!authStore.loading">S'inscrire</span>
             <span v-else class="flex items-center justify-center">
@@ -153,16 +153,16 @@
         </form>
 
         <!-- Login Link -->
-        <div class="mt-6 text-center text-sm text-gray-600">
+        <div class="mt-6 text-center text-sm text-gray-400">
           Vous avez déjà un compte ?
-          <NuxtLink to="/login" class="text-primary-600 hover:text-primary-700 font-medium">
+          <NuxtLink to="/login" class="text-[#C39712] hover:text-yellow-500 font-medium transition-colors">
             Connectez-vous
           </NuxtLink>
         </div>
 
         <!-- Back to Home -->
         <div class="mt-4 text-center">
-          <NuxtLink to="/" class="text-sm text-gray-500 hover:text-gray-700">
+          <NuxtLink to="/" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">
             ← Retour à l'accueil
           </NuxtLink>
         </div>

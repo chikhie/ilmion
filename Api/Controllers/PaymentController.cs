@@ -15,28 +15,31 @@ namespace Ilmanar.Api.Controllers;
 public class PaymentController : ControllerBase
 {
     private readonly IStripePaymentService _stripeService;
-    private readonly IModulePurchaseRepo _purchaseRepo;
+    private readonly ISubscriptionRepo _subscriptionRepo;
     private readonly ApplicationDbContext _context;
     private readonly IUserProvider _userProvider;
+    private readonly IConfiguration _configuration;
 
     public PaymentController(
         IStripePaymentService stripeService,
-        IModulePurchaseRepo purchaseRepo,
+        ISubscriptionRepo subscriptionRepo,
         ApplicationDbContext context,
-        IUserProvider userProvider)
+        IUserProvider userProvider,
+        IConfiguration configuration)
     {
         _stripeService = stripeService;
-        _purchaseRepo = purchaseRepo;
+        _subscriptionRepo = subscriptionRepo;
         _context = context;
         _userProvider = userProvider;
+        _configuration = configuration;
     }
 
     /// <summary>
-    /// Créer une session de paiement Stripe
+    /// Créer une session de paiement Stripe pour abonnement annuel (10€/an)
     /// </summary>
-    [HttpPost("create-checkout-session")]
+    [HttpPost("create-subscription")]
     [Authorize]
-    public async Task<IActionResult> CreateCheckoutSession([FromBody] CreatePaymentDto dto)
+    public async Task<IActionResult> CreateSubscription()
     {
         var userId = _userProvider.GetUserId();
         if (string.IsNullOrEmpty(userId))
@@ -44,57 +47,52 @@ public class PaymentController : ControllerBase
             return Unauthorized();
         }
 
-        // Vérifier si le module existe
-        var module = await _context.Modules.FindAsync(dto.ModuleId);
-        if (module == null)
+        // Vérifier si l'utilisateur a déjà un abonnement actif
+        var hasActiveSubscription = await _subscriptionRepo.HasActiveSubscriptionAsync(userId);
+        if (hasActiveSubscription)
         {
-            return NotFound("Module non trouvé");
+            return BadRequest("Vous avez déjà un abonnement actif");
         }
 
-        // Vérifier si le module est gratuit
-        if (module.IsFree || module.Price <= 0)
-        {
-            return BadRequest("Ce module est gratuit, aucun paiement nécessaire");
-        }
-
-        // Vérifier si l'utilisateur a déjà acheté ce module
-        var alreadyPurchased = await _purchaseRepo.HasUserPurchasedModuleAsync(userId, dto.ModuleId);
-        if (alreadyPurchased)
-        {
-            return BadRequest("Vous avez déjà acheté ce module");
-        }
+        // Prix unique : 10€/an
+        decimal price = 10.00m;
+        string priceDescription = "Abonnement Premium Annuel";
 
         try
         {
             var user = await _context.Users.FindAsync(userId);
             
             // Créer la session Stripe
-            var session = await _stripeService.CreateCheckoutSessionAsync(
-                module, 
+            var session = await _stripeService.CreateSubscriptionCheckoutSessionAsync(
+                price,
+                priceDescription,
                 userId, 
                 user?.Email
             );
 
-            // Créer l'enregistrement d'achat en attente
-            var purchase = new ModulePurchaseEntity
+            // Créer l'enregistrement d'abonnement en attente
+            var subscription = new SubscriptionEntity
             {
                 Id = Guid.NewGuid(),
                 UserId = userId,
-                ModuleId = module.Id,
-                AmountPaid = module.Price,
+                Type = SubscriptionType.Annual,
+                AmountPaid = price,
                 Currency = "EUR",
                 StripeSessionId = session.Id,
-                Status = PurchaseStatus.Pending,
-                PurchaseDate = DateTime.UtcNow
+                Status = SubscriptionStatus.Pending,
+                StartDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow.AddYears(1),
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
 
-            await _purchaseRepo.CreateAsync(purchase);
+            await _subscriptionRepo.CreateAsync(subscription);
 
             return Ok(new PaymentSessionDto
             {
                 SessionId = session.Id,
                 SessionUrl = session.Url,
-                PurchaseId = purchase.Id
+                SubscriptionId = subscription.Id
             });
         }
         catch (Exception ex)
@@ -110,36 +108,36 @@ public class PaymentController : ControllerBase
     [Authorize]
     public async Task<IActionResult> GetPaymentStatus(string sessionId)
     {
-        var purchase = await _purchaseRepo.GetByStripeSessionIdAsync(sessionId);
+        var subscription = await _subscriptionRepo.GetByStripeSessionIdAsync(sessionId);
         
-        if (purchase == null)
+        if (subscription == null)
         {
             return NotFound("Paiement non trouvé");
         }
 
         var userId = _userProvider.GetUserId();
-        if (purchase.UserId != userId)
+        if (subscription.UserId != userId)
         {
             return Forbid();
         }
 
         return Ok(new
         {
-            status = purchase.Status.ToString(),
-            purchaseId = purchase.Id,
-            moduleId = purchase.ModuleId,
-            amount = purchase.AmountPaid,
-            purchaseDate = purchase.PurchaseDate,
-            completedDate = purchase.CompletedDate
+            status = subscription.Status.ToString(),
+            subscriptionId = subscription.Id,
+            type = subscription.Type.ToString(),
+            amount = subscription.AmountPaid,
+            startDate = subscription.StartDate,
+            endDate = subscription.EndDate
         });
     }
 
     /// <summary>
-    /// Récupérer l'historique des achats de l'utilisateur
+    /// Récupérer l'abonnement actif de l'utilisateur
     /// </summary>
-    [HttpGet("my-purchases")]
+    [HttpGet("my-subscription")]
     [Authorize]
-    public async Task<IActionResult> GetMyPurchases()
+    public async Task<IActionResult> GetMySubscription()
     {
         var userId = _userProvider.GetUserId();
         if (string.IsNullOrEmpty(userId))
@@ -147,30 +145,39 @@ public class PaymentController : ControllerBase
             return Unauthorized();
         }
 
-        var purchases = await _purchaseRepo.GetUserPurchasesAsync(userId);
+        var subscription = await _subscriptionRepo.GetActiveSubscriptionAsync(userId);
         
-        var purchaseDtos = purchases.Select(p => new ModulePurchaseDto
+        if (subscription == null)
         {
-            Id = p.Id,
-            ModuleId = p.ModuleId,
-            ModuleTitle = p.Module.Title,
-            SubjectName = p.Module.Subject?.Label ?? "",
-            AmountPaid = p.AmountPaid,
-            Currency = p.Currency,
-            Status = p.Status.ToString(),
-            PurchaseDate = p.PurchaseDate,
-            CompletedDate = p.CompletedDate
-        }).ToList();
+            return Ok(new { hasSubscription = false });
+        }
 
-        return Ok(purchaseDtos);
+        var now = DateTime.UtcNow;
+        var daysRemaining = (subscription.EndDate - now).Days;
+
+        var subscriptionDto = new SubscriptionDto
+        {
+            Id = subscription.Id,
+            Type = subscription.Type.ToString(),
+            Status = subscription.Status.ToString(),
+            AmountPaid = subscription.AmountPaid,
+            Currency = subscription.Currency,
+            StartDate = subscription.StartDate,
+            EndDate = subscription.EndDate,
+            CancelledDate = subscription.CancelledDate,
+            IsActive = subscription.Status == SubscriptionStatus.Active && subscription.EndDate > now,
+            DaysRemaining = daysRemaining > 0 ? daysRemaining : 0
+        };
+
+        return Ok(new { hasSubscription = true, subscription = subscriptionDto });
     }
 
     /// <summary>
-    /// Vérifier si l'utilisateur a acheté un module spécifique
+    /// Vérifier si l'utilisateur a un abonnement actif
     /// </summary>
-    [HttpGet("has-access/{moduleId}")]
+    [HttpGet("has-access")]
     [Authorize]
-    public async Task<IActionResult> HasAccess(Guid moduleId)
+    public async Task<IActionResult> HasAccess()
     {
         var userId = _userProvider.GetUserId();
         if (string.IsNullOrEmpty(userId))
@@ -178,22 +185,39 @@ public class PaymentController : ControllerBase
             return Unauthorized();
         }
 
-        // Vérifier si le module existe et est gratuit
-        var module = await _context.Modules.FindAsync(moduleId);
-        if (module == null)
-        {
-            return NotFound("Module non trouvé");
-        }
-
-        if (module.IsFree)
-        {
-            return Ok(new { hasAccess = true, reason = "free" });
-        }
-
-        // Vérifier si l'utilisateur a acheté le module
-        var hasPurchased = await _purchaseRepo.HasUserPurchasedModuleAsync(userId, moduleId);
+        var hasActiveSubscription = await _subscriptionRepo.HasActiveSubscriptionAsync(userId);
         
-        return Ok(new { hasAccess = hasPurchased, reason = hasPurchased ? "purchased" : "not_purchased" });
+        return Ok(new { hasAccess = hasActiveSubscription });
+    }
+
+    /// <summary>
+    /// Annuler un abonnement
+    /// </summary>
+    [HttpPost("cancel-subscription")]
+    [Authorize]
+    public async Task<IActionResult> CancelSubscription()
+    {
+        var userId = _userProvider.GetUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
+        var subscription = await _subscriptionRepo.GetActiveSubscriptionAsync(userId);
+        if (subscription == null)
+        {
+            return NotFound("Aucun abonnement actif trouvé");
+        }
+
+        subscription.Status = SubscriptionStatus.Cancelled;
+        subscription.CancelledDate = DateTime.UtcNow;
+        subscription.UpdatedAt = DateTime.UtcNow;
+
+        await _subscriptionRepo.UpdateAsync(subscription);
+
+        // TODO: Annuler aussi dans Stripe si nécessaire
+
+        return Ok(new { message = "Abonnement annulé avec succès" });
     }
 
     /// <summary>
@@ -202,7 +226,6 @@ public class PaymentController : ControllerBase
     [HttpGet("success")]
     public IActionResult PaymentSuccess([FromQuery] string session_id)
     {
-        // Cette route peut rediriger vers le frontend ou afficher une page de confirmation
         return Ok(new { message = "Paiement réussi!", sessionId = session_id });
     }
 
@@ -215,4 +238,3 @@ public class PaymentController : ControllerBase
         return Ok(new { message = "Paiement annulé" });
     }
 }
-

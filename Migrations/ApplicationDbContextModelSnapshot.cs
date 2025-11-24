@@ -17,7 +17,7 @@ namespace Ilmanar.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
 
-            modelBuilder.Entity("Ilmanar.Infra.Entities.ModuleEntity", b =>
+            modelBuilder.Entity("Ilmanar.Infra.Entities.ChapterEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,13 +39,204 @@ namespace Ilmanar.Migrations
                     b.Property<int>("DurationMinutes")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsFree")
+                    b.Property<Guid>("ModuleId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VideoId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VideoUrl")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId", "DisplayOrder");
+
+                    b.ToTable("Chapters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("aaaaaaaa-1111-1111-1111-111111111111"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Découvrez les bases fondamentales de l'algèbre et ses applications",
+                            DisplayOrder = 1,
+                            DurationMinutes = 20,
+                            ModuleId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Title = "Introduction à l'algèbre",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            VideoUrl = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+                        },
+                        new
+                        {
+                            Id = new Guid("aaaaaaaa-1111-1111-1111-111111111112"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Apprenez à résoudre les équations linéaires",
+                            DisplayOrder = 2,
+                            DurationMinutes = 35,
+                            ModuleId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Title = "Les équations du premier degré",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("aaaaaaaa-1111-1111-1111-111111111113"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Résolution de systèmes d'équations à plusieurs inconnues",
+                            DisplayOrder = 3,
+                            DurationMinutes = 45,
+                            ModuleId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Title = "Les systèmes d'équations",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-2222-2222-2222-222222222221"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Comprendre les trois lois fondamentales du mouvement",
+                            DisplayOrder = 1,
+                            DurationMinutes = 30,
+                            ModuleId = new Guid("22222222-2222-2222-2222-222222222221"),
+                            Title = "Les lois de Newton",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            VideoUrl = "https://www.youtube.com/watch?v=kKKM8Y-u7ds"
+                        },
+                        new
+                        {
+                            Id = new Guid("bbbbbbbb-2222-2222-2222-222222222222"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "L'énergie liée au mouvement des corps",
+                            DisplayOrder = 2,
+                            DurationMinutes = 25,
+                            ModuleId = new Guid("22222222-2222-2222-2222-222222222221"),
+                            Title = "L'énergie cinétique",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("cccccccc-3333-3333-3333-333333333331"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Introduction aux composés organiques simples",
+                            DisplayOrder = 1,
+                            DurationMinutes = 40,
+                            ModuleId = new Guid("33333333-3333-3333-3333-333333333331"),
+                            Title = "Les hydrocarbures",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
+                });
+
+            modelBuilder.Entity("Ilmanar.Infra.Entities.ModuleEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DisplayOrder")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("SubjectId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("Modules");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 1,
+                            Label = "Algèbre",
+                            SubjectId = 1,
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 2,
+                            Label = "Géométrie",
+                            SubjectId = 1,
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222221"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 1,
+                            Label = "Mécanique",
+                            SubjectId = 2,
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 2,
+                            Label = "Thermodynamique",
+                            SubjectId = 2,
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333331"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 1,
+                            Label = "Chimie Organique",
+                            SubjectId = 3,
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444441"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 1,
+                            Label = "Biologie Cellulaire",
+                            SubjectId = 4,
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
+                });
+
+            modelBuilder.Entity("Ilmanar.Infra.Entities.SectionEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ChapterId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SectionTypeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
@@ -55,65 +246,128 @@ namespace Ilmanar.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("VideoId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("VideoId");
+                    b.HasIndex("SectionTypeId");
 
-                    b.HasIndex("SubjectId", "DisplayOrder");
+                    b.HasIndex("ChapterId", "DisplayOrder");
 
-                    b.ToTable("Modules");
+                    b.ToTable("Sections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("eeeeeeee-1111-1111-1111-111111111111"),
+                            ChapterId = new Guid("aaaaaaaa-1111-1111-1111-111111111111"),
+                            Content = "L'algèbre est une branche des mathématiques qui permet de résoudre des problèmes en utilisant des symboles et des lettres pour représenter des nombres et des quantités.\n\nElle est essentielle pour comprendre de nombreux concepts mathématiques avancés.",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 1,
+                            SectionTypeId = 1,
+                            Title = "Qu'est-ce que l'algèbre ?",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("eeeeeeee-1111-1111-1111-111111111112"),
+                            ChapterId = new Guid("aaaaaaaa-1111-1111-1111-111111111111"),
+                            Content = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 2,
+                            SectionTypeId = 3,
+                            Title = "Vidéo d'introduction",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("eeeeeeee-1111-1111-1111-111111111113"),
+                            ChapterId = new Guid("aaaaaaaa-1111-1111-1111-111111111111"),
+                            Content = "{\"questions\":[{\"id\":1,\"question\":\"Que représente le symbole 'x' en algèbre ?\",\"options\":[\"Un nombre fixe\",\"Une variable\",\"Une opération\",\"Un résultat\"],\"correctAnswer\":1},{\"id\":2,\"question\":\"Qu'est-ce qu'une équation ?\",\"options\":[\"Une addition\",\"Une égalité entre deux expressions\",\"Un nombre\",\"Une division\"],\"correctAnswer\":1}]}",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 3,
+                            SectionTypeId = 4,
+                            Title = "Quiz de compréhension",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("ffffffff-2222-2222-2222-222222222221"),
+                            ChapterId = new Guid("bbbbbbbb-2222-2222-2222-222222222221"),
+                            Content = "Isaac Newton a formulé trois lois fondamentales qui décrivent le mouvement des corps. Ces lois sont à la base de la mécanique classique.\n\n**Première loi** : Un corps au repos reste au repos, un corps en mouvement reste en mouvement à vitesse constante, sauf si une force extérieure agit sur lui.\n\n**Deuxième loi** : F = ma (Force = masse × accélération)\n\n**Troisième loi** : À toute action correspond une réaction égale et opposée.",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 1,
+                            SectionTypeId = 1,
+                            Title = "Introduction aux lois de Newton",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("ffffffff-2222-2222-2222-222222222222"),
+                            ChapterId = new Guid("bbbbbbbb-2222-2222-2222-222222222221"),
+                            Content = "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=800&auto=format&fit=crop",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 2,
+                            SectionTypeId = 2,
+                            Title = "Illustration des forces",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("ffffffff-2222-2222-2222-222222222223"),
+                            ChapterId = new Guid("bbbbbbbb-2222-2222-2222-222222222221"),
+                            Content = "Calculez la force nécessaire pour déplacer un objet de 5 kg avec une accélération de 2 m/s².\n\nRappel : F = ma\n\nRéponse : ____ N",
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayOrder = 3,
+                            SectionTypeId = 6,
+                            Title = "Exercice pratique",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
                 });
 
-            modelBuilder.Entity("Ilmanar.Infra.Entities.ModulePurchaseEntity", b =>
+            modelBuilder.Entity("Ilmanar.Infra.Entities.SectionTypeEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("AmountPaid")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime?>("CompletedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("GuestEmail")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ModuleId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("StripePaymentIntentId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StripeSessionId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("Label")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ModuleId");
+                    b.ToTable("SectionTypes");
 
-                    b.HasIndex("StripeSessionId");
-
-                    b.HasIndex("UserId", "ModuleId");
-
-                    b.ToTable("ModulePurchases");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Label = "Texte"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Label = "Image"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Label = "Vidéo"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Label = "Quiz"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Label = "Code"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Label = "Exercice"
+                        });
                 });
 
             modelBuilder.Entity("Ilmanar.Infra.Entities.SubjectEntity", b =>
@@ -158,6 +412,67 @@ namespace Ilmanar.Migrations
                             Id = 5,
                             Label = "Informatique"
                         });
+                });
+
+            modelBuilder.Entity("Ilmanar.Infra.Entities.SubscriptionEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("CancelledDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GuestEmail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("StripeCustomerId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StripeSessionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StripeSubscriptionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StripeSubscriptionId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId", "Status");
+
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("Ilmanar.Infra.Entities.UserEntity", b =>
@@ -416,6 +731,17 @@ namespace Ilmanar.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Ilmanar.Infra.Entities.ChapterEntity", b =>
+                {
+                    b.HasOne("Ilmanar.Infra.Entities.ModuleEntity", "Module")
+                        .WithMany("Chapters")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
+                });
+
             modelBuilder.Entity("Ilmanar.Infra.Entities.ModuleEntity", b =>
                 {
                     b.HasOne("Ilmanar.Infra.Entities.SubjectEntity", "Subject")
@@ -424,31 +750,35 @@ namespace Ilmanar.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ilmanar.Infra.Entities.VideoEntity", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("Subject");
-
-                    b.Navigation("Video");
                 });
 
-            modelBuilder.Entity("Ilmanar.Infra.Entities.ModulePurchaseEntity", b =>
+            modelBuilder.Entity("Ilmanar.Infra.Entities.SectionEntity", b =>
                 {
-                    b.HasOne("Ilmanar.Infra.Entities.ModuleEntity", "Module")
-                        .WithMany("Purchases")
-                        .HasForeignKey("ModuleId")
+                    b.HasOne("Ilmanar.Infra.Entities.ChapterEntity", "Chapter")
+                        .WithMany("Sections")
+                        .HasForeignKey("ChapterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ilmanar.Infra.Entities.SectionTypeEntity", "SectionType")
+                        .WithMany("Sections")
+                        .HasForeignKey("SectionTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Chapter");
+
+                    b.Navigation("SectionType");
+                });
+
+            modelBuilder.Entity("Ilmanar.Infra.Entities.SubscriptionEntity", b =>
+                {
                     b.HasOne("Ilmanar.Infra.Entities.UserEntity", "User")
-                        .WithMany("PurchasedModules")
+                        .WithMany("Subscriptions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Module");
 
                     b.Navigation("User");
                 });
@@ -504,9 +834,19 @@ namespace Ilmanar.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Ilmanar.Infra.Entities.ChapterEntity", b =>
+                {
+                    b.Navigation("Sections");
+                });
+
             modelBuilder.Entity("Ilmanar.Infra.Entities.ModuleEntity", b =>
                 {
-                    b.Navigation("Purchases");
+                    b.Navigation("Chapters");
+                });
+
+            modelBuilder.Entity("Ilmanar.Infra.Entities.SectionTypeEntity", b =>
+                {
+                    b.Navigation("Sections");
                 });
 
             modelBuilder.Entity("Ilmanar.Infra.Entities.SubjectEntity", b =>
@@ -516,7 +856,7 @@ namespace Ilmanar.Migrations
 
             modelBuilder.Entity("Ilmanar.Infra.Entities.UserEntity", b =>
                 {
-                    b.Navigation("PurchasedModules");
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

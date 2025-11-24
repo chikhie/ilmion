@@ -48,7 +48,7 @@ export const useApi = () => {
     getSubject: (id: number) => fetchApi<Subject>(`/subject/${id}`),
 
     // Modules
-    getModulesBySubject: (subjectId: string) =>
+    getModulesBySubject: (subjectId: number) =>
       fetchApi<Module[]>(`/module/subject/${subjectId}`),
     getModule: (id: string) => fetchApi<Module>(`/module/${id}`),
     createModule: (data: CreateModuleDto) =>
@@ -64,9 +64,28 @@ export const useApi = () => {
     deleteModule: (id: string) =>
       fetchApi<void>(`/module/${id}`, { method: 'DELETE' }),
 
+    // Chapters
+    getChaptersByModule: (moduleId: string) =>
+      fetchApi<Chapter[]>(`/chapter/module/${moduleId}`),
+    getChapter: (id: string) => fetchApi<Chapter>(`/chapter/${id}`),
+    createChapter: (data: CreateChapterDto) =>
+      fetchApi<Chapter>('/chapter', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }),
+    updateChapter: (id: string, data: Partial<CreateChapterDto>) =>
+      fetchApi<Chapter>(`/chapter/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      }),
+    deleteChapter: (id: string) =>
+      fetchApi<void>(`/chapter/${id}`, { method: 'DELETE' }),
+    getChapterFile: (chapterId: string, fileName: string) =>
+      fetchApi<any>(`/chapter/${chapterId}/file/${fileName}`),
+
     // Sections
-    getSectionsByModule: (moduleId: string) =>
-      fetchApi<Section[]>(`/section/module/${moduleId}`),
+    getSectionsByChapter: (chapterId: string) =>
+      fetchApi<Section[]>(`/section/chapter/${chapterId}`),
     getSection: (id: string) => fetchApi<Section>(`/section/${id}`),
     createSection: (data: CreateSectionDto) =>
       fetchApi<Section>('/section', {
@@ -81,18 +100,19 @@ export const useApi = () => {
     deleteSection: (id: string) =>
       fetchApi<void>(`/section/${id}`, { method: 'DELETE' }),
 
-    // Payment
-    createCheckoutSession: (moduleId: string) => 
-      fetchApi<PaymentSession>('/payment/create-checkout-session', { 
-        method: 'POST', 
-        body: JSON.stringify({ moduleId }) 
+    // Subscription & Payment
+    createSubscription: () => 
+      fetchApi<PaymentSession>('/payment/create-subscription', { 
+        method: 'POST'
       }),
     getPaymentStatus: (sessionId: string) => 
       fetchApi<any>(`/payment/status/${sessionId}`),
-    getMyPurchases: () => 
-      fetchApi<ModulePurchase[]>('/payment/my-purchases'),
-    hasAccess: (moduleId: string) => 
-      fetchApi<{ hasAccess: boolean; reason: string }>(`/payment/has-access/${moduleId}`),
+    getMySubscription: () => 
+      fetchApi<{ hasSubscription: boolean; subscription?: Subscription }>('/payment/my-subscription'),
+    hasAccess: () => 
+      fetchApi<{ hasAccess: boolean }>('/payment/has-access'),
+    cancelSubscription: () =>
+      fetchApi<{ message: string }>('/payment/cancel-subscription', { method: 'POST' }),
 
     // User Profile
     getProfile: () => 

@@ -9,10 +9,13 @@
 </template>
 
 <script setup lang="ts">
-useHead({
+  useHead({
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} - Ilmanar` : 'Ilmanar - Plateforme Éducative'
-  }
+  },
+  link: [
+    { rel: 'icon', type: 'image/svg+xml', href: '/ilmanar.svg' }
+  ]
 })
 </script>
 

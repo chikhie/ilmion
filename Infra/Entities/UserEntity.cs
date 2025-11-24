@@ -17,5 +17,5 @@ public class UserEntity : IdentityUser
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     
     // Relations
-    public ICollection<ModulePurchaseEntity> PurchasedModules { get; set; } = new List<ModulePurchaseEntity>();
+    public ICollection<SubscriptionEntity> Subscriptions { get; set; } = new List<SubscriptionEntity>();
 }

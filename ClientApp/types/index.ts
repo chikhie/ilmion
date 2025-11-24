@@ -5,60 +5,76 @@ export interface Subject {
 
 export interface Module {
   id: string
-  title: string
-  description: string
-  displayOrder: number
-  durationMinutes: number
-  price: number
-  isFree: boolean
-  hasAccess: boolean
+  label: string
   subjectId: number
   subjectName: string
-  videoId?: string
-  sectionCount: number
+  chapterCount: number
   createdAt: string
   updatedAt: string
 }
 
-export enum SectionType {
-  Text = 0,
-  Interactive = 1,
-  Quiz = 2,
-  Exercise = 3,
-  Summary = 4
+export interface Chapter {
+  id: string
+  title: string
+  description: string
+  displayOrder: number
+  durationMinutes: number
+  hasAccess: boolean
+  isFree: boolean // Premier chapitre gratuit
+  moduleId: string
+  moduleName: string
+  subjectId: number // ID de la matière
+  subjectName: string // Nom de la matière
+  videoId?: string
+  videoUrl?: string
+  content?: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface Section {
   id: string
   title: string
   content: string
-  type: SectionType
-  typeLabel: string
+  sectionTypeId: number
+  sectionTypeLabel: string // "Texte", "Image", "Vidéo", etc.
   displayOrder: number
-  moduleId: string
-  componentPath?: string
-  hasProtectedComponent: boolean
+  chapterId: string
   createdAt: string
   updatedAt: string
 }
 
+// Types de section disponibles
+export const SectionTypes = {
+  TEXT: 1,
+  IMAGE: 2,
+  VIDEO: 3,
+  QUIZ: 4,
+  CODE: 5,
+  EXERCISE: 6
+} as const
+
 export interface CreateModuleDto {
+  label: string
+  subjectId: number
+}
+
+export interface CreateChapterDto {
   title: string
   description: string
   displayOrder: number
   durationMinutes: number
-  price: number
-  isFree: boolean
-  subjectId: number
+  moduleId: string
   videoId?: string
+  content?: string
 }
 
 export interface CreateSectionDto {
   title: string
   content: string
-  type: SectionType
+  type: number
   displayOrder: number
-  moduleId: string
+  chapterId: string
 }
 
 // Auth Types
@@ -93,22 +109,23 @@ export interface User {
   dateOfBirth?: string
 }
 
-// Payment Types
+// Payment & Subscription Types
 export interface PaymentSession {
   sessionId: string
   sessionUrl: string
-  purchaseId: string
+  subscriptionId: string
 }
 
-export interface ModulePurchase {
+export interface Subscription {
   id: string
-  moduleId: string
-  moduleTitle: string
-  subjectName: string
+  type: string
+  status: string
   amountPaid: number
   currency: string
-  status: string
-  purchaseDate: string
-  completedDate?: string
+  startDate: string
+  endDate: string
+  cancelledDate?: string
+  isActive: boolean
+  daysRemaining: number
 }
 

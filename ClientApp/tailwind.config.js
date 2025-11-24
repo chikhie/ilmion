@@ -22,6 +22,10 @@ export default {
           800: '#075985',
           900: '#0c4a6e',
         },
+        brand: {
+          blue: '#082540', // Primaire
+          gold: '#C39712', // Secondaire
+        },
       },
     },
   },

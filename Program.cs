@@ -27,9 +27,9 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUserProvider, UserProvider>();
 builder.Services.AddScoped<UserRepo>();
 
-// Services de paiement et achats
+// Services de paiement et abonnements
 builder.Services.AddScoped<Ilmanar.Infra.Services.IStripePaymentService, Ilmanar.Infra.Services.StripePaymentService>();
-builder.Services.AddScoped<Ilmanar.Infra.repository.IModulePurchaseRepo, Ilmanar.Infra.repository.ModulePurchaseRepo>();
+builder.Services.AddScoped<Ilmanar.Infra.repository.ISubscriptionRepo, Ilmanar.Infra.repository.SubscriptionRepo>();
 
 // Service de chiffrement des composants
 builder.Services.AddScoped<ComponentEncryptionService>();

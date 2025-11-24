@@ -1,16 +1,23 @@
 <template>
-  <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+  <header class="bg-[#082540] shadow-sm border-b border-gray-700 sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center space-x-2">
-          <span class="text-2xl">📚</span>
-          <span class="text-xl font-bold text-primary-600">Ilmanar</span>
+          <img src="/ilmanar.svg" alt="Ilmanar Logo" class="h-8 w-8" />
+          <span class="text-xl font-bold text-[#C39712]">ILMANAR</span>
         </NuxtLink>
 
         <!-- Navigation -->
         <nav class="hidden md:flex items-center space-x-6 ml-auto">
-          <SubjectsMenu />
+          <NuxtLink to="/dashboard">
+            <span class="text-gray-300 hover:text-[#C39712] font-medium transition-colors">
+              Tableau de bord
+            </span>
+          </NuxtLink>
+          <div v-if="isAuthenticated">
+             <SubjectsMenu />
+          </div>
           
           <!-- Authenticated -->
           <div v-if="isAuthenticated">
@@ -21,13 +28,13 @@
           <div v-else class="flex items-center space-x-3">
             <NuxtLink
               to="/login"
-              class="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+              class="text-white hover:text-[#C39712] font-medium transition-colors"
             >
               Connexion
             </NuxtLink>
             <NuxtLink
               to="/register"
-              class="px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
+              class="px-4 py-2 bg-[#C39712] text-[#082540] rounded-lg font-medium hover:bg-yellow-500 transition-colors"
             >
               S'inscrire
             </NuxtLink>
@@ -37,7 +44,7 @@
         <!-- Mobile menu button -->
         <button
           @click="mobileMenuOpen = !mobileMenuOpen"
-          class="md:hidden p-2 rounded-lg hover:bg-gray-100"
+          class="md:hidden p-2 rounded-lg hover:bg-gray-700 text-white"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -67,18 +74,18 @@
         leave-from-class="opacity-100 translate-y-0"
         leave-to-class="opacity-0 -translate-y-1"
       >
-        <div v-if="mobileMenuOpen" class="md:hidden py-4 border-t border-gray-200">
+        <div v-if="mobileMenuOpen" class="md:hidden py-4 border-t border-gray-700">
           <nav class="flex flex-col space-y-3">
             <!-- Mobile Subjects List -->
-            <div class="px-3 py-2">
-              <div class="text-xs font-semibold text-gray-500 uppercase mb-2">Matières</div>
-              <div v-if="loadingSubjects" class="py-2 text-sm text-gray-500">Chargement...</div>
+            <div v-if="isAuthenticated" class="px-3 py-2">
+              <div class="text-xs font-semibold text-gray-400 uppercase mb-2">Matières</div>
+              <div v-if="loadingSubjects" class="py-2 text-sm text-gray-400">Chargement...</div>
               <div v-else class="space-y-1">
                 <NuxtLink
                   v-for="subject in mobileSubjects"
                   :key="subject.id"
                   :to="`/subjects/${subject.id}`"
-                  class="flex items-center px-2 py-1.5 text-sm text-gray-700 hover:bg-gray-100 rounded transition-colors"
+                  class="flex items-center px-2 py-1.5 text-sm text-gray-300 hover:bg-gray-700 rounded transition-colors"
                   @click="mobileMenuOpen = false"
                 >
                   {{ subject.label }}
@@ -89,14 +96,14 @@
             <template v-if="isAuthenticated">
               <NuxtLink
                 to="/profile"
-                class="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                class="px-3 py-2 text-gray-300 hover:bg-gray-700 rounded-lg transition-colors"
                 @click="mobileMenuOpen = false"
               >
                 Mon profil
               </NuxtLink>
               <button
                 @click="handleLogout"
-                class="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors text-left"
+                class="px-3 py-2 text-red-400 hover:bg-red-900/30 rounded-lg transition-colors text-left"
               >
                 Déconnexion
               </button>
@@ -105,14 +112,14 @@
             <template v-else>
               <NuxtLink
                 to="/login"
-                class="px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                class="px-3 py-2 text-gray-300 hover:bg-gray-700 rounded-lg transition-colors"
                 @click="mobileMenuOpen = false"
               >
                 Connexion
               </NuxtLink>
               <NuxtLink
                 to="/register"
-                class="px-3 py-2 bg-primary-600 text-white hover:bg-primary-700 rounded-lg transition-colors text-center"
+                class="px-3 py-2 bg-[#C39712] text-[#082540] hover:bg-yellow-500 rounded-lg transition-colors text-center"
                 @click="mobileMenuOpen = false"
               >
                 S'inscrire

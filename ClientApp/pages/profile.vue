@@ -1,15 +1,22 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <!-- Header -->
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Mon profil</h1>
-        <p class="mt-2 text-gray-600">Gérez vos informations personnelles</p>
+  <div class="min-h-screen bg-gray-900">
+    <!-- Header avec gradient -->
+    <div class="bg-gradient-to-r from-[#082540] to-[#0a3a5f] border-b border-gray-700">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex items-center space-x-4">
+          <div class="text-6xl">👤</div>
+          <div>
+            <h1 class="text-4xl font-bold text-white">Mon profil</h1>
+            <p class="mt-2 text-gray-300">Gérez vos informations personnelles et préférences</p>
+          </div>
+        </div>
       </div>
+    </div>
 
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <!-- Loading -->
       <div v-if="loading" class="flex justify-center items-center py-12">
-        <svg class="animate-spin h-12 w-12 text-primary-600" viewBox="0 0 24 24">
+        <svg class="animate-spin h-12 w-12 text-[#C39712]" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
@@ -17,8 +24,11 @@
 
       <div v-else class="space-y-6">
         <!-- Photo de profil -->
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-lg font-semibold text-gray-900 mb-4">Photo de profil</h2>
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-700">
+          <div class="flex items-center mb-4">
+            <div class="w-1 h-6 bg-[#C39712] rounded mr-3"></div>
+            <h2 class="text-lg font-semibold text-white">Photo de profil</h2>
+          </div>
           
           <div class="flex items-center space-x-6">
             <div class="relative">
@@ -26,10 +36,10 @@
                 v-if="user?.profilePicture"
                 :src="user.profilePicture"
                 alt="Photo de profil"
-                class="w-24 h-24 rounded-full object-cover"
+                class="w-24 h-24 rounded-full object-cover border-2 border-[#C39712]"
               />
-              <div v-else class="w-24 h-24 rounded-full bg-primary-100 flex items-center justify-center">
-                <span class="text-3xl text-primary-600">{{ getInitials() }}</span>
+              <div v-else class="w-24 h-24 rounded-full bg-gray-700 border-2 border-[#C39712] flex items-center justify-center">
+                <span class="text-3xl text-[#C39712]">{{ getInitials() }}</span>
               </div>
             </div>
 
@@ -46,7 +56,7 @@
                 <button
                   @click="$refs.fileInput.click()"
                   :disabled="uploading"
-                  class="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors disabled:opacity-50"
+                  class="px-4 py-2 bg-[#C39712] text-[#082540] rounded-lg text-sm font-bold hover:bg-yellow-500 transition-colors disabled:opacity-50"
                 >
                   {{ uploading ? 'Upload...' : 'Changer la photo' }}
                 </button>
@@ -60,90 +70,93 @@
                 </button>
               </div>
               
-              <p class="mt-2 text-xs text-gray-500">JPG, PNG ou GIF. Max 5MB.</p>
+              <p class="mt-2 text-xs text-gray-400">JPG, PNG ou GIF. Max 5MB.</p>
             </div>
           </div>
 
-          <div v-if="uploadMessage" class="mt-4 p-3 rounded-lg" :class="uploadError ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'">
+          <div v-if="uploadMessage" class="mt-4 p-3 rounded-lg border" :class="uploadError ? 'bg-red-900/30 border-red-600 text-red-400' : 'bg-green-900/30 border-green-600 text-green-400'">
             {{ uploadMessage }}
           </div>
         </div>
 
         <!-- Informations personnelles -->
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-lg font-semibold text-gray-900 mb-4">Informations personnelles</h2>
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-700">
+          <div class="flex items-center mb-4">
+            <div class="w-1 h-6 bg-[#C39712] rounded mr-3"></div>
+            <h2 class="text-lg font-semibold text-white">Informations personnelles</h2>
+          </div>
           
           <form @submit.prevent="saveProfile" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Prénom</label>
                 <input
                   v-model="profileForm.firstName"
                   type="text"
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#C39712] focus:border-transparent transition-all"
                   placeholder="Jean"
                 />
               </div>
 
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Nom</label>
                 <input
                   v-model="profileForm.lastName"
                   type="text"
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#C39712] focus:border-transparent transition-all"
                   placeholder="Dupont"
                 />
               </div>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Nom d'utilisateur</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Nom d'utilisateur</label>
               <input
                 v-model="profileForm.userName"
                 type="text"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#C39712] focus:border-transparent transition-all"
                 placeholder="jeandupont"
               />
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
               <input
                 :value="user?.email"
                 type="email"
                 disabled
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed"
+                class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-gray-500 cursor-not-allowed"
               />
               <p class="mt-1 text-xs text-gray-500">L'email ne peut pas être modifié</p>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Bio</label>
               <textarea
                 v-model="profileForm.bio"
                 rows="3"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#C39712] focus:border-transparent transition-all resize-none"
                 placeholder="Parlez-nous de vous..."
               ></textarea>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Date de naissance</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Date de naissance</label>
               <input
                 v-model="profileForm.dateOfBirth"
                 type="date"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-[#C39712] focus:border-transparent transition-all"
               />
             </div>
 
-            <div v-if="profileMessage" class="p-3 rounded-lg" :class="profileError ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'">
+            <div v-if="profileMessage" class="p-3 rounded-lg border" :class="profileError ? 'bg-red-900/30 border-red-600 text-red-400' : 'bg-green-900/30 border-green-600 text-green-400'">
               {{ profileMessage }}
             </div>
 
             <button
               type="submit"
               :disabled="savingProfile"
-              class="w-full bg-primary-600 text-white py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50"
+              class="w-full bg-[#C39712] text-[#082540] py-3 rounded-lg font-bold hover:bg-yellow-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {{ savingProfile ? 'Enregistrement...' : 'Enregistrer les modifications' }}
             </button>
@@ -151,48 +164,52 @@
         </div>
 
         <!-- Changer le mot de passe -->
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-lg font-semibold text-gray-900 mb-4">Changer le mot de passe</h2>
+        <div class="bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-700">
+          <div class="flex items-center mb-4">
+            <div class="w-1 h-6 bg-[#C39712] rounded mr-3"></div>
+            <h2 class="text-lg font-semibold text-white">Changer le mot de passe</h2>
+          </div>
           
           <form @submit.prevent="changePassword" class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Mot de passe actuel</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Mot de passe actuel</label>
               <input
                 v-model="passwordForm.currentPassword"
                 type="password"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#C39712] focus:border-transparent transition-all"
                 placeholder="••••••••"
               />
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Nouveau mot de passe</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Nouveau mot de passe</label>
               <input
                 v-model="passwordForm.newPassword"
                 type="password"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#C39712] focus:border-transparent transition-all"
                 placeholder="••••••••"
               />
+              <p class="mt-1 text-xs text-gray-500">Au moins 6 caractères</p>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Confirmer le nouveau mot de passe</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">Confirmer le nouveau mot de passe</label>
               <input
                 v-model="passwordForm.confirmPassword"
                 type="password"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-[#C39712] focus:border-transparent transition-all"
                 placeholder="••••••••"
               />
             </div>
 
-            <div v-if="passwordMessage" class="p-3 rounded-lg" :class="passwordError ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'">
+            <div v-if="passwordMessage" class="p-3 rounded-lg border" :class="passwordError ? 'bg-red-900/30 border-red-600 text-red-400' : 'bg-green-900/30 border-green-600 text-green-400'">
               {{ passwordMessage }}
             </div>
 
             <button
               type="submit"
               :disabled="changingPassword"
-              class="w-full bg-primary-600 text-white py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50"
+              class="w-full bg-[#C39712] text-[#082540] py-3 rounded-lg font-bold hover:bg-yellow-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {{ changingPassword ? 'Changement...' : 'Changer le mot de passe' }}
             </button>
