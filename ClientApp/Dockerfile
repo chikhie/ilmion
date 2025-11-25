@@ -3,8 +3,8 @@ FROM node:latest AS build
 WORKDIR /app
 
 # Arguments de build
-ARG NUXT_PUBLIC_API_BASE=http://localhost:5051/api
-ENV NUXT_PUBLIC_API_BASE=${NUXT_PUBLIC_API_BASE}
+ARG NUXT_PUBLIC_API_BASE=https://ilmanar.ibrahim-chikhi.cv:8080/api
+
 
 # Copier les fichiers de dépendances
 COPY package*.json ./
