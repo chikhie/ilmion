@@ -34,7 +34,7 @@ RUN mkdir -p /app/wwwroot/uploads/profiles && \
     mkdir -p /app/Infra/res/videos/videoTest
 
 # Exposer le port
-EXPOSE 5000
+EXPOSE 8080
 
 # Point d'entrée
 ENTRYPOINT ["dotnet", "Ilmanar.dll"]
