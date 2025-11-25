@@ -3,7 +3,7 @@ FROM node:latest AS build
 WORKDIR /app
 
 # Arguments de build
-ARG NUXT_PUBLIC_API_BASE=https://api.ilmanar.ibrahim-chikhi.cv/api
+ARG NUXT_PUBLIC_API_BASE=https://api-ilmanar.ibrahim-chikhi.cv/api
 
 
 # Copier les fichiers de dépendances
