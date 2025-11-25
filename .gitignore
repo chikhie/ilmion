@@ -19,3 +19,5 @@ wwwroot/protected/components/*.enc
 wwwroot/uploads/
 appsettings.json
 appsettings.Development.json
+db.sqlite-shm
+db.sqlite-wal
