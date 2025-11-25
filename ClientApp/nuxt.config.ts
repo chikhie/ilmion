@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   // Configuration de l'API
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:5050/api'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://ilmanar.ibrahim-chikhi.cv:8080/api'
     }
   },
 
