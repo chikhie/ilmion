@@ -1,0 +1,38 @@
+# Backend
+bin/
+obj/
+*.db
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Frontend
+ClientApp/node_modules/
+ClientApp/.nuxt/
+ClientApp/.output/
+ClientApp/dist/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+STRIPE_*.md
+WEBHOOK_*.md
+
+# Build scripts
+build-and-deploy.*
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+

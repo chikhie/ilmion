@@ -1,0 +1,17 @@
+:80 {
+    root * /usr/share/caddy
+    file_server
+
+    # Gestion du SPA : rediriger toutes les requêtes non-fichiers vers index.html
+    try_files {path} /index.html
+
+    # Compression Gzip pour de meilleures performances
+    encode gzip
+
+    # Logs
+    log {
+        output stdout
+        format console
+    }
+}
+

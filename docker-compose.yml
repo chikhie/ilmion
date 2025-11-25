@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # Base de données PostgreSQL
+  postgres:
+    image: postgres:18-alpine
+    container_name: ilmanar-postgres
+    environment:
+      POSTGRES_USER: ilmanar_user
+      POSTGRES_PASSWORD: ilmanar_password
+      POSTGRES_DB: ilmanar_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ilmanar_user -d ilmanar_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ilmanar-network
+    restart: unless-stopped
+
+  # Backend API ASP.NET Core
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: ilmanar-backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5051
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=ilmanar_db;Username=ilmanar_user;Password=ilmanar_password
+      - Jwt__Key=#xaluTOmPJF7etLeWzDi5FlrPFbbI&xENGcM&Qa0fmkAx7D8irtq1XWO@5O6pnUS
+      - Jwt__Issuer=IlmanarApi
+      - Jwt__Audience=IlmanarClient
+      - FrontendUrl=http://frontend:3000
+    ports:
+      - "5051:5051"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - backend_uploads:/app/wwwroot/uploads
+      - backend_protected:/app/wwwroot/protected
+      - backend_videos:/app/Infra/res/videos
+    networks:
+      - ilmanar-network
+    restart: unless-stopped
+
+  # Frontend Nuxt.js (Static SPA served by Caddy)
+  frontend:
+    build:
+      context: ./ClientApp
+      dockerfile: ../Dockerfile.frontend
+      args:
+        - NUXT_PUBLIC_API_BASE=http://localhost:5051
+    container_name: ilmanar-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - ilmanar-network
+    restart: unless-stopped
+
+networks:
+  ilmanar-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  backend_uploads:
+    driver: local
+  backend_protected:
+    driver: local
+  backend_videos:
+    driver: local
+

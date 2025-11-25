@@ -14,16 +14,16 @@ export default defineNuxtConfig({
   // Configuration de l'API
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:5050/api'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:5050/api'
     }
   },
 
   // Configuration du build
-  nitro: {
-    output: {
-      publicDir: '../wwwroot'
-    }
-  },
+  // nitro: {
+  //   output: {
+  //     publicDir: '../wwwroot'
+  //   }
+  // },
 
   app: {
     head: {

@@ -30,11 +30,11 @@ public class StripeWebhookController : ControllerBase
     [HttpPost("webhook")]
     public async Task<IActionResult> HandleWebhook()
     {
+        Console.WriteLine("test");
         try
         {
             var webhookSecret = _configuration["Stripe:WebhookSecret"];
             var stripeSignature = Request.Headers["Stripe-Signature"].ToString();
-
             if (string.IsNullOrEmpty(stripeSignature))
             {
                 _logger.LogError("❌ Header Stripe-Signature manquant");
@@ -48,9 +48,9 @@ public class StripeWebhookController : ControllerBase
                 json = await reader.ReadToEndAsync();
             }
 
-            _logger.LogInformation($"🔍 Webhook reçu - Body length: {json.Length}");
-            _logger.LogInformation($"🔑 Secret: whsec_{webhookSecret?.Substring(6, Math.Min(10, (webhookSecret?.Length ?? 6) - 6))}...");
-            _logger.LogInformation($"🔐 Signature: {stripeSignature.Substring(0, Math.Min(30, stripeSignature.Length))}...");
+            Console.WriteLine($"🔍 Webhook reçu - Body length: {json.Length}");
+            Console.WriteLine($"🔑 Secret: whsec_{webhookSecret?.Substring(6, Math.Min(10, (webhookSecret?.Length ?? 6) - 6))}...");
+            Console.WriteLine($"🔐 Signature: {stripeSignature.Substring(0, Math.Min(30, stripeSignature.Length))}...");
 
             var stripeEvent = EventUtility.ConstructEvent(
                 json,
@@ -59,7 +59,7 @@ public class StripeWebhookController : ControllerBase
                 throwOnApiVersionMismatch: false
             );
 
-            _logger.LogInformation($"📥 Webhook Stripe reçu: {stripeEvent.Type}");
+            Console.WriteLine($"📥 Webhook Stripe reçu: {stripeEvent.Type}");
 
             // Gérer les différents types d'événements
             switch (stripeEvent.Type)
@@ -69,7 +69,7 @@ public class StripeWebhookController : ControllerBase
                     break;
                     
                 case "payment_intent.succeeded":
-                    _logger.LogInformation("✅ Paiement réussi");
+                    Console.WriteLine("✅ Paiement réussi");
                     break;
                     
                 case "payment_intent.payment_failed":
@@ -77,7 +77,7 @@ public class StripeWebhookController : ControllerBase
                     break;
 
                 default:
-                    _logger.LogInformation($"ℹ️ Événement non géré: {stripeEvent.Type}");
+                    Console.WriteLine($"ℹ️ Événement non géré: {stripeEvent.Type}");
                     break;
             }
 
@@ -108,7 +108,7 @@ public class StripeWebhookController : ControllerBase
             return;
         }
 
-        _logger.LogInformation($"🎯 Session complétée: {session.Id}");
+        Console.WriteLine($"🎯 Session complétée: {session.Id}");
 
         // RÉCUPÉRER L'ID UTILISATEUR via Metadata
         string? userId = null;
@@ -116,12 +116,12 @@ public class StripeWebhookController : ControllerBase
         if (session.Metadata != null && session.Metadata.ContainsKey("user_id"))
         {
             userId = session.Metadata["user_id"];
-            _logger.LogInformation($"👤 User ID trouvé dans Metadata: {userId}");
+            Console.WriteLine($"👤 User ID trouvé dans Metadata: {userId}");
         }
         else if (!string.IsNullOrEmpty(session.ClientReferenceId))
         {
             userId = session.ClientReferenceId;
-            _logger.LogInformation($"👤 User ID trouvé dans ClientReferenceId: {userId}");
+            Console.WriteLine($"👤 User ID trouvé dans ClientReferenceId: {userId}");
         }
 
         if (string.IsNullOrEmpty(userId))
@@ -134,7 +134,7 @@ public class StripeWebhookController : ControllerBase
         var existingSubscription = await _subscriptionRepo.GetByStripeSessionIdAsync(session.Id);
         if (existingSubscription != null)
         {
-            _logger.LogInformation($"ℹ️ Abonnement déjà créé pour cette session: {session.Id}");
+            Console.WriteLine($"ℹ️ Abonnement déjà créé pour cette session: {session.Id}");
             return;
         }
 
@@ -156,7 +156,7 @@ public class StripeWebhookController : ControllerBase
         };
 
         await _subscriptionRepo.CreateAsync(subscription);
-        _logger.LogInformation($"✅ Abonnement créé avec succès pour l'utilisateur {userId}");
+        Console.WriteLine($"✅ Abonnement créé avec succès pour l'utilisateur {userId}");
     }
 }
 

@@ -1,5 +1,5 @@
 ﻿using Ilmanar;
-using Microsoft.EntityFrameworkCore; // Cette directive est nÃ©cessaire pour UseSqlite
+using Microsoft.EntityFrameworkCore; // Cette directive est nécessaire pour UseSqlite/UseNpgsql
 using Microsoft.AspNetCore.Identity;
 using Ilmanar.Infra.Entities;
 using Ilmanar.Infra;
@@ -19,9 +19,26 @@ using System.IdentityModel.Tokens.Jwt; // AJOUTER CETTE LIGNE
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configuration de la base de données (PostgreSQL ou SQLite selon l'environnement)
+var connectionString = builder.Configuration.GetConnectionString("DevDbConnection");
+
+// Configuration pour accepter les DateTime sans Kind=UTC dans PostgreSQL
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+{
+    if (connectionString != null && connectionString.Contains("Host="))
+    {
+        // PostgreSQL pour la production/Docker
+        options.UseNpgsql(connectionString);
+    }
+    else
+    {
+        // SQLite pour le développement local
+        options.UseSqlite(connectionString ?? "Data Source=db.sqlite");
+    }
+});
 builder.Services.AddScoped<IMailService, SmtpMailService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUserProvider, UserProvider>();

@@ -21,3 +21,12 @@ appsettings.json
 appsettings.Development.json
 db.sqlite-shm
 db.sqlite-wal
+
+# Docker - Ne jamais commit les fichiers sensibles
+.env
+.env.local
+.env.*.local
+
+# Docker volumes et données
+docker-volumes/
+postgres_data/
