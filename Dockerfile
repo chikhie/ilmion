@@ -28,10 +28,17 @@ RUN apt-get update && apt-get install -y \
 # Copier les fichiers publiés
 COPY --from=publish /app/publish .
 
+# Copier le fichier de configuration de production
+COPY appsettings.Production.json ./appsettings.Production.json
+
 # Créer les dossiers nécessaires pour les fichiers statiques
 RUN mkdir -p /app/wwwroot/uploads/profiles && \
     mkdir -p /app/wwwroot/protected/components && \
     mkdir -p /app/Infra/res/videos/videoTest
+
+# Définir l'environnement de production par défaut
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_HTTP_PORTS=8080
 
 # Exposer le port
 EXPOSE 8080
