@@ -14,7 +14,7 @@
     return titleChunk ? `${titleChunk} - Ilmanar` : 'Ilmanar - Plateforme Éducative'
   },
   link: [
-    { rel: 'icon', type: 'image/svg+xml', href: '/ilmanar.svg' }
+    { rel: 'icon', type: 'image/svg+xml', href: '/Ilmanar.svg' }
   ]
 })
 </script>

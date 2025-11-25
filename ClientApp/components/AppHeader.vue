@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between h-16">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center space-x-2">
-          <img src="/ilmanar.svg" alt="Ilmanar Logo" class="h-8 w-8" />
+          <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-8 w-8" />
           <span class="text-xl font-bold text-[#C39712]">ILMANAR</span>
         </NuxtLink>
 
