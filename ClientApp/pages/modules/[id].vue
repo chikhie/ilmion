@@ -86,9 +86,9 @@
               <div class="flex justify-between items-start mb-4">
                 <div class="flex-1">
                   <div class="flex items-center gap-2 mb-3">
-                    <span v-if="chapter.isFree" class="inline-block px-3 py-1 bg-green-900/30 border border-green-600 text-green-400 rounded-full text-xs font-bold">
+                    <!-- <span v-if="chapter.isFree" class="inline-block px-3 py-1 bg-green-900/30 border border-green-600 text-green-400 rounded-full text-xs font-bold">
                       ✓ GRATUIT
-                    </span>
+                    </span> -->
                     <span class="inline-block px-3 py-1 bg-gray-700 group-hover:bg-[#C39712]/20 text-gray-300 group-hover:text-[#C39712] rounded-full text-xs font-medium transition-colors border border-gray-600 group-hover:border-[#C39712]">
                       {{ chapter.durationMinutes }} min
                     </span>

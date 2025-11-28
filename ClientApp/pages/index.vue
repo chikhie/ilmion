@@ -15,11 +15,11 @@
           </p>
           <div class="flex flex-col sm:flex-row justify-center gap-4">
             <NuxtLink v-if="!authStore.isAuthenticated" to="/register" class="px-8 py-4 bg-[#C39712] text-[#082540] text-lg font-bold rounded-full hover:bg-yellow-500 transition-all transform hover:scale-105 shadow-lg shadow-yellow-900/20">
-              Commencer Gratuitement
+              Commencer Votre Apprentissage
             </NuxtLink>
-            <NuxtLink v-if="authStore.isAuthenticated && !authStore.isPremium" to="/subscribe" class="px-8 py-4 border-2 border-[#C39712] text-[#C39712] text-lg font-bold rounded-full hover:bg-[#C39712] hover:text-[#082540] transition-all">
+            <!-- <NuxtLink v-if="authStore.isAuthenticated && !authStore.isPremium" to="/subscribe" class="px-8 py-4 border-2 border-[#C39712] text-[#C39712] text-lg font-bold rounded-full hover:bg-[#C39712] hover:text-[#082540] transition-all">
               Voir l'offre Premium
-            </NuxtLink>
+            </NuxtLink> -->
             <NuxtLink v-if="authStore.isAuthenticated" to="/dashboard" class="px-8 py-4 bg-[#C39712] text-[#082540] text-lg font-bold rounded-full hover:bg-yellow-500 transition-all transform hover:scale-105 shadow-lg shadow-yellow-900/20">
               Accéder au tableau de bord
             </NuxtLink>
@@ -72,7 +72,7 @@
     <section class="py-20 bg-[#082540]">
       <div class="container mx-auto px-4">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Nos Matières Phares</h2>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Les Matières Disponibles</h2>
           <div class="w-24 h-1 bg-[#C39712] mx-auto rounded-full"></div>
         </div>
 
@@ -85,7 +85,7 @@
         </div>
 
         <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div v-for="subject in subjects?.slice(0, 4)" :key="subject.id" class="group relative overflow-hidden rounded-xl aspect-[4/3] cursor-pointer hover:shadow-2xl transition-all">
+          <div v-for="subject in subjects?.slice(0, 4)" :key="subject.id" class="group relative overflow-hidden rounded-xl aspect-[4/3] hover:shadow-2xl transition-all">
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent z-10"></div>
             <!-- Image fixe basée sur le label de la matière -->
             <img 
@@ -95,17 +95,17 @@
             />
             <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
               <h3 class="text-xl font-bold text-white group-hover:text-[#C39712] transition-colors">{{ subject.label }}</h3>
-              <NuxtLink :to="`/subjects/${subject.id}`" class="text-sm text-gray-300 mt-2 inline-block opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
+              <!-- <NuxtLink :to="`/subjects/${subject.id}`" class="text-sm text-gray-300 mt-2 inline-block opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
                 Découvrir →
-              </NuxtLink>
+              </NuxtLink> -->
             </div>
           </div>
         </div>
         
         <div class="text-center mt-12">
-          <p class="text-gray-400 text-sm">
+          <!-- <p class="text-gray-400 text-sm">
             Cliquez sur une matière pour explorer ses modules et chapitres
-          </p>
+          </p> -->
         </div>
       </div>
     </section>
@@ -116,7 +116,7 @@
     </section> -->
     
     <!-- CTA Final -->
-    <section v-if="!authStore.isPremium" class="py-20 bg-gradient-to-r from-[#C39712] to-yellow-600">
+    <!-- <section v-if="!authStore.isPremium" class="py-20 bg-gradient-to-r from-[#C39712] to-yellow-600">
       <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-[#082540] mb-6">Prêt à commencer votre voyage ?</h2>
         <p class="text-[#082540]/80 text-xl mb-10 max-w-2xl mx-auto">Rejoignez des milliers d'étudiants et maîtrisez les sciences dès aujourd'hui.</p>
@@ -130,7 +130,7 @@
           </NuxtLink>
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 

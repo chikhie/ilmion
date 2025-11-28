@@ -174,10 +174,10 @@
         <h2 class="text-2xl font-bold text-white mb-4">Prêt à commencer ?</h2>
         <p class="text-gray-400 mb-8">Explorez nos matières et commencez votre apprentissage dès maintenant</p>
         <NuxtLink 
-          to="/" 
+          to="/register" 
           class="inline-block px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors"
         >
-          Explorer les matières
+          Commencer Votre Apprentissage
         </NuxtLink>
       </div>
     </div>

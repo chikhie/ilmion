@@ -3,8 +3,10 @@ FROM node:latest AS build
 WORKDIR /app
 
 # Arguments de build
-ARG NUXT_PUBLIC_API_BASE=https://api-ilmanar.ibrahim-chikhi.cv/api
+ARG NUXT_PUBLIC_API_BASE=https://api.ilmanar.site/api
 
+# Exposer l'ARG comme variable d'environnement pour Nuxt
+ENV NUXT_PUBLIC_API_BASE=${NUXT_PUBLIC_API_BASE}
 
 # Copier les fichiers de dépendances
 COPY package*.json ./

@@ -152,6 +152,20 @@ export const useApi = () => {
       })
       return response
     },
+
+    // Stats
+    getDashboardStats: () =>
+      fetchApi<DashboardStats>('/stats/dashboard'),
+    updateProgress: (data: UpdateProgressDto) =>
+      fetchApi<void>('/stats/progress', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }),
+    logTime: (data: LogTimeDto) =>
+      fetchApi<void>('/stats/time', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }),
   }
 }
 

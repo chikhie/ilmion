@@ -10,7 +10,7 @@
 
         <!-- Navigation -->
         <nav class="hidden md:flex items-center space-x-6 ml-auto">
-          <NuxtLink to="/dashboard">
+          <NuxtLink v-if="isAuthenticated" to="/dashboard">
             <span class="text-gray-300 hover:text-[#C39712] font-medium transition-colors">
               Tableau de bord
             </span>
@@ -20,7 +20,7 @@
           </div>
           
           <!-- Subscription Badge -->
-          <SubscriptionBadge />
+          <!-- <SubscriptionBadge /> -->
           
           <!-- Authenticated -->
           <div v-if="isAuthenticated">

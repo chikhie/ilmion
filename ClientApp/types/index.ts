@@ -129,3 +129,29 @@ export interface Subscription {
   daysRemaining: number
 }
 
+// Stats Types
+export interface FollowedModule {
+  id: string
+  label: string
+  subjectName: string
+  chapterCount: number
+  progress: number
+  imageUrl?: string
+}
+
+export interface DashboardStats {
+  followedModules: FollowedModule[]
+  globalProgress: number
+  learningTimeSeconds: number
+  formattedLearningTime: string
+}
+
+export interface UpdateProgressDto {
+  sectionId: string
+  isCompleted: boolean
+}
+
+export interface LogTimeDto {
+  durationSeconds: number
+  moduleId?: string
+}

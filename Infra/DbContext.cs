@@ -13,6 +13,8 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity>
     public DbSet<SectionEntity> Sections { get; set; }
     public DbSet<SectionTypeEntity> SectionTypes { get; set; }
     public DbSet<SubscriptionEntity> Subscriptions { get; set; }
+    public DbSet<UserProgressEntity> UserProgress { get; set; }
+    public DbSet<UserLearningLogEntity> UserLearningLogs { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -77,6 +79,35 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity>
         
         modelBuilder.Entity<SubscriptionEntity>()
             .HasIndex(s => new { s.UserId, s.Status });
+
+        // Configuration de UserProgress
+        modelBuilder.Entity<UserProgressEntity>()
+            .HasOne(up => up.User)
+            .WithMany() // Pas de collection explicite dans UserEntity pour l'instant
+            .HasForeignKey(up => up.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+        modelBuilder.Entity<UserProgressEntity>()
+            .HasOne(up => up.Section)
+            .WithMany()
+            .HasForeignKey(up => up.SectionId)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+        modelBuilder.Entity<UserProgressEntity>()
+            .HasIndex(up => new { up.UserId, up.SectionId }).IsUnique();
+            
+        // Configuration de UserLearningLog
+        modelBuilder.Entity<UserLearningLogEntity>()
+            .HasOne(ull => ull.User)
+            .WithMany()
+            .HasForeignKey(ull => ull.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+        modelBuilder.Entity<UserLearningLogEntity>()
+            .HasOne(ull => ull.Module)
+            .WithMany()
+            .HasForeignKey(ull => ull.ModuleId)
+            .OnDelete(DeleteBehavior.SetNull);
         
         // Seed data
         SeedSectionTypes(modelBuilder);
