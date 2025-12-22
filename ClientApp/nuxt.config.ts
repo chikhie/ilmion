@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt'
@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
   // Configuration pour SSG (génération statique)
   ssr: false, // SPA mode pour simplicité
-  
+
   // Configuration de l'API
   runtimeConfig: {
     public: {
@@ -35,7 +35,10 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Plateforme éducative pour apprendre les mathématiques, la physique, la chimie et la biologie' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Amiri:wght@400;700&display=swap' }
       ]
     }
   },

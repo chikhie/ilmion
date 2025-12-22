@@ -1,171 +1,41 @@
-export const useApi = () => {
-  const config = useRuntimeConfig()
-  const apiBase = config.public.apiBase as string
-  const authStore = useAuthStore()
+import { ApiClient } from '~/services/api.client'
+import { UserService } from '~/services/user.service'
+import { GameService } from '~/services/game.service'
+import { PaymentService } from '~/services/payment.service'
+import { StatsService } from '~/services/stats.service'
 
-  const fetchApi = async <T>(endpoint: string, options?: RequestInit): Promise<T> => {
-    const url = `${apiBase}${endpoint}`
-    
-    try {
-      const response = await $fetch<T>(url, {
-        ...options,
-        headers: {
-          'Content-Type': 'application/json',
-          ...authStore.getAuthHeaders(),
-          ...options?.headers,
-        },
-      })
-      return response
-    } catch (error: any) {
-      // Si erreur 401, essayer de rafraîchir le token
-      if (error.status === 401 && authStore.refreshToken) {
-        const refreshed = await authStore.refreshAccessToken()
-        if (refreshed) {
-          // Réessayer la requête avec le nouveau token
-          return await $fetch<T>(url, {
-            ...options,
-            headers: {
-              'Content-Type': 'application/json',
-              ...authStore.getAuthHeaders(),
-              ...options?.headers,
-            },
-          })
-        } else {
-          // Rediriger vers la page de connexion
-          if (process.client) {
-            navigateTo('/login')
-          }
-        }
-      }
-      console.error('API Error:', error)
-      throw error
-    }
-  }
+export const useApi = () => {
+  const client = new ApiClient()
+
+  const userService = new UserService(client)
+  const gameService = new GameService(client)
+  const paymentService = new PaymentService(client)
+  const statsService = new StatsService(client)
 
   return {
-    // Subjects
-    getSubjects: () => fetchApi<Subject[]>('/subject'),
-    getSubject: (id: number) => fetchApi<Subject>(`/subject/${id}`),
+    // Services access
+    user: userService,
+    game: gameService,
+    payment: paymentService,
+    stats: statsService,
 
-    // Modules
-    getModulesBySubject: (subjectId: number) =>
-      fetchApi<Module[]>(`/module/subject/${subjectId}`),
-    getModule: (id: string) => fetchApi<Module>(`/module/${id}`),
-    createModule: (data: CreateModuleDto) =>
-      fetchApi<Module>('/module', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }),
-    updateModule: (id: string, data: Partial<CreateModuleDto>) =>
-      fetchApi<Module>(`/module/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-      }),
-    deleteModule: (id: string) =>
-      fetchApi<void>(`/module/${id}`, { method: 'DELETE' }),
-
-    // Chapters
-    getChaptersByModule: (moduleId: string) =>
-      fetchApi<Chapter[]>(`/chapter/module/${moduleId}`),
-    getChapter: (id: string) => fetchApi<Chapter>(`/chapter/${id}`),
-    createChapter: (data: CreateChapterDto) =>
-      fetchApi<Chapter>('/chapter', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }),
-    updateChapter: (id: string, data: Partial<CreateChapterDto>) =>
-      fetchApi<Chapter>(`/chapter/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-      }),
-    deleteChapter: (id: string) =>
-      fetchApi<void>(`/chapter/${id}`, { method: 'DELETE' }),
-    getChapterFile: (chapterId: string, fileName: string) =>
-      fetchApi<any>(`/chapter/${chapterId}/file/${fileName}`),
-
-    // Sections
-    getSectionsByChapter: (chapterId: string) =>
-      fetchApi<Section[]>(`/section/chapter/${chapterId}`),
-    getSection: (id: string) => fetchApi<Section>(`/section/${id}`),
-    createSection: (data: CreateSectionDto) =>
-      fetchApi<Section>('/section', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }),
-    updateSection: (id: string, data: Partial<CreateSectionDto>) =>
-      fetchApi<Section>(`/section/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-      }),
-    deleteSection: (id: string) =>
-      fetchApi<void>(`/section/${id}`, { method: 'DELETE' }),
-
+    // Backward compatibility (Facade)
     // Subscription & Payment
-    createSubscription: () => 
-      fetchApi<PaymentSession>('/payment/create-subscription', { 
-        method: 'POST'
-      }),
-    getPaymentStatus: (sessionId: string) => 
-      fetchApi<any>(`/payment/status/${sessionId}`),
-    getMySubscription: () => 
-      fetchApi<{ hasSubscription: boolean; subscription?: Subscription }>('/payment/my-subscription'),
-    hasAccess: () => 
-      fetchApi<{ hasAccess: boolean }>('/payment/has-access'),
-    cancelSubscription: () =>
-      fetchApi<{ message: string }>('/payment/cancel-subscription', { method: 'POST' }),
+    createSubscription: () => paymentService.createSubscription(),
+    getPaymentStatus: (sessionId: string) => paymentService.getPaymentStatus(sessionId),
+    getMySubscription: () => paymentService.getMySubscription(),
+    hasAccess: () => paymentService.hasAccess(),
+    cancelSubscription: () => paymentService.cancelSubscription(),
 
     // User Profile
-    getProfile: () => 
-      fetchApi<User>('/user/me'),
-    updateProfile: (data: any) => 
-      fetchApi<any>('/user/profile', { method: 'PUT', body: JSON.stringify(data) }),
-    uploadProfilePicture: async (file: File) => {
-      const formData = new FormData()
-      formData.append('file', file)
-      const url = `${apiBase}/user/profile/picture`
-      const response = await $fetch<any>(url, {
-        method: 'POST',
-        headers: authStore.getAuthHeaders(),
-        body: formData,
-      })
-      return response
-    },
-    deleteProfilePicture: () => 
-      fetchApi<any>('/user/profile/picture', { method: 'DELETE' }),
-    changePassword: (data: { currentPassword: string; newPassword: string }) => 
-      fetchApi<any>('/user/change-password', { method: 'POST', body: JSON.stringify(data) }),
-
-    // Protected Components
-    getProtectedComponent: (sectionId: string) =>
-      fetchApi<{ componentCode: string; sectionId: string; sectionTitle: string; accessedAt: string }>
-        (`/protected-component/component/${sectionId}`),
-    uploadProtectedComponent: async (file: File, componentName: string, sectionId?: string) => {
-      const formData = new FormData()
-      formData.append('file', file)
-      const params = new URLSearchParams({ componentName })
-      if (sectionId) params.append('sectionId', sectionId)
-      const url = `${apiBase}/protected-component/upload?${params.toString()}`
-      const response = await $fetch<any>(url, {
-        method: 'POST',
-        headers: authStore.getAuthHeaders(),
-        body: formData,
-      })
-      return response
-    },
+    getProfile: () => userService.getProfile(),
+    updateProfile: (data: any) => userService.updateProfile(data),
+    uploadProfilePicture: (file: File) => userService.uploadProfilePicture(file),
+    deleteProfilePicture: () => userService.deleteProfilePicture(),
+    changePassword: (data: { currentPassword: string; newPassword: string }) => userService.changePassword(data),
 
     // Stats
-    getDashboardStats: () =>
-      fetchApi<DashboardStats>('/stats/dashboard'),
-    updateProgress: (data: UpdateProgressDto) =>
-      fetchApi<void>('/stats/progress', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }),
-    logTime: (data: LogTimeDto) =>
-      fetchApi<void>('/stats/time', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }),
+    getDashboardStats: () => statsService.getDashboardStats(),
   }
 }
 

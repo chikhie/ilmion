@@ -1,14 +1,10 @@
 <template>
-  <footer class="bg-[#082540] border-t border-gray-700 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="border-t border-gray-700 mt-8 pt-6 text-center">
-        <p class="text-gray-400 text-sm">
-          &copy; {{ new Date().getFullYear() }} Ilmanar - Tous droits réservés
-          📧 <a href="mailto:contact@ilmanar.com" class="text-gray-300 hover:text-[#C39712] text-sm transition-colors">contact@ilmanar.com</a>
-
-        </p>
-
-      </div>
+  <footer class="bg-[#082540] border-t border-white/5 py-6 text-center font-sans relative z-10">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="text-gray-500 text-sm">
+        &copy; {{ new Date().getFullYear() }} Ilmanar &middot; 
+        <a href="mailto:contact@ilmanar.com" class="hover:text-white transition-colors">contact@ilmanar.com</a>
+      </p>
     </div>
   </footer>
 </template>

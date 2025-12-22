@@ -1,0 +1,70 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "type": "choice",
+            "text": "Quelle ville était la capitale du Califat omeyyade en Andalousie ?",
+            "options": [
+                "Séville",
+                "Grenade",
+                "Cordoue",
+                "Tolède"
+            ],
+            "correctAnswer": "Cordoue",
+            "explanation": "Cordoue était la capitale du Califat de Cordoue et l'une des villes les plus avancées du monde médiéval."
+        },
+        {
+            "id": 2,
+            "type": "number",
+            "text": "En quelle année (calendrier grégorien) la ville de Grenade est-elle tombée, marquant la fin de la présence musulmane en Espagne ?",
+            "correctAnswer": "1492",
+            "explanation": "La prise de Grenade par les Rois Catholiques a eu lieu le 2 janvier 1492."
+        },
+        {
+            "id": 3,
+            "type": "choice",
+            "text": "Quel célèbre palais se trouve à Grenade ?",
+            "options": [
+                "L'Alhambra",
+                "L'Alcazar",
+                "La Mezquita",
+                "Le Giralda"
+            ],
+            "correctAnswer": "L'Alhambra",
+            "explanation": "L'Alhambra est un complexe palatial spectaculaire situé à Grenade."
+        },
+        {
+            "id": 4,
+            "type": "number",
+            "text": "Combien de sourates contient le Coran ?",
+            "correctAnswer": "114",
+            "explanation": "Le Coran est composé de 114 sourates."
+        },
+        {
+            "id": 5,
+            "type": "choice",
+            "text": "Qui est l'auteur de l'ouvrage 'Al-Muqaddima' ?",
+            "options": [
+                "Ibn Sina",
+                "Ibn Khaldoun",
+                "Al-Farabi",
+                "Ibn Rushd"
+            ],
+            "correctAnswer": "Ibn Khaldoun",
+            "explanation": "Ibn Khaldoun est l'historien et sociologue célèbre pour son introduction à l'histoire universelle, la Muqaddima."
+        },
+        {
+            "id": 6,
+            "type": "choice",
+            "text": "Dans quelle ville se situe le complexe de l'Alhambra ?",
+            "options": [
+                "Cordoue",
+                "Séville",
+                "Grenade",
+                "Malaga"
+            ],
+            "correctAnswer": "Grenade",
+            "explanation": "L'Alhambra est un ensemble palatial, fleuron de l'architecture nasride, situé à Grenade."
+        }
+    ]
+}

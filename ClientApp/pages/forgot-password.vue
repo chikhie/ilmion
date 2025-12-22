@@ -1,28 +1,36 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-    <div class="max-w-md w-full">
+  <div class="min-h-screen bg-[#082540] flex items-center justify-center px-4 relative overflow-hidden font-sans">
+    <!-- Background Gradients (Modern & Minimal) -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute inset-0 bg-radial-gradient from-[#0B3152] to-[#082540]"></div>
+      <div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-[#C39712]/10 blur-[120px] rounded-full"></div>
+      <div class="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-[#0B3152]/40 blur-[120px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-md w-full relative z-10">
       <!-- Logo/Header -->
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-primary-600 mb-2">📚 Ilmanar</h1>
-        <p class="text-gray-600">Réinitialisation du mot de passe</p>
+      <div class="text-center mb-10 animate-fade-in">
+        <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-20 w-20 mx-auto mb-6 drop-shadow-2xl" />
+        <h1 class="text-2xl font-black tracking-tighter text-white uppercase mb-2">MOT DE PASSE OUBLIÉ</h1>
+        <p class="text-gray-400 font-medium">Récupération de compte</p>
       </div>
 
       <!-- Form -->
-      <div class="bg-white rounded-lg shadow-xl p-8">
+      <div class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl animate-fade-in-up">
         <div v-if="!emailSent">
-          <p class="text-gray-600 mb-6">
-            Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+          <p class="text-gray-400 text-sm mb-8 leading-relaxed text-center font-medium">
+            Entrez votre adresse email pour recevoir un lien de réinitialisation sécurisé.
           </p>
 
           <form @submit.prevent="handleSubmit" class="space-y-6">
             <!-- Alert -->
-            <div v-if="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <div v-if="errorMessage" class="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-2xl text-sm text-center">
               {{ errorMessage }}
             </div>
 
             <!-- Email -->
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+            <div class="space-y-2">
+              <label for="email" class="block text-xs font-bold uppercase tracking-widest text-gray-500 ml-1">
                 Email
               </label>
               <input
@@ -30,7 +38,7 @@
                 v-model="email"
                 type="email"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                class="w-full px-5 py-4 bg-white/5 border border-white/10 text-white rounded-2xl focus:ring-2 focus:ring-white/20 transition-all outline-none placeholder-gray-600"
                 placeholder="votre@email.com"
               />
             </div>
@@ -39,7 +47,7 @@
             <button
               type="submit"
               :disabled="loading"
-              class="w-full bg-primary-600 text-white py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full bg-white text-[#082540] py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-white/5"
             >
               <span v-if="!loading">Envoyer le lien</span>
               <span v-else class="flex items-center justify-center">
@@ -53,31 +61,32 @@
           </form>
 
           <!-- Back to Login -->
-          <div class="mt-6 text-center">
-            <NuxtLink to="/login" class="text-primary-600 hover:text-primary-700 font-medium text-sm">
-              ← Retour à la connexion
+          <div class="mt-8 text-center">
+            <NuxtLink to="/login" class="text-xs text-gray-500 hover:text-white transition-colors font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+              Retour
             </NuxtLink>
           </div>
         </div>
 
         <!-- Success Message -->
-        <div v-else class="text-center">
-          <div class="mb-6">
-            <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-              <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div v-else class="text-center py-4">
+          <div class="mb-8">
+            <div class="mx-auto w-16 h-16 bg-white/10 rounded-full flex items-center justify-center border border-white/10">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
               </svg>
             </div>
           </div>
 
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Email envoyé !</h3>
-          <p class="text-gray-600 mb-6">
-            Si un compte existe avec cette adresse email, vous recevrez un lien de réinitialisation dans quelques minutes.
+          <h3 class="text-xl font-bold text-white mb-3">Email envoyé !</h3>
+          <p class="text-gray-400 text-sm mb-10 leading-relaxed font-medium">
+            Si un compte existe, vous recevrez un lien de réinitialisation sous peu.
           </p>
 
           <NuxtLink
             to="/login"
-            class="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+            class="inline-block bg-white text-[#082540] px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all shadow-xl shadow-white/5"
           >
             Retour à la connexion
           </NuxtLink>

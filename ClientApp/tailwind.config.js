@@ -27,6 +27,10 @@ export default {
           gold: '#C39712', // Secondaire
         },
       },
+      fontFamily: {
+        'amiri': ['Amiri', 'serif'],
+        'playfair': ['Playfair Display', 'serif'],
+      },
     },
   },
   plugins: [],

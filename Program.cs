@@ -51,21 +51,7 @@ builder.Services.AddScoped<Ilmanar.Infra.repository.ISubscriptionRepo, Ilmanar.I
 // Service de chiffrement des composants
 builder.Services.AddScoped<ComponentEncryptionService>();
 
-// Configurer les timeouts et limites pour l'upload de vidÃ©os
-builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
-{
-    options.MultipartBodyLengthLimit = 5368709120; // 5 GB
-    options.ValueLengthLimit = int.MaxValue;
-    options.MultipartHeadersLengthLimit = int.MaxValue;
-});
 
-// Configurer Kestrel pour accepter de gros fichiers
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.Limits.MaxRequestBodySize = 5368709120; // 5 GB
-    serverOptions.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(30);
-    serverOptions.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(30);
-});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
@@ -183,22 +169,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Configure static files for videos
-var videoPath = Path.Combine(Directory.GetCurrentDirectory(), "Infra", "res", "videos", "videoTest");
-if (!Directory.Exists(videoPath))
-{
-    Directory.CreateDirectory(videoPath);
-}
 
-var provider = new FileExtensionContentTypeProvider();
-provider.Mappings[".m3u8"] = "application/x-mpegURL";
-provider.Mappings[".ts"] = "video/MP2T";
-
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(videoPath),
-    RequestPath = "/videos",
-    ContentTypeProvider = provider
-});
 
 // Servir le frontend Nuxt depuis wwwroot
 var wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
@@ -229,6 +200,21 @@ app.MapControllers();
 
 // Fallback pour le SPA - redirige toutes les routes non-API vers index.html
 app.MapFallbackToFile("index.html");
+
+// Initialiser la base de données et les données de seed
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        await Ilmanar.Infra.Data.DbInitializer.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Une erreur est survenue lors du seeding de la DB.");
+    }
+}
 
 app.Run();
 
