@@ -10,6 +10,7 @@
 /vscode
 db.sqlite
 .vscode
+.idea
 settings.json
 
 # Protected components - Ne jamais commit les composants chiffrés
@@ -30,3 +31,6 @@ db.sqlite-wal
 # Docker volumes et données
 docker-volumes/
 postgres_data/
+appsettings.Development.json
+appsettings.json
+appsettings.Production.json
