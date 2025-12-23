@@ -104,14 +104,14 @@ public class AuthController : ControllerBase
             var frontendUrl = _configuration["FrontendUrl"];
             var confirmationLink = $"{frontendUrl}/confirm-email?userId={user.Id}&token={token}";
 
-            var emailBody = EmailTemplates.GetEmailConfirmationTemplate(request.Username, confirmationLink);
+            var emailBody = EmailTemplates.GetEmailConfirmationTemplate(request.Username, confirmationLink, frontendUrl!);
             
             await _mailService.SendEmailAsync(
                 request.Email,
-                "Confirmez votre email - Kitab",
+                "Confirmez votre email - Ilmanar",
                 emailBody);
 
-            return Ok(new { message = "Utilisateur crÃ©Ã© avec succÃ¨s. Veuillez vÃ©rifier votre e-mail pour confirmer votre compte." });
+            return Ok(new { message = "Utilisateur créé avec succès. Veuillez vérifier votre e-mail pour confirmer votre compte." });
         }
 
         return BadRequest(new { message = "Erreur lors de la crÃ©ation de l'utilisateur.", errors = result.Errors });
@@ -137,7 +137,12 @@ public class AuthController : ControllerBase
 
         if (result.Succeeded)
         {
-            return Ok("Votre e-mail a Ã©tÃ© confirmÃ© avec succÃ¨s.");
+            // Envoyer un email de bienvenue
+            var frontendUrl = _configuration["FrontendUrl"];
+            var emailBody = EmailTemplates.GetWelcomeTemplate(user.UserName ?? "Utilisateur", frontendUrl!);
+            await _mailService.SendEmailAsync(user.Email!, "Bienvenue sur Ilmanar", emailBody);
+
+            return Ok("Votre e-mail a été confirmé avec succès.");
         }
 
         return BadRequest("Erreur lors de la confirmation de votre e-mail.");
@@ -165,14 +170,14 @@ public class AuthController : ControllerBase
         var frontendUrl = _configuration["FrontendUrl"];
         var resetLink = $"{frontendUrl}/reset-password?email={HtmlEncoder.Default.Encode(request.Email)}&token={token}";
 
-        var emailBody = EmailTemplates.GetPasswordResetTemplate(user.UserName ?? "Utilisateur", resetLink);
+        var emailBody = EmailTemplates.GetPasswordResetTemplate(user.UserName ?? "Utilisateur", resetLink, frontendUrl!);
         
         await _mailService.SendEmailAsync(
             request.Email,
-            "RÃ©initialisation de mot de passe - Kitab",
+            "Réinitialisation de mot de passe - Ilmanar",
             emailBody);
 
-        return Ok("Un lien de rÃ©initialisation de mot de passe a Ã©tÃ© envoyÃ© Ã  votre adresse e-mail.");
+        return Ok("Un lien de réinitialisation de mot de passe a été envoyé à votre adresse e-mail.");
     }
 
     [HttpPost("reset-password")]
@@ -181,7 +186,7 @@ public class AuthController : ControllerBase
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)
         {
-            return NotFound("Utilisateur non trouvÃ©.");
+            return NotFound("Utilisateur non trouvé.");
         }
 
         var decodedToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Token));
@@ -189,7 +194,7 @@ public class AuthController : ControllerBase
 
         if (result.Succeeded)
         {
-            return Ok("Votre mot de passe a Ã©tÃ© rÃ©initialisÃ© avec succÃ¨s.");
+            return Ok("Votre mot de passe a été réinitialisé avec succès.");
         }
 
         return BadRequest(result.Errors);
@@ -203,7 +208,7 @@ public class AuthController : ControllerBase
 
         if (user == null)
         {
-            return Unauthorized("Refresh token invalide ou expirÃ©.");
+            return Unauthorized("Token de rafraîchissement invalide ou expiré.");
         }
 
         // GÃ©nÃ©rer un nouvel access token

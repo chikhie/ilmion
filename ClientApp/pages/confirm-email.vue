@@ -1,74 +1,93 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-    <div class="max-w-md w-full bg-white rounded-lg shadow-xl p-8 text-center">
-      <!-- Loading -->
-      <div v-if="confirming" class="py-8">
-        <div class="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mb-4"></div>
-        <h2 class="text-xl font-semibold text-gray-900 mb-2">Confirmation en cours...</h2>
-        <p class="text-gray-600">Veuillez patienter</p>
+  <div class="min-h-screen bg-[#082540] flex items-center justify-center px-4 relative overflow-hidden font-sans">
+    <!-- Background Gradients -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute inset-0 bg-radial-gradient from-[#0B3152] to-[#082540]"></div>
+      <div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-[#C39712]/10 blur-[120px] rounded-full"></div>
+      <div class="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-[#0B3152]/40 blur-[120px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-md w-full relative z-10">
+      <!-- Logo -->
+      <div class="text-center mb-10 animate-fade-in">
+        <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-20 w-20 mx-auto mb-6 drop-shadow-2xl" />
+        <h1 class="text-2xl font-black tracking-tighter text-white uppercase mb-2">Confirmation Email</h1>
       </div>
 
-      <!-- Success -->
-      <div v-else-if="confirmed" class="py-8">
-        <div class="mb-6">
-          <div class="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-            <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-          </div>
+      <!-- Card -->
+      <div class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl animate-fade-in-up">
+        <!-- Loading -->
+        <div v-if="confirming" class="py-8 text-center">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-white/10 border-t-white mb-6"></div>
+          <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-tight">Vérification en cours...</h2>
+          <p class="text-gray-400 font-medium">Nous validons votre accès à Ilmanar</p>
         </div>
 
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">✅ Email confirmé !</h1>
-        <p class="text-gray-600 mb-8">
-          Votre adresse email a été confirmée avec succès. Vous pouvez maintenant vous connecter.
-        </p>
-
-        <NuxtLink
-          to="/login"
-          class="inline-block bg-primary-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
-        >
-          Se connecter
-        </NuxtLink>
-      </div>
-
-      <!-- Error -->
-      <div v-else class="py-8">
-        <div class="mb-6">
-          <div class="mx-auto w-20 h-20 bg-red-100 rounded-full flex items-center justify-center">
-            <svg class="w-12 h-12 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+        <!-- Success -->
+        <div v-else-if="confirmed" class="py-4 text-center">
+          <div class="mb-8">
+            <div class="mx-auto w-16 h-16 bg-white/10 rounded-full flex items-center justify-center border border-white/10">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
           </div>
-        </div>
 
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">❌ Erreur de confirmation</h1>
-        <p class="text-red-600 mb-2">{{ errorMessage }}</p>
-        <p class="text-gray-600 mb-8 text-sm">
-          Le lien de confirmation est peut-être expiré ou invalide.
-        </p>
-
-        <div class="space-y-3">
-          <button
-            @click="retryConfirmation"
-            class="w-full bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
-          >
-            Réessayer
-          </button>
+          <h2 class="text-2xl font-black text-white mb-4 uppercase tracking-tight">Compte activé !</h2>
+          <p class="text-gray-400 mb-10 leading-relaxed font-medium">
+            Votre adresse email a été confirmée avec succès. Vous faites maintenant partie de l'aventure Ilmanar.
+          </p>
 
           <NuxtLink
             to="/login"
-            class="block text-gray-600 hover:text-gray-800"
+            class="block w-full bg-white text-[#082540] py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform active:scale-95 shadow-xl shadow-white/5"
           >
-            Retour à la connexion
+            Se connecter
           </NuxtLink>
         </div>
-      </div>
 
-      <!-- Footer -->
-      <div class="mt-8 pt-6 border-t border-gray-200">
-        <NuxtLink to="/" class="text-sm text-gray-500 hover:text-gray-700">
-          ← Retour à l'accueil
-        </NuxtLink>
+        <!-- Error -->
+        <div v-else class="py-4 text-center">
+          <div class="mb-8">
+            <div class="mx-auto w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center border border-red-500/20">
+              <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </div>
+          </div>
+
+          <h2 class="text-2xl font-black text-white mb-4 uppercase tracking-tight">Échec de validation</h2>
+          <p class="text-red-400 mb-6 font-bold bg-red-500/10 py-3 px-4 rounded-xl border border-red-500/20 text-sm">
+            {{ errorMessage }}
+          </p>
+          <p class="text-gray-500 mb-8 text-xs font-medium uppercase tracking-widest">
+            Le lien de confirmation est peut-être expiré ou invalide.
+          </p>
+
+          <div class="space-y-4">
+            <button
+              @click="retryConfirmation"
+              class="w-full bg-white/10 text-white border border-white/10 py-4 rounded-2xl font-bold text-lg hover:bg-white/20 transition-all transform active:scale-95"
+            >
+              Réessayer
+            </button>
+
+            <NuxtLink
+              to="/login"
+              class="block text-xs text-gray-400 hover:text-white transition-colors font-bold uppercase tracking-widest"
+            >
+              Retour à la connexion
+            </NuxtLink>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-10 pt-8 border-t border-white/5 text-center">
+          <NuxtLink to="/" class="text-xs text-gray-500 hover:text-white transition-colors font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Accueil
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#082540] flex items-center justify-center px-4 relative overflow-hidden font-sans">
+  <div class="min-h-screen bg-[#082540] flex items-center justify-center px-4 py-8 sm:py-0 relative overflow-hidden font-sans">
     <!-- Background Gradients (Modern & Minimal) -->
     <div class="absolute inset-0 z-0 pointer-events-none">
       <div class="absolute inset-0 bg-radial-gradient from-[#0B3152] to-[#082540]"></div>
@@ -9,15 +9,14 @@
 
     <div class="max-w-md w-full relative z-10">
       <!-- Logo/Header -->
-      <div class="text-center mb-10 animate-fade-in">
-        <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-20 w-20 mx-auto mb-6 drop-shadow-2xl" />
-        <h1 class="text-4xl font-black tracking-tighter text-white uppercase mb-2">ILMANAR</h1>
-        <p class="text-gray-400 font-medium">Bon retour parmi nous</p>
+      <div class="text-center mb-6 sm:mb-10 animate-fade-in">
+        <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-14 w-14 sm:h-20 sm:w-20 mx-auto mb-4 sm:mb-6 drop-shadow-2xl" />
+        <h1 class="text-3xl sm:text-4xl font-black tracking-tighter text-white uppercase mb-2">ILMANAR</h1>
       </div>
 
       <!-- Login Form -->
-      <div class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl animate-fade-in-up">
-        <form @submit.prevent="handleLogin" class="space-y-6">
+      <div class="bg-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/10 shadow-2xl animate-fade-in-up">
+        <form @submit.prevent="handleLogin" class="space-y-5 sm:space-y-6">
           <!-- Alert -->
           <div v-if="errorMessage" class="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-2xl text-sm text-center">
             {{ errorMessage }}
@@ -60,35 +59,49 @@
           <!-- Forgot Password Link -->
           <div class="flex items-center justify-between text-xs px-1">
             <div class="flex items-center">
-              <input
+              <!-- <input
                 id="remember"
                 type="checkbox"
                 class="h-4 w-4 bg-white/5 border-white/10 rounded text-white focus:ring-offset-[#082540]"
               />
               <label for="remember" class="ml-2 text-gray-500 font-medium">
                 Se souvenir
-              </label>
+              </label> -->
             </div>
             <NuxtLink to="/forgot-password" class="text-white hover:text-gray-300 transition-colors font-bold">
-              Oublié ?
+              Mot de passe oublié ?
             </NuxtLink>
           </div>
 
           <!-- Submit Button -->
-          <button
-            type="submit"
-            :disabled="authStore.loading"
-            class="w-full bg-white text-[#082540] py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-white/5"
-          >
-            <span v-if="!authStore.loading">Se connecter</span>
-            <span v-else class="flex items-center justify-center">
-              <svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Chargement...
-            </span>
-          </button>
+          <div class="relative group">
+            <button
+              type="submit"
+              :disabled="authStore.loading || !isFormValid"
+              class="w-full bg-white text-[#082540] py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-white/5"
+            >
+              <span v-if="!authStore.loading">Se connecter</span>
+              <span v-else class="flex items-center justify-center">
+                <svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Chargement...
+              </span>
+            </button>
+            <!-- Validation Tooltip -->
+            <div
+              v-if="!isFormValid && validationMessage"
+              class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+            >
+              <div class="bg-red-500/90 text-white text-xs px-4 py-2 rounded-lg whitespace-nowrap shadow-lg">
+                {{ validationMessage }}
+                <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+                  <div class="border-4 border-transparent border-t-red-500/90"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
 
         <!-- Register Link -->
@@ -132,6 +145,26 @@ const form = ref({
 
 const errorMessage = ref('')
 const successMessage = ref('')
+
+const isFormValid = computed(() => {
+  return (
+    form.value.email.includes('@') &&
+    form.value.password.length >= 6
+  )
+})
+
+const validationMessage = computed(() => {
+  if (authStore.loading) return ''
+  
+  if (!form.value.email.includes('@')) {
+    return 'Veuillez entrer une adresse email valide'
+  }
+  if (form.value.password.length < 6) {
+    return 'Le mot de passe doit contenir au moins 6 caractères'
+  }
+  
+  return ''
+})
 
 // Afficher le message de succès si redirection depuis register
 onMounted(() => {

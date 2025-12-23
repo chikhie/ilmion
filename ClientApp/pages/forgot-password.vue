@@ -116,11 +116,14 @@ const handleSubmit = async () => {
   loading.value = true
 
   try {
-    // TODO: Implémenter l'API de récupération de mot de passe
-    // await api.forgotPassword(email.value)
-    
-    // Simuler l'envoi d'email
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    const config = useRuntimeConfig()
+    await $fetch(`${config.public.apiBase}/auth/forgot-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: email.value })
+    })
     
     emailSent.value = true
   } catch (error: any) {

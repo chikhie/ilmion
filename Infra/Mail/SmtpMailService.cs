@@ -28,6 +28,7 @@ public class SmtpMailService : IMailService
 
     public async Task SendEmailAsync(string to, string subject, string body, bool isHtml = true)
     {
+        Console.WriteLine("Sending email old to {0}", to);
         var mail = new MailMessage
         {
             From = new MailAddress(_from),

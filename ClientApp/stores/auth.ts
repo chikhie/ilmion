@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     // Initialiser l'authentification depuis le localStorage
     async initAuth() {
-      if (process.client) {
+      if (import.meta.client) {
         const token = localStorage.getItem('token')
         const refreshToken = localStorage.getItem('refreshToken')
         const userStr = localStorage.getItem('user')
@@ -31,15 +31,15 @@ export const useAuthStore = defineStore('auth', {
             this.token = token
             this.refreshToken = refreshToken
             this.isAuthenticated = true
-            
+
             if (userStr) {
               const parsedUser = JSON.parse(userStr)
               this.user = parsedUser
             }
-            
+
             // Rafraîchir les données utilisateur depuis l'API
             await this.fetchUserProfile()
-            
+
             // Vérifier l'état de l'abonnement
             await this.checkAccess()
           } catch (error) {
@@ -54,26 +54,23 @@ export const useAuthStore = defineStore('auth', {
     async login(credentials: LoginRequest) {
       this.loading = true
       try {
-        const config = useRuntimeConfig()
-        const response = await $fetch<AuthResponse>(`${config.public.apiBase}/auth/login`, {
-          method: 'POST',
-          body: credentials,
-        })
+        const { authService } = await import('~/services/auth.service')
+        const response = await authService.login(credentials)
 
         this.setAuth(response)
-        
-        // Récupérer les données complètes de l'utilisateur depuis /api/user/me
+
+        // Récupérer les données complètes de l'utilisateur
         await this.fetchUserProfile()
-        
+
         // Vérifier l'état de l'abonnement
         await this.checkAccess()
-        
+
         return { success: true }
       } catch (error: any) {
         console.error('Login error:', error)
-        return { 
-          success: false, 
-          message: error.data?.message || 'Erreur de connexion. Vérifiez vos identifiants.' 
+        return {
+          success: false,
+          message: error.data?.message || 'Erreur de connexion. Vérifiez vos identifiants.'
         }
       } finally {
         this.loading = false
@@ -84,21 +81,18 @@ export const useAuthStore = defineStore('auth', {
     async register(data: RegisterRequest) {
       this.loading = true
       try {
-        const config = useRuntimeConfig()
-        await $fetch(`${config.public.apiBase}/auth/register`, {
-          method: 'POST',
-          body: data,
-        })
+        const { authService } = await import('~/services/auth.service')
+        await authService.register(data)
 
-        return { 
-          success: true, 
-          message: 'Inscription réussie ! Vérifiez votre email pour confirmer votre compte.' 
+        return {
+          success: true,
+          message: 'Inscription réussie ! Vérifiez votre email pour confirmer votre compte.'
         }
       } catch (error: any) {
         console.error('Register error:', error)
-        return { 
-          success: false, 
-          message: error.data?.message || 'Erreur lors de l\'inscription.' 
+        return {
+          success: false,
+          message: error.data?.message || 'Erreur lors de l\'inscription.'
         }
       } finally {
         this.loading = false
@@ -108,11 +102,8 @@ export const useAuthStore = defineStore('auth', {
     // Déconnexion
     async logout() {
       try {
-        const config = useRuntimeConfig()
-        await $fetch(`${config.public.apiBase}/auth/logout`, {
-          method: 'POST',
-          headers: this.getAuthHeaders(),
-        })
+        const { authService } = await import('~/services/auth.service')
+        await authService.logout(this.token)
       } catch (error) {
         console.error('Logout error:', error)
       } finally {
@@ -125,11 +116,8 @@ export const useAuthStore = defineStore('auth', {
       if (!this.refreshToken) return false
 
       try {
-        const config = useRuntimeConfig()
-        const response = await $fetch<AuthResponse>(`${config.public.apiBase}/auth/refresh`, {
-          method: 'POST',
-          body: { refreshToken: this.refreshToken },
-        })
+        const { authService } = await import('~/services/auth.service')
+        const response = await authService.refreshToken(this.refreshToken)
 
         this.setAuth(response)
         return true
@@ -147,7 +135,7 @@ export const useAuthStore = defineStore('auth', {
       this.isAuthenticated = true
 
       // Sauvegarder dans localStorage
-      if (process.client) {
+      if (import.meta.client) {
         localStorage.setItem('token', authData.token)
         localStorage.setItem('refreshToken', authData.refreshToken)
       }
@@ -161,7 +149,7 @@ export const useAuthStore = defineStore('auth', {
       this.isAuthenticated = false
       this.hasActiveSubscription = false
 
-      if (process.client) {
+      if (import.meta.client) {
         localStorage.removeItem('token')
         localStorage.removeItem('refreshToken')
         localStorage.removeItem('user')
@@ -178,15 +166,13 @@ export const useAuthStore = defineStore('auth', {
       if (!this.token) return
 
       try {
-        const config = useRuntimeConfig()
-        const userProfile = await $fetch<User>(`${config.public.apiBase}/user/me`, {
-          headers: this.getAuthHeaders(),
-        })
+        const { authService } = await import('~/services/auth.service')
+        const userProfile = await authService.getProfile(this.token)
 
         this.user = userProfile
-        
+
         // Mettre à jour le localStorage avec les vraies données
-        if (process.client) {
+        if (import.meta.client) {
           localStorage.setItem('user', JSON.stringify(userProfile))
         }
       } catch (error) {
@@ -202,13 +188,11 @@ export const useAuthStore = defineStore('auth', {
       }
 
       try {
-        const config = useRuntimeConfig()
-        const response = await $fetch<{ hasAccess: boolean }>(`${config.public.apiBase}/payment/has-access`, {
-          headers: this.getAuthHeaders(),
-        })
+        const { authService } = await import('~/services/auth.service')
+        const hasAccess = await authService.checkSubscriptionAccess(this.token)
 
-        this.hasActiveSubscription = response.hasAccess
-        return response.hasAccess
+        this.hasActiveSubscription = hasAccess
+        return hasAccess
       } catch (error) {
         console.error('Error checking subscription access:', error)
         this.hasActiveSubscription = false

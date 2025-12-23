@@ -19,9 +19,9 @@
         </h1>
 
         <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
-          Apprenez, Jouez, Progressez.
+          Apprenez de façon ludique et interactive.
           <br/>
-          Une plateforme moderne dédiée à l'apprentissage de l'histoire et de la langue arabe.
+          Une plateforme moderne dédiée à l'apprentissage de l'histoire islamique et de la langue arabe.
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-10">
@@ -39,18 +39,6 @@
              class="px-10 py-4 border border-white/20 text-white text-lg font-bold rounded-full hover:bg-white/5 transition-all duration-300">
             Se connecter
           </NuxtLink>
-        </div>
-      </div>
-    </section>
-
-    <!-- Simple Features -->
-    <section class="relative z-10 w-full max-w-6xl mx-auto px-4 pb-32">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div v-for="(feature, index) in features" :key="index" 
-             class="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all duration-500 group">
-          <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">{{ feature.icon }}</div>
-          <h3 class="text-xl font-bold text-white mb-2">{{ feature.title }}</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">{{ feature.description }}</p>
         </div>
       </div>
     </section>

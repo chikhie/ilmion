@@ -1,95 +1,117 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-    <div class="max-w-md w-full">
+  <div class="min-h-screen bg-[#082540] flex items-center justify-center px-4 relative overflow-hidden font-sans">
+    <!-- Background Gradients -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute inset-0 bg-radial-gradient from-[#0B3152] to-[#082540]"></div>
+      <div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-[#C39712]/10 blur-[120px] rounded-full"></div>
+      <div class="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-[#0B3152]/40 blur-[120px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-md w-full relative z-10">
       <!-- Logo/Header -->
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-primary-600 mb-2">📚 Ilmanar</h1>
-        <p class="text-gray-600">Nouveau mot de passe</p>
+      <div class="text-center mb-10 animate-fade-in">
+        <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-20 w-20 mx-auto mb-6 drop-shadow-2xl" />
+        <h1 class="text-2xl font-black tracking-tighter text-white uppercase mb-2">Nouveau mot de passe</h1>
+        <p class="text-gray-400 font-medium">Sécurisez votre accès à Ilmanar</p>
       </div>
 
-      <!-- Form -->
-      <div class="bg-white rounded-lg shadow-xl p-8">
+      <!-- Card -->
+      <div class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl animate-fade-in-up">
         <div v-if="!passwordReset">
-          <p class="text-gray-600 mb-6">
-            Choisissez un nouveau mot de passe sécurisé pour votre compte.
+          <p class="text-gray-300 mb-8 text-center font-medium leading-relaxed">
+            Choisissez un nouveau mot de passe pour reprendre votre apprentissage.
           </p>
 
           <form @submit.prevent="handleSubmit" class="space-y-6">
             <!-- Alert -->
-            <div v-if="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <div v-if="errorMessage" class="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-2xl text-sm font-medium animate-shake">
               {{ errorMessage }}
             </div>
 
             <!-- New Password -->
-            <div>
-              <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+            <div class="space-y-2">
+              <label for="password" class="block text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
                 Nouveau mot de passe
               </label>
-              <input
-                id="password"
-                v-model="form.password"
-                type="password"
-                required
-                minlength="6"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="••••••••"
-              />
-              <p class="mt-1 text-xs text-gray-500">Minimum 6 caractères</p>
+              <div class="relative group">
+                <input
+                  id="password"
+                  v-model="form.password"
+                  type="password"
+                  required
+                  minlength="6"
+                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all group-hover:bg-white/10 font-medium"
+                  placeholder="••••••••"
+                />
+              </div>
+              <p class="mt-1 text-[10px] text-gray-500 font-bold uppercase tracking-widest ml-1">Minimum 6 caractères</p>
             </div>
 
             <!-- Confirm Password -->
-            <div>
-              <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">
+            <div class="space-y-2">
+              <label for="confirmPassword" class="block text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">
                 Confirmer le mot de passe
               </label>
-              <input
-                id="confirmPassword"
-                v-model="form.confirmPassword"
-                type="password"
-                required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="••••••••"
-              />
+              <div class="relative group">
+                <input
+                  id="confirmPassword"
+                  v-model="form.confirmPassword"
+                  type="password"
+                  required
+                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent transition-all group-hover:bg-white/10 font-medium"
+                  placeholder="••••••••"
+                />
+              </div>
             </div>
 
             <!-- Submit Button -->
-            <button
-              type="submit"
-              :disabled="loading || !isFormValid"
-              class="w-full bg-primary-600 text-white py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <span v-if="!loading">Réinitialiser le mot de passe</span>
-              <span v-else class="flex items-center justify-center">
-                <svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Réinitialisation...
-              </span>
-            </button>
+            <div class="pt-4">
+              <button
+                type="submit"
+                :disabled="loading || !isFormValid"
+                class="w-full bg-white text-[#082540] py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform active:scale-95 shadow-xl shadow-white/5 disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                <span v-if="!loading">RÉINITIALISER</span>
+                <span v-else class="flex items-center justify-center">
+                  <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  TRAITEMENT...
+                </span>
+              </button>
+            </div>
           </form>
         </div>
 
         <!-- Success Message -->
-        <div v-else class="text-center">
-          <div class="mb-6">
-            <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-              <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div v-else class="text-center py-6">
+          <div class="mb-8">
+            <div class="mx-auto w-16 h-16 bg-white/10 rounded-full flex items-center justify-center border border-white/10">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
               </svg>
             </div>
           </div>
 
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">Mot de passe réinitialisé !</h3>
-          <p class="text-gray-600 mb-6">
-            Votre mot de passe a été changé avec succès. Vous pouvez maintenant vous connecter.
+          <h3 class="text-2xl font-black text-white mb-4 uppercase tracking-tight">C'est fait !</h3>
+          <p class="text-gray-400 mb-10 leading-relaxed font-medium">
+            Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous reconnecter à votre espace.
           </p>
 
           <NuxtLink
             to="/login"
-            class="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+            class="block w-full bg-white text-[#082540] py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform active:scale-95"
           >
-            Se connecter
+            SE CONNECTER
+          </NuxtLink>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-10 pt-8 border-t border-white/5 text-center">
+          <NuxtLink to="/login" class="text-xs text-gray-500 hover:text-white transition-colors font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Retour connexion
           </NuxtLink>
         </div>
       </div>
@@ -140,15 +162,18 @@ const handleSubmit = async () => {
   loading.value = true
 
   try {
-    // TODO: Implémenter l'API de réinitialisation de mot de passe
-    // await api.resetPassword({
-    //   email: email,
-    //   token: token,
-    //   newPassword: form.value.password
-    // })
-    
-    // Simuler la réinitialisation
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    const config = useRuntimeConfig()
+    await $fetch(`${config.public.apiBase}/auth/reset-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        token: token,
+        newPassword: form.value.password
+      })
+    })
     
     passwordReset.value = true
   } catch (error: any) {

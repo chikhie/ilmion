@@ -53,10 +53,11 @@
 <script setup>
 const route = useRoute()
 const router = useRouter()
+const config = useRuntimeConfig()
 const gameId = route.params.id
 const refreshKey = ref(0) // Used to force component re-render
 
-const { data: game, pending, error } = await useFetch(`/api/game/${gameId}`)
+const { data: game, pending, error } = await useFetch(`${config.public.apiBase}/game/${gameId}`)
 
 function goBack() {
   router.push('/games')

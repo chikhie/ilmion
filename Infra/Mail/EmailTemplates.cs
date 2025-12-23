@@ -10,241 +10,214 @@ public static class EmailTemplates
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>{0}</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        
         * {{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }}
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
-            padding: 40px 20px;
-            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #082540;
+            padding: 60px 20px;
+            color: #ffffff;
+            line-height: 1.6;
+        }}
+        .wrapper {{
+            width: 100%;
+            background-color: #082540;
+            padding-bottom: 60px;
         }}
         .container {{
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
+            background-color: #0B3152;
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }}
         .header {{
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-            padding: 50px 40px;
+            padding: 50px 40px 30px;
             text-align: center;
         }}
-        .header h1 {{
-            color: #d4af7a;
-            font-size: 48px;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+        .logo-img {{
+            width: 80px;
+            height: 80px;
+            margin-bottom: 24px;
         }}
-        .header p {{
-            color: #e2e8f0;
-            font-size: 16px;
-            margin-top: 10px;
+        .platform-name {{
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }}
+        .platform-subtitle {{
+            color: #C39712;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
         }}
         .content {{
-            padding: 50px 40px;
-            color: #2d3748;
+            padding: 0 40px 50px;
+            text-align: center;
         }}
         .greeting {{
             font-size: 24px;
-            color: #1a202c;
+            color: #ffffff;
             margin-bottom: 20px;
-            font-weight: 600;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }}
-        .message {{
+        .text {{
             font-size: 16px;
-            line-height: 1.8;
-            color: #4a5568;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 30px;
         }}
-        .button-container {{
-            text-align: center;
+        .button-wrapper {{
             margin: 40px 0;
         }}
         .button {{
             display: inline-block;
-            background: linear-gradient(135deg, #d4af7a 0%, #c9a366 100%);
-            color: #1a202c !important;
-            padding: 16px 48px;
+            background-color: #ffffff;
+            color: #082540 !important;
+            padding: 16px 40px;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 16px;
             font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(212, 175, 122, 0.3);
-        }}
-        .button:hover {{
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 122, 0.4);
-        }}
-        .alternative-link {{
-            margin-top: 30px;
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 8px;
-            border-left: 4px solid #d4af7a;
-        }}
-        .alternative-link p {{
-            font-size: 14px;
-            color: #4a5568;
-            margin-bottom: 10px;
-        }}
-        .alternative-link a {{
-            color: #2d3748;
-            word-break: break-all;
-            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.1);
         }}
         .footer {{
-            background: #f7fafc;
-            padding: 30px 40px;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.1);
             text-align: center;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }}
-        .footer p {{
-            color: #718096;
-            font-size: 14px;
-            line-height: 1.6;
+        .footer-text {{
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
         }}
         .divider {{
             height: 1px;
-            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+            background-color: rgba(255, 255, 255, 0.1);
             margin: 30px 0;
         }}
         .highlight {{
-            color: #d4af7a;
-            font-weight: 600;
+            color: #C39712;
+            font-weight: 700;
+        }}
+        .alt-text {{
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            word-break: break-all;
+            margin-top: 20px;
+            display: block;
         }}
     </style>
 </head>
 <body>
-    <div class='container'>
-        <div class='header'>
-            <h1>Kitab</h1>
-            <p>Rejoignez Kitab et accÃ©dez Ã  des contenus authentiques sur l'Islam</p>
-        </div>
-        <div class='content'>
-            {1}
-        </div>
-        <div class='footer'>
-            <p>Â© 2025 Kitab. Tous droits rÃ©servÃ©s.</p>
-            <p style='margin-top: 10px; font-size: 12px;'>
-                Si vous n'avez pas demandÃ© cet email, vous pouvez l'ignorer en toute sÃ©curitÃ©.
-            </p>
+    <div class='wrapper'>
+        <div class='container'>
+            <div class='header'>
+                <img src='{2}/Ilmanar.svg' alt='Ilmanar Logo' class='logo-img' />
+                <div class='platform-name'>ILMANAR</div>
+                <div class='platform-subtitle'>RÉINVENTE VOTRE APPRENTISSAGE</div>
+            </div>
+            <div class='content'>
+                {1}
+            </div>
+            <div class='footer'>
+                <p class='footer-text'>© 2025 Ilmanar. Tous droits réservés.</p>
+                <p class='footer-text' style='margin-top: 10px; font-size: 11px;'>
+                    Si vous n'êtes pas à l'origine de cet email, vous pouvez l'ignorer en toute sécurité.
+                </p>
+            </div>
         </div>
     </div>
 </body>
 </html>";
 
-    public static string GetEmailConfirmationTemplate(string userName, string confirmationLink)
+    public static string GetEmailConfirmationTemplate(string userName, string confirmationLink, string frontendUrl)
     {
         var content = $@"
-            <div class='greeting'>Bienvenue {userName} !</div>
-            <div class='message'>
-                <p>Merci de vous Ãªtre inscrit sur <span class='highlight'>Kitab</span>.</p>
-                <p style='margin-top: 15px;'>
-                    Pour commencer Ã  profiter de nos contenus authentiques sur l'Islam, 
-                    veuillez confirmer votre adresse email en cliquant sur le bouton ci-dessous :
-                </p>
-            </div>
+            <h1 class='greeting'>Assalamou alaikoum, {userName} !</h1>
+            <p class='text'>
+                Nous sommes ravis de vous compter parmi les membres d'<span class='highlight'>Ilmanar</span>. 
+                Une dernière étape pour activer votre accès aux connaissances :
+            </p>
             
-            <div class='button-container'>
+            <div class='button-wrapper'>
                 <a href='{confirmationLink}' class='button'>
-                    â†’ Confirmer mon email
+                    ACTIVER MON COMPTE
                 </a>
             </div>
 
-            <div class='alternative-link'>
-                <p><strong>Le bouton ne fonctionne pas ?</strong></p>
-                <p>Copiez et collez ce lien dans votre navigateur :</p>
-                <a href='{confirmationLink}'>{confirmationLink}</a>
-            </div>
+            <span class='alt-text'>
+                Si le bouton ne fonctionne pas, utilisez ce lien :<br/>
+                {confirmationLink}
+            </span>
 
             <div class='divider'></div>
+            
+            <p class='text' style='font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 0;'>
+                ⚠️ Ce lien expirera dans 24 heures pour votre sécurité.
+            </p>";
 
-            <div class='message'>
-                <p style='font-size: 14px; color: #718096;'>
-                    Ce lien de confirmation expirera dans 24 heures pour des raisons de sÃ©curitÃ©.
-                </p>
-            </div>";
-
-        return string.Format(BaseTemplate, "Confirmez votre email - Kitab", content);
+        return string.Format(BaseTemplate, "Activez votre compte Ilmanar", content, frontendUrl);
     }
 
-    public static string GetPasswordResetTemplate(string userName, string resetLink)
+    public static string GetPasswordResetTemplate(string userName, string resetLink, string frontendUrl)
     {
         var content = $@"
-            <div class='greeting'>Bonjour {userName},</div>
-            <div class='message'>
-                <p>Vous avez demandÃ© Ã  rÃ©initialiser votre mot de passe sur <span class='highlight'>Kitab</span>.</p>
-                <p style='margin-top: 15px;'>
-                    Cliquez sur le bouton ci-dessous pour crÃ©er un nouveau mot de passe :
-                </p>
-            </div>
+            <h1 class='greeting'>Réinitialisation de mot de passe</h1>
+            <p class='text'>
+                Bonjour {userName}, vous avez demandé à réinitialiser votre mot de passe sur Ilmanar. 
+                Cliquez sur le bouton ci-dessous pour choisir votre nouveau secret :
+            </p>
             
-            <div class='button-container'>
+            <div class='button-wrapper'>
                 <a href='{resetLink}' class='button'>
-                    â†’ RÃ©initialiser mon mot de passe
+                    CHANGER MON MOT DE PASSE
                 </a>
             </div>
 
-            <div class='alternative-link'>
-                <p><strong>Le bouton ne fonctionne pas ?</strong></p>
-                <p>Copiez et collez ce lien dans votre navigateur :</p>
-                <a href='{resetLink}'>{resetLink}</a>
-            </div>
+            <span class='alt-text'>
+                Si le bouton ne fonctionne pas, utilisez ce lien :<br/>
+                {resetLink}
+            </span>
 
             <div class='divider'></div>
+            
+            <p class='text' style='font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 0;'>
+                🕒 Ce lien est valable pendant 1 heure. Si vous n'êtes pas l'auteur de cette demande, 
+                votre mot de passe actuel ne sera pas modifié.
+            </p>";
 
-            <div class='message'>
-                <p style='font-size: 14px; color: #718096;'>
-                    Ce lien de rÃ©initialisation expirera dans 1 heure pour des raisons de sÃ©curitÃ©.
-                </p>
-                <p style='font-size: 14px; color: #718096; margin-top: 10px;'>
-                    Si vous n'avez pas demandÃ© cette rÃ©initialisation, veuillez ignorer cet email. 
-                    Votre mot de passe actuel restera inchangÃ©.
-                </p>
-            </div>";
-
-        return string.Format(BaseTemplate, "RÃ©initialisation de mot de passe - Kitab", content);
+        return string.Format(BaseTemplate, "Récupération de compte Ilmanar", content, frontendUrl);
     }
 
-    public static string GetWelcomeTemplate(string userName)
+    public static string GetWelcomeTemplate(string userName, string frontendUrl)
     {
         var content = $@"
-            <div class='greeting'>Bienvenue sur Kitab, {userName} !</div>
-            <div class='message'>
-                <p>Votre compte a Ã©tÃ© confirmÃ© avec succÃ¨s ! ðŸŽ‰</p>
-                <p style='margin-top: 15px;'>
-                    Vous pouvez maintenant accÃ©der Ã  tous nos contenus authentiques sur l'Islam.
-                </p>
-            </div>
+            <h1 class='greeting'>Bienvenue à bord !</h1>
+            <p class='text'>
+                Félicitations {userName}, votre compte est activé. 
+                Tout est prêt pour commencer votre aventure sur Ilmanar.
+            </p>
             
-            <div class='button-container'>
-                <a href='{{frontendUrl}}' class='button'>
-                    â†’ DÃ©couvrir Kitab
+            <div class='button-wrapper'>
+                <a href='{frontendUrl}' class='button'>
+                    ACCÉDER À LA PLATEFORME
                 </a>
-            </div>
-
-            <div class='divider'></div>
-
-            <div class='message'>
-                <p style='font-size: 15px;'>
-                    <strong>Que pouvez-vous faire maintenant ?</strong>
-                </p>
-                <ul style='margin-top: 10px; padding-left: 20px; color: #4a5568;'>
-                    <li style='margin: 8px 0;'>Parcourir notre bibliothÃ¨que de contenus</li>
-                    <li style='margin: 8px 0;'>AccÃ©der Ã  des vidÃ©os authentiques</li>
-                    <li style='margin: 8px 0;'>Rejoindre notre communautÃ©</li>
-                </ul>
             </div>";
 
-        return string.Format(BaseTemplate, "Bienvenue sur Kitab", content);
+        return string.Format(BaseTemplate, "Bienvenue sur Ilmanar", content, frontendUrl);
     }
 }
-
-

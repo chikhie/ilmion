@@ -39,7 +39,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlite(connectionString ?? "Data Source=db.sqlite");
     }
 });
-builder.Services.AddScoped<IMailService, SmtpMailService>();
+builder.Services.AddScoped<IMailService, MailtrapMailService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUserProvider, UserProvider>();
 builder.Services.AddScoped<UserRepo>();

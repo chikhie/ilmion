@@ -6,8 +6,21 @@
     <!-- Game Header -->
     <div class="mb-10 flex justify-between items-center relative z-10">
       <h2 class="text-xs font-black uppercase tracking-[0.2em] text-gray-500">{{ title }}</h2>
-      <div class="text-sm font-black text-[#C39712] bg-[#C39712]/10 px-4 py-2 rounded-2xl border border-[#C39712]/20">
-        SCORE: {{ score }} / {{ questions.length }}
+      <div class="flex gap-3">
+        <!-- Timer -->
+        <div v-if="!showResult && !answered" class="text-sm font-black px-4 py-2 rounded-2xl border transition-all"
+             :class="timerClass">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {{ timeRemaining }}s
+          </div>
+        </div>
+        <!-- Score -->
+        <div class="text-sm font-black text-[#C39712] bg-[#C39712]/10 px-4 py-2 rounded-2xl border border-[#C39712]/20">
+          SCORE: {{ score }} / {{ questions.length }}
+        </div>
       </div>
     </div>
 
@@ -30,10 +43,10 @@
       </p>
       
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button @click="$emit('retry')" class="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-2xl font-bold hover:bg-white/10 transition-all active:scale-95">
+        <button @click="handleRetry" class="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-2xl font-bold hover:bg-white/10 transition-all active:scale-95">
           Recommencer
         </button>
-        <button @click="$emit('close')" class="px-8 py-4 bg-white text-[#082540] rounded-2xl font-black hover:bg-gray-100 transition-all shadow-xl active:scale-95">
+        <button @click="handleClose" class="px-8 py-4 bg-white text-[#082540] rounded-2xl font-black hover:bg-gray-100 transition-all shadow-xl active:scale-95">
           Retour aux jeux
         </button>
       </div>
@@ -154,7 +167,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 
 const props = defineProps({
   gameContent: {
@@ -178,6 +191,10 @@ const answered = ref(false)
 const selectedAnswer = ref<string | null>(null)
 const numberInput = ref('')
 const isCorrect = ref(false)
+
+// Timer State
+const timeRemaining = ref(30)
+const timerInterval = ref<ReturnType<typeof setInterval> | null>(null)
 
 // Parsing content
 const questions = computed(() => {
@@ -234,6 +251,64 @@ function resetQuestionState() {
   selectedAnswer.value = null
   numberInput.value = ''
   isCorrect.value = false
+  startTimer()
+}
+
+// Timer Functions
+function startTimer() {
+  stopTimer()
+  timeRemaining.value = 30
+  
+  timerInterval.value = setInterval(() => {
+    if (timeRemaining.value > 0) {
+      timeRemaining.value--
+    } else {
+      // Time's up - auto submit as incorrect
+      stopTimer()
+      if (!answered.value) {
+        handleTimeOut()
+      }
+    }
+  }, 1000)
+}
+
+function stopTimer() {
+  if (timerInterval.value) {
+    clearInterval(timerInterval.value)
+    timerInterval.value = null
+  }
+}
+
+function handleTimeOut() {
+  answered.value = true
+  isCorrect.value = false
+  
+  // Auto advance after 2 seconds
+  setTimeout(() => {
+    nextQuestion()
+  }, 2000)
+}
+
+const timerClass = computed(() => {
+  if (timeRemaining.value <= 5) {
+    return 'text-red-400 bg-red-500/20 border-red-500/30 animate-pulse'
+  } else if (timeRemaining.value <= 10) {
+    return 'text-orange-400 bg-orange-500/10 border-orange-500/20'
+  }
+  return 'text-white bg-white/10 border-white/20'
+})
+
+// Safe emit handlers with nextTick
+async function handleClose() {
+  stopTimer()
+  await nextTick()
+  emit('close')
+}
+
+async function handleRetry() {
+  stopTimer()
+  await nextTick()
+  emit('retry')
 }
 
 function getOptionClass(option: string) {
@@ -253,6 +328,22 @@ function getOptionClass(option: string) {
   
   return 'border-white/5 text-gray-600 opacity-40' // Dim incorrect options
 }
+
+// Lifecycle
+onMounted(() => {
+  startTimer()
+})
+
+onUnmounted(() => {
+  stopTimer()
+})
+
+// Stop timer when answer is submitted
+watch(answered, (newVal) => {
+  if (newVal) {
+    stopTimer()
+  }
+})
 </script>
 
 <style scoped>
