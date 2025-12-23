@@ -13,8 +13,7 @@ public static class DbInitializer
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UserEntity>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-        // Ensure database is reset (Dev mode only - careful!)
-        await context.Database.EnsureDeletedAsync();
+        // Ensure database is created (do NOT use EnsureDeletedAsync in production/dev if you want to keep data)
         await context.Database.EnsureCreatedAsync();
 
         // Seed Roles

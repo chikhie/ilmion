@@ -201,18 +201,21 @@ app.MapControllers();
 // Fallback pour le SPA - redirige toutes les routes non-API vers index.html
 app.MapFallbackToFile("index.html");
 
-// Initialiser la base de données et les données de seed
-using (var scope = app.Services.CreateScope())
+// Initialiser la base de données uniquement si demandé via l'argument --seed
+if (args.Contains("--seed"))
 {
-    var services = scope.ServiceProvider;
-    try
+    using (var scope = app.Services.CreateScope())
     {
-        await Ilmanar.Infra.Data.DbInitializer.Initialize(services);
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Une erreur est survenue lors du seeding de la DB.");
+        var services = scope.ServiceProvider;
+        try
+        {
+            await Ilmanar.Infra.Data.DbInitializer.Initialize(services);
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "Une erreur est survenue lors du seeding de la DB.");
+        }
     }
 }
 
