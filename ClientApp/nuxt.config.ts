@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   ],
 
   // Configuration pour SSG (génération statique)
-  ssr: false, // SPA mode pour simplicité
+  ssr: true, // SSR enabled for SEO
 
   // Configuration de l'API
   runtimeConfig: {
