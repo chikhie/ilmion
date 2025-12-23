@@ -128,7 +128,6 @@ public static class EmailTemplates
             <div class='header'>
                 <img src='{2}/Ilmanar.svg' alt='Ilmanar Logo' class='logo-img' />
                 <div class='platform-name'>ILMANAR</div>
-                <div class='platform-subtitle'>RÉINVENTE VOTRE APPRENTISSAGE</div>
             </div>
             <div class='content'>
                 {1}
@@ -149,8 +148,7 @@ public static class EmailTemplates
         var content = $@"
             <h1 class='greeting'>Assalamou alaikoum, {userName} !</h1>
             <p class='text'>
-                Nous sommes ravis de vous compter parmi les membres d'<span class='highlight'>Ilmanar</span>. 
-                Une dernière étape pour activer votre accès aux connaissances :
+                Nous sommes ravis de vous compter parmi les membres d'<span class='highlight'>Ilmanar</span>.
             </p>
             
             <div class='button-wrapper'>
@@ -201,23 +199,5 @@ public static class EmailTemplates
             </p>";
 
         return string.Format(BaseTemplate, "Récupération de compte Ilmanar", content, frontendUrl);
-    }
-
-    public static string GetWelcomeTemplate(string userName, string frontendUrl)
-    {
-        var content = $@"
-            <h1 class='greeting'>Bienvenue à bord !</h1>
-            <p class='text'>
-                Félicitations {userName}, votre compte est activé. 
-                Tout est prêt pour commencer votre aventure sur Ilmanar.
-            </p>
-            
-            <div class='button-wrapper'>
-                <a href='{frontendUrl}' class='button'>
-                    ACCÉDER À LA PLATEFORME
-                </a>
-            </div>";
-
-        return string.Format(BaseTemplate, "Bienvenue sur Ilmanar", content, frontendUrl);
     }
 }
