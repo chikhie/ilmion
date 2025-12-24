@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:18 AS build
+FROM node:24.12.0 AS build
 WORKDIR /app
 
 # Copier les fichiers de dépendances
@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Production
-FROM node:18
+FROM node:24.12.0
 WORKDIR /app
 
 # Copier le build et les fichiers nécessaires
