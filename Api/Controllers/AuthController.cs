@@ -137,11 +137,6 @@ public class AuthController : ControllerBase
 
         if (result.Succeeded)
         {
-            // Envoyer un email de bienvenue
-            var frontendUrl = _configuration["FrontendUrl"];
-            var emailBody = EmailTemplates.GetWelcomeTemplate(user.UserName ?? "Utilisateur", frontendUrl!);
-            await _mailService.SendEmailAsync(user.Email!, "Bienvenue sur Ilmanar", emailBody);
-
             return Ok("Votre e-mail a été confirmé avec succès.");
         }
 
