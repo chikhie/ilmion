@@ -97,7 +97,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("ProdCors", policy =>
     {
         policy
-            .WithOrigins("https://ilmanar.site")
+            .WithOrigins("https://ilmanar.site","https://api.ilmanar.site")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
