@@ -1,17 +1,8 @@
-:80 {
-    root * /usr/share/caddy
-    file_server
-
-    # Gestion du SPA : rediriger toutes les requêtes non-fichiers vers index.html
-    try_files {path} /index.html
-
-    # Compression Gzip pour de meilleures performances
+# Frontend Nuxt SSR
+ilmanar.site {
+    reverse_proxy localhost:3000
     encode gzip
-
-    # Logs
-    log {
-        output stdout
-        format console
+    header {
+        Strict-Transport-Security "max-age=31536000;"
     }
 }
-

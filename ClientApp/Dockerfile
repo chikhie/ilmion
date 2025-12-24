@@ -1,38 +1,29 @@
 # Stage 1: Build
-FROM node:latest AS build
+FROM node:18 AS build
 WORKDIR /app
-
-# Arguments de build
-ARG NUXT_PUBLIC_API_BASE=https://api.ilmanar.site/api
-
-# Exposer l'ARG comme variable d'environnement pour Nuxt
-ENV NUXT_PUBLIC_API_BASE=${NUXT_PUBLIC_API_BASE}
 
 # Copier les fichiers de dépendances
 COPY package*.json ./
-
-# Debug: Vérifier que package.json est bien là
-RUN ls -la
-
-# Installer les dépendances
 RUN npm install
 
-# Copier tous les fichiers source
+# Copier tout le code source
 COPY . .
 
-# Générer les fichiers statiques
-RUN npm run generate
+# Build Nuxt pour SSR
+RUN npm run build
 
-# Stage 2: Serve with Caddy
-FROM caddy:latest
-WORKDIR /usr/share/caddy
+# Stage 2: Production
+FROM node:18
+WORKDIR /app
 
-# Copier les fichiers générés depuis le stage de build
-COPY --from=build /app/.output/public /usr/share/caddy
+# Copier le build et les fichiers nécessaires
+COPY --from=build /app ./
 
-# Copier la configuration Caddy
-# Note: Le contexte de build est ./ClientApp, donc Caddyfile est à la racine du contexte
-COPY Caddyfile /etc/caddy/Caddyfile
+# Installer uniquement les dépendances de production
+RUN npm install --omit=dev
 
-# Exposer le port 80
-EXPOSE 80
+# Exposer le port Nuxt SSR (3000 par défaut)
+EXPOSE 3000
+
+# Lancer Nuxt SSR
+CMD ["npm", "run", "start"]
