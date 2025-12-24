@@ -28,9 +28,6 @@ RUN apt-get update && apt-get install -y \
 # Copier les fichiers publiés
 COPY --from=publish /app/publish .
 
-# Copier le fichier de configuration de production
-COPY appsettings.Production.json ./appsettings.Production.json
-
 # Créer les dossiers nécessaires pour les fichiers statiques
 RUN mkdir -p /app/wwwroot/uploads/profiles && \
     mkdir -p /app/wwwroot/protected/components && \
