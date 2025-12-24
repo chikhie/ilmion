@@ -20,11 +20,11 @@ WORKDIR /app
 COPY --from=build /app/.output ./.output
 
 # Variables d'environnement pour Nuxt Nitro
-ENV PORT=3000
+ENV PORT=81     
 ENV HOST=0.0.0.0
 
 # Exposer le port
-EXPOSE 3000
+EXPOSE 81
 
 # Lancer le serveur Nuxt
 CMD ["node", ".output/server/index.mjs"]
