@@ -86,11 +86,20 @@ builder.Services.AddControllers();
 // Configuration CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("DevCors", policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+
+    options.AddPolicy("ProdCors", policy =>
+    {
+        policy
+            .WithOrigins("https://ilmanar.site")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 
@@ -163,12 +172,21 @@ if (app.Environment.IsDevelopment())
 }
 
 // CORS doit être avant Authentication et Authorization
-if (app.Environment.IsDevelopment())    
+app.UseRouting();
+
+if (app.Environment.IsDevelopment())
 {
-    app.UseCors("AllowAll");
-}else{
-    app.UseCors("https://ilmanar.com");
+    app.UseCors("DevCors");
 }
+else
+{
+    app.UseCors("ProdCors");
+}
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+
 
 app.UseAuthentication();
 app.UseAuthorization();
