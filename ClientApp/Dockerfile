@@ -13,17 +13,18 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Production
-FROM node:24.12.0
+FROM node:24.12.0-slim
 WORKDIR /app
 
-# Copier le build et les fichiers nécessaires
-COPY --from=build /app ./
+# Copier uniquement le dossier de sortie du build (.output)
+COPY --from=build /app/.output ./.output
 
-# Installer uniquement les dépendances de production
-RUN npm install --omit=dev
+# Variables d'environnement pour Nuxt Nitro
+ENV PORT=3000
+ENV HOST=0.0.0.0
 
-# Exposer le port Nuxt SSR (3000 par défaut)
+# Exposer le port
 EXPOSE 3000
 
-# Lancer Nuxt SSR
-CMD ["npm", "run", "start"]
+# Lancer le serveur Nuxt
+CMD ["node", ".output/server/index.mjs"]

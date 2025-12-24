@@ -32,7 +32,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Plateforme éducative pour apprendre les mathématiques, la physique, la chimie et la biologie' }
+        { name: 'description', content: 'Plateforme éducative pour apprendre l\'histoire islamique et l\'arabe' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
