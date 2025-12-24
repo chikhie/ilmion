@@ -322,6 +322,10 @@ const handleFileSelect = async (event: Event) => {
   try {
     const response = await api.uploadProfilePicture(file)
     user.value!.profilePicture = response.profilePicture
+    
+    // Mettre à jour le store global pour la navbar
+    await authStore.fetchUserProfile()
+    
     uploadMessage.value = 'Photo de profil mise à jour avec succès !'
   } catch (error: any) {
     uploadError.value = true
@@ -337,6 +341,10 @@ const deletePhoto = async () => {
   try {
     await api.deleteProfilePicture()
     user.value!.profilePicture = undefined
+    
+    // Mettre à jour le store global pour la navbar
+    await authStore.fetchUserProfile()
+    
     uploadMessage.value = 'Photo de profil supprimée'
     uploadError.value = false
   } catch (error) {
