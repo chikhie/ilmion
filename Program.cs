@@ -163,7 +163,12 @@ if (app.Environment.IsDevelopment())
 }
 
 // CORS doit être avant Authentication et Authorization
-app.UseCors("AllowAll");
+if (app.Environment.IsDevelopment())    
+{
+    app.UseCors("AllowAll");
+}else{
+    app.UseCors("https://ilmanar.com");
+}
 
 app.UseAuthentication();
 app.UseAuthorization();
