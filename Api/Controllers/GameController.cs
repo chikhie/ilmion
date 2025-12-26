@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Ilmanar.Infra;
 using Ilmanar.Infra.Entities;
 
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
 namespace Ilmanar.Api.Controllers;
 
 [ApiController]
@@ -27,12 +30,17 @@ public class GameController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<GameEntity>> GetGame(Guid id)
     {
-        var game = await _context.Games.FindAsync(id);
+        // Use AsNoTracking so we can modify ContentJson in memory without tracking/saving
+        var game = await _context.Games.AsNoTracking().FirstOrDefaultAsync(g => g.Id == id);
 
         if (game == null)
         {
             return NotFound();
         }
+
+        // Return raw content without shuffling. 
+        // Logic moved to client for Solo mode, or managed by MultiplayerService for consistency.
+        // if (game.Type == GameType.Quiz && !string.IsNullOrEmpty(game.ContentJson)) { ... } // REMOVED SHUFFLE
 
         return game;
     }

@@ -51,6 +51,10 @@ builder.Services.AddScoped<Ilmanar.Infra.repository.ISubscriptionRepo, Ilmanar.I
 // Service de chiffrement des composants
 builder.Services.AddScoped<ComponentEncryptionService>();
 
+// Multiplayer Services
+builder.Services.AddSingleton<MultiplayerService>();
+builder.Services.AddSignalR();
+
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -242,6 +246,7 @@ app.UseStaticFiles(); // Sert tous les fichiers statiques de wwwroot
 
 // API Controllers
 app.MapControllers();
+app.MapHub<Ilmanar.Api.Hubs.GameHub>("/gameHub");
 
 // Fallback pour le SPA - redirige toutes les routes non-API vers index.html
 app.MapFallbackToFile("index.html");

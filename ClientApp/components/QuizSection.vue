@@ -1,82 +1,165 @@
 <template>
-  <div class="bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-700">
-    <h2 class="text-2xl font-bold text-white mb-6">{{ title }}</h2>
-    
-    <div v-if="quizData" class="space-y-6">
-      <div 
-        v-for="question in quizData.questions" 
-        :key="question.id" 
-        class="bg-gray-900/50 p-5 rounded-lg border border-gray-700"
-      >
-        <p class="font-medium text-gray-200 mb-4 text-lg">
-          <span class="text-[#C39712] mr-2">Question {{ question.id }}:</span>
-          {{ question.question }}
-        </p>
+  <div class="relative w-full max-w-lg mx-auto font-sans-body">
+    <!-- Outer Card with Pattern Border -->
+    <div class="bg-[#Fdfbf7] p-2 rounded-[2rem] shadow-2xl relative overflow-hidden transform transition-all hover:scale-[1.01] duration-500">
+        <!-- Pattern Texture on Border -->
+        <div class="absolute inset-0 pattern-geometric opacity-10 pointer-events-none"></div>
         
-        <div class="space-y-3">
-          <button
-            v-for="(option, optIndex) in question.options"
-            :key="optIndex"
-            @click="handleAnswer(question.id, optIndex)"
-            class="cursor-pointer text-gray-300 w-full text-left px-4 py-3 rounded-md border transition-all duration-200 flex items-center group hover:text-[#C39712] hover:border-[#C39712]"
-            :class="getOptionClass(question.id, optIndex, question.correctAnswer)"
-            :disabled="answers[question.id] !== undefined"
-          >
-            <span 
-              class="w-6 h-6 rounded-full border-2 flex items-center justify-center mr-3 text-xs font-bold transition-colors" 
-              :class="getRadioClass(question.id, optIndex, question.correctAnswer)"
-            >
-              <span v-if="answers[question.id] === optIndex" class="color-white w-3 h-3 rounded-full bg-current"></span>
-            </span>
-            <span class="flex-1">{{ option }}</span>
-          </button>
+        <!-- Inner Card with Line Border -->
+        <div class="bg-white rounded-[1.5rem] border-2 border-brand-dark/80 p-6 md:p-8 relative z-10 flex flex-col min-h-[500px]">
+            
+            <!-- Top Calligraphy Icon -->
+            <div class="flex justify-center mb-6">
+                 <!-- SVG Icon representing 'Ilm' / Knowledge -->
+                <svg class="h-16 w-16 text-[#C39712] opacity-80 drop-shadow-sm" viewBox="0 0 100 100" fill="currentColor">
+                    <!-- A stylized calligraphy shape -->
+                    <path d="M50 20 C60 15 75 15 85 25 C90 35 85 45 75 45 C65 45 60 35 60 25 M60 25 C60 55 60 75 50 85 M50 85 C40 75 40 55 50 25" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" />
+                    <path d="M55 22 Q65 12 75 22" stroke="currentColor" fill="none" stroke-width="2" />
+                    <!-- Dot -->
+                    <circle cx="65" cy="15" r="3" fill="currentColor" />
+                </svg>
+            </div>
+
+            <!-- Header / Title -->
+             <div class="text-center mb-8 h-20 flex items-center justify-center">
+                 <h2 class="text-2xl font-serif-title font-bold text-brand-dark leading-tight animate-fade-in">
+                    {{ isFinished ? 'Résultats du Quiz' : currentQuestion?.question }}
+                 </h2>
+             </div>
+            
+            <!-- Loading -->
+            <div v-if="!quizData" class="text-brand-wood font-medium text-center p-10 animate-pulse">
+              Chargement de la sagesse ancienne...
+            </div>
+
+            <!-- Quiz Content -->
+            <div v-else class="flex-grow flex flex-col relative z-10">
+                
+                <!-- Question Options -->
+                <div v-if="!isFinished" class="flex-grow flex flex-col justify-center space-y-4">
+                    <button
+                        v-for="(option, optIndex) in currentQuestion.options"
+                        :key="optIndex"
+                        @click="handleAnswer(optIndex)"
+                        :disabled="hasAnsweredCurrent"
+                        class="w-full relative group transition-all duration-300"
+                    >
+                        <!-- Ornamental Button Container -->
+                        <div class="relative overflow-hidden rounded-xl border-2 transition-all duration-300 shadow-sm group-hover:shadow-md"
+                             :class="getButtonStyles(optIndex).container">
+                             
+                             <!-- Button Content -->
+                             <div class="relative z-10 px-6 py-4 flex items-center w-full">
+                                 <!-- Letter Block -->
+                                 <span class="mr-4 font-serif-title font-bold opacity-70 text-sm tracking-wider w-6">
+                                     {{ String.fromCharCode(65 + optIndex) }}.
+                                 </span>
+                                 
+                                 <!-- Text -->
+                                 <span class="font-medium text-lg flex-1 text-left" :class="getButtonStyles(optIndex).text">
+                                    {{ option }}
+                                 </span>
+                                 
+                                 <!-- Selection Checkmark -->
+                                 <div v-if="currentAnswer === optIndex" class="ml-2 text-brand-gold animate-scale-in">
+                                    <svg class="w-6 h-6 bg-white rounded-full p-1 shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                 </div>
+                             </div>
+
+                             <!-- Decorative Corners (CSS) -->
+                             <div class="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 opacity-50 transition-colors" :class="getButtonStyles(optIndex).corner"></div>
+                             <div class="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 opacity-50 transition-colors" :class="getButtonStyles(optIndex).corner"></div>
+                             <div class="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 opacity-50 transition-colors" :class="getButtonStyles(optIndex).corner"></div>
+                             <div class="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 opacity-50 transition-colors" :class="getButtonStyles(optIndex).corner"></div>
+                        </div>
+                    </button>
+
+                    <!-- Feedback Area (Inline) -->
+                    <div v-if="hasAnsweredCurrent" class="mt-2 text-center animate-fade-in font-serif-title min-h-[1.5em] flex items-center justify-center gap-2"
+                         :class="isCurrentCorrect ? 'text-green-700' : 'text-red-700'">
+                        <span v-if="isCurrentCorrect">✨ Correct !</span>
+                        <span v-else>⚠️ La réponse était {{ currentQuestion.options[currentQuestion.correctAnswer] }}</span>
+                    </div>
+                </div>
+
+                <!-- Result Step -->
+                <div v-else class="text-center flex-grow flex flex-col justify-center items-center animate-fade-in">
+                    <div class="mb-4 relative">
+                         <div class="absolute inset-0 bg-brand-gold/20 blur-xl rounded-full animate-pulse"></div>
+                         <div class="text-7xl relative drop-shadow-md py-4">
+                            {{ score >= (quizData.questions.length / 2) ? '🏆' : '🕯️' }}
+                         </div>
+                    </div>
+                    
+                    <p class="text-3xl font-serif-title font-bold text-brand-dark mb-4">
+                      Score : <span class="text-brand-gold text-4xl">{{ score }}</span> / {{ quizData.questions.length }}
+                    </p>
+                    
+                    <p class="text-brand-wood/80 font-serif-title italic mb-8 max-w-xs mx-auto">
+                        {{ getScoreMessage() }}
+                    </p>
+                    
+                    <div v-if="isDemo" class="w-full">
+                        <NuxtLink to="/register" class="group relative block w-full py-4 overflow-hidden rounded-xl bg-brand-dark text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-brand-gold/20">
+                           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                           <span class="relative font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                               Créer un compte
+                               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                           </span>
+                        </NuxtLink>
+                        <div class="mt-4 flex items-center justify-center gap-2 text-xs text-brand-wood/60">
+                             <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                             <span>Sauvegardez votre progression</span>
+                        </div>
+                    </div>
+                    <div v-else class="w-full">
+                         <button @click="resetQuiz" class="w-full py-3 border-2 border-brand-gold text-brand-dark font-bold rounded-lg hover:bg-brand-gold hover:text-white transition-colors uppercase tracking-wider">
+                             Rejouer
+                         </button>
+                    </div>
+                </div>
+
+                <!-- Footer / Progress -->
+                <div class="mt-auto pt-8 flex flex-col items-center justify-center relative">
+                     <!-- Next Button (Floating above progress) -->
+                     <div class="h-10 mb-2 w-full flex justify-end">
+                         <button 
+                            v-if="hasAnsweredCurrent && !isFinished"
+                            @click="nextQuestion"
+                            class="px-6 py-2 bg-brand-gold text-brand-dark font-bold text-sm rounded-full shadow-lg hover:bg-[#d4a81e] hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center gap-2 animate-fade-in-up"
+                         >
+                            <span>Suivant</span>
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                         </button>
+                     </div>
+                    
+                    <!-- Custom Slider Progress -->
+                    <div class="w-full h-1 bg-[#E2E8F0] rounded-full relative overflow-visible">
+                        <!-- Filled Part -->
+                        <div class="absolute top-0 left-0 h-full bg-[#C39712] rounded-full transition-all duration-500"
+                             :style="{ width: `${((currentQuestionIndex + 1) / quizData.questions.length) * 100}%` }"></div>
+                        
+                        <!-- Slider Knob (The 'Knot') -->
+                        <div class="absolute top-1/2 w-8 h-8 bg-white border-2 border-[#C39712] rounded-full shadow-md flex items-center justify-center transition-all duration-500 transform -translate-y-1/2 -translate-x-1/2 z-10"
+                             :style="{ left: `${((currentQuestionIndex + 1) / quizData.questions.length) * 100}%` }">
+                             <div class="w-2 h-2 bg-[#C39712] rounded-full"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Small decorative lighthouse bottom right -->
+                    <div class="absolute bottom-0 right-[-10px] opacity-10 pointer-events-none">
+                         <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                             <path d="M12 3L14 8H10L12 3Z" />
+                             <rect x="9" y="8" width="6" height="10" rx="1" />
+                             <line x1="6" y1="21" x2="18" y2="21" stroke="currentColor" stroke-width="2"/>
+                         </svg>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        
-        <!-- Feedback -->
-        <div v-if="answers[question.id] !== undefined" class="mt-4 p-4 rounded-lg border transition-all duration-300">
-          <div v-if="answers[question.id] === question.correctAnswer" class="bg-green-900/30 border-green-600">
-            <p class="text-green-400 font-medium flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              Correct ! Bonne réponse 🎉
-            </p>
-          </div>
-          <div v-else class="bg-red-900/30 border-red-600">
-            <p class="text-red-400 font-medium flex items-center mb-2">
-              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-              </svg>
-              Incorrect
-            </p>
-            <p class="text-gray-300 text-sm">
-              La bonne réponse était : <span class="text-white font-medium">{{ question.options[question.correctAnswer] }}</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Score -->
-    <div v-if="allAnswered" class="mt-8 p-6 bg-gradient-to-r from-[#082540] to-[#0a3a5f] rounded-lg border border-[#C39712]">
-      <div class="text-center">
-        <p class="text-2xl font-bold text-white mb-2">
-          Score : {{ score }} / {{ quizData?.questions.length }}
-        </p>
-        <p class="text-gray-300">
-          {{ getScoreMessage() }}
-        </p>
-        <button 
-          @click="resetQuiz" 
-          class="mt-4 px-6 py-2 bg-[#C39712] text-[#082540] rounded-lg font-bold hover:bg-yellow-500 transition-colors"
-        >
-          Recommencer le quiz
-        </button>
-      </div>
-    </div>
-    
-    <div v-if="!quizData" class="text-red-400">
-      Erreur : Format de quiz invalide
     </div>
   </div>
 </template>
@@ -96,98 +179,131 @@ interface QuizData {
 interface Props {
   title: string
   content: string
+  isDemo?: boolean
 }
 
 const props = defineProps<Props>()
-
 const answers = ref<Record<number, number>>({})
 const quizData = ref<QuizData | null>(null)
+const currentQuestionIndex = ref(0)
+const isFinished = ref(false)
 
-// Parser le contenu JSON
 onMounted(() => {
   try {
     quizData.value = JSON.parse(props.content)
   } catch (error) {
-    console.error('Erreur lors du parsing du quiz:', error)
+    console.error('Erreur quiz:', error)
   }
 })
 
-const handleAnswer = (questionId: number, optionIndex: number) => {
-  if (answers.value[questionId] === undefined) {
-    answers.value[questionId] = optionIndex
-  }
-}
-
-const getOptionClass = (questionId: number, optionIndex: number, correctAnswer: number) => {
-  const hasAnswered = answers.value[questionId] !== undefined
-  const isSelected = answers.value[questionId] === optionIndex
-  const isCorrect = optionIndex === correctAnswer
-  
-  if (!hasAnswered) {
-    return 'bg-gray-800 border-gray-600 hover:bg-gray-700 hover:border-[#C39712] cursor-pointer'
-  }
-  
-  if (isSelected && isCorrect) {
-    return 'bg-green-900/30 border-green-600 text-green-400'
-  }
-  
-  if (isSelected && !isCorrect) {
-    return 'bg-red-900/30 border-red-600 text-red-400'
-  }
-  
-  if (!isSelected && isCorrect) {
-    return 'bg-green-900/20 border-green-700 text-green-400'
-  }
-  
-  return 'bg-gray-800 border-gray-600 opacity-50 cursor-not-allowed'
-}
-
-const getRadioClass = (questionId: number, optionIndex: number, correctAnswer: number) => {
-  const hasAnswered = answers.value[questionId] !== undefined
-  const isSelected = answers.value[questionId] === optionIndex
-  const isCorrect = optionIndex === correctAnswer
-  
-  if (!hasAnswered) {
-    return 'border-gray-500 text-gray-500 group-hover:border-[#C39712] group-hover:text-[#C39712]'
-  }
-  
-  if (isSelected && isCorrect) {
-    return 'border-green-400 text-green-400'
-  }
-  
-  if (isSelected && !isCorrect) {
-    return 'border-red-400 text-red-400'
-  }
-  
-  if (!isSelected && isCorrect) {
-    return 'border-green-400 text-green-400'
-  }
-  
-  return 'border-gray-600 text-gray-600'
-}
-
-const allAnswered = computed(() => {
-  if (!quizData.value) return false
-  return quizData.value.questions.every(q => answers.value[q.id] !== undefined)
+// Computeds
+const currentQuestion = computed(() => quizData.value?.questions[currentQuestionIndex.value])
+const currentAnswer = computed(() => currentQuestion.value ? answers.value[currentQuestion.value.id] : undefined)
+const hasAnsweredCurrent = computed(() => currentAnswer.value !== undefined)
+const isCurrentCorrect = computed(() => {
+    if (!currentQuestion.value || !hasAnsweredCurrent.value) return false
+    return currentAnswer.value === currentQuestion.value.correctAnswer
 })
-
 const score = computed(() => {
-  if (!quizData.value) return 0
-  return quizData.value.questions.filter(q => answers.value[q.id] === q.correctAnswer).length
+    if (!quizData.value) return 0
+    return quizData.value.questions.filter(q => answers.value[q.id] === q.correctAnswer).length
 })
+
+// Actions
+const handleAnswer = (idx: number) => {
+    if (hasAnsweredCurrent.value || !currentQuestion.value) return
+    answers.value[currentQuestion.value.id] = idx
+}
+
+const nextQuestion = () => {
+    if (!quizData.value) return
+    if (currentQuestionIndex.value < quizData.value.questions.length - 1) {
+        currentQuestionIndex.value++
+    } else {
+        isFinished.value = true
+    }
+}
+
+const resetQuiz = () => {
+    answers.value = {}
+    currentQuestionIndex.value = 0
+    isFinished.value = false
+}
+
+// Styling Helper
+const getButtonStyles = (optIndex: number) => {
+    const isSelected = currentAnswer.value === optIndex
+    const isCorrect = optIndex === currentQuestion.value?.correctAnswer
+
+    // Default State (Blue/Grey clean look)
+    // bg-[#F0F4F8] -> Light Slate
+    // border-[#cfd9e0]
+    let styles = {
+        container: 'bg-[#F0F4F8] border-[#cfd9e0] hover:border-[#C39712] hover:bg-white',
+        text: 'text-[#082540]',
+        corner: 'border-[#082540] opacity-0'
+    }
+
+    if (isSelected) {
+        // Selected State (Dark Blue like mockup)
+        styles = {
+            container: 'bg-[#082540] border-[#082540] shadow-md transform scale-[1.02]',
+            text: 'text-white font-bold',
+            corner: 'border-[#C39712] opacity-100' // Gold corners on selection
+        }
+    } else if (hasAnsweredCurrent.value && isCorrect) {
+         // Correct State (Green hint if revealed)
+         styles = {
+            container: 'bg-green-50 border-green-500',
+            text: 'text-green-800',
+            corner: 'border-green-600 opacity-50'
+        }
+    } else if (hasAnsweredCurrent.value && !isCorrect && optIndex === currentQuestion.value?.correctAnswer) {
+        // Reveal correct answer if wrong was picked
+         styles = {
+            container: 'bg-green-50 border-green-500 border-dashed',
+            text: 'text-green-800',
+            corner: 'border-green-600 opacity-30'
+        }
+    }
+
+    return styles
+}
 
 const getScoreMessage = () => {
   if (!quizData.value) return ''
   const percentage = (score.value / quizData.value.questions.length) * 100
-  
-  if (percentage === 100) return '🎉 Parfait ! Vous maîtrisez le sujet !'
-  if (percentage >= 75) return '👏 Excellent ! Très bon résultat !'
-  if (percentage >= 50) return '👍 Bien ! Continuez vos efforts !'
-  return '💪 Révisez encore et réessayez !'
-}
-
-const resetQuiz = () => {
-  answers.value = {}
+  if (percentage === 100) return 'Une sagesse digne des plus grands savants !'
+  if (percentage >= 60) return 'Un esprit vif et éclairé.'
+  return 'Le chemin du savoir est pavé d\'apprentissage.'
 }
 </script>
 
+<style scoped>
+.pattern-geometric {
+    background-image: radial-gradient(#C39712 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+.animate-fade-in-up {
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+.animate-scale-in {
+    animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+</style>

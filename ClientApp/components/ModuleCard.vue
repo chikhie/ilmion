@@ -1,22 +1,24 @@
 <template>
   <NuxtLink
     :to="`/modules/${module.id}`"
-    class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 border-l-4"
-    :class="borderColor"
+    class="block p-6 bg-texture-parchment rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-brand-gold/20 group relative overflow-hidden"
   >
-    <div class="flex justify-between items-start mb-3">
-      <h4 class="text-xl font-semibold text-gray-800">{{ module.label }}</h4>
-      <span class="text-xs bg-primary-100 text-primary-700 px-3 py-1 rounded-full font-medium">
+    <!-- Decoration d'angle -->
+    <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-brand-gold/10 to-transparent pointer-events-none"></div>
+
+    <div class="flex justify-between items-start mb-3 relative z-10">
+      <h4 class="text-xl font-serif-title font-bold text-brand-dark group-hover:text-brand-wood transition-colors">{{ module.label }}</h4>
+      <span class="text-xs bg-brand-dark/10 text-brand-dark px-3 py-1 rounded-full font-bold uppercase tracking-wider">
         {{ module.chapterCount }} chapitres
       </span>
     </div>
     
-    <div class="flex items-center justify-between mt-4">
-      <span class="text-sm text-gray-500">
+    <div class="flex items-center justify-between mt-4 relative z-10">
+      <span class="text-sm text-gray-600 font-sans-body">
         {{ module.subjectName }}
       </span>
-      <span class="text-sm text-primary-600 hover:text-primary-700 font-medium">
-        Voir les chapitres →
+      <span class="text-sm text-brand-wood font-bold hover:text-brand-gold transition-colors flex items-center gap-1">
+        Voir les chapitres <span class="group-hover:translate-x-1 transition-transform">→</span>
       </span>
     </div>
   </NuxtLink>
@@ -29,17 +31,5 @@ const props = defineProps<{
   module: Module
 }>()
 
-const borderColor = computed(() => {
-  const colors = [
-    'border-blue-500',
-    'border-green-500',
-    'border-purple-500',
-    'border-orange-500',
-    'border-pink-500'
-  ]
-  // Utiliser l'ID pour générer une couleur cohérente
-  const hash = props.module.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
-  return colors[hash % colors.length]
-})
 </script>
 

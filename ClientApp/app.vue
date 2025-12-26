@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#082540] text-white flex flex-col font-sans">
+  <div class="min-h-screen bg-brand-dark text-white flex flex-col font-sans-body">
     <AppHeader v-if="showHeader" />
     <main class="flex-grow">
       <NuxtPage />

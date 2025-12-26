@@ -1,18 +1,25 @@
 <template>
-  <header class="bg-[#082540]/60 backdrop-blur-xl border-b border-white/5 sticky top-0 z-40 font-sans transition-all duration-300">
+    <header class="bg-brand-dark/95 backdrop-blur-xl border-b border-brand-gold/10 sticky top-0 z-40 font-sans-body transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 md:h-20">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center space-x-3 group">
-          <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-9 w-9 transition-transform duration-300 group-hover:scale-110 drop-shadow-lg" />
-          <span class="text-xl font-black tracking-tighter text-white uppercase">ILMANAR</span>
+          <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-10 w-10 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_15px_rgba(195,151,18,0.3)]" />
+          <span class="text-2xl font-serif-title font-bold tracking-tight text-brand-parchment group-hover:text-brand-gold transition-colors uppercase">ILMANAR</span>
         </NuxtLink>
 
         <!-- Navigation -->
         <nav class="hidden md:flex items-center space-x-8">
           
           <!-- Authenticated -->
-          <div v-if="isAuthenticated" class="flex items-center">
+          <div v-if="isAuthenticated" class="flex items-center space-x-6">
+            <NuxtLink
+               to="/multiplayer"
+               class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest"
+               active-class="text-white"
+            >
+               Multi
+            </NuxtLink>
             <UserMenu />
           </div>
 
@@ -70,6 +77,13 @@
           <nav class="flex flex-col space-y-2">
 
             <template v-if="isAuthenticated">
+              <NuxtLink
+                to="/multiplayer"
+                class="px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-2xl transition-all font-bold text-sm uppercase tracking-widest"
+                @click="mobileMenuOpen = false"
+              >
+                Multijoueur
+              </NuxtLink>
               <NuxtLink
                 to="/profile"
                 class="px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-2xl transition-all font-bold text-sm uppercase tracking-widest"

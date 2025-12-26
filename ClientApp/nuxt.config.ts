@@ -8,6 +8,10 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
 
+  css: [
+    '~/assets/css/main.css'
+  ],
+
   // Configuration pour SSG (génération statique)
   ssr: true, // SSR enabled for SEO
 
@@ -38,7 +42,7 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Amiri:wght@400;700&display=swap' }
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&family=Source+Sans+3:wght@400;600&family=Amiri:wght@400;700&display=swap' }
       ]
     }
   },

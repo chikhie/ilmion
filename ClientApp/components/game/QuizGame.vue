@@ -1,167 +1,287 @@
 <template>
-  <div class="max-w-3xl mx-auto p-8 bg-white/5 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 shadow-2xl relative overflow-hidden group">
-    <!-- Decor -->
-    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-white/10 transition-all duration-500"></div>
-
-    <!-- Game Header -->
-    <div class="mb-10 flex justify-between items-center relative z-10">
-      <h2 class="text-xs font-black uppercase tracking-[0.2em] text-gray-500">{{ title }}</h2>
-      <div class="flex gap-3">
-        <!-- Timer -->
-        <div v-if="!showResult && !answered" class="text-sm font-black px-4 py-2 rounded-2xl border transition-all"
-             :class="timerClass">
-          <div class="flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            {{ timeRemaining }}s
-          </div>
-        </div>
-        <!-- Score -->
-        <div class="text-sm font-black text-[#C39712] bg-[#C39712]/10 px-4 py-2 rounded-2xl border border-[#C39712]/20">
-          SCORE: {{ score }} / {{ questions.length }}
-        </div>
-      </div>
-    </div>
-
-    <!-- Loading State -->
-    <div v-if="loading" class="text-center py-20 relative z-10">
-      <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-white opacity-20 mx-auto"></div>
-    </div>
-
-    <!-- Result Screen -->
-    <div v-else-if="showResult" class="text-center py-12 animate-fade-in relative z-10">
-      <div class="mb-8">
-        <div class="w-24 h-24 bg-white/5 rounded-3xl mx-auto flex items-center justify-center border border-white/10 shadow-2xl mb-6">
-          <span class="text-5xl" v-if="score >= questions.length / 2">🏆</span>
-          <span class="text-5xl" v-else>✨</span>
-        </div>
-      </div>
-      <h3 class="text-3xl font-black tracking-tighter uppercase mb-2">Quiz Terminé</h3>
-      <p class="text-gray-400 font-medium text-lg mb-10">
-        Félicitations ! Vous avez obtenu <span class="text-white font-black">{{ score }}</span> sur {{ questions.length }}.
-      </p>
-      
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button @click="handleRetry" class="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-2xl font-bold hover:bg-white/10 transition-all active:scale-95">
-          Recommencer
-        </button>
-        <button @click="handleClose" class="px-8 py-4 bg-white text-[#082540] rounded-2xl font-black hover:bg-gray-100 transition-all shadow-xl active:scale-95">
-          Retour aux jeux
-        </button>
-      </div>
-    </div>
-
-    <!-- Question View -->
-    <div v-else class="min-h-[400px] flex flex-col justify-between relative z-10">
-      <div>
-        <div class="mb-10">
-          <div class="flex justify-between items-end mb-3">
-            <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">
-              Question {{ currentQuestionIndex + 1 }} <span class="opacity-30">/ {{ questions.length }}</span>
-            </span>
-            <span class="text-[10px] font-black uppercase tracking-widest text-[#C39712]">
-              {{ Math.round(((currentQuestionIndex + 1) / questions.length) * 100) }}%
-            </span>
-          </div>
-          <div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
-            <div class="bg-white h-1.5 rounded-full transition-all duration-700 ease-out" 
-                 :style="{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }"></div>
-          </div>
-        </div>
-
-        <h3 class="text-2xl font-black tracking-tight text-white mb-10 leading-snug">
-          {{ currentQuestion.text }}
-        </h3>
-
-        <!-- Choice Question -->
-        <div v-if="currentQuestion.type === 'choice'" class="grid gap-4">
-          <button 
-            v-for="option in currentQuestion.options" 
-            :key="option"
-            @click="selectOption(option)"
-            :disabled="answered"
-            class="w-full text-left p-6 rounded-[1.5rem] border-2 transition-all duration-300 relative overflow-hidden group/opt"
-            :class="getOptionClass(option)"
-          >
-            <span class="z-10 relative font-bold text-lg">{{ option }}</span>
+  <div class="max-w-4xl mx-auto font-sans-body">
+    <!-- Outer Card with Pattern Border (Matching Mockup) -->
+    <div class="bg-[#Fdfbf7] p-2 rounded-[2.5rem] shadow-2xl relative overflow-hidden transform transition-all hover:scale-[1.005] duration-500 border border-brand-gold/20">
+        <!-- Pattern Texture on Border -->
+        <div class="absolute inset-0 pattern-geometric opacity-10 pointer-events-none"></div>
+        
+        <!-- Inner Card with Line Border -->
+        <div class="bg-white rounded-[2rem] border-2 border-brand-dark/80 p-8 md:p-10 relative z-10 flex flex-col min-h-[600px]">
             
-            <div v-if="answered && option === currentQuestion.correctAnswer" class="absolute right-6 top-1/2 -translate-y-1/2">
-              <div class="bg-green-500 rounded-full p-1 shadow-lg shadow-green-500/20">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-            </div>
-            
-            <div v-if="answered && option === selectedAnswer && option !== currentQuestion.correctAnswer" class="absolute right-6 top-1/2 -translate-y-1/2">
-              <div class="bg-red-500 rounded-full p-1 shadow-lg shadow-red-500/20">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </div>
-            </div>
-          </button>
-        </div>
+            <!-- Game Header (Timer, Icon, Score) -->
+            <div class="flex justify-between items-start mb-8 border-b border-brand-wood/10 pb-6">
+                <!-- Left: Timer / Lobby Status -->
+                <div class="flex items-center gap-3">
+                     <div v-if="!showResult && !answered && (!isMultiplayer || mpGameStarted)" class="w-12 h-12 rounded-full border-2 flex items-center justify-center font-bold text-lg transition-all shadow-inner"
+                          :class="timerClass">
+                        {{ timeRemaining }}
+                     </div>
+                     <div v-else-if="isMultiplayer && !mpGameStarted" class="flex items-center gap-2 text-brand-gold font-bold uppercase tracking-wider text-xs">
+                        <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                        En Ligne
+                     </div>
+                     <span v-if="(!isMultiplayer || mpGameStarted) && !showResult" class="text-xs uppercase tracking-widest text-brand-wood font-bold hidden md:block">Secondes</span>
+                </div>
 
-        <!-- Number Question -->
-        <div v-if="currentQuestion.type === 'number'" class="mt-4">
-          <input 
-            type="number" 
-            v-model="numberInput" 
-            placeholder="Réponse numérique..."
-            :disabled="answered"
-            @keyup.enter="submitNumber"
-            class="w-full p-6 bg-white/5 border-2 border-white/10 rounded-[1.5rem] text-white focus:ring-4 focus:ring-white/10 transition-all text-center text-4xl font-black tracking-tighter outline-none"
-            :class="{ 'border-green-500/50 bg-green-500/10': answered && isCorrect, 'border-red-500/50 bg-red-500/10': answered && !isCorrect }"
-          />
-          <div v-if="!answered" class="mt-8 text-center">
-            <button @click="submitNumber" class="px-12 py-4 bg-white text-[#082540] rounded-2xl font-black text-lg hover:shadow-2xl hover:shadow-white/10 transition-all active:scale-95">
-              Valider la réponse
-            </button>
-          </div>
-        </div>
-      </div>
+                <!-- Center: Calligraphy Icon -->
+                 <div class="text-center -mt-4">
+                    <svg class="h-20 w-20 text-[#C39712] opacity-80 drop-shadow-sm mx-auto" viewBox="0 0 100 100" fill="currentColor">
+                        <path d="M50 20 C60 15 75 15 85 25 C90 35 85 45 75 45 C65 45 60 35 60 25 M60 25 C60 55 60 75 50 85 M50 85 C40 75 40 55 50 25" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" />
+                        <path d="M55 22 Q65 12 75 22" stroke="currentColor" fill="none" stroke-width="2" />
+                        <circle cx="65" cy="15" r="3" fill="currentColor" />
+                    </svg>
+                    <h2 class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-wood/40 mt-1">{{ title }}</h2>
+                </div>
 
-      <!-- Feedback Section -->
-      <div v-if="answered" class="mt-10 p-6 rounded-3xl bg-white/5 border border-white/10 animate-fade-in-up">
-        <div class="flex items-start gap-5">
-          <div class="mt-1">
-             <div v-if="isCorrect" class="w-10 h-10 bg-green-500/20 rounded-2xl flex items-center justify-center border border-green-500/30">
-                <svg class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                </svg>
-             </div>
-             <div v-else class="w-10 h-10 bg-red-500/20 rounded-2xl flex items-center justify-center border border-red-500/30">
-                <svg class="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-             </div>
-          </div>
-          <div class="flex-1">
-            <h4 class="text-xs font-black uppercase tracking-widest mb-2" :class="isCorrect ? 'text-green-400' : 'text-red-400'">
-              {{ isCorrect ? 'Excellente réponse !' : 'Oups, ce n\'est pas tout à fait ça' }}
-            </h4>
-            <p v-if="!isCorrect" class="text-sm text-gray-300 font-medium mb-3">
-              La réponse correcte est : <span class="text-white font-black">{{ currentQuestion.correctAnswer }}</span>
-            </p>
-            <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
-              <p class="text-sm text-gray-400 leading-relaxed italic">
-                <span class="text-white not-italic font-bold">Le saviez-vous ?</span> <br>
-                {{ currentQuestion.explanation }}
-              </p>
+                <!-- Right: Score / Player Count -->
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-brand-wood/60 mb-1">
+                        {{ isMultiplayer && !mpGameStarted ? 'Joueurs' : 'Score' }}
+                    </span>
+                    <div class="text-xl font-serif-title font-bold text-brand-dark">
+                         <span v-if="isMultiplayer && !mpGameStarted">{{ players.length }}</span>
+                         <span v-else>
+                             <span class="text-brand-gold">{{ score }}</span><span class="text-brand-wood/40 mx-1">/</span>{{ questions.length }}
+                         </span>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <!-- Loading State -->
+            <div v-if="loading" class="text-center py-20 animate-pulse">
+               <p class="text-brand-wood font-serif-title italic text-xl">Recherche dans les archives...</p>
+            </div>
+
+            <!-- MULTIPLAYER LOBBY -->
+            <div v-else-if="isMultiplayer && !mpGameStarted" class="flex-grow flex flex-col items-center justify-center animate-fade-in relative z-10">
+                
+                <!-- Initial Choice -->
+                <div v-if="!currentCode" class="w-full max-w-md space-y-6">
+                    <h3 class="text-3xl font-serif-title font-bold text-center text-brand-dark mb-8">Rejoindre la Caravane</h3>
+                    
+                    <button @click="handleCreateLobby" class="w-full py-5 bg-brand-dark text-brand-parchment rounded-2xl font-bold uppercase tracking-widest shadow-lg hover:bg-black hover:scale-[1.02] transition-all flex items-center justify-center gap-3">
+                         <span>Créer une partie</span>
+                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    </button>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-brand-wood/20"></div></div>
+                        <div class="relative flex justify-center text-xs uppercase tracking-widest text-brand-wood/60"><span class="bg-white px-2">Ou</span></div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <input v-model="joinCodeDisplay" placeholder="Code de partie..." class="flex-1 p-4 bg-gray-50 border-2 border-brand-wood/10 rounded-xl text-center font-bold uppercase tracking-widest text-brand-dark focus:border-brand-gold outline-none" maxlength="6" />
+                        <button @click="handleJoinLobby" :disabled="!joinCodeDisplay" class="px-6 py-4 bg-brand-wood text-brand-parchment rounded-xl font-bold uppercase tracking-widest hover:bg-brand-gold disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                            Rejoindre
+                        </button>
+                    </div>
+                    
+                    <p v-if="mpError" class="text-red-500 text-center text-sm font-bold mt-4">{{ mpError }}</p>
+                </div>
+
+                <!-- Waiting Room -->
+                <div v-else class="w-full max-w-lg text-center">
+                    <div class="bg-brand-gold/10 rounded-2xl p-6 mb-8 border border-brand-gold/30">
+                        <p class="text-xs uppercase tracking-widest text-brand-wood/60 mb-2">Code de la partie</p>
+                        <p class="text-5xl font-serif-title font-bold text-brand-dark tracking-[0.2em]">{{ currentCode }}</p>
+                    </div>
+
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-brand-wood mb-4">Joueurs en attente ({{ players.length }})</h4>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+                        <div v-for="player in players" :key="player.connectionId" class="bg-gray-50 p-3 rounded-xl border border-gray-100 flex items-center gap-2 animate-scale-in">
+                            <div class="w-8 h-8 rounded-full bg-brand-dark text-brand-parchment flex items-center justify-center font-bold text-xs">
+                                {{ player.username.charAt(0).toUpperCase() }}
+                            </div>
+                            <span class="text-sm font-bold text-brand-dark truncate">{{ player.username }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                         <button v-if="isHost" @click="handleStartGame" class="w-full py-4 bg-brand-gold text-brand-dark rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-yellow-500 hover:scale-[1.02] transition-all relative overflow-hidden group">
+                             <span class="relative z-10">Lancer la caravane</span>
+                             <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
+                         </button>
+                         <p class="text-xs text-brand-wood/50 italic">{{ isHost ? 'Attendez que tous les joueurs soient prêts' : 'En attente du chef de caravane...' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div v-else-if="showResult" class="text-center flex-grow flex flex-col justify-center items-center py-12 animate-fade-in relative z-10">
+                <div class="mb-8 relative">
+                    <div class="absolute inset-0 bg-brand-gold/10 rounded-full blur-2xl animate-pulse"></div>
+                    <span class="text-8xl drop-shadow-xl relative z-10 block animate-bounce-slow">
+                        {{ score >= questions.length / 2 ? '🏆' : '🕯️' }}
+                    </span>
+                 </div>
+                 
+                 <h3 class="text-4xl font-serif-title font-bold text-brand-dark mb-4">Quiz Terminé</h3>
+                 <p class="text-brand-wood font-medium text-lg mb-8 max-w-md mx-auto leading-relaxed">
+                    {{ getScoreMessage() }}
+                 </p>
+
+                 <!-- Multiplayer Leaderboard Summary (Simple) -->
+                 <div v-if="isMultiplayer" class="w-full max-w-md mb-8 bg-gray-50 rounded-2xl p-4 border border-gray-100">
+                     <h4 class="text-xs uppercase tracking-widest text-brand-wood/60 mb-4">Classement de la Caravane</h4>
+                     <div class="space-y-2">
+                         <div v-for="(p, i) in sortedPlayers" :key="p.connectionId" class="flex justify-between items-center p-2 rounded-lg" :class="players[i]?.connectionId === myConnectionId ? 'bg-brand-gold/20 border border-brand-gold/30' : ''">
+                             <div class="flex items-center gap-2">
+                                 <span class="font-bold text-brand-dark w-6">{{ i + 1 }}.</span>
+                                 <span class="text-sm font-medium">{{ p.username }}</span>
+                             </div>
+                             <span class="font-bold text-brand-dark">{{ p.score }} pts</span>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
+                    <button @click="handleRetry" class="flex-1 py-4 border-2 border-brand-wood/20 text-brand-wood rounded-xl font-bold hover:bg-brand-wood/5 hover:border-brand-wood/40 transition-all uppercase tracking-widest text-xs">
+                      Recommencer
+                    </button>
+                    <button @click="handleClose" class="flex-1 py-4 bg-brand-dark text-brand-parchment rounded-xl font-bold hover:bg-black transition-all shadow-xl hover:shadow-2xl uppercase tracking-widest text-xs">
+                      Retour aux jeux
+                    </button>
+                 </div>
+            </div>
+
+            <!-- Question View (Standard Game) -->
+            <div v-else class="flex-grow flex flex-col relative z-10">
+                
+                <!-- Question Text -->
+                <h3 class="text-2xl md:text-3xl font-serif-title font-bold text-center text-brand-dark mb-10 leading-relaxed drop-shadow-sm min-h-[4rem] flex items-center justify-center">
+                  {{ currentQuestion.text }}
+                </h3>
+
+                <!-- Choice Question -->
+                <div v-if="currentQuestion.type === 'choice'" class="grid gap-4 max-w-2xl mx-auto w-full">
+                  <button 
+                    v-for="(option, idx) in currentQuestion.options" 
+                    :key="option"
+                    @click="selectOption(option)"
+                    :disabled="answered"
+                    class="w-full relative group transition-all duration-300"
+                  >
+                        <!-- Ornamental Button Container (Chamfered) -->
+                        <div class="relative overflow-hidden rounded-xl border-2 transition-all duration-300 shadow-sm group-hover:shadow-md"
+                             :class="getOptionStyles(option).container">
+                             
+                             <!-- Button Content -->
+                             <div class="relative z-10 px-6 py-5 flex items-center w-full">
+                                 <!-- Letter Block -->
+                                 <span class="mr-5 font-serif-title font-bold opacity-60 text-sm tracking-wider w-6">
+                                     {{ String.fromCharCode(65 + idx) }}.
+                                 </span>
+                                 
+                                 <!-- Text -->
+                                 <span class="font-medium text-lg flex-1 text-left" :class="getOptionStyles(option).text">
+                                    {{ option }}
+                                 </span>
+                                 
+                                 <!-- Status Icons -->
+                                 <div v-if="answered && showFeedback && option === currentQuestion.correctAnswer" class="ml-2 text-green-600 bg-green-100 rounded-full p-1 animate-scale-in">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+                                 </div>
+                                 <div v-else-if="answered && showFeedback && option === selectedAnswer && option !== currentQuestion.correctAnswer" class="ml-2 text-red-600 bg-red-100 rounded-full p-1 animate-scale-in">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" /></svg>
+                                 </div>
+                             </div>
+
+                             <!-- Decorative Corners (CSS) -->
+                             <div class="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 transition-colors" :class="getOptionStyles(option).corner"></div>
+                             <div class="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 transition-colors" :class="getOptionStyles(option).corner"></div>
+                             <div class="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 transition-colors" :class="getOptionStyles(option).corner"></div>
+                             <div class="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 transition-colors" :class="getOptionStyles(option).corner"></div>
+                        </div>
+                  </button>
+                </div>
+
+                <!-- Number Question -->
+                <div v-if="currentQuestion.type === 'number'" class="mt-4 max-w-xl mx-auto w-full">
+                  <div class="relative">
+                      <input 
+                        type="number" 
+                        v-model="numberInput" 
+                        placeholder="?"
+                        :disabled="answered"
+                        @keyup.enter="submitNumber"
+                        class="w-full p-8 bg-[#F0F4F8] border-2 border-brand-wood/20 rounded-[1.5rem] text-brand-dark focus:border-brand-gold focus:bg-white transition-all text-center text-5xl font-serif-title font-bold tracking-tighter outline-none shadow-inner"
+                        :class="{ 
+                            'border-green-500 bg-green-50': answered && showFeedback && isCorrect, 
+                            'border-red-500 bg-red-50': answered && showFeedback && !isCorrect,
+                            'border-brand-gold bg-white shadow-md': answered && !showFeedback 
+                        }"
+                      />
+                      <div class="absolute inset-0 pointer-events-none border border-black/5 rounded-[1.5rem]"></div>
+                  </div>
+                  
+                  <div v-if="!answered" class="mt-8 text-center">
+                    <button @click="submitNumber" class="px-12 py-4 bg-brand-dark text-brand-parchment rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all uppercase tracking-widest text-sm relative overflow-hidden group">
+                      <span class="relative z-10">Valider ma réponse</span>
+                      <div class="absolute inset-0 bg-brand-gold opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Feedback Section -->
+                <div v-if="answered" class="mt-8 mx-auto max-w-2xl w-full animate-fade-in-up">
+                    
+                    <!-- Waiting for others message (Sync Mode) -->
+                    <div v-if="isMultiplayer && !showFeedback" class="bg-brand-wood/5 rounded-2xl p-6 border border-brand-wood/10 text-center animate-pulse">
+                         <p class="text-brand-wood font-medium italic text-sm">
+                            En attente des autres voyageurs...
+                         </p>
+                    </div>
+
+                    <!-- Result (Only when showFeedback is true) -->
+                    <div v-else class="bg-brand-wood/5 rounded-2xl p-6 border border-brand-wood/10 flex gap-4 items-start relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full" :class="isCorrect ? 'bg-green-500' : 'bg-red-500'"></div>
+                        
+                        <div class="flex-1 pl-2">
+                             <div class="flex justify-between items-center mb-2">
+                                 <h4 class="font-bold uppercase tracking-wider text-xs" :class="isCorrect ? 'text-green-700' : 'text-red-700'">
+                                    {{ isCorrect ? 'Excellente réponse !' : 'Incorrect' }}
+                                 </h4>
+                                 <span v-if="!isCorrect" class="text-xs text-brand-dark font-bold bg-white px-2 py-1 rounded border border-brand-dark/10">
+                                     Réponse : {{ currentQuestion.correctAnswer }}
+                                 </span>
+                             </div>
+                             
+                             <p class="text-brand-wood font-medium italic text-sm leading-relaxed">
+                                {{ currentQuestion.explanation }}
+                             </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Next Button (Host Only in MP, or Everyone if Single) -->
+                    <div v-if="showFeedback" class="mt-6 flex justify-center">
+                         <button 
+                            v-if="!isMultiplayer || isHost"
+                            @click="handleNextQuestionClick" 
+                            class="px-8 py-3 bg-brand-gold text-brand-dark font-bold rounded-full shadow-lg hover:bg-[#d4a81e] transition-all flex items-center gap-2 group animate-bounce-subtle">
+                            <span>{{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Voir les résultats' }}</span>
+                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                         </button>
+                         <p v-else class="text-xs text-brand-wood/50 italic mt-2 animate-pulse">En attente du chef de caravane...</p>
+                    </div>
+                </div>
+
+                <!-- Footer Slider Progress -->
+                <div class="mt-auto pt-10 px-4">
+                    <div class="w-full h-1 bg-brand-dark/5 rounded-full relative">
+                        <!-- Filled Part -->
+                        <div class="absolute top-0 left-0 h-full bg-brand-gold rounded-full transition-all duration-700"
+                             :style="{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }"></div>
+                        <!-- Slider Knot -->
+                        <div class="absolute top-1/2 w-6 h-6 bg-white border-2 border-brand-gold rounded-full shadow-md flex items-center justify-center transition-all duration-700 transform -translate-y-1/2 -translate-x-1/2 z-10"
+                             :style="{ left: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }">
+                             <div class="w-1.5 h-1.5 bg-brand-gold rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="mt-8 flex justify-end">
-          <button @click="nextQuestion" class="px-8 py-3 bg-white text-[#082540] rounded-xl font-black text-sm uppercase tracking-widest hover:bg-gray-100 transition-all flex items-center gap-2 group shadow-xl">
-            {{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Voir mon score' }}
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -177,20 +297,46 @@ const props = defineProps({
   title: {
     type: String,
     default: 'Quiz'
+  },
+  isMultiplayer: {
+    type: Boolean,
+    default: false
   }
 })
 
 const emit = defineEmits(['close', 'retry'])
+
+// Composables
+const route = useRoute()
+const { 
+    createLobby, 
+    joinLobby, 
+    startGame: mpStartGame, 
+    updateScore: mpUpdateScore, 
+    submitAnswer: mpSubmitAnswer,
+    requestNextQuestion: mpRequestNextQuestion,
+    currentCode, 
+    players, 
+    gameStarted: mpGameStarted, 
+    error: mpError,
+    disconnect: mpDisconnect,
+    isHost,
+    showReveal: mpShowReveal,
+    moveToNext: mpMoveToNext,
+    mpQuestions
+} = useMultiplayer()
 
 // State
 const loading = ref(false)
 const currentQuestionIndex = ref(0)
 const score = ref(0)
 const showResult = ref(false)
-const answered = ref(false)
+const answered = ref(false) // User has clicked
+const showFeedback = ref(false) // Results are revealed
 const selectedAnswer = ref<string | null>(null)
 const numberInput = ref('')
 const isCorrect = ref(false)
+const joinCodeDisplay = ref('')
 
 // Timer State
 const timeRemaining = ref(30)
@@ -198,7 +344,13 @@ const timerInterval = ref<ReturnType<typeof setInterval> | null>(null)
 
 // Parsing content
 const questions = computed(() => {
+  // Defensive check: ensure mpQuestions exists (handle HMR/ref issues)
+  if (props.isMultiplayer && mpQuestions && mpQuestions.value && mpQuestions.value.length > 0) {
+      return mpQuestions.value
+  }
+  
   try {
+    if(!props.gameContent) return []
     const data = JSON.parse(props.gameContent)
     return data.questions || []
   } catch (e) {
@@ -208,6 +360,8 @@ const questions = computed(() => {
 })
 
 const currentQuestion = computed(() => questions.value[currentQuestionIndex.value])
+const sortedPlayers = computed(() => [...players.value].sort((a, b) => b.score - a.score))
+const myConnectionId = computed(() => players.value.find(p => p.username === 'Moi')?.connectionId) 
 
 // Methods
 function selectOption(option: string) {
@@ -235,6 +389,28 @@ function checkAnswer(answer: string) {
   } else {
     isCorrect.value = false
   }
+
+  // Multiplayer Update
+  if (props.isMultiplayer) {
+      console.log('[QuizGame] Submitting MP Answer. Waiting for signal...')
+      mpUpdateScore(score.value)
+      mpSubmitAnswer()
+      // Wait for server signal to show feedback
+      showFeedback.value = false 
+  } else {
+      console.log('[QuizGame] Solo Answer. Showing feedback immediately.')
+      showFeedback.value = true
+  }
+}
+
+function handleNextQuestionClick() {
+    if (props.isMultiplayer) {
+        if (isHost.value) {
+            mpRequestNextQuestion()
+        }
+    } else {
+        nextQuestion()
+    }
 }
 
 function nextQuestion() {
@@ -248,6 +424,7 @@ function nextQuestion() {
 
 function resetQuestionState() {
   answered.value = false
+  showFeedback.value = false
   selectedAnswer.value = null
   numberInput.value = ''
   isCorrect.value = false
@@ -257,13 +434,15 @@ function resetQuestionState() {
 // Timer Functions
 function startTimer() {
   stopTimer()
+  // Only start timer loop if not multiplayer OR if we decide MP controls client timers autonomously for now
+  // For V1 MP: Local timer per client is acceptable, assuming everyone started roughly same time
+  // If MP, maybe we don't auto-timeout locally to keep sync simple, or we do and send submit
   timeRemaining.value = 30
   
   timerInterval.value = setInterval(() => {
     if (timeRemaining.value > 0) {
       timeRemaining.value--
     } else {
-      // Time's up - auto submit as incorrect
       stopTimer()
       if (!answered.value) {
         handleTimeOut()
@@ -282,76 +461,203 @@ function stopTimer() {
 function handleTimeOut() {
   answered.value = true
   isCorrect.value = false
-  
-  // Auto advance after 2 seconds
-  setTimeout(() => {
-    nextQuestion()
-  }, 2000)
+  if (props.isMultiplayer) {
+      mpUpdateScore(score.value) // No points added
+      mpSubmitAnswer() // Signal done
+      showFeedback.value = false
+  } else {
+      showFeedback.value = true
+  }
 }
 
 const timerClass = computed(() => {
-  if (timeRemaining.value <= 5) {
-    return 'text-red-400 bg-red-500/20 border-red-500/30 animate-pulse'
-  } else if (timeRemaining.value <= 10) {
-    return 'text-orange-400 bg-orange-500/10 border-orange-500/20'
-  }
-  return 'text-white bg-white/10 border-white/20'
+  if (timeRemaining.value <= 5) return 'text-red-600 border-red-200 bg-red-50 animate-pulse'
+  if (timeRemaining.value <= 10) return 'text-orange-500 border-orange-200 bg-orange-50'
+  return 'text-brand-dark border-brand-dark/20 bg-gray-50'
 })
 
-// Safe emit handlers with nextTick
+// Multiplayer Actions
+async function handleCreateLobby() {
+    try {
+        const gameId = route.params.id as string
+        await createLobby(gameId)
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+async function handleJoinLobby() {
+    if(!joinCodeDisplay.value) return
+    try {
+        await joinLobby(joinCodeDisplay.value)
+    } catch(e) {
+        console.error(e)
+    }
+}
+
+async function handleStartGame() {
+    await mpStartGame()
+}
+
+// Watch for Game Start in MP
+watch(mpGameStarted, (started) => {
+    if (started) {
+        // Reset local game state to begin
+        score.value = 0
+        currentQuestionIndex.value = 0
+        resetQuestionState()
+        
+        // DEBUG: Verify Order
+        if (questions.value.length > 0) {
+            console.log(`[QuizGame DEBUG] Total Questions: ${questions.value.length}`)
+            console.log(`[QuizGame DEBUG] First Question: "${questions.value[0].text}"`)
+            console.log(`[QuizGame DEBUG] Last Question: "${questions.value[questions.value.length-1].text}"`)
+        } else {
+             console.warn('[QuizGame DEBUG] No questions found on GameStart!')
+        }
+    }
+})
+
+// Watch for Sync Signals
+watch(mpShowReveal, (reveal) => {
+    if (reveal && props.isMultiplayer) {
+        showFeedback.value = true
+    }
+})
+
+watch(mpMoveToNext, (next) => {
+    if (next && props.isMultiplayer) {
+        nextQuestion()
+    }
+})
+
+
+// Safe emit handlers
 async function handleClose() {
   stopTimer()
+  if (props.isMultiplayer) {
+      await mpDisconnect()
+  }
   await nextTick()
   emit('close')
 }
 
 async function handleRetry() {
   stopTimer()
+  if (props.isMultiplayer) {
+      // In MP, retry means back to lobby? 
+  }
+  score.value = 0
+  currentQuestionIndex.value = 0
+  showResult.value = false
+  resetQuestionState()
   await nextTick()
-  emit('retry')
+  emit('retry') 
 }
 
-function getOptionClass(option: string) {
-  if (!answered.value) {
-    return selectedAnswer.value === option 
-      ? 'border-[#C39712]/50 bg-[#C39712]/10 text-white' 
-      : 'border-white/5 hover:border-white/10 hover:bg-white/5 text-gray-400'
-  }
-  
-  if (option === currentQuestion.value.correctAnswer) {
-    return 'border-green-500/50 bg-green-500/10 text-white'
-  }
-  
-  if (option === selectedAnswer.value && option !== currentQuestion.value.correctAnswer) {
-    return 'border-red-500/50 bg-red-500/10 text-white'
-  }
-  
-  return 'border-white/5 text-gray-600 opacity-40' // Dim incorrect options
+// Styling Logic (Standardized)
+function getOptionStyles(option: string) {
+    const isSelected = selectedAnswer.value === option
+    const isThisCorrect = option === currentQuestion.value.correctAnswer
+
+    // Default
+    let styles = {
+        container: 'bg-[#F0F4F8] border-[#cfd9e0] hover:border-[#C39712] hover:bg-white cursor-pointer',
+        text: 'text-[#082540]',
+        corner: 'border-[#082540] opacity-0'
+    }
+
+    // Only show results if feedback is revealed
+    if (!showFeedback.value) {
+        if (answered.value && isSelected) {
+            // Selected but waiting for reveal -> Show as "Selected/Pending"
+             styles = {
+                container: 'bg-[#F0F4F8] border-brand-gold shadow-md',
+                text: 'text-brand-dark font-bold',
+                corner: 'border-brand-gold opacity-100' // Gold corners to show selection
+             }
+             return styles
+        }
+        return styles // Hide correctness
+    }
+
+    // Feedback revealed
+    if (isSelected) {
+        if (isCorrect.value) {
+            styles = {
+                container: 'bg-[#082540] border-[#082540] shadow-md transform scale-[1.02]',
+                text: 'text-white font-bold',
+                corner: 'border-[#C39712] opacity-100' 
+            }
+        } else {
+            styles = {
+                container: 'bg-red-50 border-red-500',
+                text: 'text-red-800',
+                corner: 'border-red-600 opacity-50' 
+            }
+        }
+    } else if (isThisCorrect) {
+        styles = {
+            container: 'bg-green-50 border-green-500 border-dashed',
+            text: 'text-green-800',
+            corner: 'border-green-600 opacity-50'
+        }
+    } else {
+        styles = {
+            container: 'bg-[F0F4F8] border-gray-100 opacity-50',
+            text: 'text-gray-400',
+            corner: 'opacity-0'
+        }
+    }
+    return styles
+}
+
+function getScoreMessage() {
+  const percentage = (score.value / questions.value.length) * 100
+  if (percentage === 100) return 'Une sagesse digne des plus grands savants ! Vos connaissances sont une lumière.'
+  if (percentage >= 80) return 'Excellent travail ! Vous maîtrisez le sujet avec brio.'
+  if (percentage >= 50) return 'Bien joué ! Continuez à explorer pour enrichir votre savoir.'
+  return 'Le chemin du savoir est long et pavé d\'apprentissage. Ne lâchez rien !'
 }
 
 // Lifecycle
 onMounted(() => {
-  startTimer()
+  if (!props.isMultiplayer) {
+      startTimer()
+  }
 })
 
 onUnmounted(() => {
   stopTimer()
+  if (props.isMultiplayer) {
+      mpDisconnect() // Safe cleanup
+  }
 })
 
-// Stop timer when answer is submitted
 watch(answered, (newVal) => {
-  if (newVal) {
-    stopTimer()
-  }
+  if (newVal) stopTimer()
 })
 </script>
 
 <style scoped>
+.pattern-geometric {
+    background-image: radial-gradient(#C39712 1px, transparent 1px);
+    background-size: 20px 20px;
+}
 .animate-fade-in {
-  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.6s ease-out forwards;
 }
 .animate-fade-in-up {
-  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+.animate-scale-in {
+    animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.animate-bounce-slow {
+    animation: bounce 3s infinite;
+}
+.animate-bounce-subtle {
+    animation: bounceSubtle 2s infinite;
 }
 
 @keyframes fadeIn {
@@ -361,5 +667,17 @@ watch(answered, (newVal) => {
 @keyframes fadeInUp {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+@keyframes scaleIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(-5%); }
+  50% { transform: translateY(0); }
+}
+@keyframes bounceSubtle {
+  0%, 100% { transform: translateY(-3px); }
+  50% { transform: translateY(0); }
 }
 </style>

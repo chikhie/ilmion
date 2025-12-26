@@ -77,3 +77,10 @@ export interface AuthResponse {
   token: string
   refreshToken: string
 }
+
+export interface Module {
+  id: string
+  label: string
+  subjectName: string
+  chapterCount: number
+}

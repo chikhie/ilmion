@@ -55,16 +55,515 @@
         },
         {
             "id": 6,
+            "type": "number",
+            "text": "Combien de versets contient le Coran ?",
+            "correctAnswer": "6236",
+            "explanation": "Le Coran est composé de 6236 versets (selon le décompte le plus commun)."
+        },
+        {
+            "id": 7,
             "type": "choice",
-            "text": "Dans quelle ville se situe le complexe de l'Alhambra ?",
+            "text": "Parmi ces villes, laquelle n'est pas une ville sainte de l'islam ?",
             "options": [
-                "Cordoue",
-                "Séville",
-                "Grenade",
-                "Malaga"
+                "Mekka",
+                "Medina",
+                "Cordoue"
             ],
-            "correctAnswer": "Grenade",
-            "explanation": "L'Alhambra est un ensemble palatial, fleuron de l'architecture nasride, situé à Grenade."
+            "correctAnswer": "Cordoue",
+            "explanation": "Cordoue est une ville importante en Andalousie, mais elle n'est pas une ville sainte au même titre que La Mecque, Médine ou Jérusalem."
+        },
+        {
+            "id": 8,
+            "type": "number",
+            "text": "À quel âge le prophète Muhammad est-il décédé ?",
+            "correctAnswer": "63",
+            "explanation": "Le prophète Muhammad est décédé à l'âge de 63 ans à Médine."
+        },
+        {
+            "id": 9,
+            "type": "number",
+            "text": "À quel âge le prophète Muhammad a-t-il eu la première révélation ?",
+            "correctAnswer": "40",
+            "explanation": "Le prophète Muhammad a reçu la première révélation dans la grotte de Hira à l'âge de 40 ans."
+        },
+        {
+            "id": 10,
+            "type": "choice",
+            "text": "Qui a été la première femme à se convertir à l'Islam ?",
+            "options": [
+                "Aisha",
+                "Khadija",
+                "Fatima",
+                "Sawda"
+            ],
+            "correctAnswer": "Khadija",
+            "explanation": "Khadija bint Khuwaylid, l'épouse du Prophète, fut la première personne à croire en son message."
+        },
+        {
+            "id": 11,
+            "type": "choice",
+            "text": "Quel compagnon était surnommé 'Al-Faruq' (celui qui distingue le vrai du faux) ?",
+            "options": [
+                "Abu Bakr",
+                "Umar ibn al-Khattab",
+                "Uthman ibn Affan",
+                "Ali ibn Abi Talib"
+            ],
+            "correctAnswer": "Umar ibn al-Khattab",
+            "explanation": "Umar ibn al-Khattab a reçu ce titre pour sa justice et sa capacité à discerner la vérité."
+        },
+        {
+            "id": 12,
+            "type": "number",
+            "text": "Combien d'ailes l'ange Jibril (Gabriel) possède-t-il selon un hadith ?",
+            "correctAnswer": "600",
+            "explanation": "Selon un hadith authentique, le Prophète a vu Jibril sous sa forme originelle avec 600 ailes."
+        },
+        {
+            "id": 13,
+            "type": "choice",
+            "text": "Quelle est la plus longue sourate du Coran ?",
+            "options": [
+                "Al-Imran",
+                "Al-Ma'idah",
+                "Al-Baqara",
+                "An-Nisa"
+            ],
+            "correctAnswer": "Al-Baqara",
+            "explanation": "La sourate Al-Baqara (La Vache) est la plus longue du Coran avec 286 versets."
+        },
+        {
+            "id": 14,
+            "type": "choice",
+            "text": "Comment s'appelait la nourrice du Prophète Muhammad ?",
+            "options": [
+                "Halima As-Sa'diya",
+                "Amina",
+                "Barakah",
+                "Fatima"
+            ],
+            "correctAnswer": "Halima As-Sa'diya",
+            "explanation": "Halima As-Sa'diya a allaité et élevé le Prophète dans le désert durant sa petite enfance."
+        },
+        {
+            "id": 15,
+            "type": "choice",
+            "text": "Quel prophète a construit l'arche pour sauver les croyants du déluge ?",
+            "options": [
+                "Ibrahim",
+                "Musa",
+                "Nuh",
+                "Lut"
+            ],
+            "correctAnswer": "Nuh",
+            "explanation": "Nuh (Noé) a construit l'arche sur ordre d'Allah pour sauver les croyants et les couples d'animaux."
+        },
+        {
+            "id": 16,
+            "type": "number",
+            "text": "Combien de piliers compte l'Islam ?",
+            "correctAnswer": "5",
+            "explanation": "Les piliers de l'Islam sont : l'attestation de foi, la prière, la zakat, le jeûne du Ramadan et le Hajj."
+        },
+        {
+            "id": 17,
+            "type": "choice",
+            "text": "Qui a été le premier Calife de l'Islam après la mort du Prophète ?",
+            "options": [
+                "Ali",
+                "Umar",
+                "Abu Bakr",
+                "Uthman"
+            ],
+            "correctAnswer": "Abu Bakr",
+            "explanation": "Abu Bakr As-Siddiq fut le premier des quatre califes bien guidés."
+        },
+        {
+            "id": 18,
+            "type": "choice",
+            "text": "Quelle bataille fut la première grande victoire des musulmans ?",
+            "options": [
+                "Uhud",
+                "Badr",
+                "Khaibar",
+                "Le Fossé"
+            ],
+            "correctAnswer": "Badr",
+            "explanation": "La bataille de Badr, en l'an 2 de l'hégire, fut une victoire décisive pour les musulmans."
+        },
+        {
+            "id": 19,
+            "type": "choice",
+            "text": "Quel est le premier mois du calendrier hégirien ?",
+            "options": [
+                "Ramadan",
+                "Muharram",
+                "Rajab",
+                "Safat"
+            ],
+            "correctAnswer": "Muharram",
+            "explanation": "Le calendrier islamique commence par le mois de Muharram."
+        },
+        {
+            "id": 20,
+            "type": "choice",
+            "text": "Quel compagnon a été surnommé 'Le sabre dégainé d'Allah' ?",
+            "options": [
+                "Hamza",
+                "Ali",
+                "Khalid ibn al-Walid",
+                "Sa'd ibn Abi Waqqas"
+            ],
+            "correctAnswer": "Khalid ibn al-Walid",
+            "explanation": "Khalid ibn al-Walid a reçu ce titre du Prophète lui-même pour son génie militaire."
+        },
+        {
+            "id": 21,
+            "type": "number",
+            "text": "Combien de fois le nom du Prophète Muhammad est-il mentionné explicitement dans le Coran ?",
+            "correctAnswer": "4",
+            "explanation": "Le nom 'Muhammad' apparaît 4 fois dans le Coran (le nom 'Ahmad' apparaît 1 fois)."
+        },
+        {
+            "id": 22,
+            "type": "choice",
+            "text": "Quel prophète avait le pouvoir de parler aux animaux et de commander aux djinns ?",
+            "options": [
+                "Dawud",
+                "Sulayman",
+                "Yunus",
+                "Yahya"
+            ],
+            "correctAnswer": "Sulayman",
+            "explanation": "Sulayman (Salomon) a reçu d'Allah des pouvoirs uniques sur la nature et les créatures."
+        },
+        {
+            "id": 23,
+            "type": "choice",
+            "text": "Qui était le premier muezzin (celui qui appelle à la prière) de l'Islam ?",
+            "options": [
+                "Zayd ibn Harithah",
+                "Bilal ibn Rabah",
+                "Abu Hurairah",
+                "Salman al-Farisi"
+            ],
+            "correctAnswer": "Bilal ibn Rabah",
+            "explanation": "Bilal, d'origine abyssinienne, avait une voix magnifique et fut choisi par le Prophète."
+        },
+        {
+            "id": 24,
+            "type": "choice",
+            "text": "Quelle sourate est appelée 'Le cœur du Coran' ?",
+            "options": [
+                "Al-Fatiha",
+                "Al-Ikhlas",
+                "Yasin",
+                "Al-Mulk"
+            ],
+            "correctAnswer": "Yasin",
+            "explanation": "La sourate Yasin est souvent désignée ainsi dans la tradition pour son importance spirituelle."
+        },
+        {
+            "id": 25,
+            "type": "choice",
+            "text": "Comment s'appelle le voyage nocturne du Prophète de La Mecque à Jérusalem ?",
+            "options": [
+                "Le Hajj",
+                "L'Al-Isra",
+                "L'Hégire",
+                "La Omra"
+            ],
+            "correctAnswer": "L'Al-Isra",
+            "explanation": "L'Isra est le voyage nocturne vers Jérusalem, suivi de l'Al-Mi'raj (l'ascension vers les cieux)."
+        },
+        {
+            "id": 26,
+            "type": "number",
+            "text": "Combien de rak'at (unités de prière) compte la prière obligatoire de l'Asr ?",
+            "correctAnswer": "4",
+            "explanation": "La prière de l'Asr est composée de 4 rak'at obligatoires."
+        },
+        {
+            "id": 27,
+            "type": "choice",
+            "text": "Qui a compilé le Coran en un seul volume officiel (moushaf) pour la première fois ?",
+            "options": [
+                "Abu Bakr",
+                "Umar",
+                "Uthman",
+                "Ali"
+            ],
+            "correctAnswer": "Uthman",
+            "explanation": "Bien que le travail ait commencé sous Abu Bakr, c'est Uthman qui a standardisé et distribué le texte final."
+        },
+        {
+            "id": 28,
+            "type": "choice",
+            "text": "Quel compagnon est surnommé 'L'homme aux deux lumières' (Dhun-Nurayn) ?",
+            "options": [
+                "Uthman ibn Affan",
+                "Talha ibn Ubaydillah",
+                "Az-Zubayr ibn al-Awwam",
+                "Umar"
+            ],
+            "correctAnswer": "Uthman ibn Affan",
+            "explanation": "Il a été surnommé ainsi car il a épousé successivement deux des filles du Prophète : Ruqayya et Umm Kulthum."
+        },
+        {
+            "id": 29,
+            "type": "choice",
+            "text": "Dans quelle ville se trouve la Mosquée Al-Aqsa ?",
+            "options": [
+                "La Mecque",
+                "Médine",
+                "Jérusalem",
+                "Damas"
+            ],
+            "correctAnswer": "Jérusalem",
+            "explanation": "Al-Aqsa se situe à Al-Qods (Jérusalem), le troisième lieu saint de l'Islam."
+        },
+        {
+            "id": 30,
+            "type": "choice",
+            "text": "Qui était le plus jeune des quatre Califes bien guidés ?",
+            "options": [
+                "Abu Bakr",
+                "Umar",
+                "Uthman",
+                "Ali"
+            ],
+            "correctAnswer": "Ali",
+            "explanation": "Ali ibn Abi Talib était le cousin et gendre du Prophète, et le plus jeune des quatre."
+        },
+        {
+            "id": 31,
+            "type": "number",
+            "text": "Combien de jours dure généralement le mois de Ramadan ?",
+            "correctAnswer": "29",
+            "explanation": "Un mois lunaire dure soit 29 soit 30 jours."
+        },
+        {
+            "id": 32,
+            "type": "choice",
+            "text": "Quel prophète a été jeté dans un puits par ses propres frères ?",
+            "options": [
+                "Ismail",
+                "Ishaq",
+                "Yusuf",
+                "Yaqub"
+            ],
+            "correctAnswer": "Yusuf",
+            "explanation": "L'histoire de Yusuf (Joseph) est racontée en détail dans la sourate qui porte son nom."
+        },
+        {
+            "id": 33,
+            "type": "choice",
+            "text": "Quelle est la ville natale du Prophète Muhammad ?",
+            "options": [
+                "Médine",
+                "Taïf",
+                "La Mecque",
+                "Djeddah"
+            ],
+            "correctAnswer": "La Mecque",
+            "explanation": "Le Prophète est né à La Mecque, dans la tribu des Quraysh."
+        },
+        {
+            "id": 34,
+            "type": "choice",
+            "text": "Quel ange est chargé de souffler dans la Trompe pour annoncer la fin du monde ?",
+            "options": [
+                "Jibril",
+                "Mikaïl",
+                "Israfil",
+                "Azraïl"
+            ],
+            "correctAnswer": "Israfil",
+            "explanation": "Israfil est l'ange qui soufflera deux fois dans la Trompe (le fracas et la résurrection)."
+        },
+        {
+            "id": 35,
+            "type": "choice",
+            "text": "Quel prophète a reçu les Psaumes (Az-Zabur) ?",
+            "options": [
+                "Musa",
+                "Dawud",
+                "Isa",
+                "Ibrahim"
+            ],
+            "correctAnswer": "Dawud",
+            "explanation": "Allah a révélé le Zabur au prophète Dawud (David)."
+        },
+        {
+            "id": 36,
+            "type": "number",
+            "text": "Combien de fois par jour un musulman doit-il accomplir la prière obligatoire ?",
+            "correctAnswer": "5",
+            "explanation": "Les cinq prières sont Fajr, Dhuhr, Asr, Maghrib et Isha."
+        },
+        {
+            "id": 37,
+            "type": "choice",
+            "text": "Comment s'appelait le père du Prophète Muhammad ?",
+            "options": [
+                "Abu Talib",
+                "Abdullah",
+                "Abdul Muttalib",
+                "Abbas"
+            ],
+            "correctAnswer": "Abdullah",
+            "explanation": "Abdullah ibn Abd al-Muttalib est décédé avant la naissance de son fils."
+        },
+        {
+            "id": 38,
+            "type": "choice",
+            "text": "Quel est l'autre nom de la ville de Médine dans le Coran ?",
+            "options": [
+                "Bakkah",
+                "Yathrib",
+                "Quds",
+                "Misr"
+            ],
+            "correctAnswer": "Yathrib",
+            "explanation": "Avant l'Islam, Médine était connue sous le nom de Yathrib."
+        },
+        {
+            "id": 39,
+            "type": "choice",
+            "text": "Quelle femme fut l'épouse du Prophète et la fille d'Abu Bakr ?",
+            "options": [
+                "Hafsa",
+                "Aisha",
+                "Zaynab",
+                "Juwayriya"
+            ],
+            "correctAnswer": "Aisha",
+            "explanation": "Aisha As-Siddiqiya était réputée pour sa grande science et sa transmission de hadiths."
+        },
+        {
+            "id": 40,
+            "type": "number",
+            "text": "En quelle année de l'Hégire a eu lieu la conquête de La Mecque ?",
+            "correctAnswer": "8",
+            "explanation": "Le Prophète est retourné victorieux à La Mecque en l'an 8 de l'Hégire."
+        },
+        {
+            "id": 41,
+            "type": "choice",
+            "text": "Quel prophète a parlé alors qu'il était encore au berceau ?",
+            "options": [
+                "Yahya",
+                "Isa",
+                "Ismail",
+                "Idris"
+            ],
+            "correctAnswer": "Isa",
+            "explanation": "Isa (Jésus) a parlé au berceau pour défendre sa mère Maryam."
+        },
+        {
+            "id": 42,
+            "type": "choice",
+            "text": "Qui a accompagné le Prophète lors de son émigration (Hégire) vers Médine ?",
+            "options": [
+                "Ali",
+                "Umar",
+                "Abu Bakr",
+                "Uthman"
+            ],
+            "correctAnswer": "Abu Bakr",
+            "explanation": "Abu Bakr était le compagnon de voyage du Prophète lors de leur refuge dans la grotte de Thawr."
+        },
+        {
+            "id": 43,
+            "type": "choice",
+            "text": "Quel compagnon était surnommé 'L'honorable de cette communauté' (Amin al-Ummah) ?",
+            "options": [
+                "Abu Ubayda ibn al-Jarrah",
+                "Sa'd ibn Mu'adh",
+                "Mu'adh ibn Jabal",
+                "Amr ibn al-As"
+            ],
+            "correctAnswer": "Abu Ubayda ibn al-Jarrah",
+            "explanation": "Le Prophète a dit : 'Chaque nation a un homme de confiance, et celui de cette nation est Abu Ubayda'."
+        },
+        {
+            "id": 44,
+            "type": "number",
+            "text": "Combien de fois faut-il faire le tour de la Kaaba lors du Tawaf ?",
+            "correctAnswer": "7",
+            "explanation": "Le Tawaf consiste à effectuer sept circuits complets autour de la Kaaba."
+        },
+        {
+            "id": 45,
+            "type": "choice",
+            "text": "Quelle est la sourate la plus courte du Coran ?",
+            "options": [
+                "Al-Ikhlas",
+                "Al-Kawthar",
+                "Al-Asr",
+                "An-Nasr"
+            ],
+            "correctAnswer": "Al-Kawthar",
+            "explanation": "La sourate Al-Kawthar ne contient que 3 versets."
+        },
+        {
+            "id": 46,
+            "type": "choice",
+            "text": "Quel prophète a été avalé par une baleine ?",
+            "options": [
+                "Ayub",
+                "Yunus",
+                "Al-Yasa",
+                "Dhul-Kifl"
+            ],
+            "correctAnswer": "Yunus",
+            "explanation": "Yunus (Jonas) fut avalé par un grand poisson après avoir quitté son peuple."
+        },
+        {
+            "id": 47,
+            "type": "choice",
+            "text": "Qui était le chef des martyrs (Sayyid al-Shuhada) ?",
+            "options": [
+                "Ali",
+                "Hamza ibn Abd al-Muttalib",
+                "Hussein ibn Ali",
+                "Ja'far ibn Abi Talib"
+            ],
+            "correctAnswer": "Hamza ibn Abd al-Muttalib",
+            "explanation": "L'oncle du Prophète, Hamza, a reçu ce titre après son martyre à la bataille d'Uhud."
+        },
+        {
+            "id": 48,
+            "type": "choice",
+            "text": "Quel compagnon d'origine perse a suggéré de creuser un fossé lors de la bataille d'Al-Ahzab ?",
+            "options": [
+                "Salman al-Farisi",
+                "Suhaib al-Rumi",
+                "Bilal",
+                "Abu Dharr"
+            ],
+            "correctAnswer": "Salman al-Farisi",
+            "explanation": "Salman al-Farisi a apporté cette expertise militaire perse pour protéger Médine."
+        },
+        {
+            "id": 49,
+            "type": "number",
+            "text": "Combien de fois par jour le nom d'Allah est-il mentionné dans l'appel à la prière (Adhan) ?",
+            "correctAnswer": "11",
+            "explanation": "Dans un Adhan standard (sans compter l'Iqama), le mot 'Allah' revient 11 fois."
+        },
+        {
+            "id": 50,
+            "type": "choice",
+            "text": "Quel était le métier du Prophète Muhammad avant la révélation ?",
+            "options": [
+                "Forgeron puis Poète",
+                "Berger puis Commerçant",
+                "Agriculteur ",
+                "Commerçant"
+            ],
+            "correctAnswer": "Berger puis Commerçant",
+            "explanation": "Le Prophète a gardé les troupeaux dans sa jeunesse, puis a dirigé des caravanes commerciales."
         }
     ]
 }

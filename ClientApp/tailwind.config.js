@@ -23,13 +23,17 @@ export default {
           900: '#0c4a6e',
         },
         brand: {
-          blue: '#082540', // Primaire
-          gold: '#C39712', // Secondaire
+          dark: '#082540',
+          wood: '#1a3c5a',
+          parchment: '#DDE1E7',
+          'parchment-light': '#f5f7fa',
+          gold: '#C39712',
         },
       },
       fontFamily: {
-        'amiri': ['Amiri', 'serif'],
-        'playfair': ['Playfair Display', 'serif'],
+        'serif-title': ['Merriweather', 'Libre Baskerville', 'serif'],
+        'sans-body': ['Inter', 'Source Sans 3', 'sans-serif'],
+        'arabic': ['Amiri', 'serif'],
       },
     },
   },
