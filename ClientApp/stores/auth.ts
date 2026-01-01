@@ -1,76 +1,69 @@
 import { defineStore } from 'pinia'
-import type { User, LoginRequest, RegisterRequest, AuthResponse } from '~/types'
+import type { LoginRequest, RegisterRequest } from '~/types'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null as User | null,
-    token: null as string | null,
-    refreshToken: null as string | null,
-    isAuthenticated: false,
+    user: null as any | null,
+    session: null as any | null,
     loading: false,
-    hasActiveSubscription: false,
   }),
 
   getters: {
     getUser: (state) => state.user,
-    getToken: (state) => state.token,
-    isLoggedIn: (state) => state.isAuthenticated,
-    isPremium: (state) => state.hasActiveSubscription,
+    isLoggedIn: (state) => !!state.user,
+    isPremium: (state) => !!state.user?.isPremium, // Assuming user object might have this, or default to false
   },
 
   actions: {
-    // Initialiser l'authentification depuis le localStorage
+    // Initialiser l'authentification (managed by Supabase automatically, but useful for hydration)
     async initAuth() {
-      if (import.meta.client) {
-        const token = localStorage.getItem('token')
-        const refreshToken = localStorage.getItem('refreshToken')
-        const userStr = localStorage.getItem('user')
+      const supabase = useSupabaseClient()
+      const { data } = await supabase.auth.getSession()
+      this.session = data.session
+      this.user = data.session?.user || null
 
-        if (token) {
-          try {
-            this.token = token
-            this.refreshToken = refreshToken
-            this.isAuthenticated = true
+      // Listen to state changes
+      supabase.auth.onAuthStateChange((event, session) => {
+        this.session = session
+        this.user = session?.user || null
+      })
+    },
 
-            if (userStr) {
-              const parsedUser = JSON.parse(userStr)
-              this.user = parsedUser
-            }
-
-            // Rafraîchir les données utilisateur depuis l'API
-            await this.fetchUserProfile()
-
-            // Vérifier l'état de l'abonnement
-            await this.checkAccess()
-          } catch (error) {
-            console.error('Error parsing user from localStorage:', error)
-            this.clearAuth()
-          }
+    async fetchUserProfile() {
+      const api = useApi()
+      try {
+        const profile = await api.getProfile()
+        if (profile) {
+          // Merge with existing user or set
+          this.user = { ...this.user, ...profile }
         }
+      } catch (e) {
+        console.error("Failed to fetch user profile", e)
       }
     },
 
     // Connexion
     async login(credentials: LoginRequest) {
       this.loading = true
+      const supabase = useSupabaseClient()
       try {
-        const { authService } = await import('~/services/auth.service')
-        const response = await authService.login(credentials)
+        // Supabase Login
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: credentials.email || '',
+          password: credentials.password
+        })
 
-        this.setAuth(response)
+        if (error) throw error
 
-        // Récupérer les données complètes de l'utilisateur
-        await this.fetchUserProfile()
-
-        // Vérifier l'état de l'abonnement
-        await this.checkAccess()
-
+        this.user = data.user
+        this.session = data.session
         return { success: true }
+
       } catch (error: any) {
         console.error('Login error:', error)
         return {
           success: false,
-          message: error.data?.message || 'Erreur de connexion. Vérifiez vos identifiants.'
+          message: error.message || 'Erreur de connexion.'
         }
       } finally {
         this.loading = false
@@ -80,19 +73,76 @@ export const useAuthStore = defineStore('auth', {
     // Inscription
     async register(data: RegisterRequest) {
       this.loading = true
+      const supabase = useSupabaseClient()
       try {
-        const { authService } = await import('~/services/auth.service')
-        await authService.register(data)
+        const { data: result, error } = await supabase.auth.signUp({
+          email: data.email,
+          password: data.password,
+          options: {
+            data: {
+              username: data.username,
+              full_name: data.username
+            }
+          }
+        })
+
+        if (error) throw error
 
         return {
           success: true,
-          message: 'Inscription réussie ! Vérifiez votre email pour confirmer votre compte.'
+          message: 'Inscription réussie ! Vérifiez votre email pour confirmer.'
         }
       } catch (error: any) {
         console.error('Register error:', error)
         return {
           success: false,
-          message: error.data?.message || 'Erreur lors de l\'inscription.'
+          message: error.message || 'Erreur lors de l\'inscription.'
+        }
+      } finally {
+        this.loading = false
+      }
+    },
+
+    // Mot de passe oublié
+    async forgotPassword(email: string) {
+      this.loading = true
+      const supabase = useSupabaseClient()
+      try {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        })
+
+        if (error) throw error
+
+        return { success: true }
+      } catch (error: any) {
+        console.error('Forgot password error:', error)
+        return {
+          success: false,
+          message: error.message || "Erreur lors de l'envoi de l'email."
+        }
+      } finally {
+        this.loading = false
+      }
+    },
+
+    // Réinitialisation du mot de passe
+    async resetPassword(password: string) {
+      this.loading = true
+      const supabase = useSupabaseClient()
+      try {
+        const { error } = await supabase.auth.updateUser({
+          password: password
+        })
+
+        if (error) throw error
+
+        return { success: true }
+      } catch (error: any) {
+        console.error('Reset password error:', error)
+        return {
+          success: false,
+          message: error.message || "Erreur lors de la réinitialisation."
         }
       } finally {
         this.loading = false
@@ -101,104 +151,36 @@ export const useAuthStore = defineStore('auth', {
 
     // Déconnexion
     async logout() {
-      try {
-        const { authService } = await import('~/services/auth.service')
-        await authService.logout(this.token)
-      } catch (error) {
-        console.error('Logout error:', error)
-      } finally {
-        this.clearAuth()
-      }
-    },
-
-    // Rafraîchir le token
-    async refreshAccessToken() {
-      if (!this.refreshToken) return false
-
-      try {
-        const { authService } = await import('~/services/auth.service')
-        const response = await authService.refreshToken(this.refreshToken)
-
-        this.setAuth(response)
-        return true
-      } catch (error) {
-        console.error('Refresh token error:', error)
-        this.clearAuth()
-        return false
-      }
-    },
-
-    // Définir l'authentification
-    setAuth(authData: AuthResponse) {
-      this.token = authData.token
-      this.refreshToken = authData.refreshToken
-      this.isAuthenticated = true
-
-      // Sauvegarder dans localStorage
-      if (import.meta.client) {
-        localStorage.setItem('token', authData.token)
-        localStorage.setItem('refreshToken', authData.refreshToken)
-      }
-    },
-
-    // Nettoyer l'authentification
-    clearAuth() {
+      const supabase = useSupabaseClient()
+      await supabase.auth.signOut()
       this.user = null
-      this.token = null
-      this.refreshToken = null
-      this.isAuthenticated = false
-      this.hasActiveSubscription = false
+      this.session = null
 
-      if (import.meta.client) {
-        localStorage.removeItem('token')
-        localStorage.removeItem('refreshToken')
-        localStorage.removeItem('user')
-      }
+      const router = useRouter()
+      router.push('/login')
     },
-
-    // Obtenir les headers d'authentification
+    // Headers pour l'API Client
     getAuthHeaders() {
-      return this.token ? { Authorization: `Bearer ${this.token}` } : {}
-    },
-
-    // Récupérer le profil utilisateur depuis /api/user/me
-    async fetchUserProfile() {
-      if (!this.token) return
-
-      try {
-        const { authService } = await import('~/services/auth.service')
-        const userProfile = await authService.getProfile(this.token)
-
-        this.user = userProfile
-
-        // Mettre à jour le localStorage avec les vraies données
-        if (import.meta.client) {
-          localStorage.setItem('user', JSON.stringify(userProfile))
-        }
-      } catch (error) {
-        console.error('Error fetching user profile:', error)
+      if (this.session?.access_token) {
+        return { Authorization: `Bearer ${this.session.access_token}` }
       }
+      return {}
     },
 
-    // Vérifier si l'utilisateur a un abonnement actif
-    async checkAccess() {
-      if (!this.token || !this.isAuthenticated) {
-        this.hasActiveSubscription = false
+    // Rafraîchir le token (delegated to Supabase)
+    async refreshAccessToken() {
+      const supabase = useSupabaseClient()
+      const { data, error } = await supabase.auth.refreshSession()
+
+      if (error || !data.session) {
         return false
       }
 
-      try {
-        const { authService } = await import('~/services/auth.service')
-        const hasAccess = await authService.checkSubscriptionAccess(this.token)
-
-        this.hasActiveSubscription = hasAccess
-        return hasAccess
-      } catch (error) {
-        console.error('Error checking subscription access:', error)
-        this.hasActiveSubscription = false
-        return false
-      }
+      this.session = data.session
+      this.user = data.user
+      return true
     },
   },
 })
+
 

@@ -280,7 +280,7 @@ onMounted(async () => {
   const authStore = useAuthStore()
   
   // Vérifier si l'utilisateur est authentifié
-  if (!authStore.isAuthenticated) {
+  if (!authStore.isLoggedIn) {
     navigateTo('/login')
     return
   }

@@ -26,7 +26,7 @@
       @click="handlePurchase"
     >
       <span v-if="!loading">
-        💳 Acheter pour {{ formatPrice(module.price) }}
+        💳 Acheter pour {{ formatPrice(module.price || 0) }}
       </span>
       <span v-else class="flex items-center">
         <svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@ const formatPrice = (price: number) => {
 
 const handlePurchase = async () => {
   // Vérifier si l'utilisateur est connecté
-  if (!authStore.isAuthenticated) {
+  if (!authStore.isLoggedIn) {
     errorMessage.value = 'Vous devez être connecté pour effectuer un achat'
     setTimeout(() => {
       navigateTo('/login?redirect=' + encodeURIComponent(window.location.pathname))

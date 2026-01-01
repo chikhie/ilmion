@@ -1,0 +1,241 @@
+[
+    {
+        "id": "ad282738-5e52-474c-8f29-57771765103a",
+        "title": "Placement sur Carte: Andalousie",
+        "description": "Placez les villes historiques de l'Andalousie sur la carte.",
+        "type": "MapPlacement",
+        "difficulty": "Medium",
+        "isPremium": false,
+        "thumbnailPath": "/images/games/andalusia_map.jpg",
+        "content": [
+            {
+                "name": "Cordoue (Qurtuba)",
+                "description": "Capitale du Califat omeyyade, centre intellectuel et culturel majeur.",
+                "lat": 37.8882,
+                "lng": -4.7794
+            },
+            {
+                "name": "Grenade (Gharnata)",
+                "description": "Dernier bastion musulman en Espagne, célèbre pour l'Alhambra .",
+                "lat": 37.1773,
+                "lng": -3.5986
+            },
+            {
+                "name": "Séville (Ishbiliya)",
+                "description": "Ville majeure située sur le Guadalquivir, connue pour la Giralda.",
+                "lat": 37.3891,
+                "lng": -5.9845
+            },
+            {
+                "name": "Tolède (Tulaytula)",
+                "description": "Ville des trois cultures, stratégique au centre de la péninsule.",
+                "lat": 39.8628,
+                "lng": -4.0273
+            }
+        ]
+    },
+    {
+        "id": "bd447668-5e52-474c-8f29-57771765103b",
+        "title": "Quiz Culture Générale",
+        "description": "Testez vos connaissances sur l'histoire islamique.",
+        "type": "Quiz",
+        "difficulty": "Easy",
+        "isPremium": false,
+        "thumbnailPath": "/images/games/quiz.jpg",
+        "content": {
+            "questions": [
+                {
+                    "id": 1,
+                    "type": "choice",
+                    "text": "Quelle ville était la capitale du Califat omeyyade en Andalousie ?",
+                    "options": [
+                        "Séville",
+                        "Grenade",
+                        "Cordoue",
+                        "Tolède"
+                    ],
+                    "correctAnswer": "Cordoue",
+                    "explanation": "Cordoue était la capitale du Califat de Cordoue et l'une des villes les plus avancées du monde médiéval."
+                },
+                {
+                    "id": 2,
+                    "type": "number",
+                    "text": "En quelle année (calendrier grégorien) la ville de Grenade est-elle tombée, marquant la fin de la présence musulmane en Espagne ?",
+                    "correctAnswer": "1492",
+                    "explanation": "La prise de Grenade par les Rois Catholiques a eu lieu le 2 janvier 1492."
+                },
+                {
+                    "id": 3,
+                    "type": "choice",
+                    "text": "Quel célèbre palais se trouve à Grenade ?",
+                    "options": [
+                        "L'Alhambra",
+                        "L'Alcazar",
+                        "La Mezquita",
+                        "Le Giralda"
+                    ],
+                    "correctAnswer": "L'Alhambra",
+                    "explanation": "L'Alhambra est un complexe palatial spectaculaire situé à Grenade."
+                },
+                {
+                    "id": 4,
+                    "type": "number",
+                    "text": "Combien de sourates contient le Coran ?",
+                    "correctAnswer": "114",
+                    "explanation": "Le Coran est composé de 114 sourates."
+                },
+                {
+                    "id": 5,
+                    "type": "choice",
+                    "text": "Qui est l'auteur de l'ouvrage 'Al-Muqaddima' ?",
+                    "options": [
+                        "Ibn Sina",
+                        "Ibn Khaldoun",
+                        "Al-Farabi",
+                        "Ibn Rushd"
+                    ],
+                    "correctAnswer": "Ibn Khaldoun",
+                    "explanation": "Ibn Khaldoun est l'historien et sociologue célèbre pour son introduction à l'histoire universelle, la Muqaddima."
+                },
+                {
+                    "id": 6,
+                    "type": "number",
+                    "text": "Combien de versets contient le Coran ?",
+                    "correctAnswer": "6236",
+                    "explanation": "Le Coran est composé de 6236 versets (selon le décompte le plus commun)."
+                },
+                {
+                    "id": 7,
+                    "type": "choice",
+                    "text": "Parmi ces villes, laquelle n'est pas une ville sainte de l'islam ?",
+                    "options": [
+                        "Mekka",
+                        "Medina",
+                        "Cordoue"
+                    ],
+                    "correctAnswer": "Cordoue",
+                    "explanation": "Cordoue est une ville importante en Andalousie, mais elle n'est pas une ville sainte au même titre que La Mecque, Médine ou Jérusalem."
+                },
+                {
+                    "id": 8,
+                    "type": "number",
+                    "text": "À quel âge le prophète Muhammad est-il décédé ?",
+                    "correctAnswer": "63",
+                    "explanation": "Le prophète Muhammad est décédé à l'âge de 63 ans à Médine."
+                },
+                {
+                    "id": 9,
+                    "type": "number",
+                    "text": "À quel âge le prophète Muhammad a-t-il eu la première révélation ?",
+                    "correctAnswer": "40",
+                    "explanation": "Le prophète Muhammad a reçu la première révélation dans la grotte de Hira à l'âge de 40 ans."
+                },
+                {
+                    "id": 10,
+                    "type": "choice",
+                    "text": "Qui a été la première femme à se convertir à l'Islam ?",
+                    "options": [
+                        "Aisha",
+                        "Khadija",
+                        "Fatima",
+                        "Sawda"
+                    ],
+                    "correctAnswer": "Khadija",
+                    "explanation": "Khadija bint Khuwaylid, l'épouse du Prophète, fut la première personne à croire en son message."
+                },
+                {
+                    "id": 11,
+                    "type": "choice",
+                    "text": "Quel compagnon était surnommé 'Al-Faruq' (celui qui distingue le vrai du faux) ?",
+                    "options": [
+                        "Abu Bakr",
+                        "Umar ibn al-Khattab",
+                        "Uthman ibn Affan",
+                        "Ali ibn Abi Talib"
+                    ],
+                    "correctAnswer": "Umar ibn al-Khattab",
+                    "explanation": "Umar ibn al-Khattab a reçu ce titre pour sa justice et sa capacité à discerner la vérité."
+                },
+                {
+                    "id": 12,
+                    "type": "number",
+                    "text": "Combien d'ailes l'ange Jibril (Gabriel) possède-t-il selon un hadith ?",
+                    "correctAnswer": "600",
+                    "explanation": "Selon un hadith authentique, le Prophète a vu Jibril sous sa forme originelle avec 600 ailes."
+                },
+                {
+                    "id": 13,
+                    "type": "choice",
+                    "text": "Quelle est la plus longue sourate du Coran ?",
+                    "options": [
+                        "Al-Imran",
+                        "Al-Ma'idah",
+                        "Al-Baqara",
+                        "An-Nisa"
+                    ],
+                    "correctAnswer": "Al-Baqara",
+                    "explanation": "La sourate Al-Baqara (La Vache) est la plus longue du Coran avec 286 versets."
+                },
+                {
+                    "id": 14,
+                    "type": "choice",
+                    "text": "Comment s'appelait la nourrice du Prophète Muhammad ?",
+                    "options": [
+                        "Halima As-Sa'diya",
+                        "Amina",
+                        "Barakah",
+                        "Fatima"
+                    ],
+                    "correctAnswer": "Halima As-Sa'diya",
+                    "explanation": "Halima As-Sa'diya a allaité et élevé le Prophète dans le désert durant sa petite enfance."
+                },
+                {
+                    "id": 15,
+                    "type": "choice",
+                    "text": "Quel prophète a construit l'arche pour sauver les croyants du déluge ?",
+                    "options": [
+                        "Ibrahim",
+                        "Musa",
+                        "Nuh",
+                        "Lut"
+                    ],
+                    "correctAnswer": "Nuh",
+                    "explanation": "Nuh (Noé) a construit l'arche sur ordre d'Allah pour sauver les croyants et les couples d'animaux."
+                },
+                {
+                    "id": 16,
+                    "type": "number",
+                    "text": "Combien de piliers compte l'Islam ?",
+                    "correctAnswer": "5",
+                    "explanation": "Les piliers de l'Islam sont : l'attestation de foi, la prière, la zakat, le jeûne du Ramadan et le Hajj."
+                },
+                {
+                    "id": 17,
+                    "type": "choice",
+                    "text": "Qui a été le premier Calife de l'Islam après la mort du Prophète ?",
+                    "options": [
+                        "Ali",
+                        "Umar",
+                        "Abu Bakr",
+                        "Uthman"
+                    ],
+                    "correctAnswer": "Abu Bakr",
+                    "explanation": "Abu Bakr As-Siddiq fut le premier des quatre califes bien guidés."
+                },
+                {
+                    "id": 18,
+                    "type": "choice",
+                    "text": "Quelle bataille fut la première grande victoire des musulmans ?",
+                    "options": [
+                        "Uhud",
+                        "Badr",
+                        "Khaibar",
+                        "Le Fossé"
+                    ],
+                    "correctAnswer": "Badr",
+                    "explanation": "La bataille de Badr, en l'an 2 de l'hégire, fut une victoire décisive pour les musulmans."
+                }
+            ]
+        }
+    }
+]

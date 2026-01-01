@@ -1,6 +1,7 @@
 import { ApiClient } from '~/services/api.client'
 import { UserService } from '~/services/user.service'
 import { GameService } from '~/services/game.service'
+import { MockGameService } from '~/services/mock/game.service.mock' // Import Mock
 import { PaymentService } from '~/services/payment.service'
 import { StatsService } from '~/services/stats.service'
 
@@ -8,7 +9,8 @@ export const useApi = () => {
   const client = new ApiClient()
 
   const userService = new UserService(client)
-  const gameService = new GameService(client)
+  const gameService = new MockGameService() // Use Mock
+
   const paymentService = new PaymentService(client)
   const statsService = new StatsService(client)
 

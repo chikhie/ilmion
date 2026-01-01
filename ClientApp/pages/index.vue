@@ -1,161 +1,104 @@
 <template>
-  <div class="flex-grow flex flex-col items-center justify-center relative overflow-hidden py-12">
-    <!-- Background Layers -->
-    <div class="absolute inset-0 z-0 pointer-events-none">
-       <!-- Geometric Pattern -->
-       <div class="absolute inset-0 pattern-geometric opacity-[0.03]"></div>
-       <!-- Wood Texture Overlay (already in body/app but reinforced here for depth) -->
-       <div class="absolute inset-0 bg-texture-wood opacity-50 mix-blend-overlay"></div>
-       
-       <!-- Ambient Glows -->
-       <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-gold/10 blur-[150px] rounded-full mix-blend-screen"></div>
-       <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-wood/30 blur-[150px] rounded-full"></div>
+  <div class="min-h-screen bg-brand-dark overflow-hidden relative">
+    <!-- Background Texture -->
+    <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')]"></div>
+    </div>
+    
+    <!-- Hero Section -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-80px)] flex flex-col justify-center items-center text-center">
+        
+        <!-- Animated decorative element -->
+        <div class="mb-8 relative w-24 h-24 sm:w-32 sm:h-32">
+            <div class="absolute inset-0 bg-brand-gold rounded-full opacity-20 animate-ping"></div>
+            <div class="relative bg-gradient-to-br from-brand-gold to-brand-wood rounded-full p-6 shadow-[0_0_30px_rgba(195,151,18,0.3)]">
+                 <img src="/Ilmanar.svg" alt="Logo" class="w-full h-full object-contain" />
+            </div>
+        </div>
+
+        <h1 class="text-6xl sm:text-8xl font-serif-title font-bold text-brand-parchment mb-4 drop-shadow-lg tracking-tight">
+          ILMANAR
+        </h1>
+        
+        <p class="text-xl sm:text-2xl text-brand-wood font-libre italic mb-10 max-w-2xl leading-relaxed">
+          "La lumière du savoir éclaire le chemin de la sagesse"
+        </p>
+
+        <!-- Main Actions Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+            
+            <!-- Jeux -->
+            <NuxtLink to="/games" class="group relative h-48 md:h-64 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-brand-gold/20">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <h3 class="text-2xl font-serif-title font-bold text-brand-parchment mb-1 group-hover:text-brand-gold transition-colors">Jeux</h3>
+                    <p class="text-sm text-brand-wood opacity-80">Explorez & Apprenez</p>
+                </div>
+            </NuxtLink>
+
+            <!-- Magazine -->
+            <NuxtLink to="/magazine" class="group relative h-48 md:h-64 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-brand-gold/20">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <h3 class="text-2xl font-serif-title font-bold text-brand-parchment mb-1 group-hover:text-brand-gold transition-colors">Magazine</h3>
+                    <p class="text-sm text-brand-wood opacity-80">Lisez & Découvrez</p>
+                </div>
+            </NuxtLink>
+
+            <!-- Vidéos -->
+            <NuxtLink to="/videos" class="group relative h-48 md:h-64 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-brand-gold/20">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <h3 class="text-2xl font-serif-title font-bold text-brand-parchment mb-1 group-hover:text-brand-gold transition-colors">Vidéos</h3>
+                    <p class="text-sm text-brand-wood opacity-80">Regardez & Comprenez</p>
+                </div>
+            </NuxtLink>
+
+        </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="relative z-10 w-full max-w-7xl mx-auto px-4 py-10 md:py-20 text-center md:text-left">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <!-- Left Column: Content -->
-        <div class="space-y-10 animate-fade-in">
-            <div class="mb-6 relative inline-block group">
-               <div class="absolute inset-0 bg-brand-gold/20 blur-xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-700"></div>
-               <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="relative h-24 w-24 md:h-32 md:w-32 mx-auto md:mx-0 drop-shadow-2xl transition-transform duration-500 group-hover:rotate-6" />
-            </div>
-
-            <h1 class="text-5xl md:text-8xl font-serif-title font-bold tracking-tight text-brand-parchment drop-shadow-lg leading-tight">
-              <span class="bg-clip-text text-transparent bg-gradient-to-b from-brand-parchment to-brand-parchment/70">ILMANAR</span>
-            </h1>
-
-            <div class="border-t border-b border-brand-gold/20 py-4 my-6 bg-brand-dark/20 backdrop-blur-sm inline-block">
-                <p class="text-xl md:text-2xl text-brand-parchment/80 font-serif-title italic">
-                “L’histoire éclairée par le savoir”
-                </p>
-            </div>
-
-            <p class="text-lg md:text-xl text-brand-parchment/60 max-w-xl font-sans-body leading-relaxed mx-auto md:mx-0">
-              Une plateforme immersive pour redécouvrir l'âge d'or de la civilisation
-              et maîtriser la langue arabe à travers le jeu.
-            </p>
-
-            <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
-              <NuxtLink v-if="!authStore.isAuthenticated" to="/register" 
-                class="px-8 py-3 bg-texture-parchment text-brand-dark text-lg font-bold font-serif-title rounded shadow-lg hover:shadow-brand-gold/20 hover:scale-105 transition-all duration-300 border border-brand-gold/50">
-                Commencer l'aventure
-              </NuxtLink>
-
-              <NuxtLink v-if="authStore.isAuthenticated" to="/games" 
-                class="px-8 py-3 bg-texture-parchment text-brand-dark text-lg font-bold font-serif-title rounded shadow-lg hover:shadow-brand-gold/20 hover:scale-105 transition-all duration-300 border border-brand-gold/50">
-                Reprendre l'exploration
-              </NuxtLink>
-              
-              <NuxtLink to="/login" v-if="!authStore.isAuthenticated"
-                 class="px-8 py-3 border border-brand-parchment/20 text-brand-parchment text-lg font-bold font-sans-body rounded hover:bg-brand-parchment/5 transition-all duration-300">
-                Connexion
-              </NuxtLink>
-            </div>
-        </div>
-
-        <!-- Right Column: Hook Quiz -->
-        <div class="animate-fade-in-down delay-300 relative" v-if="!authStore.isAuthenticated">
-             <div class="absolute -top-10 -right-10 w-20 h-20 bg-brand-gold/10 rounded-full blur-xl animate-pulse"></div>
-             <QuizSection 
-                title="Quiz Découverte" 
-                :content="demoQuizContent"
-                :is-demo="true"
-             />
-             <p class="text-center text-brand-parchment/40 text-xs mt-4 italic">Testez vos connaissances en 3 questions</p>
-        </div>
-        
-        <!-- Placeholder for right column (image or illustration) if authenticated -->
-        <div v-else class="hidden md:flex justify-center items-center animate-fade-in">
-             <div class="relative w-full aspect-square max-w-md bg-brand-gold/5 rounded-full flex items-center justify-center border border-brand-gold/10 overflow-hidden">
-                  <div class="absolute inset-0 pattern-geometric opacity-20 animate-spin-slow"></div>
-                  <!-- Abstract Stylized Lighthouse/Knowledge Icon via CSS/SVG could go here -->
-                  <span class="text-9xl opacity-20">🕌</span>
-             </div>
-        </div>
-
-      </div>
-    </section>
+    <!-- PWA Install Button -->
+    <!-- Only shown if installPrompt is available -->
+    <div v-if="installPrompt" class="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-50 animate-bounce-slow">
+         <button @click="installPWA" class="flex items-center gap-3 bg-brand-gold text-brand-dark px-6 py-4 rounded-full font-bold shadow-2xl hover:bg-white hover:scale-105 transition-all">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+             </svg>
+             <span>Installer l'application</span>
+         </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: 'Ilmanar - Apprenez Autrement',
-  meta: [
-    { name: 'description', content: 'Plateforme moderne d\'apprentissage interactive.' }
-  ]
-})
+  const installPrompt = ref<any>(null)
 
-const authStore = useAuthStore()
+  onMounted(() => {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault()
+      installPrompt.value = e
+    })
+  })
 
-definePageMeta({
-  middleware: 'guest'
-})
-
-const features = [
-  {
-    title: "Interactif",
-    description: "Des jeux conçus pour mémoriser durablement.",
-    icon: "🎲"
-  },
-  {
-    title: "Premium",
-    description: "Magazines et contenus exclusifs.",
-    icon: "⭐"
-  },
-  {
-    title: "Suivi",
-    description: "Mesurez vos progrès en temps réel.",
-    icon: "📊"
+  const installPWA = async () => {
+      if (!installPrompt.value) return
+      installPrompt.value.prompt()
+      const { outcome } = await installPrompt.value.userChoice
+      if (outcome === 'accepted') {
+          installPrompt.value = null
+      }
   }
-]
 
-const demoQuizContent = JSON.stringify({
-  questions: [
-    {
-      id: 1,
-      question: "Quelle ville était la capitale de l'Andalousie omeyyade ?",
-      options: ["Damas", "Cordoue", "Bagdad", "Le Caire"],
-      correctAnswer: 1
-    },
-    {
-      id: 2,
-      question: "Qui est considéré comme le père de l'algèbre ?",
-      options: ["Al-Khwarizmi", "Ibn Sina", "Al-Biruni", "Ibn Rushd"],
-      correctAnswer: 0
-    },
-    {
-      id: 3,
-      question: "Quelle célèbre bibliothèque se trouvait à Bagdad ?",
-      options: ["La Maison de la Sagesse", "La Bibliothèque d'Alexandrie", "Al-Qarawiyyin", "Dar al-Ilm"],
-      correctAnswer: 0
-    }
-  ]
-})
+  definePageMeta({
+    layout: 'default' 
+  })
 </script>
 
 <style scoped>
-.animate-fade-in {
-  animation: fadeIn 1s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.bg-radial-gradient {
-  background: radial-gradient(circle at center, var(--tw-gradient-from), var(--tw-gradient-to));
-}
-
-@keyframes fade-in-down {
-  0% { opacity: 0; transform: translateY(-10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in-down {
-  animation: fade-in-down 0.8s ease-out;
+.animate-bounce-slow {
+    animation: bounce 3s infinite;
 }
 </style>

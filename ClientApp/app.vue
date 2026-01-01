@@ -1,10 +1,11 @@
 <template>
   <div class="min-h-screen bg-brand-dark text-white flex flex-col font-sans-body">
-    <AppHeader v-if="showHeader" />
-    <main class="flex-grow">
+    <AppHeader />
+    <main class="flex-grow pb-24 lg:pb-0">
       <NuxtPage />
     </main>
-    <AppFooter />
+    <AppFooter class="hidden lg:block" /> <!-- Optionally hide footer on mobile if it clutters, or keep it. User didn't specify, but often bottom nav replaces footer nav functionality on mobile. Let's keep it but maybe add padding. -->
+    <AppBottomNav />
   </div>
 </template>
 
@@ -13,10 +14,6 @@
   
   const authStore = useAuthStore()
   const route = useRoute()
-  
-  const showHeader = computed(() => {
-    return authStore.isAuthenticated
-  })
 
   onMounted(() => {
     authStore.initAuth()

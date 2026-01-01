@@ -52,8 +52,12 @@ builder.Services.AddScoped<Ilmanar.Infra.repository.ISubscriptionRepo, Ilmanar.I
 builder.Services.AddScoped<ComponentEncryptionService>();
 
 // Multiplayer Services
-builder.Services.AddSingleton<MultiplayerService>();
-builder.Services.AddSignalR();
+
+
+// MongoDB Configuration
+builder.Services.Configure<Ilmanar.Infra.Settings.MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
+builder.Services.AddSingleton<QuizService>();
 
 
 
@@ -101,7 +105,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("ProdCors", policy =>
     {
         policy
-            .WithOrigins("https://ilmanar.site","https://api.ilmanar.site")
+            .WithOrigins("https://ilmanar.site","https://api.ilmanar.site", "https://ilmanar.chikhibra.workers.dev")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
@@ -246,7 +250,7 @@ app.UseStaticFiles(); // Sert tous les fichiers statiques de wwwroot
 
 // API Controllers
 app.MapControllers();
-app.MapHub<Ilmanar.Api.Hubs.GameHub>("/gameHub");
+
 
 // Fallback pour le SPA - redirige toutes les routes non-API vers index.html
 app.MapFallbackToFile("index.html");

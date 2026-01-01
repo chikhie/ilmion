@@ -5,8 +5,18 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxtjs/tailwindcss',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@nuxtjs/supabase'
   ],
+
+  supabase: {
+    redirect: false, // Handle redirects manually in middleware
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      exclude: ['/', '/register', '/games', '/games/*'] // Updated excludes
+    }
+  },
 
   css: [
     '~/assets/css/main.css'

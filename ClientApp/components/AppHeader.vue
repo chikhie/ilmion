@@ -1,29 +1,40 @@
 <template>
     <header class="bg-brand-dark/95 backdrop-blur-xl border-b border-brand-gold/10 sticky top-0 z-40 font-sans-body transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 md:h-20">
+      <div class="flex items-center justify-between h-12 md:h-20">
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center space-x-3 group">
-          <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-10 w-10 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_15px_rgba(195,151,18,0.3)]" />
-          <span class="text-2xl font-serif-title font-bold tracking-tight text-brand-parchment group-hover:text-brand-gold transition-colors uppercase">ILMANAR</span>
+        <NuxtLink to="/" class="flex items-center space-x-2 md:space-x-3 group">
+          <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-6 w-6 md:h-10 md:w-10 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_15px_rgba(195,151,18,0.3)]" />
+          <span class="text-lg md:text-2xl font-serif-title font-bold tracking-tight text-brand-parchment group-hover:text-brand-gold transition-colors uppercase">ILMANAR</span>
         </NuxtLink>
 
         <!-- Navigation -->
-        <nav class="hidden md:flex items-center space-x-8">
+        <nav class="hidden lg:flex items-center space-x-8">
           
           <!-- Authenticated -->
-          <div v-if="isAuthenticated" class="flex items-center space-x-6">
-            <NuxtLink
-               to="/multiplayer"
-               class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest"
-               active-class="text-white"
-            >
-               Multi
+          <div class="flex items-center space-x-8">
+            <NuxtLink to="/games" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
+              Jeux
             </NuxtLink>
-            <UserMenu />
+            <NuxtLink to="/magazine" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
+              Magazine
+            </NuxtLink>
+            <NuxtLink to="/" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
+              Accueil
+            </NuxtLink>
+            <NuxtLink to="/videos" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
+              Vidéos
+            </NuxtLink>
+            
+            <div class="pl-4 border-l border-white/10">
+                 <NuxtLink to="/profile" class="text-sm font-bold text-brand-gold hover:text-white transition-colors uppercase tracking-widest">
+                  Profil
+                </NuxtLink>
+            </div>
           </div>
 
           <!-- Guest -->
+          <!--
           <div v-else class="flex items-center space-x-6">
             <NuxtLink
               to="/login"
@@ -38,12 +49,12 @@
               S'inscrire
             </NuxtLink>
           </div>
+          -->
         </nav>
 
-        <!-- Mobile menu button -->
+        <!-- Mobile menu button (Hidden as we switched to Bottom Nav) -->
         <button
-          @click="mobileMenuOpen = !mobileMenuOpen"
-          class="md:hidden p-2 rounded-xl hover:bg-white/5 text-gray-400 hover:text-white transition-colors"
+          class="hidden" 
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -99,6 +110,7 @@
               </button>
             </template>
 
+            <!--
             <template v-else>
               <NuxtLink
                 to="/login"
@@ -115,6 +127,7 @@
                 S'inscrire
               </NuxtLink>
             </template>
+            -->
           </nav>
         </div>
       </transition>
@@ -124,7 +137,7 @@
 
 <script setup lang="ts">
 const authStore = useAuthStore()
-const isAuthenticated = computed(() => authStore.isAuthenticated)
+const isAuthenticated = computed(() => authStore.isLoggedIn)
 const mobileMenuOpen = ref(false)
 
 const handleLogout = async () => {

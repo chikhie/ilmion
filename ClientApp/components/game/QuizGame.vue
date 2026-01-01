@@ -1,47 +1,45 @@
 <template>
   <div class="max-w-4xl mx-auto font-sans-body">
     <!-- Outer Card with Pattern Border (Matching Mockup) -->
-    <div class="bg-[#Fdfbf7] p-2 rounded-[2.5rem] shadow-2xl relative overflow-hidden transform transition-all hover:scale-[1.005] duration-500 border border-brand-gold/20">
+    <div class="bg-[#Fdfbf7] p-2 rounded-2xl md:rounded-[2.5rem] shadow-2xl relative overflow-hidden transform transition-all hover:scale-[1.005] duration-500 border border-brand-gold/20">
         <!-- Pattern Texture on Border -->
         <div class="absolute inset-0 pattern-geometric opacity-10 pointer-events-none"></div>
+
+        <!-- Global Multiplayer Error Overlay -->
+        <div v-if="isMultiplayer && mpError" class="absolute inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-sm rounded-xl md:rounded-[2rem]">
+            <div class="text-center p-8 max-w-md animate-scale-in">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+                <h3 class="text-2xl font-serif-title font-bold text-brand-dark mb-2">Fin de la partie</h3>
+                <p class="text-brand-wood font-medium mb-8 leading-relaxed">{{ mpError }}</p>
+                <button @click="handleClose" class="px-8 py-3 bg-brand-dark text-brand-parchment rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-black transition-all">
+                    Retour aux jeux
+                </button>
+            </div>
+        </div>
         
         <!-- Inner Card with Line Border -->
-        <div class="bg-white rounded-[2rem] border-2 border-brand-dark/80 p-8 md:p-10 relative z-10 flex flex-col min-h-[600px]">
+        <div class="bg-white rounded-xl md:rounded-[2rem] border-2 border-brand-dark/80 p-3 md:p-10 relative z-10 flex flex-col min-h-[350px] md:min-h-[600px]">
             
-            <!-- Game Header (Timer, Icon, Score) -->
-            <div class="flex justify-between items-start mb-8 border-b border-brand-wood/10 pb-6">
+            <!-- Game Header (Compact) -->
+            <div class="flex justify-between items-center mb-2 md:mb-8 md:border-b md:border-brand-wood/10 md:pb-6 relative w-full">
                 <!-- Left: Timer / Lobby Status -->
-                <div class="flex items-center gap-3">
-                     <div v-if="!showResult && !answered && (!isMultiplayer || mpGameStarted)" class="w-12 h-12 rounded-full border-2 flex items-center justify-center font-bold text-lg transition-all shadow-inner"
+                <div class="flex items-center gap-2">
+                     <div v-if="!showResult && !answered && (!isMultiplayer || mpGameStarted)" class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 flex items-center justify-center font-bold text-sm md:text-lg shadow-inner bg-gray-50"
                           :class="timerClass">
                         {{ timeRemaining }}
                      </div>
-                     <div v-else-if="isMultiplayer && !mpGameStarted" class="flex items-center gap-2 text-brand-gold font-bold uppercase tracking-wider text-xs">
-                        <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
-                        En Ligne
+                     <div v-else-if="isMultiplayer && !mpGameStarted">
+                        <!-- Removed 'En Ligne' label as requested -->
                      </div>
-                     <span v-if="(!isMultiplayer || mpGameStarted) && !showResult" class="text-xs uppercase tracking-widest text-brand-wood font-bold hidden md:block">Secondes</span>
-                </div>
-
-                <!-- Center: Calligraphy Icon -->
-                 <div class="text-center -mt-4">
-                    <svg class="h-20 w-20 text-[#C39712] opacity-80 drop-shadow-sm mx-auto" viewBox="0 0 100 100" fill="currentColor">
-                        <path d="M50 20 C60 15 75 15 85 25 C90 35 85 45 75 45 C65 45 60 35 60 25 M60 25 C60 55 60 75 50 85 M50 85 C40 75 40 55 50 25" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" />
-                        <path d="M55 22 Q65 12 75 22" stroke="currentColor" fill="none" stroke-width="2" />
-                        <circle cx="65" cy="15" r="3" fill="currentColor" />
-                    </svg>
-                    <h2 class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-wood/40 mt-1">{{ title }}</h2>
                 </div>
 
                 <!-- Right: Score / Player Count -->
                 <div class="flex flex-col items-end">
-                    <span class="text-[10px] font-black uppercase tracking-widest text-brand-wood/60 mb-1">
-                        {{ isMultiplayer && !mpGameStarted ? 'Joueurs' : 'Score' }}
-                    </span>
-                    <div class="text-xl font-serif-title font-bold text-brand-dark">
-                         <span v-if="isMultiplayer && !mpGameStarted">{{ players.length }}</span>
-                         <span v-else>
-                             <span class="text-brand-gold">{{ score }}</span><span class="text-brand-wood/40 mx-1">/</span>{{ questions.length }}
+                    <div class="text-base md:text-xl font-bold text-brand-dark">
+                         <span v-if="!(isMultiplayer && !mpGameStarted)">
+                             <span class="text-brand-gold">{{ score }}</span><span class="text-gray-400 text-xs mx-0.5">/</span>{{ questions.length }}
                          </span>
                     </div>
                 </div>
@@ -53,10 +51,22 @@
             </div>
 
             <!-- MULTIPLAYER LOBBY -->
-            <div v-else-if="isMultiplayer && !mpGameStarted" class="flex-grow flex flex-col items-center justify-center animate-fade-in relative z-10">
+            <div v-else-if="isMultiplayer && !mpGameStarted" class="flex-grow flex flex-col items-center justify-center animate-fade-in relative z-10 w-full">
                 
-                <!-- Initial Choice -->
-                <div v-if="!currentCode" class="w-full max-w-md space-y-6">
+                <!-- GUEST USERNAME PROMPT -->
+                <div v-if="!hasMultiplayerIdentity" class="w-full max-w-sm bg-white p-8 rounded-2xl shadow-xl border border-brand-gold/20 text-center">
+                     <h3 class="text-xl font-serif-title font-bold text-brand-dark mb-4">Qui êtes-vous ?</h3>
+                     <p class="text-sm text-brand-wood/60 mb-6">Entrez un nom pour rejoindre la caravane</p>
+                     
+                     <input v-model="guestUsername" @keyup.enter="confirmIdentity" placeholder="Votre nom..." class="w-full p-4 mb-4 bg-gray-50 border-2 border-brand-wood/10 rounded-xl text-center font-bold text-gray-900 focus:border-brand-gold outline-none" maxlength="15" />
+                     
+                     <button @click="confirmIdentity" :disabled="!guestUsername" class="w-full py-3 bg-brand-dark text-brand-parchment rounded-xl font-bold uppercase tracking-widest hover:bg-black disabled:opacity-50 transition-all">
+                         Continuer
+                     </button>
+                </div>
+
+                <!-- Initial Choice (Lobby Actions) -->
+                <div v-else-if="!currentCode" class="w-full max-w-md space-y-6">
                     <h3 class="text-3xl font-serif-title font-bold text-center text-brand-dark mb-8">Rejoindre la Caravane</h3>
                     
                     <button @click="handleCreateLobby" class="w-full py-5 bg-brand-dark text-brand-parchment rounded-2xl font-bold uppercase tracking-widest shadow-lg hover:bg-black hover:scale-[1.02] transition-all flex items-center justify-center gap-3">
@@ -69,9 +79,9 @@
                         <div class="relative flex justify-center text-xs uppercase tracking-widest text-brand-wood/60"><span class="bg-white px-2">Ou</span></div>
                     </div>
 
-                    <div class="flex gap-2">
+                    <div class="flex flex-col sm:flex-row gap-2">
                         <input v-model="joinCodeDisplay" placeholder="Code de partie..." class="flex-1 p-4 bg-gray-50 border-2 border-brand-wood/10 rounded-xl text-center font-bold uppercase tracking-widest text-brand-dark focus:border-brand-gold outline-none" maxlength="6" />
-                        <button @click="handleJoinLobby" :disabled="!joinCodeDisplay" class="px-6 py-4 bg-brand-wood text-brand-parchment rounded-xl font-bold uppercase tracking-widest hover:bg-brand-gold disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        <button @click="handleJoinLobby" :disabled="!joinCodeDisplay" class="w-full sm:w-auto px-6 py-4 bg-brand-wood text-brand-parchment rounded-xl font-bold uppercase tracking-widest hover:bg-brand-gold disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                             Rejoindre
                         </button>
                     </div>
@@ -81,19 +91,30 @@
 
                 <!-- Waiting Room -->
                 <div v-else class="w-full max-w-lg text-center">
-                    <div class="bg-brand-gold/10 rounded-2xl p-6 mb-8 border border-brand-gold/30">
-                        <p class="text-xs uppercase tracking-widest text-brand-wood/60 mb-2">Code de la partie</p>
-                        <p class="text-5xl font-serif-title font-bold text-brand-dark tracking-[0.2em]">{{ currentCode }}</p>
+                    <div class="bg-brand-gold/10 rounded-2xl p-6 mb-8 border border-brand-gold/30 relative group">
+                        <p class="text-xs uppercase tracking-widest text-brand-wood/60 mb-1">Code de la partie</p>
+                        <p class="text-2xl md:text-3xl font-serif-title font-bold text-brand-dark tracking-[0.2em] mb-4">{{ currentCode }}</p>
+                        
+                        <div class="flex justify-center gap-3 mt-2 transition-opacity duration-300">
+                             <button @click="copyCode" class="text-xs font-bold uppercase tracking-widest text-brand-wood hover:text-brand-dark flex items-center gap-1 px-3 py-2 bg-white/50 rounded-lg hover:bg-white transition-colors">
+                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
+                                 Copier
+                             </button>
+                             <button @click="copyInviteLink" class="text-xs font-bold uppercase tracking-widest text-brand-wood hover:text-brand-dark flex items-center gap-1 px-3 py-2 bg-white/50 rounded-lg hover:bg-white transition-colors">
+                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                                 Inviter
+                             </button>
+                        </div>
                     </div>
 
                     <h4 class="text-sm font-bold uppercase tracking-widest text-brand-wood mb-4">Joueurs en attente ({{ players.length }})</h4>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-                        <div v-for="player in players" :key="player.connectionId" class="bg-gray-50 p-3 rounded-xl border border-gray-100 flex items-center gap-2 animate-scale-in">
-                            <div class="w-8 h-8 rounded-full bg-brand-dark text-brand-parchment flex items-center justify-center font-bold text-xs">
+                    <div class="flex flex-wrap justify-center gap-2 mb-6">
+                        <div v-for="player in players" :key="player.connectionId" class="bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100 flex items-center gap-2 animate-scale-in">
+                            <div class="w-5 h-5 rounded-full bg-brand-dark text-brand-parchment flex items-center justify-center font-bold text-[10px]">
                                 {{ player.username.charAt(0).toUpperCase() }}
                             </div>
-                            <span class="text-sm font-bold text-brand-dark truncate">{{ player.username }}</span>
+                            <span class="text-xs font-bold text-gray-900 truncate max-w-[80px]">{{ player.username }}</span>
                         </div>
                     </div>
                     
@@ -128,7 +149,7 @@
                          <div v-for="(p, i) in sortedPlayers" :key="p.connectionId" class="flex justify-between items-center p-2 rounded-lg" :class="players[i]?.connectionId === myConnectionId ? 'bg-brand-gold/20 border border-brand-gold/30' : ''">
                              <div class="flex items-center gap-2">
                                  <span class="font-bold text-brand-dark w-6">{{ i + 1 }}.</span>
-                                 <span class="text-sm font-medium">{{ p.username }}</span>
+                                 <span class="text-sm font-medium text-gray-900">{{ p.username }}</span>
                              </div>
                              <span class="font-bold text-brand-dark">{{ p.score }} pts</span>
                          </div>
@@ -170,7 +191,7 @@
                              <div class="relative z-10 px-6 py-5 flex items-center w-full">
                                  <!-- Letter Block -->
                                  <span class="mr-5 font-serif-title font-bold opacity-60 text-sm tracking-wider w-6">
-                                     {{ String.fromCharCode(65 + idx) }}.
+                                     {{ String.fromCharCode(65 + (idx as number)) }}.
                                  </span>
                                  
                                  <!-- Text -->
@@ -291,7 +312,7 @@ import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 
 const props = defineProps({
   gameContent: {
-    type: String,
+    type: [String, Object], // Accept both
     required: true
   },
   title: {
@@ -337,6 +358,13 @@ const selectedAnswer = ref<string | null>(null)
 const numberInput = ref('')
 const isCorrect = ref(false)
 const joinCodeDisplay = ref('')
+const guestUsername = ref('')
+const hasPseudo = ref(false) // Track if guest pseudo is set
+
+const authStore = useAuthStore()
+const hasMultiplayerIdentity = computed(() => {
+    return !!authStore.user?.username || hasPseudo.value
+})
 
 // Timer State
 const timeRemaining = ref(30)
@@ -351,10 +379,14 @@ const questions = computed(() => {
   
   try {
     if(!props.gameContent) return []
-    const data = JSON.parse(props.gameContent)
+    // Check if it's already an object
+    const data = typeof props.gameContent === 'string' 
+        ? JSON.parse(props.gameContent) 
+        : props.gameContent
+        
     return data.questions || []
   } catch (e) {
-    console.error('Invalid JSON content', e)
+    console.error('Invalid content', e)
     return []
   }
 })
@@ -480,7 +512,7 @@ const timerClass = computed(() => {
 async function handleCreateLobby() {
     try {
         const gameId = route.params.id as string
-        await createLobby(gameId)
+        await createLobby(gameId, guestUsername.value)
     } catch (e) {
         console.error(e)
     }
@@ -489,14 +521,36 @@ async function handleCreateLobby() {
 async function handleJoinLobby() {
     if(!joinCodeDisplay.value) return
     try {
-        await joinLobby(joinCodeDisplay.value)
+        await joinLobby(joinCodeDisplay.value, guestUsername.value)
     } catch(e) {
         console.error(e)
     }
 }
 
+function confirmIdentity() {
+    if (guestUsername.value) {
+        localStorage.setItem('ilmanar_guest_username', guestUsername.value)
+        hasPseudo.value = true
+    }
+}
+
 async function handleStartGame() {
     await mpStartGame()
+}
+
+async function copyCode() {
+    if (currentCode.value) {
+        await navigator.clipboard.writeText(currentCode.value)
+        // Could show a toast here
+    }
+}
+
+async function copyInviteLink() {
+    if (currentCode.value) {
+        const url = `${window.location.origin}${window.location.pathname}?code=${currentCode.value}`
+        await navigator.clipboard.writeText(url)
+        // Could show a toast here
+    }
 }
 
 // Watch for Game Start in MP
@@ -624,6 +678,18 @@ function getScoreMessage() {
 onMounted(() => {
   if (!props.isMultiplayer) {
       startTimer()
+  }
+  
+  // Check for stored guest username
+  const storedName = localStorage.getItem('ilmanar_guest_username')
+  if (storedName) {
+      guestUsername.value = storedName
+      hasPseudo.value = true
+  }
+
+  // Check for code in URL
+  if (route.query.code) {
+      joinCodeDisplay.value = route.query.code as string
   }
 })
 

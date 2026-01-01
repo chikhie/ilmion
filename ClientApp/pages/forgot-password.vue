@@ -46,10 +46,10 @@
             <!-- Submit Button -->
             <button
               type="submit"
-              :disabled="loading"
+              :disabled="authStore.loading"
               class="w-full bg-white text-[#082540] py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-white/5"
             >
-              <span v-if="!loading">Envoyer le lien</span>
+              <span v-if="!authStore.loading">Envoyer le lien</span>
               <span v-else class="flex items-center justify-center">
                 <svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
@@ -111,25 +111,18 @@ const loading = ref(false)
 const errorMessage = ref('')
 const emailSent = ref(false)
 
+const authStore = useAuthStore()
+
 const handleSubmit = async () => {
   errorMessage.value = ''
-  loading.value = true
+  // loading.value = true // Handled by store
 
-  try {
-    const config = useRuntimeConfig()
-    await $fetch(`${config.public.apiBase}/auth/forgot-password`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email: email.value })
-    })
-    
+  const result = await authStore.forgotPassword(email.value)
+  
+  if (result.success) {
     emailSent.value = true
-  } catch (error: any) {
-    errorMessage.value = error.data?.message || 'Erreur lors de l\'envoi de l\'email'
-  } finally {
-    loading.value = false
+  } else {
+    errorMessage.value = result.message || 'Erreur lors de l\'envoi de l\'email'
   }
 }
 </script>

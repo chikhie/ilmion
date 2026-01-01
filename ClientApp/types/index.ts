@@ -32,6 +32,23 @@ export interface Game {
   difficulty: string
   isPremium: boolean
   thumbnailPath?: string
+  content?: any
+}
+
+export interface Player {
+  username: string
+  score: number
+  connectionId?: string // Kept for compatibility if needed, but less relevant with Supabase
+  hasAnswered?: boolean // Helper for frontend state
+}
+
+export interface Party {
+  code: string
+  gameId: string
+  hostUsername: string
+  status: 'Waiting' | 'Playing' | 'Finished'
+  createdAt: string
+  players: Player[]
 }
 
 export enum SubscriptionType {
@@ -55,6 +72,7 @@ export interface Subscription {
   startDate: string
   endDate: string
   cancelledDate?: string
+  daysRemaining?: number
 }
 
 
@@ -66,6 +84,7 @@ export interface LoginRequest {
 
 export interface RegisterRequest {
   username: string
+  full_name: string
   email: string
   password: string
   firstName?: string
@@ -83,4 +102,7 @@ export interface Module {
   label: string
   subjectName: string
   chapterCount: number
+  isFree?: boolean
+  hasAccess?: boolean
+  price?: number
 }

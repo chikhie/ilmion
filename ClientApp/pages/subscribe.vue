@@ -158,7 +158,7 @@ const router = useRouter()
 const loading = ref(false)
 const cancelling = ref(false)
 
-const isAuthenticated = computed(() => authStore.isAuthenticated)
+const isAuthenticated = computed(() => authStore.isLoggedIn)
 
 // Vérifier si l'utilisateur a déjà un abonnement (seulement s'il est connecté)
 const { data: subData } = await useAsyncData(

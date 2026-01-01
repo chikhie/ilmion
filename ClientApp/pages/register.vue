@@ -154,6 +154,7 @@ const router = useRouter()
 const showPassword = ref(false)
 const form = ref({
   username: '',
+  full_name: '',
   email: '',
   password: ''
 })
@@ -189,8 +190,11 @@ const handleRegister = async () => {
 
   const result = await authStore.register({
     username: form.value.username,
+    full_name: form.value.username,
     email: form.value.email,
-    password: form.value.password
+    password: form.value.password,
+    firstName: '', // Optional/empty for now
+    lastName: ''   // Optional/empty for now
   })
 
   if (result.success) {

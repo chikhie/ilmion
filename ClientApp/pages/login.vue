@@ -187,6 +187,8 @@ const validationMessage = computed(() => {
 onMounted(() => {
   if (route.query.registered === 'true') {
     successMessage.value = 'Inscription réussie ! Veuillez vérifier votre email pour confirmer votre compte.'
+  } else if (route.query.verify === 'true') {
+    successMessage.value = 'Votre compte a bien été vérifié ! Vous pouvez maintenant vous connecter.'
   }
 })
 

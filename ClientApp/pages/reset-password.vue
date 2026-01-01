@@ -94,10 +94,10 @@
             <div class="pt-4">
               <button
                 type="submit"
-                :disabled="loading || !isFormValid"
+                :disabled="authStore.loading || !isFormValid"
                 class="w-full bg-white text-[#082540] py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all transform active:scale-95 shadow-xl shadow-white/5 disabled:opacity-30 disabled:cursor-not-allowed disabled:transform-none"
               >
-                <span v-if="!loading">RÉINITIALISER</span>
+                <span v-if="!authStore.loading">RÉINITIALISER</span>
                 <span v-else class="flex items-center justify-center">
                   <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
@@ -108,6 +108,15 @@
               </button>
             </div>
           </form>
+          
+          <!-- Debug Info (Temporary) -->
+          <div class="mt-4 p-4 bg-black/50 rounded-xl text-xs font-mono text-gray-300">
+            <p>Pass: {{ form.password?.length }} chars</p>
+            <p>Confirm: {{ form.confirmPassword?.length }} chars</p>
+            <p>Match: {{ form.password === form.confirmPassword }}</p>
+            <p>Valid: {{ isFormValid }}</p>
+            <p>Loading: {{ authStore.loading }}</p>
+          </div>
         </div>
 
         <!-- Success Message -->
@@ -147,7 +156,6 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'guest',
   layout: false
 })
 
@@ -155,16 +163,15 @@ useHead({
   title: 'Réinitialiser le mot de passe'
 })
 
-const route = useRoute()
-const token = route.query.token as string
-const email = route.query.email as string
+const authStore = useAuthStore()
+const user = useSupabaseUser()
+const router = useRouter()
 
 const form = ref({
   password: '',
   confirmPassword: ''
 })
 
-const loading = ref(false)
 const errorMessage = ref('')
 const passwordReset = ref(false)
 const showPassword = ref(false)
@@ -178,36 +185,30 @@ const isFormValid = computed(() => {
 })
 
 onMounted(() => {
-  if (!token || !email) {
-    errorMessage.value = 'Lien de réinitialisation invalide'
-  }
+  // Supabase handles the session via the hash fragment from the email link.
+  // If the user is not authenticated, it means the link is invalid or expired.
+  // We can check user.value or wait for auth state change if needed.
+  // For now, let's rely on the middleware or the fact that updateUser requires a session.
+  
+  // Optional: Redirect if no session?
+  // if (!user.value) {
+  //   errorMessage.value = 'Session invalide ou expirée. Veuillez redemander un lien.'
+  // }
 })
 
 const handleSubmit = async () => {
   if (!isFormValid.value) return
 
   errorMessage.value = ''
-  loading.value = true
+  // loading state handled by store
 
-  try {
-    const config = useRuntimeConfig()
-    await $fetch(`${config.public.apiBase}/auth/reset-password`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        token: token,
-        newPassword: form.value.password
-      })
-    })
-    
+  const result = await authStore.resetPassword(form.value.password)
+
+  if (result.success) {
     passwordReset.value = true
-  } catch (error: any) {
-    errorMessage.value = error.data?.message || 'Erreur lors de la réinitialisation du mot de passe'
-  } finally {
-    loading.value = false
+    // Optional: Redirect after a few seconds?
+  } else {
+    errorMessage.value = result.message || 'Erreur lors de la réinitialisation du mot de passe'
   }
 }
 </script>
