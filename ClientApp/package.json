@@ -17,12 +17,14 @@
     "hls.js": "^1.6.15",
     "nuxt": "^3.13.0",
     "pinia": "^2.1.7",
+    "sharp": "^0.34.5",
     "vue": "latest"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@types/node": "^25.0.3",
+    "@vite-pwa/nuxt": "^1.1.0",
     "vue-tsc": "^3.2.1"
   }
 }

@@ -8,18 +8,6 @@
     <!-- Hero Section -->
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-80px)] flex flex-col justify-center items-center text-center">
         
-        <!-- Animated decorative element -->
-        <div class="mb-8 relative w-24 h-24 sm:w-32 sm:h-32">
-            <div class="absolute inset-0 bg-brand-gold rounded-full opacity-20 animate-ping"></div>
-            <div class="relative bg-gradient-to-br from-brand-gold to-brand-wood rounded-full p-6 shadow-[0_0_30px_rgba(195,151,18,0.3)]">
-                 <img src="/Ilmanar.svg" alt="Logo" class="w-full h-full object-contain" />
-            </div>
-        </div>
-
-        <h1 class="text-6xl sm:text-8xl font-serif-title font-bold text-brand-parchment mb-4 drop-shadow-lg tracking-tight">
-          ILMANAR
-        </h1>
-        
         <p class="text-xl sm:text-2xl text-brand-wood font-libre italic mb-10 max-w-2xl leading-relaxed">
           "La lumière du savoir éclaire le chemin de la sagesse"
         </p>
@@ -60,10 +48,17 @@
         </div>
     </div>
 
-    <!-- PWA Install Button -->
-    <!-- Only shown if installPrompt is available -->
-    <div v-if="installPrompt" class="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-50 animate-bounce-slow">
-         <button @click="installPWA" class="flex items-center gap-3 bg-brand-gold text-brand-dark px-6 py-4 rounded-full font-bold shadow-2xl hover:bg-white hover:scale-105 transition-all">
+    <!-- PWA Debug/Install Section -->
+    <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 items-end">
+        <!-- Debug Info (Temporary) -->
+        <div class="bg-black/80 text-white p-4 rounded-lg text-xs max-w-xs mb-2">
+            <p>Debug PWA:</p>
+            <p>Prompt fired: {{ installPrompt ? 'Yes' : 'No' }}</p>
+            <p>SW Active: {{ isServiceWorkerActive ? 'Yes' : 'No' }}</p>
+            <p>Manifest Link: {{ hasManifest ? 'Found' : 'Missing' }}</p>
+        </div>
+
+        <button v-if="installPrompt" @click="installPWA" class="animate-bounce-slow flex items-center gap-3 bg-brand-gold text-brand-dark px-6 py-4 rounded-full font-bold shadow-2xl hover:bg-white hover:scale-105 transition-all">
              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
              </svg>
@@ -75,12 +70,30 @@
 
 <script setup lang="ts">
   const installPrompt = ref<any>(null)
+  const isServiceWorkerActive = ref(false)
+  const hasManifest = ref(false)
 
-  onMounted(() => {
+  onMounted(async () => {
+    // Check Manifest
+    hasManifest.value = !!document.querySelector('link[rel="manifest"]')
+
+    // Check SW
+    if ('serviceWorker' in navigator) {
+        const registration = await navigator.serviceWorker.getRegistration()
+        isServiceWorkerActive.value = !!registration?.active
+        
+        navigator.serviceWorker.ready.then(() => {
+            isServiceWorkerActive.value = true
+            console.log('PWA: Service Worker Ready')
+        })
+    }
+
     window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('PWA: beforeinstallprompt fired', e);
       e.preventDefault()
       installPrompt.value = e
     })
+    console.log('PWA: Listener added');
   })
 
   const installPWA = async () => {

@@ -8,7 +8,7 @@ export const useMultiplayer = () => {
     const supabase = useSupabaseClient()
 
     // Services
-    const apiClient = new ApiClient(config.public.apiBase)
+    const apiClient = new ApiClient()
     const gameService = new GameService(apiClient)
 
     // State
@@ -33,40 +33,7 @@ export const useMultiplayer = () => {
     // Subscribe to DB Changes
     let partyChannel: RealtimeChannel | null = null
 
-    const subscribeToParty = async (partyId: string) => {
-        if (partyChannel) await supabase.removeChannel(partyChannel)
 
-        // Initial Fetch
-        await fetchPartyState(partyId)
-        await fetchPlayers(partyId)
-
-        partyChannel = supabase.channel(`party_db:${partyId}`)
-            .on(
-                'postgres_changes',
-                { event: 'UPDATE', schema: 'public', table: 'parties', filter: `id=eq.${partyId}` },
-                (payload) => {
-                    const newParty = payload.new as any
-                    if (newParty.status === 'playing' && !gameStarted.value) {
-                        startGameClientSide(newParty)
-                    }
-                    if (newParty.current_question_index !== currentQuestionIndex.value) {
-                        // Question changed
-                        handleNextQuestion(newParty.current_question_index)
-                    }
-                    partyStatus.value = newParty.status
-                }
-            )
-            .on(
-                'postgres_changes',
-                { event: '*', schema: 'public', table: 'party_players', filter: `party_id=eq.${partyId}` },
-                () => {
-                    // Simplest strategy: Refetch players on any change (join, score up, answer)
-                    // Optimizations possible later
-                    fetchPlayers(partyId)
-                }
-            )
-            .subscribe()
-    }
 
     const fetchPartyState = async (partyId: string) => {
         const { data, error: err } = await supabase
@@ -75,16 +42,17 @@ export const useMultiplayer = () => {
             .eq('id', partyId)
             .single()
 
-        if (err) {
+        if (err || !data) {
             console.error('Error fetching party', err)
             return
         }
 
-        partyStatus.value = data.status
-        currentQuestionIndex.value = data.current_question_index
-        if (data.status === 'playing') {
+        const party = data as any
+        partyStatus.value = party.status
+        currentQuestionIndex.value = party.current_question_index
+        if (party.status === 'playing') {
             // If joining late or refresh
-            if (!gameStarted.value) startGameClientSide(data)
+            if (!gameStarted.value) startGameClientSide(party)
         }
     }
 
@@ -99,7 +67,9 @@ export const useMultiplayer = () => {
             return
         }
 
-        players.value = data.map(p => ({
+        if (!data) return
+
+        players.value = data.map((p: any) => ({
             ...p,
             // Map DB fields to frontend expected fields if diff
             connectionId: p.username // Use username as ID for simple frontend logic
