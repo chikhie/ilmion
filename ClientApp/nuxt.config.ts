@@ -16,7 +16,10 @@ export default defineNuxtConfig({
       name: 'Ilmanar',
       short_name: 'Ilmanar',
       description: "Plateforme éducative pour apprendre l'histoire islamique et l'arabe",
-      theme_color: '#ffffff',
+      start_url: '/',
+      display: 'standalone',
+      background_color: '#0F172A',
+      theme_color: '#0F172A',
       icons: [
         {
           src: '/pwa-192x192.png',
@@ -86,8 +89,10 @@ export default defineNuxtConfig({
       title: 'ILMANAR',
       meta: [
         { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Plateforme éducative pour apprendre l\'histoire islamique et l\'arabe' }
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover' },
+        { name: 'description', content: 'Plateforme éducative pour apprendre l\'histoire islamique et l\'arabe' },
+        { name: 'theme-color', content: '#0F172A' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
