@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-brand-dark overflow-hidden relative">
+  <div class="h-[100dvh] bg-brand-dark overflow-hidden relative flex flex-col">
     <!-- Background Texture -->
     <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
         <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')]"></div>
