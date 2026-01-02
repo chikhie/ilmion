@@ -15,6 +15,7 @@ export class ApiClient {
     }
 
     async put<T>(endpoint: string, body?: any, options?: RequestInit): Promise<T> {
+        console.log(this.apiBase)
         return this.request<T>(endpoint, { ...options, method: 'PUT', body: JSON.stringify(body) })
     }
 
