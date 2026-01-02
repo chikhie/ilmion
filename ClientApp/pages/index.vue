@@ -6,42 +6,44 @@
     </div>
     
     <!-- Hero Section -->
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-80px)] flex flex-col justify-center items-center text-center">
-        
-        <p class="text-xl sm:text-2xl text-brand-wood font-libre italic mb-10 max-w-2xl leading-relaxed">
-          "La lumière du savoir éclaire le chemin de la sagesse"
-        </p>
-
+    <div class="relative z-10 w-full h-full flex flex-col justify-between items-center text-center py-6 px-4 safe-area-inset-bottom">
+      
         <!-- Main Actions Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+        <div class="grid grid-cols-1 gap-3 w-full max-w-md flex-grow justify-center content-center pb-20 md:pb-0 md:grid-cols-3 md:gap-6 md:max-w-5xl md:flex-grow-0">
             
             <!-- Jeux -->
-            <NuxtLink to="/games" class="group relative h-48 md:h-64 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-brand-gold/20">
+            <NuxtLink to="/games" class="group relative rounded-2xl overflow-hidden shadow-xl border border-brand-gold/20 flex-1 min-h-[100px] md:h-64 md:min-h-auto">
                 <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-6">
-                    <h3 class="text-2xl font-serif-title font-bold text-brand-parchment mb-1 group-hover:text-brand-gold transition-colors">Jeux</h3>
-                    <p class="text-sm text-brand-wood opacity-80">Explorez & Apprenez</p>
+                <div class="absolute inset-0 bg-gradient-to-l from-brand-dark/80 via-brand-dark/40 to-transparent md:bg-gradient-to-t"></div>
+                <div class="absolute inset-0 p-4 flex items-center md:items-end md:p-6">
+                    <div class="text-left">
+                        <h3 class="text-xl md:text-2xl font-serif-title font-bold text-brand-parchment group-hover:text-brand-gold transition-colors">Jeux</h3>
+                        <p class="text-xs md:text-sm text-brand-wood opacity-90">Explorez & Apprenez</p>
+                    </div>
                 </div>
             </NuxtLink>
 
             <!-- Magazine -->
-            <NuxtLink to="/magazine" class="group relative h-48 md:h-64 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-brand-gold/20">
+            <NuxtLink to="/magazine" class="group relative rounded-2xl overflow-hidden shadow-xl border border-brand-gold/20 flex-1 min-h-[100px] md:h-64 md:min-h-auto">
                 <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-6">
-                    <h3 class="text-2xl font-serif-title font-bold text-brand-parchment mb-1 group-hover:text-brand-gold transition-colors">Magazine</h3>
-                    <p class="text-sm text-brand-wood opacity-80">Lisez & Découvrez</p>
+                <div class="absolute inset-0 bg-gradient-to-l from-brand-dark/80 via-brand-dark/40 to-transparent md:bg-gradient-to-t"></div>
+                <div class="absolute inset-0 p-4 flex items-center md:items-end md:p-6">
+                    <div class="text-left">
+                        <h3 class="text-xl md:text-2xl font-serif-title font-bold text-brand-parchment group-hover:text-brand-gold transition-colors">Magazine</h3>
+                        <p class="text-xs md:text-sm text-brand-wood opacity-90">Lisez & Découvrez</p>
+                    </div>
                 </div>
             </NuxtLink>
 
             <!-- Vidéos -->
-            <NuxtLink to="/videos" class="group relative h-48 md:h-64 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-brand-gold/20">
+            <NuxtLink to="/videos" class="group relative rounded-2xl overflow-hidden shadow-xl border border-brand-gold/20 flex-1 min-h-[100px] md:h-64 md:min-h-auto">
                 <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-6">
-                    <h3 class="text-2xl font-serif-title font-bold text-brand-parchment mb-1 group-hover:text-brand-gold transition-colors">Vidéos</h3>
-                    <p class="text-sm text-brand-wood opacity-80">Regardez & Comprenez</p>
+                <div class="absolute inset-0 bg-gradient-to-l from-brand-dark/80 via-brand-dark/40 to-transparent md:bg-gradient-to-t"></div>
+                <div class="absolute inset-0 p-4 flex items-center md:items-end md:p-6">
+                    <div class="text-left">
+                        <h3 class="text-xl md:text-2xl font-serif-title font-bold text-brand-parchment group-hover:text-brand-gold transition-colors">Vidéos</h3>
+                        <p class="text-xs md:text-sm text-brand-wood opacity-90">Regardez & Comprenez</p>
+                    </div>
                 </div>
             </NuxtLink>
 
