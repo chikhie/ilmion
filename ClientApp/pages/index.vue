@@ -48,60 +48,80 @@
         </div>
     </div>
 
-    <!-- PWA Debug/Install Section -->
-    <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 items-end">
-        <!-- Debug Info (Temporary) -->
-        <div class="bg-black/80 text-white p-4 rounded-lg text-xs max-w-xs mb-2">
-            <p>Debug PWA:</p>
-            <p>Prompt fired: {{ installPrompt ? 'Yes' : 'No' }}</p>
-            <p>SW Active: {{ isServiceWorkerActive ? 'Yes' : 'No' }}</p>
-            <p>Manifest Link: {{ hasManifest ? 'Found' : 'Missing' }}</p>
-        </div>
+    <!-- PWA Install Button -->
+    <client-only>
+      <div v-if="!isInstalled" class="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-50 animate-bounce-slow">
+           <button @click="handleInstallClick" class="flex items-center gap-3 bg-brand-gold text-brand-dark px-6 py-4 rounded-full font-bold shadow-2xl hover:bg-white hover:scale-105 transition-all">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+               </svg>
+               <span>Installer l'application</span>
+           </button>
+      </div>
 
-        <button v-if="installPrompt" @click="installPWA" class="animate-bounce-slow flex items-center gap-3 bg-brand-gold text-brand-dark px-6 py-4 rounded-full font-bold shadow-2xl hover:bg-white hover:scale-105 transition-all">
-             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-             </svg>
-             <span>Installer l'application</span>
-         </button>
-    </div>
+      <!-- Installation Help Modal -->
+      <div v-if="showInstallHelp" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4" @click="showInstallHelp = false">
+        <div class="bg-brand-parchment p-6 rounded-2xl max-w-sm w-full shadow-2xl relative" @click.stop>
+          <button @click="showInstallHelp = false" class="absolute top-2 right-2 text-brand-wood hover:text-brand-dark">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+          <h3 class="text-xl font-serif-title font-bold text-brand-dark mb-4">Installer Ilmanar</h3>
+          
+          <div v-if="isIOS" class="space-y-3 text-brand-wood">
+            <p>Pour installer sur iOS :</p>
+            <ol class="list-decimal list-inside space-y-2 text-sm">
+              <li>Appuyez sur le bouton <strong>Partager</strong> <svg class="inline h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg></li>
+              <li>Faites défiler et choisissez <strong>"Sur l'écran d'accueil"</strong></li>
+            </ol>
+          </div>
+          
+          <div v-else class="space-y-3 text-brand-wood">
+            <p>Si l'installation rapide ne fonctionne pas :</p>
+            <p class="text-sm">Cherchez l'icône d'installation <svg class="inline h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> dans la barre d'adresse de votre navigateur.</p>
+          </div>
+        </div>
+      </div>
+    </client-only>
   </div>
 </template>
 
 <script setup lang="ts">
   const installPrompt = ref<any>(null)
-  const isServiceWorkerActive = ref(false)
-  const hasManifest = ref(false)
+  const isInstalled = ref(false)
+  const showInstallHelp = ref(false)
+  const isIOS = ref(false)
 
-  onMounted(async () => {
-    // Check Manifest
-    hasManifest.value = !!document.querySelector('link[rel="manifest"]')
-
-    // Check SW
-    if ('serviceWorker' in navigator) {
-        const registration = await navigator.serviceWorker.getRegistration()
-        isServiceWorkerActive.value = !!registration?.active
-        
-        navigator.serviceWorker.ready.then(() => {
-            isServiceWorkerActive.value = true
-            console.log('PWA: Service Worker Ready')
-        })
+  onMounted(() => {
+    // Check if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      isInstalled.value = true
     }
 
+    // Check device type
+    const userAgent = window.navigator.userAgent.toLowerCase()
+    isIOS.value = /iphone|ipad|ipod/.test(userAgent)
+
+    // Listen for install prompt
     window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('PWA: beforeinstallprompt fired', e);
       e.preventDefault()
       installPrompt.value = e
     })
-    console.log('PWA: Listener added');
   })
 
-  const installPWA = async () => {
-      if (!installPrompt.value) return
-      installPrompt.value.prompt()
-      const { outcome } = await installPrompt.value.userChoice
-      if (outcome === 'accepted') {
-          installPrompt.value = null
+  const handleInstallClick = async () => {
+      if (installPrompt.value) {
+        // Native install
+        installPrompt.value.prompt()
+        const { outcome } = await installPrompt.value.userChoice
+        if (outcome === 'accepted') {
+            installPrompt.value = null
+        }
+      } else {
+        // Show help manual
+        showInstallHelp.value = true
       }
   }
 
