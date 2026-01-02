@@ -68,7 +68,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       // Utilise la variable d'environnement NUXT_PUBLIC_API_BASE si définie, sinon valeur par défaut
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8080/api'
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8080/api',
+      supabaseUrl: process.env.SUPABASE_URL,
+      supabaseKey: process.env.SUPABASE_KEY,
     }
   },
 
