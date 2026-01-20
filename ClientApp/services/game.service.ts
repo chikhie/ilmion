@@ -9,10 +9,7 @@ export class GameService {
     }
 
     async getAll(): Promise<Game[]> {
-        // Fetch from static file
-        const response = await fetch('/data/games.json')
-        if (!response.ok) throw new Error('Failed to load games')
-        return await response.json()
+        return await this.client.get<Game[]>('/games')
     }
 
     async getById(id: string): Promise<Game> {
@@ -22,36 +19,15 @@ export class GameService {
         return game
     }
 
-    // Party methods are now client-side logic helper or irrelevant if handled in composable.
-    // We'll keep them to satisfy interface but make them "Serverless" compliant
-
     async createParty(gameId: string, hostUsername: string): Promise<Party> {
-        // Generate code client side
-        const code = Math.random().toString(36).substring(2, 8).toUpperCase()
-        return {
-            code,
-            gameId,
-            hostUsername,
-            status: 'Waiting',
-            createdAt: new Date().toISOString(),
-            players: []
-        }
+        throw new Error("Multiplayer disabled")
     }
 
     async joinParty(code: string, username: string): Promise<Party> {
-        // In serverless, we can't "check" if party exists without connecting to Supabase.
-        // So we just return a placeholder and let the subscription handle existence check via presence.
-        return {
-            code,
-            gameId: '', // Unknown yet
-            hostUsername: '', // Unknown yet
-            status: 'Waiting',
-            createdAt: new Date().toISOString(),
-            players: []
-        }
+        throw new Error("Multiplayer disabled")
     }
 
     async getParties(): Promise<Party[]> {
-        return [] // No centralized list in serverless mode
+        return []
     }
 }

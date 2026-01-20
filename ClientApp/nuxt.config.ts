@@ -6,7 +6,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@nuxtjs/supabase',
     '@vite-pwa/nuxt'
   ],
 
@@ -51,15 +50,6 @@ export default defineNuxtConfig({
     },
   },
 
-  supabase: {
-    redirect: false, // Handle redirects manually in middleware
-    redirectOptions: {
-      login: '/login',
-      callback: '/confirm',
-      exclude: ['/', '/register', '/games', '/games/*'] // Updated excludes
-    }
-  },
-
   css: [
     '~/assets/css/main.css'
   ],
@@ -72,8 +62,6 @@ export default defineNuxtConfig({
     public: {
       // Utilise la variable d'environnement NUXT_PUBLIC_API_BASE si définie, sinon valeur par défaut
       apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:8080/api',
-      supabaseUrl: process.env.SUPABASE_URL,
-      supabaseKey: process.env.SUPABASE_KEY,
     }
   },
 

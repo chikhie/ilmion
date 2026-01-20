@@ -1,6 +1,10 @@
 using Ilmanar.Infra.Entities;
+using Ilmanar.Infra.Entities.Mongo;
+using Ilmanar.Infra.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
 
 namespace Ilmanar.Infra.Data;
 
@@ -12,6 +16,7 @@ public static class DbInitializer
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UserEntity>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var quizService = scope.ServiceProvider.GetRequiredService<QuizService>();
 
         // Ensure database is created (do NOT use EnsureDeletedAsync in production/dev if you want to keep data)
         await context.Database.EnsureCreatedAsync();
@@ -74,19 +79,69 @@ public static class DbInitializer
         if (File.Exists(quizContentPath))
         {
             var quizContent = await File.ReadAllTextAsync(quizContentPath);
-            if (!context.Games.Any(g => g.Title == "Quiz Culture Générale"))
+            var existingQuiz = await context.Games.FirstOrDefaultAsync(g => g.Title == "Quiz Culture Générale");
+            
+            GameEntity quizGame;
+            
+            if (existingQuiz == null)
             {
-                var quizGame = new GameEntity
+                quizGame = new GameEntity
                 {
+                    Id = Guid.NewGuid(),
                     Title = "Quiz Culture Générale",
                     Description = "Testez vos connaissances sur la culture islamique et l'histoire de l'Andalousie.",
                     Type = GameType.Quiz,
                     Difficulty = "Medium",
                     IsPremium = false,
-                    ContentJson = quizContent, // Raw JSON content
+                    ContentJson = quizContent, // Keep for reference, but main data is in Mongo
                     CreatedAt = DateTime.Now
                 };
                 context.Games.Add(quizGame);
+                await context.SaveChangesAsync(); // Save to get the ID persisted if needed, though we set it manually
+            }
+            else
+            {
+                quizGame = existingQuiz;
+            }
+            
+            // Seed Mongo Questions
+            if (quizService != null)
+            {
+                // Clear existing questions for this game to avoid duplicates on re-seed
+                await quizService.RemoveQuestionsForGameAsync(quizGame.Id);
+                
+                try 
+                {
+                    using var doc = JsonDocument.Parse(quizContent);
+                    if (doc.RootElement.TryGetProperty("questions", out var questionsElement))
+                    {
+                        var questions = questionsElement.EnumerateArray();
+                        int order = 0;
+                        foreach (var q in questions)
+                        {
+                            var newQ = new Question
+                            {
+                                GameId = quizGame.Id,
+                                Text = q.GetProperty("text").GetString() ?? "",
+                                Type = q.TryGetProperty("type", out var typeProp) ? typeProp.GetString() : "choice",
+                                CorrectAnswer = q.GetProperty("correctAnswer").GetString(),
+                                Explanation = q.TryGetProperty("explanation", out var expProp) ? expProp.GetString() : "",
+                                Order = order++
+                            };
+                            
+                            if (q.TryGetProperty("options", out var optsProp))
+                            {
+                                newQ.Options = optsProp.EnumerateArray().Select(o => o.GetString() ?? "").ToList();
+                            }
+                            
+                            await quizService.CreateQuestionAsync(newQ);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error seeding mongo content: {ex.Message}");
+                }
             }
         }
 

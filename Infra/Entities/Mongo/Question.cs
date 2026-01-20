@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Ilmanar.Api.Models.Mongo;
+namespace Ilmanar.Infra.Entities.Mongo;
 
 public class Question
 {

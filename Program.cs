@@ -1,4 +1,7 @@
 ﻿using Ilmanar;
+using MongoDB.Bson; // AJOUTER CETTE LIGNE
+using MongoDB.Bson.Serialization; // AJOUTER CETTE LIGNE
+using MongoDB.Bson.Serialization.Serializers; // AJOUTER CETTE LIGNE
 using Microsoft.EntityFrameworkCore; // Cette directive est nécessaire pour UseSqlite/UseNpgsql
 using Microsoft.AspNetCore.Identity;
 using Ilmanar.Infra.Entities;
@@ -8,7 +11,9 @@ using Ilmanar.Infra.Mail;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Ilmanar.Api.Services; // AJOUTER CETTE LIGNE
+using Ilmanar.Api.Services; // Restored
+using Ilmanar.Infra.Services; // Added
+using Ilmanar.Api.Hubs; // Added
 using Microsoft.OpenApi.Models; // AJOUTER CETTE LIGNE
 using System.Security.Claims; // AJOUTER CETTE LIGNE
 using Microsoft.Extensions.FileProviders; // Add this line
@@ -52,11 +57,13 @@ builder.Services.AddScoped<Ilmanar.Infra.repository.ISubscriptionRepo, Ilmanar.I
 builder.Services.AddScoped<ComponentEncryptionService>();
 
 // Multiplayer Services
-
-
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<ILobbyService, LobbyService>();
 // MongoDB Configuration
+BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard)); // AJOUTER CETTE LIGNE
 builder.Services.Configure<Ilmanar.Infra.Settings.MongoDbSettings>(
     builder.Configuration.GetSection("MongoDbSettings"));
+builder.Services.AddMemoryCache(); // AJOUTER CETTE LIGNE
 builder.Services.AddSingleton<QuizService>();
 
 
@@ -97,9 +104,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("DevCors", policy =>
     {
         policy
-            .AllowAnyOrigin()
+            .SetIsOriginAllowed(origin => true) // Allow any origin but reflect it for credentials support
             .AllowAnyMethod()
-            .AllowAnyHeader();
+            .AllowAnyHeader()
+            .AllowCredentials();
     });
 
     options.AddPolicy("ProdCors", policy =>
@@ -218,8 +226,7 @@ app.UseAuthorization();
 
 
 
-app.UseAuthentication();
-app.UseAuthorization();
+
 
 // Configure static files for videos
 
@@ -250,6 +257,7 @@ app.UseStaticFiles(); // Sert tous les fichiers statiques de wwwroot
 
 // API Controllers
 app.MapControllers();
+app.MapHub<GameHub>("/api/gameHub");
 
 
 // Fallback pour le SPA - redirige toutes les routes non-API vers index.html
