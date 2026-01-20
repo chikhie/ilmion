@@ -42,6 +42,15 @@ export const useMultiplayer = () => {
                 gameStarted.value = true
                 router.push(`/games/${gameId}?mode=multi`)
             })
+
+            signalR.on('LobbyDisbanded', () => {
+                console.log('Lobby disbanded')
+                alert("Le groupe a été dissous par l'hôte.")
+                currentCode.value = null
+                players.value = []
+                isHost.value = false
+                gameStarted.value = false
+            })
         }
         // Ensure connected
         await signalR.start()
@@ -58,6 +67,7 @@ export const useMultiplayer = () => {
             currentCode.value = result.code
             isHost.value = true
             players.value = [{ username, isHost: true }] // Add self
+            saveSession(result.code, username, true)
             return result.code
         } catch (e: any) {
             console.error("Error creating lobby", e)
@@ -78,6 +88,7 @@ export const useMultiplayer = () => {
                 currentCode.value = code
                 isHost.value = false
                 players.value = result.players
+                saveSession(code, username, false)
                 return true
             } else {
                 error.value = "Code invalide ou groupe plein."
@@ -91,9 +102,9 @@ export const useMultiplayer = () => {
     }
 
     const leaveLobby = async () => {
-        if (signalR && currentCode.value) {
+        if (signalR) {
             try {
-                await signalR.invoke('LeaveLobby', currentCode.value)
+                await signalR.invoke('LeaveLobby')
             } catch (err) {
                 console.error("Error leaving lobby", err)
             }
@@ -103,6 +114,7 @@ export const useMultiplayer = () => {
         players.value = []
         isHost.value = false
         gameStarted.value = false
+        clearSession()
         // Optionally stop connection or keep it open? 
         // For simplicity, we might keep it open IF we expect frequent reconnects, 
         // but stopping it cleans up resources.
@@ -122,6 +134,40 @@ export const useMultiplayer = () => {
         }
     }
 
+    const saveSession = (code: string, username: string, host: boolean) => {
+        if (process.client) {
+            sessionStorage.setItem('ilmanar_lobby', code)
+            sessionStorage.setItem('ilmanar_username', username)
+            if (host) sessionStorage.setItem('ilmanar_host', 'true')
+            else sessionStorage.removeItem('ilmanar_host')
+        }
+    }
+
+    const clearSession = () => {
+        if (process.client) {
+            sessionStorage.removeItem('ilmanar_lobby')
+            sessionStorage.removeItem('ilmanar_username')
+            sessionStorage.removeItem('ilmanar_host')
+        }
+    }
+
+    const restoreSession = async () => {
+        if (!process.client) return
+
+        const code = sessionStorage.getItem('ilmanar_lobby')
+        const username = sessionStorage.getItem('ilmanar_username')
+        const host = sessionStorage.getItem('ilmanar_host') === 'true'
+
+        if (code && username) {
+            console.log("Restoring session...", code, username)
+            // Attempt join
+            const success = await joinLobby(code, username)
+            if (success && host) {
+                isHost.value = true // Restore host status claim (verified by server response ideally, but trusted for UI now)
+            }
+        }
+    }
+
     return {
         isConnected,
         currentCode,
@@ -132,7 +178,8 @@ export const useMultiplayer = () => {
         createLobby,
         joinLobby,
         leaveLobby,
-        startGame
+        startGame,
+        restoreSession
     }
 }
 

@@ -41,17 +41,20 @@ public class GameHub : Hub
 
     public async Task LeaveLobby()
     {
-        var lobby = await _lobbyService.LeaveLobbyAsync(Context.ConnectionId);
-        if (lobby != null)
+        var result = await _lobbyService.LeaveLobbyAsync(Context.ConnectionId);
+        if (result.Lobby != null)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, lobby.Code);
-            var username = Context.User?.Identity?.Name ?? "Joueur"; 
-             // Ideally we get the username from the removed player object, 
-             // but here we just need to notify WHO left.
-             // The Service logic handled finding the player.
-             // We can fetch the username from the User principle again.
-             
-            await Clients.Group(lobby.Code).SendAsync("PlayerLeft", username);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, result.Lobby.Code);
+
+            if (result.Disbanded)
+            {
+                await Clients.Group(result.Lobby.Code).SendAsync("LobbyDisbanded");
+            }
+            else
+            {
+                var username = result.Username ?? Context.User?.Identity?.Name ?? "Joueur";
+                await Clients.Group(result.Lobby.Code).SendAsync("PlayerLeft", username);
+            }
         }
     }
 
@@ -75,27 +78,13 @@ public class GameHub : Hub
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        var lobby = await _lobbyService.LeaveLobbyAsync(Context.ConnectionId);
-        if (lobby != null)
-        {
-             // We need to find which username left.
-             // Since the player is already removed from lobby.Players in the service, 
-             // we might want to change LeaveLobbyAsync to return the removed player info.
-             // For now, simpler notification:
-             
-             // A better approach in Service would be returning (Lobby, RemovedPlayer)
-             // But for now, we rely on the client refreshing or just sending connectionId?
-             // The client expects 'PlayerLeft', (username).
-             
-             // If we can't easily get the username of the disconnected user from the Service return,
-             // we use the Claim.
-             var username = Context.User?.Identity?.Name;
-             if (username != null)
-             {
-                await Clients.Group(lobby.Code).SendAsync("PlayerLeft", username);
-             }
-        }
-
+        // Graceful disconnect
+        var lobby = await _lobbyService.DisconnectPlayerAsync(Context.ConnectionId);
+        
+        // We do NOT send PlayerLeft immediately. 
+        // We could send "PlayerDisconnected" to show a greyed out icon? 
+        // For now, let's keep it silent to handle page refresh seamlessly.
+        
         await base.OnDisconnectedAsync(exception);
     }
 }

@@ -1,8 +1,8 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  const user = useSupabaseUser()
+  const authStore = useAuthStore()
 
   // Si l'utilisateur est déjà connecté, rediriger vers les jeux
-  if (user.value) {
+  if (authStore.user) {
     return navigateTo('/games')
   }
 })
