@@ -37,9 +37,11 @@ export const useMultiplayer = () => {
                 players.value = players.value.filter(p => p.username !== username)
             })
 
-            signalR.on('GameStarted', (gameId: string) => {
-                console.log('GameStarted', gameId)
+            signalR.on('GameStarted', (gameId: string, options: any, questions: any[]) => {
+                console.log('GameStarted', gameId, options)
                 gameStarted.value = true
+                mpSettings.value = options
+                mpQuestions.value = questions || []
                 router.push(`/games/${gameId}?mode=multi`)
             })
 
@@ -51,12 +53,29 @@ export const useMultiplayer = () => {
                 isHost.value = false
                 gameStarted.value = false
             })
+            signalR.on('ShowReveal', (updatedPlayers: any[]) => {
+                console.log('ShowReveal received', updatedPlayers)
+                if (updatedPlayers) {
+                    players.value = updatedPlayers
+                }
+                showReveal.value = true
+                moveToNext.value = false
+            })
+
+            signalR.on('NextQuestion', (index: number) => {
+                console.log('NextQuestion received', index)
+                showReveal.value = false
+                moveToNext.value = true // Trigger to reset UI
+                // We could sync index here if needed: currentQuestionIndex.value = index
+                // But let the component handle the trigger
+                setTimeout(() => { moveToNext.value = false }, 100) // Reset trigger
+            })
         }
         // Ensure connected
         await signalR.start()
     }
 
-    const createLobby = async (usernameParam?: string) => {
+    const createLobby = async (gameId?: string, usernameParam?: string) => {
         error.value = null
         try {
             await initSignalR()
@@ -115,19 +134,17 @@ export const useMultiplayer = () => {
         isHost.value = false
         gameStarted.value = false
         clearSession()
-        // Optionally stop connection or keep it open? 
-        // For simplicity, we might keep it open IF we expect frequent reconnects, 
-        // but stopping it cleans up resources.
+        // Stop connection
         if (signalR) {
             await signalR.stop()
             signalR = null
         }
     }
 
-    const startGame = async (gameId: string) => {
+    const startGame = async (gameId: string, options?: any) => {
         if (!isHost.value || !signalR || !currentCode.value) return
         try {
-            await signalR.invoke('StartGame', currentCode.value, gameId)
+            await signalR.invoke('StartGame', currentCode.value, gameId, options)
         } catch (e: any) {
             console.error("Error starting game", e)
             error.value = "Impossible de lancer la partie."
@@ -163,9 +180,41 @@ export const useMultiplayer = () => {
             // Attempt join
             const success = await joinLobby(code, username)
             if (success && host) {
-                isHost.value = true // Restore host status claim (verified by server response ideally, but trusted for UI now)
+                isHost.value = true // Restore host status claim
             }
         }
+    }
+
+    // Game Sync State
+    const mpQuestions = useState<any[]>('mp_questions', () => [])
+    const showReveal = useState<boolean>('mp_show_reveal', () => false)
+    const moveToNext = useState<boolean>('mp_move_next', () => false)
+    const mpSettings = useState<any | null>('mp_settings', () => null)
+
+    const updateScore = async (score: number) => {
+        // Implement real sync later if needed
+    }
+
+    const submitAnswer = async (answer: string) => {
+        if (!signalR || !currentCode.value) return
+        try {
+            await signalR.invoke('SubmitAnswer', currentCode.value, answer)
+        } catch (e) {
+            console.error("Error submitting answer", e)
+        }
+    }
+
+    const requestNextQuestion = async () => {
+        if (!isHost.value || !signalR || !currentCode.value) return
+        try {
+            await signalR.invoke('RequestNextQuestion', currentCode.value)
+        } catch (e) {
+            console.error("Error requesting next question", e)
+        }
+    }
+
+    const disconnect = async () => {
+        await leaveLobby()
     }
 
     return {
@@ -179,7 +228,17 @@ export const useMultiplayer = () => {
         joinLobby,
         leaveLobby,
         startGame,
-        restoreSession
+        restoreSession,
+        // Game Actions
+        updateScore,
+        submitAnswer,
+        requestNextQuestion,
+        disconnect,
+        // Game State
+        mpQuestions,
+        showReveal,
+        moveToNext,
+        mpSettings
     }
 }
 

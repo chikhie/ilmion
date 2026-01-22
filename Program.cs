@@ -1,24 +1,22 @@
-﻿using Ilmanar;
-using MongoDB.Bson; // AJOUTER CETTE LIGNE
-using MongoDB.Bson.Serialization; // AJOUTER CETTE LIGNE
-using MongoDB.Bson.Serialization.Serializers; // AJOUTER CETTE LIGNE
-using Microsoft.EntityFrameworkCore; // Cette directive est nécessaire pour UseSqlite/UseNpgsql
-using Microsoft.AspNetCore.Identity;
-using Ilmanar.Infra.Entities;
-using Ilmanar.Infra;
-using Ilmanar.Api.Interfaces; // Ajoutez cette ligne
-using Ilmanar.Infra.Mail;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Ilmanar.Api.Services; // Restored
-using Ilmanar.Infra.Services; // Added
-using Ilmanar.Api.Hubs; // Added
-using Microsoft.OpenApi.Models; // AJOUTER CETTE LIGNE
+﻿using System.IdentityModel.Tokens.Jwt; // AJOUTER CETTE LIGNE
 using System.Security.Claims; // AJOUTER CETTE LIGNE
-using Microsoft.Extensions.FileProviders; // Add this line
+using System.Text;
+using Ilmanar;
+using Ilmanar.Api.Hubs; // Added
+using Ilmanar.Api.Interfaces; // Ajoutez cette ligne
+using Ilmanar.Api.Services; // Restored
+using Ilmanar.Infra;
+using Ilmanar.Infra.Entities;
+using Ilmanar.Infra.Mail;
+using Ilmanar.Infra.Services; // Added
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.StaticFiles; // Add this line
-using System.IdentityModel.Tokens.Jwt; // AJOUTER CETTE LIGNE
+using Microsoft.EntityFrameworkCore; // Cette directive est nécessaire pour UseSqlite/UseNpgsql
+using Microsoft.Extensions.FileProviders; // Add this line
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models; // AJOUTER CETTE LIGNE
+using Microsoft.OpenApi.Models; // AJOUTER CETTE LIGNE
 
 // Désactiver le mapping par défaut des claims JWT
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -59,12 +57,13 @@ builder.Services.AddScoped<ComponentEncryptionService>();
 // Multiplayer Services
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<ILobbyService, LobbyService>();
-// MongoDB Configuration
-BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard)); // AJOUTER CETTE LIGNE
-builder.Services.Configure<Ilmanar.Infra.Settings.MongoDbSettings>(
-    builder.Configuration.GetSection("MongoDbSettings"));
-builder.Services.AddMemoryCache(); // AJOUTER CETTE LIGNE
+// MongoDB Configuration REMOVED
+// BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard)); 
+// builder.Services.Configure<Ilmanar.Infra.Settings.MongoDbSettings>(
+//     builder.Configuration.GetSection("MongoDbSettings"));
+builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<QuizService>();
+builder.Services.AddSingleton<GameService>();
 
 
 
@@ -113,13 +112,14 @@ builder.Services.AddCors(options =>
     options.AddPolicy("ProdCors", policy =>
     {
         policy
-            .WithOrigins("https://ilmanar.site","https://api.ilmanar.site", "https://ilmanar.chikhibra.workers.dev")
+            .WithOrigins("https://ilmanar.site", "https://api.ilmanar.site", "https://ilmanar.chikhibra.workers.dev")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
 });
 
-builder.Services.AddIdentity<UserEntity, IdentityRole>(options => {
+builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
+{
     options.SignIn.RequireConfirmedEmail = true; // Ajoutez cette ligne pour exiger la confirmation d'e-mail
     options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier; // Utiliser NameIdentifier pour l'ID utilisateur
 })
@@ -157,7 +157,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
             RoleClaimType = ClaimTypes.Role
         };
-        
+
         // Empêcher la redirection automatique vers /Account/Login
         options.Events = new JwtBearerEvents
         {

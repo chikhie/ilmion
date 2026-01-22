@@ -2,68 +2,76 @@ using Ilmanar.Infra.Entities.Mongo;
 using Ilmanar.Infra.Settings;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using MongoDB.Driver;
 
 namespace Ilmanar.Infra.Services;
 
 public class QuizService
 {
-    private readonly IMongoCollection<Question> _questions;
+    private readonly List<QuizItem> _cachedQuestions;
     private readonly IMemoryCache _cache;
+    private readonly IWebHostEnvironment _env;
+    private readonly ILogger<QuizService> _logger;
 
-    public QuizService(IOptions<MongoDbSettings> settings, IMemoryCache cache)
+    public QuizService(IOptions<MongoDbSettings> settings, IMemoryCache cache, IWebHostEnvironment env, ILogger<QuizService> logger)
     {
-        var mongoClient = new MongoClient(settings.Value.ConnectionString);
-        var mongoDatabase = mongoClient.GetDatabase(settings.Value.DatabaseName);
-        _questions = mongoDatabase.GetCollection<Question>("Questions");
         _cache = cache;
+        _env = env;
+        _cachedQuestions = new List<QuizItem>();
+        _logger = logger;
+        LoadQuestionsFromJson();
     }
 
-    public async Task<List<Question>> GetQuestionsForGameAsync(Guid gameId, int? count = null)
+    private void LoadQuestionsFromJson()
     {
-        List<Question> questions;
-        var cacheKey = $"questions_{gameId}";
-        
-        if (_cache.TryGetValue(cacheKey, out List<Question>? cachedQuestions))
+        try
         {
-            questions = cachedQuestions ?? new List<Question>();
-        }
-        else
-        {
-            try 
+            var quizPath = Path.Combine(_env.ContentRootPath, "Infra", "Data", "SeedData", "culture_quiz.json");
+            if (File.Exists(quizPath))
             {
-                questions = await _questions.Find(q => q.GameId == gameId).SortBy(q => q.Order).ToListAsync();
-                
-                var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromHours(24))
-                    .SetAbsoluteExpiration(TimeSpan.FromDays(7));
+                var content = File.ReadAllText(quizPath);
+                using var doc = System.Text.Json.JsonDocument.Parse(content);
+                if (doc.RootElement.TryGetProperty("questions", out var questionsElement))
+                {
+                    var questions = questionsElement.EnumerateArray();
+                    int order = 0;
+                    foreach (var q in questions)
+                    {
+                        // Map JSON to QuizItem
+                        var newItem = new QuizItem
+                        {
+                            Text = q.GetProperty("text").GetString() ?? "",
+                            Type = q.GetProperty("type").GetString(),
+                            CorrectAnswer = q.GetProperty("correctAnswer").GetString(),
+                            Explanation = q.TryGetProperty("explanation", out var exp) ? exp.GetString() : null,
+                        };
 
-                _cache.Set(cacheKey, questions, cacheOptions);
-            }
-            catch (Exception)
-            {
-                questions = new List<Question>();
+                        // Handle options
+                        if (q.TryGetProperty("options", out var opts))
+                        {
+                            var optionsList = new List<string>();
+                            foreach (var o in opts.EnumerateArray())
+                            {
+                                optionsList.Add(o.GetString() ?? "");
+                            }
+                            newItem.Options = optionsList;
+                        }
+
+                        _cachedQuestions.Add(newItem);
+                    }
+                }
             }
         }
-
-        if (count.HasValue && count.Value > 0 && questions.Count > 0)
+        catch (Exception ex)
         {
-            var rnd = Random.Shared;
-            return questions.OrderBy(x => rnd.Next()).Take(count.Value).ToList();
+            Console.WriteLine($"Error loading quiz JSON: {ex.Message}");
         }
-
-        return questions;
-    }
-    
-    public async Task CreateQuestionAsync(Question newQuestion)
-    {
-        await _questions.InsertOneAsync(newQuestion);
-        _cache.Remove($"questions_{newQuestion.GameId}"); // Invalidate cache
     }
 
-    public async Task RemoveQuestionsForGameAsync(Guid gameId)
+    public async Task<List<QuizItem>> GetQuestionsForQuiz(int? count)
     {
-        await _questions.DeleteManyAsync(q => q.GameId == gameId);
-        _cache.Remove($"questions_{gameId}"); // Invalidate cache
+        List<QuizItem> questions = [.. _cachedQuestions
+            .OrderBy(_ => Random.Shared.Next())
+            .Take(count ?? 5)];
+        return await Task.FromResult(questions);
     }
 }

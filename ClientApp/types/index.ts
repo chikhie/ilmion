@@ -28,11 +28,14 @@ export interface Game {
   id: string
   title: string
   description?: string
-  type: GameType
-  difficulty: string
-  isPremium: boolean
   thumbnailPath?: string
-  content?: any
+}
+export interface Quiz {
+  text: string
+  type: string
+  correctAnswer: string | number
+  explanation: string
+  options: string[] | null
 }
 
 export interface Player {

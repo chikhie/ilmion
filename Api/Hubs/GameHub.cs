@@ -1,7 +1,9 @@
+using System.Security.Claims;
+using Ilmanar.Api.Services;
+using Ilmanar.Infra.Entities.Mongo;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using Ilmanar.Api.Services;
-using System.Security.Claims;
 
 namespace Ilmanar.Api.Hubs;
 
@@ -28,7 +30,7 @@ public class GameHub : Hub
         if (success && lobby != null)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, lobby.Code);
-            
+
             // Notify others
             await Clients.Group(lobby.Code).SendAsync("PlayerJoined", new { username, isHost = false });
 
@@ -58,21 +60,60 @@ public class GameHub : Hub
         }
     }
 
-    public async Task StartGame(string code, string gameId)
+    public async Task SubmitAnswer(string code, string answer)
     {
-        // Verify host?
-        var lobby = await _lobbyService.GetLobbyByCodeAsync(code);
-        if (lobby != null)
+        var (allAnswered, lobby) = await _lobbyService.SubmitAnswerAsync(code, Context.ConnectionId, answer);
+        if (lobby != null && allAnswered)
         {
-            if (lobby.HostConnectionId != Context.ConnectionId)
+            // If all players have answered, signal to reveal results and send updated scores
+            var players = lobby.Players.Select(p => new { p.Username, p.Score, p.ConnectionId, p.IsHost }).ToList();
+            await Clients.Group(code).SendAsync("ShowReveal", players);
+        }
+    }
+
+    public async Task RequestNextQuestion(string code)
+    {
+        // Only host should call this technically, but checks could be loose for now or strictly by host connection
+        var lobby = await _lobbyService.GetLobbyByCodeAsync(code);
+        if (lobby != null && lobby.HostConnectionId == Context.ConnectionId)
+        {
+            await _lobbyService.NextQuestionAsync(code);
+            await Clients.Group(code).SendAsync("NextQuestion", lobby.CurrentQuestionIndex);
+        }
+    }
+
+    public async Task StartGame(string code, string gameId, object? options = null)
+    {
+        var (success, lobby) = await _lobbyService.StartGameAsync(code, Context.ConnectionId, gameId, options);
+
+        if (success && lobby != null)
+        {
+            // Project each item to a safe object based on its actual type
+            var items = lobby.Questions.Select(item =>
             {
-                throw new HubException("Only host can start the game.");
-            }
+                if (item is QuizItem quizItem)
+                {
+                    return (object)new
+                    {
+                        quizItem.Text,
+                        quizItem.Type,
+                        quizItem.CorrectAnswer,
+                        quizItem.Options,
+                        quizItem.Explanation,
+                    };
+                }
 
-            lobby.IsGameStarted = true;
-            lobby.CurrentGameId = gameId;
+                return (object)new
+                {
+                    item.Text,
+                    item.Type,
+                    item.CorrectAnswer,
+                    item.Options,
+                    item.Explanation,
+                };
+            }).ToList();
 
-            await Clients.Group(code).SendAsync("GameStarted", gameId);
+            await Clients.Group(code).SendAsync("GameStarted", gameId, options, items);
         }
     }
 
@@ -80,11 +121,11 @@ public class GameHub : Hub
     {
         // Graceful disconnect
         var lobby = await _lobbyService.DisconnectPlayerAsync(Context.ConnectionId);
-        
+
         // We do NOT send PlayerLeft immediately. 
         // We could send "PlayerDisconnected" to show a greyed out icon? 
         // For now, let's keep it silent to handle page refresh seamlessly.
-        
+
         await base.OnDisconnectedAsync(exception);
     }
 }

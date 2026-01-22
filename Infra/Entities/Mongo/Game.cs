@@ -1,14 +1,24 @@
-using Ilmanar.Infra.Entities;
-using Ilmanar.Infra.Entities.Mongo;
+namespace Ilmanar.Infra.Entities.Mongo;
 
-namespace Ilmanar.Api.Dtos;
+public enum GameType
+{
+    MapPlacement,
+    Translation,
+    Genealogy,
+    Quiz
+}
 
-public class GameDto
+public class Game
 {
     public Guid Id { get; set; }
+
     public string Title { get; set; } = string.Empty;
+
     public string? Description { get; set; }
+
     public GameType Type { get; set; }
+
     public string ThumbnailPath { get; set; } = string.Empty;
-    public List<GameItem>? Questions { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

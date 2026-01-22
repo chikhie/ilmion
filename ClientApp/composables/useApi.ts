@@ -9,7 +9,7 @@ export const useApi = () => {
   const client = new ApiClient()
 
   const userService = new UserService(client)
-  const gameService = new MockGameService() // Use Mock
+  const gameService = new GameService(client)
 
   const paymentService = new PaymentService(client)
   const statsService = new StatsService(client)
