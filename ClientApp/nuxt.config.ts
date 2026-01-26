@@ -67,6 +67,7 @@ export default defineNuxtConfig({
     workbox: {
       navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MB limit for Google Fonts
     },
     client: {
       installPrompt: true,
