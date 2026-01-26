@@ -40,7 +40,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </button>
-                <span class="text-brand-parchment font-serif-title font-semibold text-xl drop-shadow-sm tracking-wide">Question {{ currentQuestionIndex + 1 }} <span class="text-brand-parchment/50 text-base">/ {{ quiz.length }}</span></span>
+                <span class="text-brand-parchment font-serif-title font-semibold text-xl drop-shadow-sm tracking-wide">Question {{ currentQuestionIndex + 1 }} <span class="text-brand-parchment/50 text-base">/ {{ totalQuestions }}</span></span>
                 <div class="w-12 h-12"></div> <!-- Spacer -->
             </div>
 
@@ -154,7 +154,7 @@
              
              <!-- PROGRESS LINE ABSOLUTE BOTTOM -->
              <div class="fixed top-0 left-0 right-0 h-1.5 bg-brand-wood z-50">
-                <div class="h-full bg-brand-gold transition-all duration-500 ease-out shadow-[0_0_10px_rgba(195,151,18,0.5)]" :style="{ width: `${((currentQuestionIndex) / quiz.length) * 100}%` }"></div>
+                <div class="h-full bg-brand-gold transition-all duration-500 ease-out shadow-[0_0_10px_rgba(195,151,18,0.5)]" :style="{ width: `${((currentQuestionIndex) / totalQuestions) * 100}%` }"></div>
             </div>
 
         </div>
@@ -166,7 +166,7 @@
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand-gold/5 blur-3xl rounded-full"></div>
                 
                 <h2 class="text-2xl md:text-3xl font-serif-title font-bold text-brand-parchment mb-2 relative z-10">Partie Terminée</h2>
-                <div class="text-6xl md:text-[8rem] leading-none font-black text-brand-gold mb-2 drop-shadow-2xl relative z-10 font-serif-title">{{ score }}<span class="text-4xl text-brand-gold/50">/{{ quiz.length }}</span></div>
+                <div class="text-6xl md:text-[8rem] leading-none font-black text-brand-gold mb-2 drop-shadow-2xl relative z-10 font-serif-title">{{ score }}<span class="text-4xl text-brand-gold/50">/{{ totalQuestions }}</span></div>
                 
                 <p class="text-xl text-brand-parchment/90 font-serif-title italic relative z-10 mb-8 max-w-sm mx-auto">
                     {{ getScoreMessage() }}
@@ -205,11 +205,13 @@ const selectedAnswer = ref<string | null>(null)
 const isCorrect = ref<boolean>(false)
 const numberInput = ref<number | ''>('')
 const score = ref(0)
+const totalQuestions = ref(0)
 
 // Methods
 const startGame = async (count: number) => {
     try {
         quiz.value = await gameService.getQuizzForSoloPlayer(count);
+        totalQuestions.value = quiz.value.length;
         gameStarted.value = true;
         currentQuestionIndex.value = 0;
         resetQuestionState();
@@ -247,6 +249,7 @@ const resetGame = () => {
     gameStarted.value = false;
     quiz.value = [];
     score.value = 0;
+    totalQuestions.value = 0;
     currentQuestionIndex.value = 0;
 }
 
@@ -260,8 +263,8 @@ const goBack = () => {
 }
 
 const getScoreMessage = () => {
-    if (quiz.value.length === 0) return '';
-    const percentage = (score.value / quiz.value.length) * 100;
+    if (totalQuestions.value === 0) return '';
+    const percentage = (score.value / totalQuestions.value) * 100;
     if (percentage === 100) return "Excellent ! Mashallah";
     if (percentage >= 80) return "Très bon travail !";
     if (percentage >= 50) return "Bien joué !";
