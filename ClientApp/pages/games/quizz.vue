@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-[100dvh] bg-brand-dark font-sans-body relative flex flex-col overflow-hidden">
+  <div class="h-screen max-h-screen bg-brand-dark font-sans-body relative flex flex-col overflow-hidden">
     
     <!-- Background Texture -->
     <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
@@ -118,12 +118,13 @@
                         <input type="number" 
                           v-model="numberInput" 
                           @keyup.enter="selectOption(numberInput.toString())"
-                          class="w-full text-center text-5xl font-bold font-serif-title text-brand-gold border-b-2 border-brand-gold/30 focus:border-brand-gold outline-none p-4 mb-8 bg-transparent placeholder-brand-wood/50"
+                          :disabled="hasAnswered"
+                          class="w-full text-center text-5xl font-bold font-serif-title text-brand-gold border-b-2 border-brand-gold/30 focus:border-brand-gold outline-none p-4 mb-8 bg-transparent placeholder-brand-wood/50 disabled:opacity-50 disabled:cursor-not-allowed"
                           placeholder="0"
                         />
                          <button @click="selectOption(numberInput.toString())"
                             :disabled="hasAnswered || !numberInput"
-                            class="w-full bg-brand-gold text-brand-dark rounded-xl py-4 text-xl font-bold hover:bg-white transition-colors shadow-lg"
+                            class="w-full bg-brand-gold text-brand-dark rounded-xl py-4 text-xl font-bold hover:bg-white transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-brand-wood/50"
                          >
                             Valider
                          </button>
@@ -167,12 +168,16 @@
                 <h2 class="text-3xl font-serif-title font-bold text-brand-parchment mb-2 relative z-10">Partie Terminée</h2>
                 <div class="text-[8rem] leading-none font-black text-brand-gold mb-2 drop-shadow-2xl relative z-10 font-serif-title">{{ score }}<span class="text-4xl text-brand-gold/50">/{{ quiz.length }}</span></div>
                 
-                <div class="space-y-4 relative z-10 mt-12">
-                    <button @click="resetGame" class="w-full bg-brand-gold text-brand-dark font-bold py-5 text-xl rounded-2xl shadow-xl hover:bg-white hover:scale-[1.02] transform transition-all duration-200">
+                <p class="text-xl text-brand-parchment/90 font-serif-title italic relative z-10 mb-8 max-w-sm mx-auto">
+                    {{ getScoreMessage() }}
+                </p>
+
+                <div class="space-y-4 relative z-10 mt-8">
+                    <button @click="resetGame" class="w-full bg-brand-gold text-brand-dark font-bold py-5 text-xl rounded-2xl shadow-xl hover:bg-white transform transition-all duration-200">
                         Rejouer
                     </button>
-                    <button @click="router.push('/games')" class="w-full bg-transparent border-2 border-brand-wood text-brand-wood hover:text-brand-parchment hover:border-brand-parchment font-bold py-4 rounded-xl transition-all duration-200">
-                        Retour aux jeux
+                    <button @click="router.push('/')" class="w-full bg-brand-wood text-white hover:bg-brand-wood/90 font-bold py-4 rounded-xl transition-all duration-200 shadow-md border border-brand-parchment/20">
+                        Retour à l'accueil
                     </button>
                 </div>
              </div>
@@ -254,6 +259,15 @@ const goBack = () => {
     }
 }
 
+const getScoreMessage = () => {
+    if (quiz.value.length === 0) return '';
+    const percentage = (score.value / quiz.value.length) * 100;
+    if (percentage === 100) return "Excellent ! Mashallah";
+    if (percentage >= 80) return "Très bon travail !";
+    if (percentage >= 50) return "Bien joué !";
+    return "Continuez à apprendre, le savoir vient avec la persévérance.";
+}
+
 definePageMeta({
   layout: 'game'
 })
@@ -295,6 +309,17 @@ const getOptionClass = (option: string, idx: number) => {
 </script>
 
 <style scoped>
+/* Hide number input spinners */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .animate-fade-in { animation: fadeIn 0.6s ease-out; }
 .animate-fade-in-up { animation: fadeInUp 0.5s ease-out; }
 .animate-scale-in { animation: scaleIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.2); }

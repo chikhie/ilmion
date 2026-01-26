@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4">
       <p class="text-brand-parchment/60 text-sm font-medium">
         &copy; {{ new Date().getFullYear() }} Ilmanar &middot; 
-        <a href="mailto:contact@ilmanar.com" class="hover:text-brand-gold transition-colors">contact@ilmanar.com</a>
+        <a href="mailto:contact@ilmanar.com" class="hover:text-brand-gold transition-colors">Tous droits reservés</a>
       </p>
     </div>
   </footer>
