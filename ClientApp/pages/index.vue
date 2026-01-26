@@ -4,7 +4,7 @@
     <!-- Background Elements -->
     <div class="absolute inset-0 z-0 pointer-events-none">
         <!-- Abstract Pattern -->
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('https://www.transparenttextures.com/patterns/arabesque.png')"></div>
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('/patterns/arabesque.png')"></div>
         
         <!-- Glow Effects -->
         <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-gold/10 rounded-full blur-[100px] animate-pulse-slow"></div>

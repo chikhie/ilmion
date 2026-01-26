@@ -6,8 +6,22 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@vite-pwa/nuxt'
+    '@vite-pwa/nuxt',
+    '@nuxtjs/google-fonts'
   ],
+
+  googleFonts: {
+    families: {
+      Merriweather: [400, 700],
+      'Libre+Baskerville': [400, 700],
+      Inter: [400, 600],
+      'Source+Sans+3': [400, 600],
+      Amiri: [400, 700]
+    },
+    display: 'swap',
+    download: true,
+    base64: true
+  },
 
   pwa: {
     registerType: 'autoUpdate',
@@ -84,9 +98,6 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&family=Source+Sans+3:wght@400;600&family=Amiri:wght@400;700&display=swap' },
         { rel: 'manifest', href: '/manifest.webmanifest' }
       ]
     }

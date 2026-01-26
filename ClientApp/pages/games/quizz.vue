@@ -3,7 +3,7 @@
     
     <!-- Background Texture -->
     <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
-        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')]"></div>
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('/patterns/arabesque.png')]"></div>
     </div>
 
     <!-- MAIN CONTENT WRAPPER -->
@@ -12,14 +12,14 @@
         <!-- === SETUP SCREEN === -->
         <div v-if="!gameStarted" class="flex flex-col items-center justify-center flex-grow p-6 text-center space-y-12 animate-fade-in max-w-2xl mx-auto w-full">
             <div class="space-y-4">
-                <h1 class="text-5xl md:text-6xl font-serif-title font-bold text-brand-gold drop-shadow-md">Culture Quiz</h1>
+                <h1 class="text-3xl md:text-6xl font-serif-title font-bold text-brand-gold drop-shadow-md">Culture Quiz</h1>
                 <p class="text-brand-parchment/80 text-xl md:text-2xl">Combien de questions ?</p>
             </div>
             
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
                 <button v-for="count in [5, 10, 15, 20]" :key="count"
                     @click="startGame(count)"
-                    class="bg-brand-wood/40 hover:bg-brand-gold hover:text-brand-dark text-brand-gold text-2xl font-bold py-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg border border-brand-gold/30 hover:shadow-brand-gold/20"
+                    class="bg-brand-wood/40 hover:bg-brand-gold hover:text-brand-dark text-brand-gold text-xl md:text-2xl font-bold py-4 md:py-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg border border-brand-gold/30 hover:shadow-brand-gold/20"
                 >
                     {{ count }}
                 </button>
@@ -46,12 +46,12 @@
 
             <!-- QUESTION AREA -->
             <div class="px-6 mb-6 md:mb-10 flex justify-center">
-                 <div class="w-full relative py-8 md:py-12 flex flex-col items-center text-center">
+                 <div class="w-full relative py-4 md:py-12 flex flex-col items-center text-center">
                     
                     <!-- Decorative Element -->
                     <div class="w-24 h-1 bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent mb-8"></div>
 
-                    <h2 class="text-brand-parchment text-2xl md:text-4xl font-serif-title font-bold leading-tight md:leading-snug max-w-3xl drop-shadow-sm">
+                    <h2 class="text-brand-parchment text-xl md:text-4xl font-serif-title font-bold leading-tight md:leading-snug max-w-3xl drop-shadow-sm">
                         {{ quiz[currentQuestionIndex].text }}
                     </h2>
                     
@@ -69,7 +69,7 @@
                      <button v-for="(option, idx) in quiz[currentQuestionIndex].options" :key="option"
                         @click="selectOption(option)"
                         :class="[
-                            'w-full p-6 md:p-8 rounded-2xl flex items-center gap-4 transition-all duration-200 border relative group backdrop-blur-sm text-left',
+                            'w-full p-4 md:p-8 rounded-2xl flex items-center gap-4 transition-all duration-200 border relative group backdrop-blur-sm text-left',
                              getOptionClass(option, idx)
                         ]"
                         :disabled="hasAnswered"
@@ -77,7 +77,7 @@
                         <div class="flex-shrink-0 w-10 h-10 rounded-full border border-current flex items-center justify-center opacity-60 group-hover:opacity-100 transition-opacity">
                              <span :class="['font-serif-title font-bold text-lg']">{{ String.fromCharCode(65 + idx) }}</span>
                         </div>
-                        <span class="flex-1 font-sans-body text-lg md:text-xl font-medium leading-snug">{{ option }}</span>
+                        <span class="flex-1 font-sans-body text-base md:text-xl font-medium leading-snug">{{ option }}</span>
                         
                         <!-- Status Icon -->
                          <div v-if="hasAnswered" class="absolute top-4 right-4">
@@ -119,7 +119,7 @@
                           v-model="numberInput" 
                           @keyup.enter="selectOption(numberInput.toString())"
                           :disabled="hasAnswered"
-                          class="w-full text-center text-5xl font-bold font-serif-title text-brand-gold border-b-2 border-brand-gold/30 focus:border-brand-gold outline-none p-4 mb-8 bg-transparent placeholder-brand-wood/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                          class="w-full text-center text-4xl md:text-5xl font-bold font-serif-title text-brand-gold border-b-2 border-brand-gold/30 focus:border-brand-gold outline-none p-4 mb-8 bg-transparent placeholder-brand-wood/50 disabled:opacity-50 disabled:cursor-not-allowed"
                           placeholder="0"
                         />
                          <button @click="selectOption(numberInput.toString())"
@@ -165,18 +165,18 @@
                 <!-- Background glow -->
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand-gold/5 blur-3xl rounded-full"></div>
                 
-                <h2 class="text-3xl font-serif-title font-bold text-brand-parchment mb-2 relative z-10">Partie Terminée</h2>
-                <div class="text-[8rem] leading-none font-black text-brand-gold mb-2 drop-shadow-2xl relative z-10 font-serif-title">{{ score }}<span class="text-4xl text-brand-gold/50">/{{ quiz.length }}</span></div>
+                <h2 class="text-2xl md:text-3xl font-serif-title font-bold text-brand-parchment mb-2 relative z-10">Partie Terminée</h2>
+                <div class="text-6xl md:text-[8rem] leading-none font-black text-brand-gold mb-2 drop-shadow-2xl relative z-10 font-serif-title">{{ score }}<span class="text-4xl text-brand-gold/50">/{{ quiz.length }}</span></div>
                 
                 <p class="text-xl text-brand-parchment/90 font-serif-title italic relative z-10 mb-8 max-w-sm mx-auto">
                     {{ getScoreMessage() }}
                 </p>
 
                 <div class="space-y-4 relative z-10 mt-8">
-                    <button @click="resetGame" class="w-full bg-brand-gold text-brand-dark font-bold py-5 text-xl rounded-2xl shadow-xl hover:bg-white transform transition-all duration-200">
+                    <button @click="resetGame" class="w-full bg-brand-gold text-brand-dark font-bold py-3 md:py-5 text-lg md:text-xl rounded-2xl shadow-xl hover:bg-white transform transition-all duration-200">
                         Rejouer
                     </button>
-                    <button @click="router.push('/')" class="w-full bg-brand-wood text-white hover:bg-brand-wood/90 font-bold py-4 rounded-xl transition-all duration-200 shadow-md border border-brand-parchment/20">
+                    <button @click="router.push('/')" class="w-full bg-brand-wood text-white hover:bg-brand-wood/90 font-bold py-3 md:py-4 rounded-xl transition-all duration-200 shadow-md border border-brand-parchment/20">
                         Retour à l'accueil
                     </button>
                 </div>
