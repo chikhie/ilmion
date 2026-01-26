@@ -8,6 +8,8 @@ public class QuizItem : GameItem
     [BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public string Type { get; set; } = string.Empty;
 
+    public string Lang { get; set; } = "fr";
+
     public List<string> Options { get; set; } = new();
 
     public string CorrectAnswer { get; set; } = string.Empty;

@@ -12,8 +12,27 @@
         <!-- === SETUP SCREEN === -->
         <div v-if="!gameStarted" class="flex flex-col items-center justify-center flex-grow p-6 text-center space-y-12 animate-fade-in max-w-2xl mx-auto w-full">
             <div class="space-y-4">
-                <h1 class="text-3xl md:text-6xl font-serif-title font-bold text-brand-gold drop-shadow-md">Culture Quiz</h1>
-                <p class="text-brand-parchment/80 text-xl md:text-2xl">Combien de questions ?</p>
+                <h1 class="text-3xl md:text-6xl font-serif-title font-bold text-brand-gold drop-shadow-md">{{ $t('quiz.title') }}</h1>
+                
+                <!-- Language Selector -->
+                <div class="flex justify-center gap-3">
+                    <button 
+                        v-for="loc in availableLocales" 
+                        :key="loc.code"
+                        @click="changeLocale(loc.code)"
+                        :class="[
+                            'px-4 py-2 rounded-xl border transition-all duration-200 flex items-center gap-2',
+                            locale === loc.code 
+                                ? 'bg-brand-gold text-brand-dark border-brand-gold' 
+                                : 'bg-brand-wood/30 text-brand-parchment/70 border-brand-gold/30 hover:border-brand-gold/60'
+                        ]"
+                    >
+                        <span class="text-xl">{{ loc.code === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
+                        <span class="font-medium">{{ loc.name }}</span>
+                    </button>
+                </div>
+                
+                <p class="text-brand-parchment/80 text-xl md:text-2xl">{{ $t('quiz.howManyQuestions') }}</p>
             </div>
             
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
@@ -26,7 +45,7 @@
             </div>
             
             <button @click="router.push('/')" class="text-brand-parchment/50 hover:text-brand-gold underline decoration-brand-gold/30 underline-offset-4 transition-colors">
-                Retour à l'accueil
+                {{ $t('quiz.backToHome') }}
             </button>
         </div>
 
@@ -40,7 +59,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </button>
-                <span class="text-brand-parchment font-serif-title font-semibold text-xl drop-shadow-sm tracking-wide">Question {{ currentQuestionIndex + 1 }} <span class="text-brand-parchment/50 text-base">/ {{ totalQuestions }}</span></span>
+                <span class="text-brand-parchment font-serif-title font-semibold text-xl drop-shadow-sm tracking-wide">{{ $t('quiz.question') }} {{ currentQuestionIndex + 1 }} <span class="text-brand-parchment/50 text-base">/ {{ totalQuestions }}</span></span>
                 <div class="w-12 h-12"></div> <!-- Spacer -->
             </div>
 
@@ -96,18 +115,17 @@
                     </div>
                 </template>
 
-                <!-- Boolean Type -->
                 <template v-if="quiz[currentQuestionIndex].type === 'boolean'">
                     <div class="flex flex-col sm:flex-row gap-4 justify-center py-8">
                     <button @click="selectOption('true')"
                         :class="['w-full sm:w-64 p-8 rounded-2xl border font-bold text-2xl transition-all duration-200 flex flex-col items-center gap-4', getOptionClass('true', 0)]"
                         :disabled="hasAnswered">
-                        <span>Vrai</span>
+                        <span>{{ $t('quiz.true') }}</span>
                     </button>
                     <button @click="selectOption('false')"
                          :class="['w-full sm:w-64 p-8 rounded-2xl border font-bold text-2xl transition-all duration-200 flex flex-col items-center gap-4', getOptionClass('false', 1)]"
                         :disabled="hasAnswered">
-                        <span>Faux</span>
+                        <span>{{ $t('quiz.false') }}</span>
                     </button>
                     </div>
                 </template>
@@ -126,7 +144,7 @@
                             :disabled="hasAnswered || !numberInput"
                             class="w-full bg-brand-gold text-brand-dark rounded-xl py-4 text-xl font-bold hover:bg-white transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-brand-wood/50"
                          >
-                            Valider
+                             {{ $t('quiz.submit') }}
                          </button>
                     </div>
                 </template>
@@ -138,12 +156,12 @@
                             <div :class="['w-1 mt-1.5 h-12 rounded-full', isCorrect ? 'bg-green-500' : 'bg-red-500']"></div>
                             <div class="flex-1">
                                 <p :class="isCorrect ? 'text-green-400' : 'text-red-400'" class="font-bold mb-1 text-lg font-serif-title">
-                                    {{ isCorrect ? 'Excellent !' : 'Incorrect' }}
+                                    {{ isCorrect ? $t('quiz.correct') : $t('quiz.incorrect') }}
                                 </p>
                                 <p class="text-brand-parchment text-lg leading-relaxed mb-6">{{ quiz[currentQuestionIndex].explanation }}</p>
                                 
                                 <button @click="nextQuestion" class="w-full md:w-auto px-8 bg-brand-gold text-brand-dark py-3 rounded-xl font-bold text-lg hover:bg-white transition-colors">
-                                    {{ currentQuestionIndex < quiz.length - 1 ? 'Question Suivante' : 'Voir les résultats' }}
+                                    {{ currentQuestionIndex < quiz.length - 1 ? $t('quiz.next') : $t('quiz.gameOver') }}
                                 </button>
                             </div>
                         </div>
@@ -165,7 +183,7 @@
                 <!-- Background glow -->
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand-gold/5 blur-3xl rounded-full"></div>
                 
-                <h2 class="text-2xl md:text-3xl font-serif-title font-bold text-brand-parchment mb-2 relative z-10">Partie Terminée</h2>
+                <h2 class="text-2xl md:text-3xl font-serif-title font-bold text-brand-parchment mb-2 relative z-10">{{ $t('quiz.gameOver') }}</h2>
                 <div class="text-6xl md:text-[8rem] leading-none font-black text-brand-gold mb-2 drop-shadow-2xl relative z-10 font-serif-title">{{ score }}<span class="text-4xl text-brand-gold/50">/{{ totalQuestions }}</span></div>
                 
                 <p class="text-xl text-brand-parchment/90 font-serif-title italic relative z-10 mb-8 max-w-sm mx-auto">
@@ -174,10 +192,10 @@
 
                 <div class="space-y-4 relative z-10 mt-8">
                     <button @click="resetGame" class="w-full bg-brand-gold text-brand-dark font-bold py-3 md:py-5 text-lg md:text-xl rounded-2xl shadow-xl hover:bg-white transform transition-all duration-200">
-                        Rejouer
+                        {{ $t('quiz.playAgain') }}
                     </button>
                     <button @click="router.push('/')" class="w-full bg-brand-wood text-white hover:bg-brand-wood/90 font-bold py-3 md:py-4 rounded-xl transition-all duration-200 shadow-md border border-brand-parchment/20">
-                        Retour à l'accueil
+                        {{ $t('quiz.backToHomeBtn') }}
                     </button>
                 </div>
              </div>
@@ -190,8 +208,19 @@
 <script setup lang="ts">
 import { GameService } from '../../services/game.service';
 import type { Quiz } from '../../types';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+
+const { locale, locales, setLocale, t } = useI18n()
+
+// Computed for available locales with proper typing
+const availableLocales = computed(() => 
+    (locales.value as Array<{ code: string; name: string }>)
+)
+
+const changeLocale = (code: string) => {
+    setLocale(code)
+}
 
 const gameService = new GameService()
 const router = useRouter()
@@ -210,7 +239,7 @@ const totalQuestions = ref(0)
 // Methods
 const startGame = async (count: number) => {
     try {
-        quiz.value = await gameService.getQuizzForSoloPlayer(count);
+        quiz.value = await gameService.getQuizzForSoloPlayer(count, locale.value);
         totalQuestions.value = quiz.value.length;
         gameStarted.value = true;
         currentQuestionIndex.value = 0;
@@ -265,10 +294,10 @@ const goBack = () => {
 const getScoreMessage = () => {
     if (totalQuestions.value === 0) return '';
     const percentage = (score.value / totalQuestions.value) * 100;
-    if (percentage === 100) return "Excellent ! Mashallah";
-    if (percentage >= 80) return "Très bon travail !";
-    if (percentage >= 50) return "Bien joué !";
-    return "Continuez à apprendre, le savoir vient avec la persévérance.";
+    if (percentage === 100) return t('quiz.scoreMessages.perfect');
+    if (percentage >= 80) return t('quiz.scoreMessages.great');
+    if (percentage >= 50) return t('quiz.scoreMessages.good');
+    return t('quiz.scoreMessages.keep');
 }
 
 definePageMeta({

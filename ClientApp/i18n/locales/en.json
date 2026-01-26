@@ -1,0 +1,40 @@
+{
+    "home": {
+        "title": "Knowledge is a",
+        "titleHighlight": "Light",
+        "subtitle": "Learn and deepen your knowledge of Islam",
+        "description": "Take part in interactive quizzes to assess your knowledge and learn at your own pace the principles and history of Islam.",
+        "startQuiz": "Start Quiz"
+    },
+    "quiz": {
+        "title": "Culture Quiz",
+        "howManyQuestions": "How many questions?",
+        "backToHome": "Back to home",
+        "question": "Question",
+        "submit": "Submit",
+        "next": "Next question",
+        "correct": "Correct answer!",
+        "incorrect": "Wrong answer",
+        "enterNumber": "Enter a number",
+        "true": "True",
+        "false": "False",
+        "gameOver": "Game Over",
+        "playAgain": "Play Again",
+        "backToHomeBtn": "Back to home",
+        "scoreMessages": {
+            "perfect": "Excellent! Mashallah",
+            "great": "Great job!",
+            "good": "Well done!",
+            "keep": "Keep learning!"
+        }
+    },
+    "common": {
+        "loading": "Loading...",
+        "error": "Error",
+        "retry": "Retry"
+    },
+    "language": {
+        "fr": "Français",
+        "en": "English"
+    }
+}

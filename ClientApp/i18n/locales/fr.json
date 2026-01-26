@@ -1,0 +1,40 @@
+{
+    "home": {
+        "title": "Le Savoir est une",
+        "titleHighlight": "Lumière",
+        "subtitle": "Apprenez et approfondissez vos connaissances sur l'Islam",
+        "description": "Participez à des quiz interactifs pour évaluer vos acquis et apprendre à votre rythme les principes et l'histoire de l'Islam.",
+        "startQuiz": "Lancer le Quiz"
+    },
+    "quiz": {
+        "title": "Culture Quiz",
+        "howManyQuestions": "Combien de questions ?",
+        "backToHome": "Retour à l'accueil",
+        "question": "Question",
+        "submit": "Valider",
+        "next": "Question suivante",
+        "correct": "Bonne réponse !",
+        "incorrect": "Mauvaise réponse",
+        "enterNumber": "Entrez un nombre",
+        "true": "Vrai",
+        "false": "Faux",
+        "gameOver": "Partie Terminée",
+        "playAgain": "Rejouer",
+        "backToHomeBtn": "Retour à l'accueil",
+        "scoreMessages": {
+            "perfect": "Excellent ! Mashallah",
+            "great": "Très bon travail !",
+            "good": "Bien joué !",
+            "keep": "Continuez à apprendre !"
+        }
+    },
+    "common": {
+        "loading": "Chargement...",
+        "error": "Erreur",
+        "retry": "Réessayer"
+    },
+    "language": {
+        "fr": "Français",
+        "en": "English"
+    }
+}

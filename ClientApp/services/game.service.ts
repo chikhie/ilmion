@@ -4,8 +4,8 @@ import type { Game, Party, Quiz } from '~/types'
 export class GameService {
     private client: ApiClient = new ApiClient()
 
-    async getQuizzForSoloPlayer(questionNumber: number): Promise<Quiz[]> {
-        return await this.client.get<Quiz[]>(`/games/quizzes/?count=${questionNumber}`)
+    async getQuizzForSoloPlayer(questionNumber: number, lang: string = 'fr'): Promise<Quiz[]> {
+        return await this.client.get<Quiz[]>(`/games/quizzes?count=${questionNumber}&lang=${lang}`)
     }
 
     async createParty(gameId: string, hostUsername: string): Promise<Party> {

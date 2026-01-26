@@ -11,6 +11,24 @@
         <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-brand-wood/10 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
     </div>
 
+    <!-- Language Switcher -->
+    <div class="absolute top-4 right-4 z-20 flex gap-2">
+        <button 
+            v-for="loc in locales" 
+            :key="loc.code"
+            @click="setLocale(loc.code)"
+            :class="[
+                'px-3 py-2 rounded-lg border transition-all duration-200 flex items-center gap-2 text-sm',
+                locale === loc.code 
+                    ? 'bg-brand-gold text-brand-dark border-brand-gold' 
+                    : 'bg-brand-wood/30 text-brand-parchment/70 border-brand-gold/30 hover:border-brand-gold/60'
+            ]"
+        >
+            <span>{{ loc.code === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
+            <span class="hidden sm:inline">{{ loc.name }}</span>
+        </button>
+    </div>
+
     <!-- Main Content -->
     <div class="relative z-10 flex-grow flex flex-col items-center justify-center container mx-auto px-4 py-16 text-center">
         
@@ -23,8 +41,8 @@
 
         <!-- Title -->
         <h1 class="text-5xl md:text-7xl font-serif-title font-bold text-brand-parchment mb-4 drop-shadow-lg tracking-wide animate-fade-in max-w-4xl leading-tight">
-            Le Savoir est une <span class="text-brand-gold relative inline-block">
-                Lumière
+            {{ $t('home.title') }} <span class="text-brand-gold relative inline-block">
+                {{ $t('home.titleHighlight') }}
                 <svg class="absolute -bottom-2 left-0 w-full h-3 text-brand-gold/30" viewBox="0 0 100 10" preserveAspectRatio="none">
                     <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none"/>
                 </svg>
@@ -32,19 +50,17 @@
         </h1>
         
         <h2 class="text-xl md:text-2xl text-brand-gold font-serif-title mb-8 opacity-90 animate-fade-in delay-200">
-            Apprenez et approfondissez vos connaissances sur l'Islam
+            {{ $t('home.subtitle') }}
         </h2>
 
         <!-- Description -->
-        <p class="text-lg md:text-xl text-brand-parchment/80 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in delay-300">
-            Participez à des <strong>quiz</strong> interactifs pour évaluer vos acquis et apprendre à votre rythme les principes et l'histoire de l'Islam.
-        </p>
+        <p class="text-lg md:text-xl text-brand-parchment/80 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in delay-300">{{ $t('home.description') }}</p>
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-6 w-full max-w-md animate-fade-in-up delay-300">
             <NuxtLink to="/games/quizz" class="group flex-1 relative px-8 py-5 bg-brand-gold text-brand-dark rounded-xl font-bold text-xl uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all duration-300 overflow-hidden">
                 <span class="relative z-10 flex items-center justify-center gap-3">
-                    Lancer le Quiz
+                    {{ $t('home.startQuiz') }}
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
@@ -60,6 +76,8 @@
 </template>
 
 <script setup lang="ts">
+const { locale, locales, setLocale } = useI18n()
+
 definePageMeta({
   layout: 'default'
 })
