@@ -99,11 +99,16 @@ export default defineNuxtConfig({
   },
 
   // Configuration du build
-  // nitro: {
-  //   output: {
-  //     publicDir: '../wwwroot'
-  //   }
-  // },
+  nitro: {
+    routeRules: {
+      '/ingest/static/**': { proxy: 'https://eu-assets.i.posthog.com/static/**' },
+      '/ingest/array/**': { proxy: 'https://eu-assets.i.posthog.com/array/**' },
+      '/ingest/**': { proxy: 'https://eu.i.posthog.com/**' },
+    },
+    // output: {
+    //   publicDir: '../wwwroot'
+    // }
+  },
 
   app: {
     head: {
