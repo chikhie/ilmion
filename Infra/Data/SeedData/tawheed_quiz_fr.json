@@ -1,0 +1,322 @@
+{
+    "questions": [
+        {
+            "type": "choice",
+            "text": "Quelle est la raison majeure pour laquelle Allah a créé les djinns et les humains ?",
+            "options": [
+                "Pour peupler la Terre",
+                "Pour L'adorer Lui Seul",
+                "Pour vivre en communauté",
+                "Pour dominer les autres créatures"
+            ],
+            "correctAnswer": "Pour L'adorer Lui Seul",
+            "explanation": "Allah dit dans le Coran (Adh-Dhariyat, 56) : « Et Je n'ai créé les djinns et les humains que pour qu'ils M'adorent. »"
+        },
+        {
+            "type": "number",
+            "text": "Combien y a-t-il de types (catégories) de Tawheed ?",
+            "correctAnswer": "3",
+            "explanation": "Il y a trois types de Tawheed : Ar-Rabubiyyah (Seigneurie), Al-Uluhiyyah (Adoration) et Al-Asma' was-Sifat (Noms et Attributs)."
+        },
+        {
+            "type": "choice",
+            "text": "Que signifie le mot 'Tawheed' en langue arabe ?",
+            "options": [
+                "La prière",
+                "L'unicité / Rendre unique",
+                "L'adoration",
+                "La foi"
+            ],
+            "correctAnswer": "L'unicité / Rendre unique",
+            "explanation": "Tawheed vient de la racine 'Wahada' qui signifie unifier ou rendre unique. C'est le fait de singulariser Allah dans ce qui Lui est propre."
+        },
+        {
+            "type": "choice",
+            "text": "Qu'est-ce que le Tawheed Ar-Rabubiyyah (Seigneurie) ?",
+            "options": [
+                "Unicifier Allah dans l'adoration",
+                "Unicifier Allah dans Ses Noms et Attributs",
+                "Unicifier Allah dans Ses actions : création, subsistance, donner la vie et la mort",
+                "Invoquer Allah seul"
+            ],
+            "correctAnswer": "Unicifier Allah dans Ses actions : création, subsistance, donner la vie et la mort",
+            "explanation": "Tawheed Ar-Rabubiyyah consiste à reconnaître qu'Allah est le seul Créateur, Pourvoyeur, Celui qui donne la vie et la mort, et Celui qui gère l'univers."
+        },
+        {
+            "type": "choice",
+            "text": "Qu'est-ce que le Tawheed Al-Uluhiyyah (Adoration) ?",
+            "options": [
+                "Croire qu'Allah est le Créateur",
+                "Vouer tous les actes d'adoration à Allah Seul",
+                "Connaître les Noms d'Allah",
+                "Croire aux anges"
+            ],
+            "correctAnswer": "Vouer tous les actes d'adoration à Allah Seul",
+            "explanation": "Tawheed Al-Uluhiyyah signifie unicifier Allah dans l'adoration : prière, jeûne, invocation, sacrifice, espoir, crainte, amour, etc., ne doivent être voués qu'à Lui."
+        },
+        {
+            "type": "choice",
+            "text": "Qu'est-ce que le Tawheed Al-Asma' was-Sifat (Noms et Attributs) ?",
+            "options": [
+                "Adorer Allah seul",
+                "Croire qu'Allah est le Seigneur de l'univers",
+                "Décrire et nommer Allah comme Il s'est décrit et nommé Lui-même sans ressemblance ni négation",
+                "Invoquer les saints"
+            ],
+            "correctAnswer": "Décrire et nommer Allah comme Il s'est décrit et nommé Lui-même sans ressemblance ni négation",
+            "explanation": "Ce type de Tawheed consiste à affirmer les Noms et Attributs qu'Allah S'est donnés sans les nier, les altérer ou les comparer à la création."
+        },
+        {
+            "type": "boolean",
+            "text": "Les polythéistes de La Mecque croyaient-ils en Tawheed Ar-Rabubiyyah (qu'Allah est le Créateur) ?",
+            "correctAnswer": "true",
+            "explanation": "Les polythéistes reconnaissaient qu'Allah est le Créateur, le Pourvoyeur et Celui qui gère les affaires, mais ils associaient d'autres divinités dans l'adoration."
+        },
+        {
+            "type": "boolean",
+            "text": "Croire uniquement en Tawheed Ar-Rabubiyyah (Seigneurie) suffit-il pour être musulman ?",
+            "correctAnswer": "false",
+            "explanation": "Les polythéistes de La Mecque croyaient en la Seigneurie d'Allah mais ne furent pas considérés comme musulmans car ils ne L'adoraient pas exclusivement."
+        },
+        {
+            "type": "choice",
+            "text": "Quel type de Tawheed était la mission principale de tous les prophètes ?",
+            "options": [
+                "Tawheed Ar-Rabubiyyah",
+                "Tawheed Al-Uluhiyyah",
+                "Tawheed Al-Asma' was-Sifat",
+                "Aucun des trois"
+            ],
+            "correctAnswer": "Tawheed Al-Uluhiyyah",
+            "explanation": "Tous les prophètes ont été envoyés pour appeler les gens à adorer Allah Seul, car c'est le fondement sur lequel toutes les œuvres sont basées."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle est la relation entre le Tawheed et les actes d'adoration ?",
+            "options": [
+                "Le Tawheed n'a aucun rapport avec les actes",
+                "Le Tawheed est une condition de validité des actes d'adoration",
+                "Les actes d'adoration sont plus importants que le Tawheed",
+                "Le Tawheed est optionnel"
+            ],
+            "correctAnswer": "Le Tawheed est une condition de validité des actes d'adoration",
+            "explanation": "Sans Tawheed, les actes d'adoration ne sont pas valides, tout comme la prière n'est pas valide sans les ablutions (Wudu)."
+        },
+        {
+            "type": "choice",
+            "text": "Que devient l'adoration effectuée sans Tawheed ?",
+            "options": [
+                "Elle reste valide",
+                "Elle est récompensée au double",
+                "Elle devient du Shirk (polythéisme)",
+                "Elle est simplement diminuée en récompense"
+            ],
+            "correctAnswer": "Elle devient du Shirk (polythéisme)",
+            "explanation": "L'adoration sans Tawheed devient du Shirk, annule toutes les œuvres et conduit à l'Enfer éternel si la personne meurt sans se repentir."
+        },
+        {
+            "type": "choice",
+            "text": "Selon le verset d'Al-An'am (v.82), qui aura la sécurité et la guidance ?",
+            "options": [
+                "Ceux qui ont beaucoup de richesses",
+                "Ceux qui croient et ne mélangent pas leur foi avec l'injustice (le Shirk)",
+                "Ceux qui font beaucoup de prières surérogatoires",
+                "Les savants seulement"
+            ],
+            "correctAnswer": "Ceux qui croient et ne mélangent pas leur foi avec l'injustice (le Shirk)",
+            "explanation": "Allah dit que ceux qui croient et ne commettent pas d'injustice (Shirk) auront la sécurité dans cette vie et l'au-delà, et seront bien guidés."
+        },
+        {
+            "type": "choice",
+            "text": "Pourquoi les polythéistes de La Mecque adoraient-ils des idoles selon leur propre argument ?",
+            "options": [
+                "Pour remplacer Allah",
+                "Pour se rapprocher d'Allah par leur intermédiaire",
+                "Parce qu'ils ne croyaient pas en Allah",
+                "Par tradition tribale uniquement"
+            ],
+            "correctAnswer": "Pour se rapprocher d'Allah par leur intermédiaire",
+            "explanation": "Quand le Prophète leur a demandé pourquoi ils adoraient d'autres dieux, ils ont répondu qu'ils les adoraient pour qu'ils les rapprochent d'Allah."
+        },
+        {
+            "type": "choice",
+            "text": "Dans quel verset Allah affirme-t-Il qu'Il est plus proche de l'homme que sa veine jugulaire ?",
+            "options": [
+                "Sourate Al-Baqarah, v.255",
+                "Sourate Qaf, v.16",
+                "Sourate Al-Ikhlas, v.1",
+                "Sourate An-Nisa, v.48"
+            ],
+            "correctAnswer": "Sourate Qaf, v.16",
+            "explanation": "Allah dit (Qaf, v.16) : « Nous avons créé l'homme et Nous savons ce que son âme lui suggère. Nous sommes plus près de lui que sa veine jugulaire. »"
+        },
+        {
+            "type": "boolean",
+            "text": "Allah est-Il physiquement proche de nous comme mentionné dans le verset de la veine jugulaire ?",
+            "correctAnswer": "false",
+            "explanation": "Allah est au-dessus de Son Trône, mais Il est proche de nous par Sa connaissance. La proximité mentionnée est une proximité de science, non physique."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle parole le Prophète ﷺ a-t-il dite à Mu'adh quand il l'a envoyé au Yémen ?",
+            "options": [
+                "Appelle-les d'abord à donner la Zakat",
+                "Appelle-les d'abord à unicifier Allah (Tawheed)",
+                "Appelle-les d'abord à faire le Hajj",
+                "Appelle-les d'abord à lire le Coran"
+            ],
+            "correctAnswer": "Appelle-les d'abord à unicifier Allah (Tawheed)",
+            "explanation": "Le Prophète ﷺ a dit : « Tu vas vers des Gens du Livre. Que la première chose à laquelle tu les appelles soit l'unicification d'Allah. »"
+        },
+        {
+            "type": "choice",
+            "text": "Quel est le plus grand pilier parmi les cinq piliers de l'Islam ?",
+            "options": [
+                "La prière (Salat)",
+                "Le jeûne (Siyam)",
+                "Le Tawheed (attestation de foi)",
+                "Le pèlerinage (Hajj)"
+            ],
+            "correctAnswer": "Le Tawheed (attestation de foi)",
+            "explanation": "Le Tawheed (exprimé dans la Shahada) est le plus grand pilier car sans lui, on ne peut devenir musulman et aucun acte n'est accepté."
+        },
+        {
+            "type": "boolean",
+            "text": "Le Tawheed est-il la raison pour laquelle Allah a créé les djinns et les humains ?",
+            "correctAnswer": "true",
+            "explanation": "Allah dit : « Et Je n'ai créé les djinns et les humains que pour qu'ils M'adorent. » L'adoration mentionnée ici est le Tawheed."
+        },
+        {
+            "type": "choice",
+            "text": "Qu'est-ce que le Shirk (polythéisme) par rapport au Tawheed ?",
+            "options": [
+                "Son synonyme",
+                "Son opposé",
+                "Une branche du Tawheed",
+                "Un type de Tawheed"
+            ],
+            "correctAnswer": "Son opposé",
+            "explanation": "Le Shirk est l'opposé du Tawheed Al-Uluhiyyah. Si le Tawheed n'est pas accompli, son contraire (le Shirk) prend sa place."
+        },
+        {
+            "type": "choice",
+            "text": "Que dit le hadith concernant celui qui prononce 'La Ilaha Illa Allah' avec sincérité ?",
+            "options": [
+                "Il aura plus de richesses",
+                "Allah lui a interdit le feu de l'Enfer",
+                "Il n'aura plus de problèmes dans la vie",
+                "Il sera exempté de prière"
+            ],
+            "correctAnswer": "Allah lui a interdit le feu de l'Enfer",
+            "explanation": "Le Prophète ﷺ a dit : « Allah a interdit au Feu de brûler celui qui dit 'La Ilaha Illa Allah' en recherchant le Visage d'Allah (avec sincérité). »"
+        },
+        {
+            "type": "choice",
+            "text": "Quelle invocation le Prophète Younous (Jonas) a-t-il prononcée dans le ventre du poisson ?",
+            "options": [
+                "Rabbi inni lima anzalta ilayya min khayrin faqir",
+                "La ilaha illa Anta Subhanaka inni kuntu min adh-dhalimin",
+                "Rabbana atina fid-dunya hasanah",
+                "Allahumma inni a'udhu bika min al-hammi wal-hazan"
+            ],
+            "correctAnswer": "La ilaha illa Anta Subhanaka inni kuntu min adh-dhalimin",
+            "explanation": "Younous a déclaré l'unicité d'Allah en disant : « Il n'y a de divinité que Toi, Gloire à Toi ! J'étais parmi les injustes. » C'est grâce à cette invocation qu'il fut sauvé."
+        },
+        {
+            "type": "choice",
+            "text": "Selon Ibn Ul-Qayyim, le Tawheed aide qui face aux épreuves de la vie ?",
+            "options": [
+                "Seulement ses amis (les croyants)",
+                "Seulement ses ennemis (les mécréants)",
+                "Ses amis et ses ennemis dans cette vie, mais ses amis dans l'au-delà aussi",
+                "Personne"
+            ],
+            "correctAnswer": "Ses amis et ses ennemis dans cette vie, mais ses amis dans l'au-delà aussi",
+            "explanation": "Ibn Ul-Qayyim explique que le Tawheed sauve même les polythéistes des épreuves de cette vie, et sauve les croyants dans cette vie et dans l'au-delà."
+        },
+        {
+            "type": "choice",
+            "text": "Quel verset prouve le Tawheed Ar-Rabubiyyah en montrant qu'Allah possède la création et le commandement ?",
+            "options": [
+                "« Adorez Allah et ne Lui associez rien »",
+                "« N'est-ce pas à Lui qu'appartiennent la création et le commandement ? »",
+                "« Il n'y a rien qui Lui ressemble »",
+                "« À Allah appartiennent les plus beaux Noms »"
+            ],
+            "correctAnswer": "« N'est-ce pas à Lui qu'appartiennent la création et le commandement ? »",
+            "explanation": "Ce verset de la sourate Al-A'raf (v.54) établit que la création et le commandement appartiennent exclusivement à Allah, prouvant Sa Seigneurie."
+        },
+        {
+            "type": "choice",
+            "text": "Quel verset prouve le Tawheed Al-Asma' was-Sifat en niant toute ressemblance entre Allah et Sa création ?",
+            "options": [
+                "« Et Je n'ai créé les djinns et les humains que pour qu'ils M'adorent »",
+                "« Il n'y a rien qui Lui ressemble, et Il est l'Audient, le Voyant »",
+                "« Adorez Allah et ne Lui associez rien »",
+                "« Dis : Qui vous pourvoit du ciel et de la terre ? »"
+            ],
+            "correctAnswer": "« Il n'y a rien qui Lui ressemble, et Il est l'Audient, le Voyant »",
+            "explanation": "Ce verset de la sourate Ash-Shura (v.11) établit qu'Allah est unique dans Ses Attributs, sans aucune ressemblance avec la création."
+        },
+        {
+            "type": "boolean",
+            "text": "Peut-on devenir musulman en croyant seulement en deux des trois types de Tawheed ?",
+            "correctAnswer": "false",
+            "explanation": "Les trois types de Tawheed sont obligatoires. Celui qui ne croit qu'en un ou deux types n'a pas encore véritablement unicifié Allah."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle est la plus grande injustice mentionnée dans le Coran ?",
+            "options": [
+                "Le meurtre",
+                "Le vol",
+                "Le Shirk (associer des partenaires à Allah)",
+                "La médisance"
+            ],
+            "correctAnswer": "Le Shirk (associer des partenaires à Allah)",
+            "explanation": "Allah dit : « Le Shirk est certainement une injustice énorme » (Luqman, v.13). Ibn Kathir explique que le Shirk est la plus grande oppression."
+        },
+        {
+            "type": "choice",
+            "text": "Que prouve le verset : « À Allah appartient la royauté des cieux et de la terre » ?",
+            "options": [
+                "Tawheed Al-Uluhiyyah",
+                "Tawheed Ar-Rabubiyyah",
+                "Tawheed Al-Asma' was-Sifat",
+                "Le Shirk"
+            ],
+            "correctAnswer": "Tawheed Ar-Rabubiyyah",
+            "explanation": "Ce verset prouve la Seigneurie d'Allah sur l'univers, montrant qu'Il est le Seul Maître et Possesseur des cieux et de la terre."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle sourate contient le verset sur la création des djinns et des humains pour l'adoration ?",
+            "options": [
+                "Sourate Al-Baqarah",
+                "Sourate Adh-Dhariyat",
+                "Sourate Al-Ikhlas",
+                "Sourate An-Nisa"
+            ],
+            "correctAnswer": "Sourate Adh-Dhariyat",
+            "explanation": "Le verset 56 de la sourate Adh-Dhariyat dit : « Et Je n'ai créé les djinns et les humains que pour qu'ils M'adorent. »"
+        },
+        {
+            "type": "boolean",
+            "text": "Les livres célestes ont-ils été révélés pour une autre raison que le Tawheed ?",
+            "correctAnswer": "false",
+            "explanation": "Aucun prophète n'a été envoyé et aucun livre n'a été révélé sauf pour appeler à l'unicification d'Allah et Son adoration exclusive."
+        },
+        {
+            "type": "choice",
+            "text": "Comment Ibn Kathir définit-il la signification du verset sur la sécurité et la guidance (Al-An'am, v.82) ?",
+            "options": [
+                "Ceux qui ont beaucoup de biens",
+                "Ceux qui vouent l'adoration à Allah seul et ne Lui associent rien",
+                "Ceux qui font beaucoup de jeûne",
+                "Les savants uniquement"
+            ],
+            "correctAnswer": "Ceux qui vouent l'adoration à Allah seul et ne Lui associent rien",
+            "explanation": "Ibn Kathir explique que ce sont ceux qui ont purifié leur adoration pour Allah seul, sans associer de partenaires, qui obtiennent la sécurité pure."
+        }
+    ]
+}

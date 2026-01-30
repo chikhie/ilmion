@@ -1,0 +1,275 @@
+[
+    {
+        "title": "Croyance",
+        "description": "Les fondements de la foi islamique.",
+        "subjects": [
+            {
+                "title": "Tawheed & It’s Types",
+                "parts": [
+                    {
+                        "title": "Introduction",
+                        "description": "Les catégories de l'Unicité.",
+                        "quiz": [
+                            {
+                                "type": "choice",
+                                "text": "Que signifie le mot 'Tawheed' en langue arabe ?",
+                                "options": [
+                                    "La prière",
+                                    "L'unicité / Rendre unique",
+                                    "L'adoration",
+                                    "La foi"
+                                ],
+                                "correctAnswer": "L'unicité / Rendre unique",
+                                "explanation": "Tawheed vient de la racine 'Wahada' qui signifie unifier ou rendre unique."
+                            },
+                            {
+                                "type": "number",
+                                "text": "Combien y a-t-il de types (catégories) de Tawheed ?",
+                                "correctAnswer": "3",
+                                "explanation": "Il y a trois types de Tawheed : Ar-Rabubiyyah, Al-Uluhiyyah et Al-Asma' was-Sifat."
+                            },
+                            {
+                                "type": "boolean",
+                                "text": "Peut-on devenir musulman en croyant seulement en deux des trois types de Tawheed ?",
+                                "correctAnswer": "false",
+                                "explanation": "Les trois types de Tawheed sont obligatoires."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Evidence of Tawheed",
+                "parts": [
+                    {
+                        "title": "Preuves textuelles",
+                        "description": "Les versets et la raison de la création.",
+                        "quiz": [
+                            {
+                                "type": "choice",
+                                "text": "Quelle est la raison majeure pour laquelle Allah a créé les djinns et les humains ?",
+                                "options": [
+                                    "Pour peupler la Terre",
+                                    "Pour L'adorer Lui Seul",
+                                    "Pour vivre en communauté",
+                                    "Pour dominer les autres créatures"
+                                ],
+                                "correctAnswer": "Pour L'adorer Lui Seul",
+                                "explanation": "Allah dit dans le Coran (Adh-Dhariyat, 56) : « Et Je n'ai créé les djinns et les humains que pour qu'ils M'adorent. »"
+                            },
+                            {
+                                "type": "choice",
+                                "text": "Quel verset prouve le Tawheed Ar-Rabubiyyah en montrant qu'Allah possède la création et le commandement ?",
+                                "options": [
+                                    "« Adorez Allah... »",
+                                    "« N'est-ce pas à Lui qu'appartiennent la création et le commandement ? »",
+                                    "« Il n'y a rien qui Lui ressemble »",
+                                    "« À Allah appartiennent les plus beaux Noms »"
+                                ],
+                                "correctAnswer": "« N'est-ce pas à Lui qu'appartiennent la création et le commandement ? »",
+                                "explanation": "Ce verset de la sourate Al-A'raf (v.54) prouve Sa Seigneurie."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Shahadatan",
+                "parts": [
+                    {
+                        "title": "L'attestation de foi",
+                        "description": "Signification de La Ilaha Illa Allah.",
+                        "quiz": [
+                            {
+                                "type": "choice",
+                                "text": "Que dit le hadith concernant celui qui prononce 'La Ilaha Illa Allah' avec sincérité ?",
+                                "options": [
+                                    "Il aura plus de richesses",
+                                    "Allah lui a interdit le feu de l'Enfer",
+                                    "Il n'aura plus de problèmes",
+                                    "Il sera exempté de prière"
+                                ],
+                                "correctAnswer": "Allah lui a interdit le feu de l'Enfer",
+                                "explanation": "Le Prophète ﷺ a dit que le Feu est interdit à celui qui le dit sincèrement."
+                            },
+                            {
+                                "type": "choice",
+                                "text": "Quel est le plus grand pilier parmi les cinq piliers de l'Islam ?",
+                                "options": [
+                                    "La prière",
+                                    "Le jeûne",
+                                    "Le Tawheed (attestation de foi)",
+                                    "Le pèlerinage"
+                                ],
+                                "correctAnswer": "Le Tawheed (attestation de foi)",
+                                "explanation": "C'est le fondement de l'Islam."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Shirk",
+                "parts": [
+                    {
+                        "title": "Le Danger du Shirk",
+                        "description": "Définition et conséquences.",
+                        "quiz": [
+                            {
+                                "type": "choice",
+                                "text": "Qu'est-ce que le Shirk (polythéisme) par rapport au Tawheed ?",
+                                "options": [
+                                    "Son synonyme",
+                                    "Son opposé",
+                                    "Une branche",
+                                    "Un type"
+                                ],
+                                "correctAnswer": "Son opposé",
+                                "explanation": "Le Shirk est l'opposé du Tawheed Al-Uluhiyyah."
+                            },
+                            {
+                                "type": "choice",
+                                "text": "Que devient l'adoration effectuée sans Tawheed ?",
+                                "options": [
+                                    "Elle reste valide",
+                                    "Elle est récompensée au double",
+                                    "Elle devient du Shirk (polythéisme)",
+                                    "Elle est diminuée"
+                                ],
+                                "correctAnswer": "Elle devient du Shirk (polythéisme)",
+                                "explanation": "L'adoration sans Tawheed devient du Shirk et annule les œuvres."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Proofs Of Shirk",
+                "parts": [
+                    {
+                        "title": "Arguments des polythéistes",
+                        "description": "Réfutation des arguments.",
+                        "quiz": [
+                            {
+                                "type": "choice",
+                                "text": "Pourquoi les polythéistes de La Mecque adoraient-ils des idoles selon leur propre argument ?",
+                                "options": [
+                                    "Pour remplacer Allah",
+                                    "Pour se rapprocher d'Allah par leur intermédiaire",
+                                    "Parce qu'ils ne croyaient pas en Allah",
+                                    "Par tradition"
+                                ],
+                                "correctAnswer": "Pour se rapprocher d'Allah par leur intermédiaire",
+                                "explanation": "Ils prétendaient chercher l'intercession pour se rapprocher d'Allah."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "The Fundamentals Of Islam & Nullifiers Of Religion",
+                "parts": [
+                    {
+                        "title": "Les bases",
+                        "description": "Ce qui invalide l'Islam.",
+                        "quiz": []
+                    }
+                ]
+            },
+            {
+                "title": "Kufr “Infidelity”",
+                "parts": [
+                    {
+                        "title": "La Mécréance",
+                        "description": "Définitions et types.",
+                        "quiz": []
+                    }
+                ]
+            },
+            {
+                "title": "Nifaq “Hypocrisy”",
+                "parts": [
+                    {
+                        "title": "L'Hypocrisie",
+                        "description": "Signes et dangers.",
+                        "quiz": []
+                    }
+                ]
+            },
+            {
+                "title": "Al-Wala’ Wa Al-Bara’",
+                "parts": [
+                    {
+                        "title": "Alliance et Désaveu",
+                        "description": "Aimer et détester pour Allah.",
+                        "quiz": []
+                    }
+                ]
+            },
+            {
+                "title": "Ibadah “Worship”",
+                "parts": [
+                    {
+                        "title": "L'Adoration",
+                        "description": "Les types de Tawheed liés à l'adoration.",
+                        "quiz": [
+                            {
+                                "type": "choice",
+                                "text": "Qu'est-ce que le Tawheed Al-Uluhiyyah (Adoration) ?",
+                                "options": [
+                                    "Croire au Créateur",
+                                    "Vouer tous les actes d'adoration à Allah Seul",
+                                    "Connaître les Noms",
+                                    "Croire aux anges"
+                                ],
+                                "correctAnswer": "Vouer tous les actes d'adoration à Allah Seul",
+                                "explanation": "C'est l'unicité dans l'adoration."
+                            },
+                            {
+                                "type": "choice",
+                                "text": "Qu'est-ce que le Tawheed Ar-Rabubiyyah (Seigneurie) ?",
+                                "options": [
+                                    "Unicifier dans l'adoration",
+                                    "Unicifier dans les Noms",
+                                    "Unicifier dans Ses actions (création, subsistance...)",
+                                    "Invoquer Allah seul"
+                                ],
+                                "correctAnswer": "Unicifier dans Ses actions (création, subsistance...)",
+                                "explanation": "Reconnaître Allah comme seul Créateur et Maître."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Histoire Islamique",
+        "description": "Découvrez les grandes périodes de l'histoire.",
+        "subjects": [
+            {
+                "title": "Al-Andalus",
+                "parts": [
+                    {
+                        "title": "L'Andalousie",
+                        "description": "L'âge d'or de l'Espagne musulmane.",
+                        "quiz": [
+                            {
+                                "type": "choice",
+                                "text": "Quelle ville était la capitale du Califat omeyyade en Andalousie ?",
+                                "options": [
+                                    "Séville",
+                                    "Grenade",
+                                    "Cordoue",
+                                    "Tolède"
+                                ],
+                                "correctAnswer": "Cordoue",
+                                "explanation": "Cordoue était la capitale du Califat de Cordoue."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

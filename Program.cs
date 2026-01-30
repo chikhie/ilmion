@@ -16,7 +16,6 @@ using Microsoft.EntityFrameworkCore; // Cette directive est nécessaire pour Use
 using Microsoft.Extensions.FileProviders; // Add this line
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models; // AJOUTER CETTE LIGNE
-using Microsoft.OpenApi.Models; // AJOUTER CETTE LIGNE
 
 // Désactiver le mapping par défaut des claims JWT
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -57,13 +56,15 @@ builder.Services.AddScoped<ComponentEncryptionService>();
 // Multiplayer Services
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<ILobbyService, LobbyService>();
-// MongoDB Configuration REMOVED
-// BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard)); 
-// builder.Services.Configure<Ilmanar.Infra.Settings.MongoDbSettings>(
-//     builder.Configuration.GetSection("MongoDbSettings"));
+// MongoDB Configuration
+MongoDB.Bson.Serialization.BsonSerializer.RegisterSerializer(new MongoDB.Bson.Serialization.Serializers.GuidSerializer(MongoDB.Bson.GuidRepresentation.Standard)); 
+builder.Services.Configure<Ilmanar.Infra.Settings.MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<QuizService>();
+builder.Services.AddSingleton<MongoSeeder>();
 builder.Services.AddSingleton<GameService>();
+builder.Services.AddScoped<IProgressionService, ProgressionService>();
 
 
 

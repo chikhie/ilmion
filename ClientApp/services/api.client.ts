@@ -1,9 +1,6 @@
 export class ApiClient {
-    private apiBase: string
-
-    constructor() {
-        const config = useRuntimeConfig()
-        this.apiBase = config.public.apiBase as string
+    private get apiBase(): string {
+        return useRuntimeConfig().public.apiBase as string
     }
 
     async get<T>(endpoint: string, options?: RequestInit): Promise<T> {

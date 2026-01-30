@@ -5,6 +5,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null as any | null,
     token: null as string | null,
+    refreshToken: null as string | null, // Added refreshToken to state
     loading: false,
   }),
 
@@ -18,10 +19,15 @@ export const useAuthStore = defineStore('auth', {
     // Initialiser l'authentification depuis les cookies
     initAuth() {
       const tokenCookie = useCookie('auth_token')
+      const refreshTokenCookie = useCookie('auth_refresh_token') // Load refresh token
       const userCookie = useCookie('auth_user')
 
       if (tokenCookie.value) {
         this.token = tokenCookie.value
+      }
+
+      if (refreshTokenCookie.value) {
+        this.refreshToken = refreshTokenCookie.value // Set refresh token from cookie
       }
 
       if (userCookie.value) {
@@ -158,6 +164,7 @@ export const useAuthStore = defineStore('auth', {
 
     setSession(authData: AuthResponse) {
       this.token = authData.token
+      this.refreshToken = authData.refreshToken // Update state
 
       // Store in cookies
       const tokenCookie = useCookie('auth_token', { maxAge: 60 * 60 * 24 * 7 }) // 7 days
@@ -177,6 +184,7 @@ export const useAuthStore = defineStore('auth', {
     clearSession() {
       this.user = null
       this.token = null
+      this.refreshToken = null // Clear state
 
       const tokenCookie = useCookie('auth_token')
       tokenCookie.value = null

@@ -109,3 +109,21 @@ export interface Module {
   hasAccess?: boolean
   price?: number
 }
+
+// Progression Types
+export interface ModuleProgressionDto {
+  moduleId: string
+  label: string
+  totalPoints: number
+  isMastered: boolean
+  currentMasteryLabel: string
+  lastPlayed: string | null
+  questionsAnswered: number
+  totalQuestions: number
+}
+
+export interface ProgressionViewModel {
+  globalPoints: number
+  modulesMasteredCount: number
+  modules: ModuleProgressionDto[]
+}

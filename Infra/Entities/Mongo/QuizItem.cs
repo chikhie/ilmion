@@ -2,17 +2,11 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Ilmanar.Infra.Entities.Mongo;
 
-[BsonDiscriminator("QuizItem")]
+// [BsonDiscriminator("QuizItem")] removed
 public class QuizItem : GameItem
 {
-    [BsonRepresentation(MongoDB.Bson.BsonType.String)]
-    public string Type { get; set; } = string.Empty;
+    [BsonIgnoreIfNull]
+    public string? ModuleId { get; set; }
 
-    public string Lang { get; set; } = "fr";
-
-    public List<string> Options { get; set; } = new();
-
-    public string CorrectAnswer { get; set; } = string.Empty;
-
-    public string Explanation { get; set; } = string.Empty;
+// Lang inherited from GameItem
 }

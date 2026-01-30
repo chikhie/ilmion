@@ -313,7 +313,13 @@ import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 const props = defineProps({
   gameContent: {
     type: [String, Object], // Accept both
-    required: true
+    required: false,
+    default: null
+  },
+  questions: {
+    type: Array,
+    required: false,
+    default: () => []
   },
   title: {
     type: String,
@@ -372,11 +378,17 @@ const timerInterval = ref<ReturnType<typeof setInterval> | null>(null)
 
 // Parsing content
 const questions = computed(() => {
-  // Defensive check: ensure mpQuestions exists (handle HMR/ref issues)
+  // 1. Direct prop (New standard)
+  if (props.questions && props.questions.length > 0) {
+      return props.questions
+  }
+
+  // 2. Multiplayer State (Fallback)
   if (props.isMultiplayer && mpQuestions && mpQuestions.value && mpQuestions.value.length > 0) {
       return mpQuestions.value
   }
   
+  // 3. GameContent parsing (Legacy)
   try {
     if(!props.gameContent) return []
     // Check if it's already an object
@@ -426,7 +438,7 @@ function checkAnswer(answer: string) {
   if (props.isMultiplayer) {
       console.log('[QuizGame] Submitting MP Answer. Waiting for signal...')
       mpUpdateScore(score.value)
-      mpSubmitAnswer()
+      mpSubmitAnswer(answer)
       // Wait for server signal to show feedback
       showFeedback.value = false 
   } else {
@@ -495,7 +507,7 @@ function handleTimeOut() {
   isCorrect.value = false
   if (props.isMultiplayer) {
       mpUpdateScore(score.value) // No points added
-      mpSubmitAnswer() // Signal done
+      mpSubmitAnswer('') // Signal done
       showFeedback.value = false
   } else {
       showFeedback.value = true

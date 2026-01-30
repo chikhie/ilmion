@@ -4,7 +4,8 @@
         "titleHighlight": "Lumière",
         "subtitle": "Apprenez et approfondissez vos connaissances sur l'Islam",
         "description": "Participez à des quiz interactifs pour évaluer vos acquis et apprendre à votre rythme les principes et l'histoire de l'Islam.",
-        "startQuiz": "Lancer le Quiz"
+        "startQuiz": "Lancer le Quiz",
+        "register": "S'inscrire"
     },
     "quiz": {
         "title": "Culture Quiz",
@@ -31,7 +32,8 @@
     "common": {
         "loading": "Chargement...",
         "error": "Erreur",
-        "retry": "Réessayer"
+        "retry": "Réessayer",
+        "login": "Se connecter"
     },
     "language": {
         "fr": "Français",

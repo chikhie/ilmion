@@ -4,7 +4,8 @@
         "titleHighlight": "Light",
         "subtitle": "Learn and deepen your knowledge of Islam",
         "description": "Take part in interactive quizzes to assess your knowledge and learn at your own pace the principles and history of Islam.",
-        "startQuiz": "Start Quiz"
+        "startQuiz": "Start Quiz",
+        "register": "Sign Up"
     },
     "quiz": {
         "title": "Culture Quiz",
@@ -31,7 +32,8 @@
     "common": {
         "loading": "Loading...",
         "error": "Error",
-        "retry": "Retry"
+        "retry": "Retry",
+        "login": "Login"
     },
     "language": {
         "fr": "Français",

@@ -206,8 +206,8 @@
 </template>
 
 <script setup lang="ts">
-import { GameService } from '../../services/game.service';
-import type { Quiz } from '../../types';
+import { GameService } from '../services/game.service';
+import type { Quiz } from '../types';
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -219,7 +219,7 @@ const availableLocales = computed(() =>
 )
 
 const changeLocale = (code: string) => {
-    setLocale(code)
+    setLocale(code as 'fr' | 'en')
 }
 
 const gameService = new GameService()

@@ -25,6 +25,13 @@ export default defineNuxtConfig({
       redirectOn: 'root'
     }
   },
+  runtimeConfig: {
+    public: {
+      posthogPublicKey: 'phc_D5CDrdjgn0dBxpXiMAfnIMjAV4wy1SxapFz8A6tKeqh',
+      posthogHost: 'https://eu.i.posthog.com',
+      posthogDefaults: '2025-11-30'
+    }
+  },
 
   googleFonts: {
     families: {

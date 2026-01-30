@@ -13,43 +13,64 @@
           
           <!-- Authenticated -->
           <div class="flex items-center space-x-8">
-            <NuxtLink to="/games" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
-              Jeux
+
+
+            <NuxtLink to="/dashboard" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
+              Dashboard
             </NuxtLink>
-            <NuxtLink to="/magazine" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
-              Magazine
-            </NuxtLink>
-            <NuxtLink to="/" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
-              Accueil
-            </NuxtLink>
-            <NuxtLink to="/videos" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
-              Vidéos
+            <NuxtLink to="/themes" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
+              Thèmes
             </NuxtLink>
             
-            <div class="pl-4 border-l border-white/10">
-                 <NuxtLink to="/profile" class="text-sm font-bold text-brand-gold hover:text-white transition-colors uppercase tracking-widest">
-                  Profil
-                </NuxtLink>
+            <!-- User Dropdown -->
+            <div class="relative ml-4 border-l border-white/10 pl-6" ref="dropdownRef">
+                <button 
+                    @click="userDropdownOpen = !userDropdownOpen"
+                    class="flex items-center gap-3 text-brand-gold hover:text-white transition-colors group focus:outline-none"
+                >
+                    <div class="w-8 h-8 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-xs overflow-hidden">
+                        <img v-if="authStore.user?.profilePicture" :src="authStore.user.profilePicture" class="w-full h-full object-cover" />
+                        <span v-else>{{ authStore.user?.username?.charAt(0).toUpperCase() }}</span>
+                    </div>
+                    <span class="text-sm font-bold uppercase tracking-widest">{{ authStore.user?.username || 'Profil' }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': userDropdownOpen }" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <transition
+                    enter-active-class="transition ease-out duration-200"
+                    enter-from-class="opacity-0 translate-y-2"
+                    enter-to-class="opacity-100 translate-y-0"
+                    leave-active-class="transition ease-in duration-150"
+                    leave-from-class="opacity-100 translate-y-0"
+                    leave-to-class="opacity-0 translate-y-2"
+                >
+                    <div v-if="userDropdownOpen" class="absolute right-0 mt-2 w-48 bg-[#082540] border border-brand-gold/20 rounded-xl shadow-xl overflow-hidden z-50">
+                        <NuxtLink 
+                            to="/profile" 
+                            class="block px-4 py-3 text-sm text-brand-parchment hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                            @click="userDropdownOpen = false"
+                        >
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-user-circle"></i>
+                                Mon Profil
+                            </div>
+                        </NuxtLink>
+                        <button 
+                            @click="handleLogout"
+                            class="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors border-t border-white/5"
+                        >
+                             <div class="flex items-center gap-2">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Déconnexion
+                            </div>
+                        </button>
+                    </div>
+                </transition>
             </div>
           </div>
-
-          <!-- Guest -->
-          <!--
-          <div v-else class="flex items-center space-x-6">
-            <NuxtLink
-              to="/login"
-              class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest"
-            >
-              Connexion
-            </NuxtLink>
-            <NuxtLink
-              to="/register"
-              class="px-6 py-2.5 bg-white text-[#082540] rounded-full text-sm font-bold hover:bg-gray-100 transition-all shadow-lg active:scale-95"
-            >
-              S'inscrire
-            </NuxtLink>
-          </div>
-          -->
         </nav>
 
         <!-- Mobile menu button (Hidden as we switched to Bottom Nav) -->
@@ -89,11 +110,11 @@
 
             <template v-if="isAuthenticated">
               <NuxtLink
-                to="/multiplayer"
+                to="/dashboard"
                 class="px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-2xl transition-all font-bold text-sm uppercase tracking-widest"
                 @click="mobileMenuOpen = false"
               >
-                Multijoueur
+                Dashboard
               </NuxtLink>
               <NuxtLink
                 to="/profile"
@@ -109,25 +130,6 @@
                 Déconnexion
               </button>
             </template>
-
-            <!--
-            <template v-else>
-              <NuxtLink
-                to="/login"
-                class="px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-2xl transition-all font-bold text-sm uppercase tracking-widest"
-                @click="mobileMenuOpen = false"
-              >
-                Connexion
-              </NuxtLink>
-              <NuxtLink
-                to="/register"
-                class="mx-2 px-4 py-4 bg-white text-[#082540] hover:bg-gray-100 rounded-2xl transition-all text-center font-bold text-base shadow-xl"
-                @click="mobileMenuOpen = false"
-              >
-                S'inscrire
-              </NuxtLink>
-            </template>
-            -->
           </nav>
         </div>
       </transition>
@@ -139,11 +141,23 @@
 const authStore = useAuthStore()
 const isAuthenticated = computed(() => authStore.isLoggedIn)
 const mobileMenuOpen = ref(false)
+const userDropdownOpen = ref(false)
+const dropdownRef = ref<HTMLElement | null>(null)
+
+// Close dropdown when clicking outside
+onMounted(() => {
+    document.addEventListener('click', (e) => {
+        if (dropdownRef.value && !dropdownRef.value.contains(e.target as Node)) {
+            userDropdownOpen.value = false
+        }
+    })
+})
 
 const handleLogout = async () => {
   await authStore.logout()
   mobileMenuOpen.value = false
-  navigateTo('/login')
+  userDropdownOpen.value = false // Fix: Close desktop dropdown
+  navigateTo('/')
 }
 </script>
 

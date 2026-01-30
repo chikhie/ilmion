@@ -2,97 +2,73 @@ using Ilmanar.Infra.Entities.Mongo;
 using Ilmanar.Infra.Settings;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace Ilmanar.Infra.Services;
 
 public class QuizService
 {
-    private readonly Dictionary<string, List<QuizItem>> _questionsByLang;
+    private readonly IMongoCollection<Theme> _themeCollection;
+    private readonly IMongoCollection<QuizItem> _quizCollection;
     private readonly IMemoryCache _cache;
-    private readonly IWebHostEnvironment _env;
     private readonly ILogger<QuizService> _logger;
 
-    private static readonly string[] SupportedLanguages = ["fr", "en"];
-
-    public QuizService(IOptions<MongoDbSettings> settings, IMemoryCache cache, IWebHostEnvironment env, ILogger<QuizService> logger)
+    public QuizService(IOptions<MongoDbSettings> settings, IMemoryCache cache, ILogger<QuizService> logger)
     {
+        var client = new MongoClient(settings.Value.ConnectionString);
+        var database = client.GetDatabase(settings.Value.DatabaseName);
+        _themeCollection = database.GetCollection<Theme>("Themes");
+        _quizCollection = database.GetCollection<QuizItem>("QuizItems");
         _cache = cache;
-        _env = env;
-        _questionsByLang = new Dictionary<string, List<QuizItem>>();
         _logger = logger;
-        LoadAllQuestions();
+        _cache = cache;
+        _logger = logger;
     }
 
-    private void LoadAllQuestions()
+    public async Task<List<Theme>> GetThemesAsync()
     {
-        foreach (var lang in SupportedLanguages)
-        {
-            _questionsByLang[lang] = LoadQuestionsFromJson(lang);
-        }
+        return await _themeCollection.Find(_ => true).ToListAsync();
     }
 
-    private List<QuizItem> LoadQuestionsFromJson(string lang)
+    public async Task<Theme?> GetThemeByIdAsync(string id)
     {
-        var questions = new List<QuizItem>();
-        try
-        {
-            var quizPath = Path.Combine(_env.ContentRootPath, "Infra", "Data", "SeedData", $"culture_quiz_{lang}.json");
-            if (File.Exists(quizPath))
-            {
-                var content = File.ReadAllText(quizPath);
-                using var doc = System.Text.Json.JsonDocument.Parse(content);
-                if (doc.RootElement.TryGetProperty("questions", out var questionsElement))
-                {
-                    foreach (var q in questionsElement.EnumerateArray())
-                    {
-                        var newItem = new QuizItem
-                        {
-                            Text = q.GetProperty("text").GetString() ?? "",
-                            Type = q.GetProperty("type").GetString(),
-                            Lang = lang,
-                            CorrectAnswer = q.GetProperty("correctAnswer").GetString(),
-                            Explanation = q.TryGetProperty("explanation", out var exp) ? exp.GetString() : null,
-                        };
+        return await _themeCollection.Find(t => t.Id == id).FirstOrDefaultAsync();
+    }
 
-                        if (q.TryGetProperty("options", out var opts))
-                        {
-                            var optionsList = new List<string>();
-                            foreach (var o in opts.EnumerateArray())
-                            {
-                                optionsList.Add(o.GetString() ?? "");
-                            }
-                            newItem.Options = optionsList;
-                        }
+    public async Task<List<QuizItem>> GetQuestionsForPartAsync(string themeId, string subjectId, string partId, int? count)
+    {
+        var filter = Builders<QuizItem>.Filter.And(
+            Builders<QuizItem>.Filter.Eq(q => q.ThemeId, themeId),
+            Builders<QuizItem>.Filter.Eq(q => q.SubjectId, subjectId),
+            Builders<QuizItem>.Filter.Eq(q => q.PartId, partId)
+        );
 
-                        questions.Add(newItem);
-                    }
-                }
-                _logger.LogInformation("Loaded {Count} questions for language '{Lang}'", questions.Count, lang);
-            }
-            else
-            {
-                _logger.LogWarning("Quiz file not found for language '{Lang}': {Path}", lang, quizPath);
-            }
-        }
-        catch (Exception ex)
+        var questions = await _quizCollection.Find(filter).ToListAsync();
+        
+        if (count.HasValue && count.Value < questions.Count)
         {
-            _logger.LogError(ex, "Error loading quiz JSON for language '{Lang}'", lang);
+            return questions.OrderBy(_ => Random.Shared.Next()).Take(count.Value).ToList();
         }
+
         return questions;
     }
 
+    public async Task<long> GetTotalQuestionsCount()
+    {
+        return await _quizCollection.CountDocumentsAsync(_ => true);
+    }
+
+    // Creating this for backward compatibility with LobbyService
+    // It flattens all questions from all themes/subjects/parts
     public async Task<List<QuizItem>> GetQuestionsForQuiz(int? count, string? lang = "fr")
     {
-        var language = lang ?? "fr";
-        if (!_questionsByLang.TryGetValue(language, out var availableQuestions))
+        var allQuestions = await _quizCollection.Find(_ => true).ToListAsync();
+
+        if (count.HasValue && count.Value < allQuestions.Count)
         {
-            availableQuestions = _questionsByLang.GetValueOrDefault("fr", []);
+            return allQuestions.OrderBy(_ => Random.Shared.Next()).Take(count.Value).ToList();
         }
 
-        List<QuizItem> questions = [.. availableQuestions
-            .OrderBy(_ => Random.Shared.Next())
-            .Take(count ?? 5)];
-        
-        return await Task.FromResult(questions);
+        return allQuestions;
     }
 }

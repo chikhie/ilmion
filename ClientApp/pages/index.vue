@@ -11,22 +11,43 @@
         <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-brand-wood/10 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
     </div>
 
-    <!-- Language Switcher -->
-    <div class="absolute top-4 right-4 z-20 flex gap-2">
-        <button 
-            v-for="loc in locales" 
-            :key="loc.code"
-            @click="setLocale(loc.code)"
-            :class="[
-                'px-3 py-2 rounded-lg border transition-all duration-200 flex items-center gap-2 text-sm',
-                locale === loc.code 
-                    ? 'bg-brand-gold text-brand-dark border-brand-gold' 
-                    : 'bg-brand-wood/30 text-brand-parchment/70 border-brand-gold/30 hover:border-brand-gold/60'
-            ]"
-        >
-            <span>{{ loc.code === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
-            <span class="hidden sm:inline">{{ loc.name }}</span>
-        </button>
+    <!-- Header Actions -->
+    <div class="absolute top-6 right-6 z-20 flex items-center gap-4">
+        <!-- Login Button -->
+        <NuxtLink to="/login" class="px-5 py-2.5 rounded-xl border border-brand-gold/30 bg-brand-wood/10 backdrop-blur-sm text-brand-gold font-bold text-sm uppercase tracking-wide hover:bg-brand-gold hover:text-brand-dark transition-all duration-300">
+            {{ $t('common.login') }}
+        </NuxtLink>
+
+        <!-- Language Dropdown -->
+        <div class="relative">
+            <button 
+                @click="isLangMenuOpen = !isLangMenuOpen"
+                class="px-3 py-2.5 rounded-xl border border-brand-gold/30 bg-brand-wood/10 backdrop-blur-sm text-brand-parchment hover:border-brand-gold/60 transition-all duration-200 flex items-center gap-2"
+            >
+                <span class="text-xl">{{ locale === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
+                <span class="text-sm font-medium uppercase tracking-wide">{{ locale }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-brand-gold transition-transform duration-200" :class="{ 'rotate-180': isLangMenuOpen }" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div 
+                v-if="isLangMenuOpen"
+                class="absolute top-full right-0 mt-2 w-full min-w-[100px] bg-[#082540] border border-brand-gold/20 rounded-xl shadow-xl overflow-hidden animate-fade-in-up"
+            >
+                <button 
+                    v-for="loc in locales" 
+                    :key="loc.code"
+                    @click="setLocale(loc.code); isLangMenuOpen = false"
+                    class="w-full px-4 py-3 flex items-center gap-3 text-sm hover:bg-brand-gold/10 transition-colors"
+                    :class="locale === loc.code ? 'text-brand-gold font-bold' : 'text-brand-parchment/70'"
+                >
+                    <span class="text-lg">{{ loc.code === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
+                    <span class="uppercase tracking-wide">{{ loc.code }}</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -57,8 +78,8 @@
         <p class="text-lg md:text-xl text-brand-parchment/80 max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in delay-300">{{ $t('home.description') }}</p>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-6 w-full max-w-md animate-fade-in-up delay-300">
-            <NuxtLink to="/games/quizz" class="group flex-1 relative px-8 py-5 bg-brand-gold text-brand-dark rounded-xl font-bold text-xl uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all duration-300 overflow-hidden">
+        <div class="flex flex-col sm:flex-row gap-6 w-full max-w-lg animate-fade-in-up delay-300">
+            <NuxtLink to="/games/quizz" class="group flex-1 relative px-8 py-5 bg-brand-gold text-brand-dark rounded-xl font-bold text-xl uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all duration-300 overflow-hidden whitespace-nowrap">
                 <span class="relative z-10 flex items-center justify-center gap-3">
                     {{ $t('home.startQuiz') }}
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
@@ -66,6 +87,15 @@
                     </svg>
                 </span>
                 <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+            </NuxtLink>
+            
+            <NuxtLink to="/register" class="group flex-1 relative px-8 py-5 border-2 border-brand-gold text-brand-gold rounded-xl font-bold text-xl uppercase tracking-wider hover:bg-brand-gold/10 transition-all duration-300 overflow-hidden whitespace-nowrap">
+                <span class="relative z-10 flex items-center justify-center gap-3">
+                    {{ $t('home.register') }}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+                    </svg>
+                </span>
             </NuxtLink>
         </div>
     </div>
@@ -77,10 +107,26 @@
 
 <script setup lang="ts">
 const { locale, locales, setLocale } = useI18n()
+const isLangMenuOpen = ref(false)
+const authStore = useAuthStore()
+const router = useRouter()
 
 definePageMeta({
   layout: 'default'
 })
+
+onMounted(() => {
+    if (authStore.isLoggedIn) {
+        navigateTo('/dashboard')
+    }
+})
+
+// Also watch for state changes (e.g. hydration)
+watch(() => authStore.isLoggedIn, (loggedIn) => {
+    if (loggedIn) {
+        navigateTo('/dashboard')
+    }
+}, { immediate: true })
 </script>
 
 <style scoped>

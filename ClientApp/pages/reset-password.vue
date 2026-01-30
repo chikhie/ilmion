@@ -164,8 +164,12 @@ useHead({
 })
 
 const authStore = useAuthStore()
-const user = useSupabaseUser()
+const route = useRoute()
 const router = useRouter()
+
+// Extract token and email from URL query params (sent via reset password email link)
+const token = computed(() => route.query.token as string || '')
+const email = computed(() => route.query.email as string || '')
 
 const form = ref({
   password: '',
@@ -202,7 +206,7 @@ const handleSubmit = async () => {
   errorMessage.value = ''
   // loading state handled by store
 
-  const result = await authStore.resetPassword(form.value.password)
+  const result = await authStore.resetPassword(form.value.password, token.value, email.value)
 
   if (result.success) {
     passwordReset.value = true
