@@ -191,6 +191,10 @@
                 </p>
 
                 <div class="space-y-4 relative z-10 mt-8">
+                     <button @click="handleShareResult" class="w-full bg-brand-gold text-brand-dark font-bold py-3 md:py-5 text-lg md:text-xl rounded-2xl shadow-xl hover:bg-white flex items-center justify-center gap-3 transform transition-all duration-200">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                        Partager mon résultat
+                    </button>
                     <button @click="resetGame" class="w-full bg-brand-gold text-brand-dark font-bold py-3 md:py-5 text-lg md:text-xl rounded-2xl shadow-xl hover:bg-white transform transition-all duration-200">
                         {{ $t('quiz.playAgain') }}
                     </button>
@@ -198,6 +202,16 @@
                         {{ $t('quiz.backToHomeBtn') }}
                     </button>
                 </div>
+             </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div v-if="showToast" class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in-down">
+             <div class="px-6 py-4 bg-brand-dark/95 backdrop-blur-md border border-brand-gold rounded-full shadow-2xl flex items-center gap-3">
+                 <div class="bg-green-500/20 p-1 rounded-full">
+                     <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                 </div>
+                 <span class="text-brand-parchment font-bold text-sm tracking-wide">Résultat copié !</span>
              </div>
         </div>
 
@@ -235,6 +249,7 @@ const isCorrect = ref<boolean>(false)
 const numberInput = ref<number | ''>('')
 const score = ref(0)
 const totalQuestions = ref(0)
+const showToast = ref(false)
 
 // Methods
 const startGame = async (count: number) => {
@@ -280,6 +295,32 @@ const resetGame = () => {
     score.value = 0;
     totalQuestions.value = 0;
     currentQuestionIndex.value = 0;
+}
+
+const handleShareResult = async () => {
+    const text = `J'ai obtenu ${score.value}/${totalQuestions.value} au quiz sur Ilmanar ! Peux-tu faire mieux ?`
+    const url = window.location.href
+
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'Mon score Ilmanar',
+                text: text,
+                url: url
+            })
+        } catch (err) {
+            console.error('Erreur partage:', err)
+        }
+    } else {
+        // Fallback clipboard
+        try {
+            await navigator.clipboard.writeText(`${text} ${url}`)
+            showToast.value = true
+            setTimeout(() => showToast.value = false, 3000)
+        } catch (err) {
+            console.error('Erreur copie:', err)
+        }
+    }
 }
 
 const goBack = () => {

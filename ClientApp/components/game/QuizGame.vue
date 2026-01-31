@@ -156,14 +156,20 @@
                      </div>
                  </div>
                  
-                 <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
-                    <button @click="handleRetry" class="flex-1 py-4 border-2 border-brand-wood/20 text-brand-wood rounded-xl font-bold hover:bg-brand-wood/5 hover:border-brand-wood/40 transition-all uppercase tracking-widest text-xs">
-                      Recommencer
-                    </button>
-                    <button @click="handleClose" class="flex-1 py-4 bg-brand-dark text-brand-parchment rounded-xl font-bold hover:bg-black transition-all shadow-xl hover:shadow-2xl uppercase tracking-widest text-xs">
-                      Retour aux jeux
-                    </button>
-                 </div>
+                    <button @click="handleShareResult" class="w-full py-4 mb-4 bg-brand-gold text-brand-dark rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-[#d4a81e] transition-all flex items-center justify-center gap-2 group relative overflow-hidden">
+                        <span class="relative z-10">Partager mon résultat</span>
+                        <svg class="w-5 h-5 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                     </button>
+
+                     <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
+                        <button @click="handleRetry" class="flex-1 py-4 border-2 border-brand-wood/20 text-brand-wood rounded-xl font-bold hover:bg-brand-wood/5 hover:border-brand-wood/40 transition-all uppercase tracking-widest text-xs">
+                          Recommencer
+                        </button>
+                        <button @click="handleClose" class="flex-1 py-4 bg-brand-dark text-brand-parchment rounded-xl font-bold hover:bg-black transition-all shadow-xl hover:shadow-2xl uppercase tracking-widest text-xs">
+                          Retour aux jeux
+                        </button>
+                     </div>
             </div>
 
             <!-- Question View (Standard Game) -->
@@ -301,10 +307,21 @@
                     </div>
                 </div>
 
-            </div>
+            </div> <!-- Close Question View -->
+        </div> <!-- Close Inner Card -->
+        
+        <!-- Toast Notification -->
+        <div v-if="showToast" class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in-down">
+             <div class="px-6 py-4 bg-brand-dark/95 backdrop-blur-md border border-brand-gold rounded-full shadow-2xl flex items-center gap-3">
+                 <div class="bg-green-500/20 p-1 rounded-full">
+                     <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                 </div>
+                 <span class="text-brand-parchment font-bold text-sm tracking-wide">Résultat copié !</span>
+             </div>
         </div>
-    </div>
-  </div>
+
+    </div> <!-- Close Pattern Card -->
+  </div> <!-- Close Root -->
 </template>
 
 <script setup lang="ts">
@@ -366,6 +383,7 @@ const isCorrect = ref(false)
 const joinCodeDisplay = ref('')
 const guestUsername = ref('')
 const hasPseudo = ref(false) // Track if guest pseudo is set
+const showToast = ref(false)
 
 const authStore = useAuthStore()
 const hasMultiplayerIdentity = computed(() => {
@@ -547,7 +565,7 @@ function confirmIdentity() {
 }
 
 async function handleStartGame() {
-    await mpStartGame()
+    await mpStartGame(route.params.id as string)
 }
 
 async function copyCode() {
@@ -620,6 +638,33 @@ async function handleRetry() {
   await nextTick()
   emit('retry') 
 }
+
+async function handleShareResult() {
+    const text = `J'ai obtenu ${score.value}/${questions.value.length} au quiz "${props.title}" sur Ilmanar ! Peux-tu faire mieux ?`
+    const url = window.location.href
+
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'Mon score Ilmanar',
+                text: text,
+                url: url
+            })
+        } catch (err) {
+            console.error('Erreur partage:', err)
+        }
+    } else {
+        // Fallback clipboard
+        try {
+            await navigator.clipboard.writeText(`${text} ${url}`)
+            showToast.value = true
+            setTimeout(() => showToast.value = false, 3000)
+        } catch (err) {
+            console.error('Erreur copie:', err)
+        }
+    }
+}
+
 
 // Styling Logic (Standardized)
 function getOptionStyles(option: string) {
