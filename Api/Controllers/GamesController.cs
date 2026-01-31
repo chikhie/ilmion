@@ -23,4 +23,21 @@ public class GamesController : ControllerBase
         var questions = await _quizService.GetQuestionsForQuiz(count, lang);
         return Ok(questions);
     }
+
+    [HttpGet("quizzes/test")]
+    public async Task<ActionResult<QuizItem>> GetQuizzes()
+    {
+        var testData = new QuizItem
+        {
+            Question = "Test",
+            Answer = "Test",
+            Options = new List<string> { "Test", "Test", "Test", "Test" },
+            Category = "Test",
+            Difficulty = "Test",
+            Language = "Test",
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+        return Ok(testData);
+    }
 }
