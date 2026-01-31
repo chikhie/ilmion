@@ -8,7 +8,7 @@
         "register": "S'inscrire"
     },
     "quiz": {
-        "title": "Culture Quiz",
+        "title": "Quiz Général",
         "howManyQuestions": "Combien de questions ?",
         "backToHome": "Retour à l'accueil",
         "question": "Question",
@@ -19,8 +19,8 @@
         "enterNumber": "Entrez un nombre",
         "true": "Vrai",
         "false": "Faux",
-        "gameOver": "Partie Terminée",
-        "playAgain": "Rejouer",
+        "gameOver": "Quiz terminé",
+        "playAgain": "Relancer le quiz",
         "backToHomeBtn": "Retour à l'accueil",
         "scoreMessages": {
             "perfect": "Excellent ! Mashallah",
