@@ -79,7 +79,7 @@
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-6 w-full max-w-lg animate-fade-in-up delay-300">
-            <NuxtLink to="/games/quizz" class="group flex-1 relative px-8 py-5 bg-brand-gold text-brand-dark rounded-xl font-bold text-xl uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all duration-300 overflow-hidden whitespace-nowrap">
+            <NuxtLink to="/quizz" class="group flex-1 relative px-8 py-5 bg-brand-gold text-brand-dark rounded-xl font-bold text-xl uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all duration-300 overflow-hidden whitespace-nowrap">
                 <span class="relative z-10 flex items-center justify-center gap-3">
                     {{ $t('home.startQuiz') }}
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
