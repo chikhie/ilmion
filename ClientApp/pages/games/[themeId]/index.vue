@@ -29,13 +29,13 @@
                 <div class="px-6 py-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
                     <h2 class="text-xl font-semibold text-gray-800">{{ subject.title }}</h2>
                     <span class="text-sm text-gray-500 bg-white px-3 py-1 rounded-full border border-gray-200">
-                        {{ subject.parts?.length || 0 }} module(s)
+                        {{ subject.parts?.length || 0 }} partie(s)
                     </span>
                 </div>
                 
                 <div class="p-6">
                     <div v-if="!subject.parts || subject.parts.length === 0" class="text-gray-400 italic text-sm">
-                        Aucun module disponible pour ce sujet.
+                        Aucune partie disponible pour ce sujet.
                     </div>
                     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div v-for="part in subject.parts" :key="part.id" class="border rounded-lg p-4 hover:shadow-md transition-shadow">
@@ -44,7 +44,7 @@
                              <div class="flex items-center justify-between mt-2">
                                  <span class="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Quiz</span>
                                  <NuxtLink :to="`/games/${theme.id}/${subject.id}/${part.id}`" class="text-sm bg-emerald-600 text-white px-4 py-1.5 rounded hover:bg-emerald-700 transition-colors">
-                                    Commencer
+                                    Jouer
                                  </NuxtLink>
                              </div>
                         </div>

@@ -10,7 +10,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
          </div>
-        <span class="text-[10px] font-bold uppercase tracking-widest mt-0.5">Activités</span>
+        <span class="text-[10px] font-bold uppercase tracking-widest mt-0.5">Jeux</span>
       </NuxtLink>
 
       <!-- Magazine -->

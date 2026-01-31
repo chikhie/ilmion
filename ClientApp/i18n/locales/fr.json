@@ -19,8 +19,8 @@
         "enterNumber": "Entrez un nombre",
         "true": "Vrai",
         "false": "Faux",
-        "gameOver": "Bilan de la session",
-        "playAgain": "Nouvelle session",
+        "gameOver": "Partie Terminée",
+        "playAgain": "Rejouer",
         "backToHomeBtn": "Retour à l'accueil",
         "scoreMessages": {
             "perfect": "Excellent ! Mashallah",

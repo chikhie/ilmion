@@ -11,10 +11,10 @@
                 <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                 </div>
-                <h3 class="text-2xl font-serif-title font-bold text-brand-dark mb-2">Fin de la session</h3>
+                <h3 class="text-2xl font-serif-title font-bold text-brand-dark mb-2">Fin de la partie</h3>
                 <p class="text-brand-wood font-medium mb-8 leading-relaxed">{{ mpError }}</p>
                 <button @click="handleClose" class="px-8 py-3 bg-brand-dark text-brand-parchment rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-black transition-all">
-                    Retour aux modules
+                    Retour aux jeux
                 </button>
             </div>
         </div>
@@ -137,7 +137,7 @@
                     </span>
                  </div>
                  
-                 <h3 class="text-4xl font-serif-title font-bold text-brand-dark mb-4">Session Terminée</h3>
+                 <h3 class="text-4xl font-serif-title font-bold text-brand-dark mb-4">Quiz Terminé</h3>
                  <p class="text-brand-wood font-medium text-lg mb-8 max-w-md mx-auto leading-relaxed">
                     {{ getScoreMessage() }}
                  </p>
@@ -167,7 +167,7 @@
                           Recommencer
                         </button>
                         <button @click="handleClose" class="flex-1 py-4 bg-brand-dark text-brand-parchment rounded-xl font-bold hover:bg-black transition-all shadow-xl hover:shadow-2xl uppercase tracking-widest text-xs">
-                          Retour aux modules
+                          Retour aux jeux
                         </button>
                      </div>
             </div>

@@ -17,7 +17,7 @@
       </div>
 
       <div v-else-if="error" class="text-center py-20 bg-brand-dark/40 backdrop-blur-lg border border-red-500/20 rounded-2xl">
-        <p class="text-red-400 font-sans-body text-base">Une erreur est survenue lors du chargement des modules.</p>
+        <p class="text-red-400 font-sans-body text-base">Une erreur est survenue lors du chargement des jeux.</p>
       </div>
       
       <!-- Desktop/Tablet Grid View -->
@@ -45,7 +45,7 @@
                   isConnected && isHost ? 'border-brand-gold border-2' : 'border-brand-gold/20'
                 ]"
                 class="w-full text-center text-brand-parchment rounded-lg py-1.5 px-2 text-sm font-bold font-serif-title transition-all duration-300 shadow-md border">
-                {{ isConnected ? (isHost ? 'Lancer la session' : 'En attente de l\'hôte') : 'Démarrer' }}
+                {{ isConnected ? (isHost ? 'Lancer la partie' : 'En attente de l\'hôte') : 'Jouer' }}
               </button>
             </div>
           </div>
@@ -93,7 +93,7 @@
 import type { Game } from '~/types'
 import PartyManager from '~/components/game/PartyManager.vue'
 useHead({
-  title: 'Activités & Modules'
+  title: 'Jeux & Activités'
 })
 
 // Static Games List (as requested to not be dynamic)
