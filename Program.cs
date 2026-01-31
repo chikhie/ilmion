@@ -101,7 +101,7 @@ builder.Services.AddControllers();
 // Configuration CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("DevCors", policy =>
+    options.AddPolicy("ProdCors", policy =>
     {
         policy
             .SetIsOriginAllowed(origin => true) // Allow any origin but reflect it for credentials support
@@ -110,13 +110,14 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 
-    options.AddPolicy("ProdCors", policy =>
-    {
-        policy
-            .WithOrigins("https://ilmanar.site", "https://api.ilmanar.site", "https://ilmanar.chikhibra.workers.dev")
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-    });
+    // options.AddPolicy("ProdCors", policy =>
+    // {
+    //     policy
+    //         .WithOrigins("https://ilmanar.site", "https://api.ilmanar.site", "https://ilmanar.chikhibra.workers.dev")
+    //         .AllowAnyMethod()
+    //         .AllowAnyHeader();
+    // });
+
 });
 
 builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
@@ -196,7 +197,7 @@ var app = builder.Build();
 //             })
 //         );
 //     });
-// });
+// })wecls;
 
 
 // Configuration Swagger (uniquement en développement)
