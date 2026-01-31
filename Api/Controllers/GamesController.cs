@@ -25,18 +25,16 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet("quizzes/test")]
-    public async Task<ActionResult<QuizItem>> GetQuizzes()
+    public async Task<IActionResult> GetQuizzes()
     {
         var testData = new QuizItem
         {
-            Question = "Test",
-            Answer = "Test",
-            Options = new List<string> { "Test", "Test", "Test", "Test" },
-            Category = "Test",
-            Difficulty = "Test",
-            Language = "Test",
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
+            Text = "Test Question",
+            CorrectAnswer = "Test Answer",
+            Options = new List<string> { "Option1", "Option2", "Option3", "Test Answer" },
+            Type = "choice",
+            ThemeId = "test-theme",
+            Lang = "fr"
         };
         return Ok(testData);
     }
