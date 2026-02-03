@@ -44,7 +44,7 @@
                 </button>
             </div>
             
-            <button @click="router.push('/')" class="text-brand-parchment/50 hover:text-brand-gold underline decoration-brand-gold/30 underline-offset-4 transition-colors">
+            <button @click="handleExit()" class="text-brand-parchment/50 hover:text-brand-gold underline decoration-brand-gold/30 underline-offset-4 transition-colors">
                 {{ $t('quiz.backToHome') }}
             </button>
         </div>
@@ -198,7 +198,7 @@
                     <button @click="resetGame" class="w-full bg-brand-gold text-brand-dark font-bold py-3 md:py-5 text-lg md:text-xl rounded-2xl shadow-xl hover:bg-white transform transition-all duration-200">
                         {{ $t('quiz.playAgain') }}
                     </button>
-                    <button @click="router.push('/')" class="w-full bg-brand-wood text-white hover:bg-brand-wood/90 font-bold py-3 md:py-4 rounded-xl transition-all duration-200 shadow-md border border-brand-parchment/20">
+                    <button @click="handleExit()" class="w-full bg-brand-wood text-white hover:bg-brand-wood/90 font-bold py-3 md:py-4 rounded-xl transition-all duration-200 shadow-md border border-brand-parchment/20">
                         {{ $t('quiz.backToHomeBtn') }}
                     </button>
                 </div>
@@ -221,9 +221,11 @@
 
 <script setup lang="ts">
 import { GameService } from '../services/game.service';
+import { progressionService } from '../services/progression.service';
+import { useAuthStore } from '../stores/auth';
 import type { Quiz } from '../types';
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, computed, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 const { locale, locales, setLocale, t } = useI18n()
 
@@ -237,6 +239,7 @@ const changeLocale = (code: string) => {
 }
 
 const gameService = new GameService()
+const authStore = useAuthStore()
 const router = useRouter()
 const route = useRoute()
 const themeId = computed(() => route.query.themeId as string | undefined)
@@ -254,6 +257,7 @@ const score = ref(0)
 const totalQuestions = ref(0)
 const showToast = ref(false)
 const loading = ref(false)
+const startTime = ref<number>(0)
 
 // Methods
 const startGame = async (count?: number) => {
@@ -267,6 +271,7 @@ const startGame = async (count?: number) => {
             totalQuestions.value = quiz.value.length;
             gameStarted.value = true;
             currentQuestionIndex.value = 0;
+            startTime.value = Date.now();
             resetQuestionState();
         } else {
             console.warn("No questions found");
@@ -301,7 +306,29 @@ const selectOption = (option: string) => {
 
 const nextQuestion = () => {
     currentQuestionIndex.value++;
-    resetQuestionState();
+    if (currentQuestionIndex.value >= quiz.value.length) {
+        saveGame();
+    } else {
+        resetQuestionState();
+    }
+}
+
+const saveGame = async () => {
+    if (!authStore.isLoggedIn || !authStore.token) return;
+
+    const duration = Math.round((Date.now() - startTime.value) / 1000);
+    try {
+        await progressionService.saveResult(authStore.token, {
+            score: score.value,
+            totalQuestions: totalQuestions.value,
+            themeId: themeId.value,
+            partId: partId.value,
+            durationSeconds: duration
+        });
+        // Optionally refresh profile/stats if we store them locally
+    } catch (e) {
+        console.error("Failed to save result", e);
+    }
 }
 
 const resetQuestionState = () => {
@@ -345,12 +372,20 @@ const handleShareResult = async () => {
     }
 }
 
+const handleExit = () => {
+    if (authStore.isLoggedIn) {
+        router.push('/dashboard')
+    } else {
+        router.push('/')
+    }
+}
+
 const goBack = () => {
     if (gameStarted.value) {
         // Confirm exit? For now just go back to setup
         gameStarted.value = false; 
     } else {
-        router.back();
+        handleExit();
     }
 }
 

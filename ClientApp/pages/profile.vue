@@ -30,152 +30,145 @@
       </div>
 
       <!-- Main Grid Layout -->
-      <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up">
+      <!-- Main Grid Layout -->
+      <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-up">
         
-        <!-- Left Column: Identity Card -->
-        <div class="lg:col-span-1 space-y-6">
-            <div class="bg-brand-wood/10 border border-brand-gold/10 rounded-2xl p-6 backdrop-blur-md relative overflow-hidden group hover:border-brand-gold/30 transition-colors">
-                <!-- Decorative Glow -->
-                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-brand-gold/10 transition-all duration-500"></div>
-
-                <div class="flex flex-col items-center text-center">
-                    <div class="relative mb-6 group/photo cursor-pointer" @click="fileInput?.click()">
-                        <img
-                            v-if="user?.profilePicture"
-                            :src="user.profilePicture"
-                            alt="Photo de profil"
-                            class="w-32 h-32 rounded-2xl object-cover border-2 border-brand-gold/20 shadow-lg group-hover/photo:border-brand-gold transition-colors"
+        <!-- Left Column: Identity & Personal Info -->
+        <div class="space-y-6">
+            
+            <!-- Identity Card -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="p-4 backdrop-blur-md relative overflow-hidden group hover:border-brand-gold/30 transition-colors">
+                    <!-- Decorative Glow -->
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-gold/5 rounded-full -mr-25 -mt-25 blur-2xl group-hover:bg-brand-gold/10 transition-all duration-500"></div>
+    
+                    <div class="flex flex-col items-center text-center">
+                        <div class="relative mb-3 group/photo cursor-pointer" @click="fileInput?.click()">
+                            <img
+                                v-if="user?.profilePicture"
+                                :src="user.profilePicture"
+                                alt="Photo de profil"
+                                class="w-24 h-24 rounded-full object-cover border-2 border-brand-gold/20 shadow-lg group-hover/photo:border-brand-gold transition-colors"
+                            />
+                            <div v-else class="w-24 h-24 rounded-full bg-brand-dark/50 border-2 border-brand-gold/20 flex items-center justify-center shadow-lg group-hover/photo:border-brand-gold transition-colors">
+                                <span class="text-3xl font-serif-title font-bold text-brand-gold/50">{{ getInitials() }}</span>
+                            </div>
+                            
+                            <!-- Edit Badge (Persistent) -->
+                            <div class="absolute bottom-0 right-0 bg-brand-gold text-brand-dark w-7 h-7 rounded-full flex items-center justify-center shadow-md border-2 border-brand-dark group-hover/photo:scale-110 transition-transform">
+                                <i class="fas fa-pen text-[0.6rem]"></i>
+                            </div>
+    
+                            <!-- Overlay Icon -->
+                            <div class="absolute inset-0 bg-black/40 rounded-full opacity-0 group-hover/photo:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[1px]">
+                                <i class="fas fa-camera text-white text-sm"></i>
+                            </div>
+                        </div>
+    
+                        <input
+                            ref="fileInput"
+                            type="file"
+                            accept="image/*"
+                            class="hidden"
+                            @change="handleFileSelect"
                         />
-                        <div v-else class="w-32 h-32 rounded-2xl bg-brand-dark/50 border-2 border-brand-gold/20 flex items-center justify-center shadow-lg group-hover/photo:border-brand-gold transition-colors">
-                            <span class="text-4xl font-serif-title font-bold text-brand-gold/50">{{ getInitials() }}</span>
+    
+                        <div class="flex gap-2 w-full justify-center" v-if="user?.profilePicture">
+                             <button
+                                @click="deletePhoto"
+                                class="py-1.5 px-3 rounded-lg border border-red-500/20 text-red-400 bg-red-500/5 hover:bg-red-500/10 text-[0.65rem] font-bold uppercase tracking-wider transition-colors"
+                            >
+                                Supprimer photo
+                            </button>
                         </div>
-                        
-                        <!-- Overlay Icon -->
-                        <div class="absolute inset-0 bg-black/40 rounded-2xl opacity-0 group-hover/photo:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[2px]">
-                            <i class="fas fa-camera text-white text-xl"></i>
-                        </div>
-                    </div>
-
-                    <h2 class="text-xl font-bold text-brand-parchment mb-1">{{ user?.firstName }} {{ user?.lastName }}</h2>
-                    <p class="text-brand-gold font-medium text-sm mb-6">@{{ user?.username }}</p>
-
-                    <input
-                        ref="fileInput"
-                        type="file"
-                        accept="image/*"
-                        class="hidden"
-                        @change="handleFileSelect"
-                    />
-
-                    <div class="flex gap-2 w-full">
-                         <button
-                            v-if="user?.profilePicture"
-                            @click="deletePhoto"
-                            class="flex-1 py-2 px-4 rounded-xl border border-red-500/20 text-red-400 bg-red-500/5 hover:bg-red-500/10 text-xs font-bold uppercase tracking-wider transition-colors"
-                        >
-                            Supprimer
-                        </button>
-                    </div>
-
-                    <div v-if="uploadMessage" class="mt-4 w-full p-3 rounded-xl border text-xs font-bold text-center" :class="uploadError ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-green-500/10 border-green-500/20 text-green-400'">
-                        {{ uploadMessage }}
-                    </div>
-                    
-                    <div class="mt-6 w-full pt-6 border-t border-brand-gold/10">
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="text-brand-parchment/50">Membre depuis</span>
-                            <span class="text-brand-parchment font-mono text-xs opacity-80">{{ new Date().getFullYear() }}</span>
+    
+                        <div v-if="uploadMessage" class="mt-2 w-full p-2 rounded-lg border text-[0.65rem] font-bold text-center" :class="uploadError ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-green-500/10 border-green-500/20 text-green-400'">
+                            {{ uploadMessage }}
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Personal Info Form -->
+            <div class="bg-brand-wood/10 border border-brand-gold/10 rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-sm">
+                <h3 class="text-lg font-serif-title font-bold text-brand-parchment mb-6 flex items-center gap-2">
+                    <i class="fas fa-address-card text-brand-gold/60 text-sm"></i>
+                    Informations Personnelles
+                </h3>
+                
+                <form @submit.prevent="saveProfile" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Prénom</label>
+                    <input v-model="profileForm.firstName" type="text" class="input-field" placeholder="Votre prénom" />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Nom</label>
+                    <input v-model="profileForm.lastName" type="text" class="input-field" placeholder="Votre nom" />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Pseudonyme</label>
+                    <input v-model="profileForm.userName" type="text" class="input-field" placeholder="Votre pseudo" />
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Email</label>
+                    <input :value="user?.email" type="email" disabled class="input-field opacity-60 cursor-not-allowed bg-brand-dark/50" />
+                  </div>
+
+                  <div class="md:col-span-2 pt-2">
+                      <div v-if="profileMessage" class="mb-4 p-3 rounded-xl border text-xs font-bold text-center" :class="profileError ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-green-500/10 border-green-500/20 text-green-400'">
+                        {{ profileMessage }}
+                      </div>
+                      <button type="submit" :disabled="savingProfile" class="btn-primary w-full md:w-auto md:px-12 md:float-right">
+                        {{ savingProfile ? 'Enregistrement...' : 'Enregistrer' }}
+                      </button>
+                  </div>
+                </form>
+            </div>
         </div>
 
-        <!-- Right Column: Forms -->
-        <div class="lg:col-span-2 space-y-6">
-          
-          <!-- Personal Info Form -->
-          <div class="bg-brand-wood/10 border border-brand-gold/10 rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-sm">
-            <h3 class="text-lg font-serif-title font-bold text-brand-parchment mb-6 flex items-center gap-2">
-                <i class="fas fa-address-card text-brand-gold/60 text-sm"></i>
-                Informations Personnelles
-            </h3>
-            
-            <form @submit.prevent="saveProfile" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="space-y-1.5">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Prénom</label>
-                <input v-model="profileForm.firstName" type="text" class="input-field" placeholder="Votre prénom" />
-              </div>
-
-              <div class="space-y-1.5">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Nom</label>
-                <input v-model="profileForm.lastName" type="text" class="input-field" placeholder="Votre nom" />
-              </div>
-
-              <div class="space-y-1.5">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Pseudonyme</label>
-                <input v-model="profileForm.userName" type="text" class="input-field" placeholder="Votre pseudo" />
-              </div>
-
-              <div class="space-y-1.5">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Email</label>
-                <input :value="user?.email" type="email" disabled class="input-field opacity-60 cursor-not-allowed bg-brand-dark/50" />
-              </div>
-
-              <div class="md:col-span-2 pt-2">
-                  <div v-if="profileMessage" class="mb-4 p-3 rounded-xl border text-xs font-bold text-center" :class="profileError ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-green-500/10 border-green-500/20 text-green-400'">
-                    {{ profileMessage }}
+        <!-- Right Column: Security (Full Height) -->
+        <div class="space-y-6">
+            <div class="bg-brand-wood/10 border border-brand-gold/10 rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-sm h-full">
+                <h3 class="text-lg font-serif-title font-bold text-brand-parchment mb-6 flex items-center gap-2">
+                    <i class="fas fa-lock text-brand-gold/60 text-sm"></i>
+                    Sécurité
+                </h3>
+                
+                <form @submit.prevent="changePassword" class="flex flex-col gap-6 h-full">
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Actuel</label>
+                    <input v-model="passwordForm.currentPassword" type="password" class="input-field" placeholder="••••••••" />
                   </div>
-                  <button type="submit" :disabled="savingProfile" class="btn-primary w-full md:w-auto md:px-12 md:float-right">
-                    {{ savingProfile ? 'Enregistrement...' : 'Enregistrer' }}
-                  </button>
-              </div>
-            </form>
-          </div>
 
-          <!-- Password Form (Collapsed by default style/Compact) -->
-          <div class="bg-brand-wood/10 border border-brand-gold/10 rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-sm">
-            <h3 class="text-lg font-serif-title font-bold text-brand-parchment mb-6 flex items-center gap-2">
-                <i class="fas fa-lock text-brand-gold/60 text-sm"></i>
-                Sécurité
-            </h3>
-            
-            <form @submit.prevent="changePassword" class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-              <div class="space-y-1.5">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Actuel</label>
-                <input v-model="passwordForm.currentPassword" type="password" class="input-field" placeholder="••••••••" />
-              </div>
-
-              <div class="space-y-1.5">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Nouveau</label>
-                <input v-model="passwordForm.newPassword" type="password" class="input-field" placeholder="••••••••" />
-              </div>
-
-              <div class="space-y-1.5">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Confirmation</label>
-                <input v-model="passwordForm.confirmPassword" type="password" class="input-field" placeholder="••••••••" />
-              </div>
-
-              <div class="md:col-span-3 pt-2">
-                 <div v-if="passwordMessage" class="mb-4 p-3 rounded-xl border text-xs font-bold text-center" :class="passwordError ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-green-500/10 border-green-500/20 text-green-400'">
-                    {{ passwordMessage }}
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Nouveau</label>
+                    <input v-model="passwordForm.newPassword" type="password" class="input-field" placeholder="••••••••" />
                   </div>
-                   <button type="submit" :disabled="changingPassword" class="btn-secondary w-full">
-                    {{ changingPassword ? 'Mise à jour...' : 'Modifier le mot de passe' }}
-                  </button>
-              </div>
-            </form>
-          </div>
 
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Confirmation</label>
+                    <input v-model="passwordForm.confirmPassword" type="password" class="input-field" placeholder="••••••••" />
+                  </div>
+
+                  <div class="pt-2">
+                     <div v-if="passwordMessage" class="mb-4 p-3 rounded-xl border text-xs font-bold text-center" :class="passwordError ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-green-500/10 border-green-500/20 text-green-400'">
+                        {{ passwordMessage }}
+                      </div>
+                       <button type="submit" :disabled="changingPassword" class="btn-secondary w-full md:w-auto md:px-12 md:float-right">
+                        {{ changingPassword ? 'Mise à jour...' : 'Modifier le mot de passe' }}
+                      </button>
+                  </div>
+                </form>
+            </div>
         </div>
       </div>
     </main>
 
     <!-- Global Footer -->
     <AppFooter />
-    
-    <!-- Mobile Navigation -->
-    <AppBottomNav />
 
   </div>
 </template>

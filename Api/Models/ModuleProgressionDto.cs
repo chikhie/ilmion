@@ -10,4 +10,5 @@ public class ModuleProgressionDto
     public DateTime? LastPlayed { get; set; }
     public int QuestionsAnswered { get; set; }
     public int TotalQuestions { get; set; }
+    public List<PartProgressionDto> Parts { get; set; } = new();
 }

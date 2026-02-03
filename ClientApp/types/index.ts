@@ -110,6 +110,15 @@ export interface Module {
   price?: number
 }
 
+export interface PartProgressionDto {
+  partId: string
+  score: number
+  totalQuestions: number
+  isMastered: boolean
+  lastPlayed: string
+  attempts: number
+}
+
 // Progression Types
 export interface ModuleProgressionDto {
   moduleId: string
@@ -120,10 +129,19 @@ export interface ModuleProgressionDto {
   lastPlayed: string | null
   questionsAnswered: number
   totalQuestions: number
+  parts: PartProgressionDto[]
 }
 
 export interface ProgressionViewModel {
   globalPoints: number
   modulesMasteredCount: number
   modules: ModuleProgressionDto[]
+}
+
+export interface SaveQuizResultRequest {
+  score: number
+  totalQuestions: number
+  themeId?: string
+  partId?: string
+  durationSeconds: number
 }

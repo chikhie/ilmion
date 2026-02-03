@@ -3,12 +3,13 @@ using Ilmanar.Api.Services;
 using Ilmanar.Infra.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Ilmanar.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class ProgressionController : ControllerBase
 {
     private readonly IProgressionService _progressionService;
@@ -31,5 +32,15 @@ public class ProgressionController : ControllerBase
 
         var progression = await _progressionService.GetUserProgressionAsync(userId);
         return Ok(progression);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SaveResult(SaveQuizResultRequest request)
+    {
+        var userId = _userProvider.GetUserId();
+        if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+        await _progressionService.SaveResultAsync(userId, request);
+        return Ok();
     }
 }

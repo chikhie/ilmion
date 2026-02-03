@@ -10,8 +10,15 @@ public class UserProgress
     public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
     public string UserId { get; set; } = string.Empty;
+    
+    // Legacy support or if needed
+    public string ModuleId { get; set; } = string.Empty; 
 
-    public string ModuleId { get; set; } = string.Empty; // e.g. "tawheed"
+    public string? ThemeId { get; set; }
+    public string? PartId { get; set; }
+
+    public int TotalQuestions { get; set; }
+    public int CorrectAnswers { get; set; }
 
     public int Points { get; set; }
 

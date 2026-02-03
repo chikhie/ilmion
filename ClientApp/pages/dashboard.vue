@@ -21,7 +21,15 @@
             <div class="w-10 h-10 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center text-lg shadow-lg shadow-brand-gold/20">
                 <i class="fas fa-book-reader"></i>
             </div>
-            <h1 class="text-2xl md:text-3xl font-serif-title font-bold text-brand-parchment">Programme</h1>
+            <div>
+                 <h1 class="text-2xl md:text-3xl font-serif-title font-bold text-brand-parchment">Parcours</h1>
+                 <div v-if="progression" class="flex items-center gap-2 text-xs text-brand-gold/80 animate-fade-in delay-200">
+                    <i class="fas fa-star"></i>
+                    <span>{{ progression.globalPoints }} XP</span>
+                    <span class="text-brand-parchment/20">|</span>
+                    <span>{{ progression.modulesMasteredCount }} Thèmes Maîtrisés</span>
+                 </div>
+            </div>
           </div>
           <p class="text-brand-parchment/60 text-sm">Sélectionnez un thème pour explorer les modules.</p>
         </div>
@@ -34,15 +42,10 @@
            
            <button 
                 @click="isDropdownOpen = !isDropdownOpen"
-                class="w-full flex items-center justify-between bg-brand-wood/20 border border-brand-gold/20 text-brand-parchment py-3 px-4 rounded-xl hover:bg-brand-wood/30 hover:border-brand-gold/40 transition-all duration-300 group shadow-lg backdrop-blur-md"
+                class="w-full flex items-center justify-between bg-brand-dark/40 border border-brand-gold/20 text-brand-parchment py-3 px-4 rounded-lg hover:border-brand-gold/40 transition-all duration-200 group backdrop-blur-sm"
            >
-                <div class="flex items-center gap-3">
-                    <div class="w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold text-xs border border-brand-gold/10 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <span class="font-serif-title font-bold text-lg tracking-wide">{{ currentTheme?.title || 'Sélectionner' }}</span>
-                </div>
-                <i class="fas fa-chevron-down text-brand-gold/50 text-xs transition-transform duration-300" :class="{ 'rotate-180': isDropdownOpen }"></i>
+                <span class="font-serif-title font-medium text-base">{{ currentTheme?.title || 'Sélectionner un thème' }}</span>
+                <i class="fas fa-chevron-down text-brand-gold/50 text-xs transition-transform duration-200" :class="{ 'rotate-180': isDropdownOpen }"></i>
            </button>
 
            <!-- Dropdown Menu -->
@@ -54,19 +57,17 @@
                 leave-from-class="transform scale-100 opacity-100 translate-y-0"
                 leave-to-class="transform scale-95 opacity-0 -translate-y-2"
            >
-               <div v-if="isDropdownOpen" class="absolute top-full left-0 right-0 mt-2 bg-brand-dark/95 border border-brand-gold/20 rounded-xl shadow-2xl overflow-hidden z-50 backdrop-blur-xl">
+               <div v-if="isDropdownOpen" class="absolute top-full left-0 right-0 mt-2 bg-brand-dark/95 border border-brand-gold/20 rounded-lg shadow-xl overflow-hidden z-50 backdrop-blur-xl">
                     <div v-if="themes && themes.length > 0">
                         <button 
                             v-for="theme in themes" 
                             :key="theme.id"
                             @click="selectTheme(theme.id)"
-                            class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-brand-wood/30 transition-colors group/item border-b border-brand-white/5 last:border-0"
-                            :class="{ 'bg-brand-gold/5': selectedThemeId === theme.id }"
+                            class="w-full text-left px-4 py-3 hover:bg-brand-gold/5 transition-colors border-b border-brand-white/5 last:border-0"
                         >
-                            <span class="font-serif-title text-brand-parchment group-hover/item:text-brand-gold transition-colors" :class="{ 'font-bold text-brand-gold': selectedThemeId === theme.id }">
+                            <span class="font-serif-title text-sm" :class="selectedThemeId === theme.id ? 'font-semibold text-brand-gold' : 'font-normal text-brand-parchment/80'">
                                 {{ theme.title }}
                             </span>
-                            <i v-if="selectedThemeId === theme.id" class="fas fa-check text-brand-gold text-xs"></i>
                         </button>
                     </div>
                     <div v-else class="p-4 text-center text-brand-parchment/40 text-sm italic">
@@ -89,9 +90,25 @@
                  <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold border border-brand-gold/20 shadow-inner flex-shrink-0">
                     <i class="fas fa-quran text-2xl md:text-3xl"></i>
                  </div>
-                 <div>
+                 <div class="flex-1">
                      <h2 class="text-xl md:text-3xl font-serif-title font-bold text-brand-gold mb-1 md:mb-2">{{ currentTheme.title }}</h2>
-                     <p class="text-brand-parchment/70 max-w-3xl text-sm md:text-base leading-relaxed font-light line-clamp-2 md:line-clamp-none">{{ currentTheme.description }}</p>
+                     <p class="text-brand-parchment/70 max-w-3xl text-sm md:text-base leading-relaxed font-light line-clamp-2 md:line-clamp-none mb-3">{{ currentTheme.description }}</p>
+                     
+                     <!-- Theme Progress Bar -->
+                     <div v-if="themeProgress" class="max-w-md space-y-1.5">
+                         <div class="flex items-center justify-between text-xs">
+                             <span class="text-brand-parchment/50 font-medium">
+                                 {{ themeProgress.questionsAnswered }} / {{ themeProgress.totalQuestions }} questions
+                             </span>
+                             <span class="text-brand-gold font-bold">{{ themeProgress.percentage }}%</span>
+                         </div>
+                         <div class="h-2 bg-brand-wood/20 rounded-full overflow-hidden border border-brand-gold/10">
+                             <div 
+                                 class="h-full bg-gradient-to-r from-brand-gold via-yellow-500 to-brand-gold transition-all duration-700 ease-out"
+                                 :style="{ width: `${themeProgress.percentage}%` }"
+                             ></div>
+                         </div>
+                     </div>
                  </div>
             </div>
         </div>
@@ -104,29 +121,51 @@
             </div>
 
             <div v-for="part in flatParts" :key="part.id" 
-                 class="group relative flex flex-col justify-between h-full p-4 md:p-5 rounded-xl bg-brand-wood/10 border border-brand-gold/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-brand-wood/20 hover:border-brand-gold/30 hover:shadow-xl hover:shadow-brand-gold/5"
+                 class="group relative flex flex-col justify-between h-full p-3 md:p-5 rounded-xl bg-brand-wood/10 border border-brand-gold/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-brand-wood/20 hover:border-brand-gold/30 hover:shadow-xl hover:shadow-brand-gold/5"
             >
 
                  <!-- Content -->
-                <div class="relative z-10 mb-4">
-                    <div class="flex items-start justify-between gap-3 mb-3">
+                <div class="relative z-10 mb-3 md:mb-4">
+                    <div class="flex items-start justify-between gap-3 mb-2 md:mb-3">
                          <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-brand-gold shadow-[0_0_8px] shadow-brand-gold"></span>
-                            <span class="text-brand-gold/80 text-[0.65rem] font-bold uppercase tracking-widest">Quiz</span>
+                             <div v-if="part.isMastered" class="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-[0.6rem] border border-green-500/30" title="Maîtrisé">
+                                 <i class="fas fa-check"></i>
+                             </div>
+                             <div v-else-if="part.score && part.score > 0" class="px-1.5 py-0.5 rounded bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-[0.6rem] font-bold">
+                                {{ part.score }} pts
+                             </div>
+                             <div v-else class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-brand-gold shadow-[0_0_8px] shadow-brand-gold"></span>
+                                <span class="text-brand-gold/80 text-[0.65rem] font-bold uppercase tracking-widest">Quiz</span>
+                             </div>
                          </div>
                          <div class="text-brand-parchment/20 group-hover:text-brand-gold/40 transition-colors">
                              <i class="fas fa-tasks"></i>
                          </div>
                     </div>
 
-                    <h4 class="font-bold text-brand-parchment text-lg leading-snug mb-2 group-hover:text-white transition-colors min-h-[3.5rem]">
+                    <h4 class="font-bold text-brand-parchment text-base md:text-lg leading-snug mb-1.5 md:mb-2 group-hover:text-white transition-colors min-h-[2.5rem] md:min-h-[3.5rem]">
                         {{ part.title }}
                     </h4>
-                    <p class="text-brand-parchment/50 text-xs leading-relaxed line-clamp-3" v-if="part.description">{{ part.description }}</p>
+                    <p class="text-brand-parchment/50 text-xs leading-relaxed line-clamp-2 md:line-clamp-3" v-if="part.description">{{ part.description }}</p>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mt-2 md:mt-3 space-y-1">
+                        <div class="flex items-center justify-between text-[0.65rem]">
+                            <span class="text-brand-parchment/40 font-medium">Progression</span>
+                            <span class="text-brand-gold font-bold">{{ part.progressPercentage || 0 }}%</span>
+                        </div>
+                        <div class="h-1.5 bg-brand-wood/20 rounded-full overflow-hidden border border-brand-gold/10">
+                            <div 
+                                class="h-full bg-gradient-to-r from-brand-gold to-yellow-500 transition-all duration-500 ease-out"
+                                :style="{ width: `${part.progressPercentage || 0}%` }"
+                            ></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Action Footer -->
-                <div class="relative z-10 pt-4 mt-auto border-t border-brand-white/5 flex items-center justify-end">
+                <div class="relative z-10 pt-3 md:pt-4 mt-auto border-t border-brand-white/5 flex items-center justify-end">
                     <NuxtLink 
                         :to="`/quizz?themeId=${currentTheme.id}&partId=${part.id}`"
                         class="w-full px-4 py-3 bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-widest rounded-lg shadow-lg shadow-brand-gold/10 hover:bg-white hover:text-brand-dark hover:shadow-brand-gold/30 transition-all duration-300 flex items-center justify-center gap-2"
@@ -217,12 +256,47 @@ const currentTheme = computed(() => {
 const flatParts = computed(() => {
     if (!currentTheme.value || !currentTheme.value.subjects) return []
     
+    // Find progression for this theme
+    const themeStats = progression.value?.modules.find(m => m.moduleId === currentTheme.value?.id)
+
     return currentTheme.value.subjects.flatMap(subject => {
-        return (subject.parts || []).map(part => ({
-            ...part,
-            subjectId: subject.id // Attach subject ID for URL construction
-        }))
+        return (subject.parts || []).map(part => {
+            // Find stats for this part
+            const partStats = themeStats?.parts?.find(p => p.partId === part.id)
+            
+            // Calculate progress percentage
+            let progressPercentage = 0
+            if (partStats && partStats.totalQuestions > 0) {
+                progressPercentage = Math.round((partStats.score / partStats.totalQuestions) * 100)
+            }
+
+            return {
+                ...part,
+                subjectId: subject.id, // Attach subject ID for URL construction
+                isMastered: partStats?.isMastered || false,
+                score: partStats?.score || 0,
+                progressPercentage
+            }
+        })
     })
+})
+
+// Compute theme-level progress
+const themeProgress = computed(() => {
+    if (!currentTheme.value) return null
+    
+    const themeStats = progression.value?.modules.find(m => m.moduleId === currentTheme.value?.id)
+    if (!themeStats) return null
+    
+    const percentage = themeStats.totalQuestions > 0 
+        ? Math.round((themeStats.questionsAnswered / themeStats.totalQuestions) * 100)
+        : 0
+    
+    return {
+        questionsAnswered: themeStats.questionsAnswered,
+        totalQuestions: themeStats.totalQuestions,
+        percentage
+    }
 })
 
 // Auto-select first theme

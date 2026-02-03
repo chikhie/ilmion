@@ -1,4 +1,4 @@
-import type { ProgressionViewModel } from '~/types'
+import type { ProgressionViewModel, SaveQuizResultRequest } from '~/types'
 
 export class ProgressionService {
     private get apiBase(): string {
@@ -9,6 +9,14 @@ export class ProgressionService {
         return $fetch<ProgressionViewModel>(`${this.apiBase}/progression`, {
             method: 'GET',
             headers: { Authorization: `Bearer ${token}` },
+        })
+    }
+
+    async saveResult(token: string, result: SaveQuizResultRequest): Promise<void> {
+        await $fetch(`${this.apiBase}/progression`, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` },
+            body: result
         })
     }
 }

@@ -12,7 +12,7 @@ public class ProgressionService : IProgressionService
 {
     private readonly IMongoCollection<UserProgress> _userProgressCollection;
     private readonly IMongoCollection<QuizItem> _quizCollection;
-    private readonly IMongoCollection<Mastery> _masteryCollection;
+    private readonly IMongoCollection<Theme> _themeCollection;
     private readonly ILogger<ProgressionService> _logger;
 
     public ProgressionService(IOptions<MongoDbSettings> settings, ILogger<ProgressionService> logger)
@@ -21,65 +21,106 @@ public class ProgressionService : IProgressionService
         var database = client.GetDatabase(settings.Value.DatabaseName);
         _userProgressCollection = database.GetCollection<UserProgress>("UserProgress");
         _quizCollection = database.GetCollection<QuizItem>("QuizItems");
-        _masteryCollection = database.GetCollection<Mastery>("Masteries");
+        _themeCollection = database.GetCollection<Theme>("Themes");
         _logger = logger;
+    }
+
+    public async Task SaveResultAsync(string userId, SaveQuizResultRequest request)
+    {
+        var progress = new UserProgress
+        {
+            UserId = userId,
+            ThemeId = request.ThemeId,
+            PartId = request.PartId,
+            Points = request.Score, // Assuming Score = Points for now
+            TotalQuestions = request.TotalQuestions,
+            CorrectAnswers = request.Score, // Simplification: Score usually equals correct answers count in simple quizzes
+            Duration = TimeSpan.FromSeconds(request.DurationSeconds),
+            Date = DateTime.UtcNow,
+            // Mastery Logic: > 80%?
+            IsMastered = request.TotalQuestions > 0 && ((double)request.Score / request.TotalQuestions) >= 0.8
+        };
+
+        await _userProgressCollection.InsertOneAsync(progress);
     }
 
     public async Task<ProgressionViewModel> GetUserProgressionAsync(string userId)
     {
         var viewModel = new ProgressionViewModel();
 
-        // 1. Get all unique ModuleIds from QuizItems
-        // Using a distinct query to find all available modules
-        var distinctModuleIds = await _quizCollection.Distinct(x => x.ModuleId, FilterDefinition<QuizItem>.Empty).ToListAsync();
-        
-        // Remove nulls if any
-        var modules = distinctModuleIds.Where(m => !string.IsNullOrEmpty(m)).ToList();
+        // 1. Get all Themes
+        var themes = await _themeCollection.Find(_ => true).ToListAsync();
 
-        foreach (var moduleId in modules)
+        foreach (var theme in themes)
         {
             var dto = new ModuleProgressionDto
             {
-                ModuleId = moduleId,
-                Label = Capitalize(moduleId) // Simple formatting for now
+                ModuleId = theme.Id, // Use ThemeId as ModuleId identifier
+                Label = theme.Title
             };
 
-            // Get total questions count for this module
-            dto.TotalQuestions = (int)await _quizCollection.CountDocumentsAsync(x => x.ModuleId == moduleId);
+            // Get total questions count for this theme (all parts)
+            dto.TotalQuestions = (int)await _quizCollection.CountDocumentsAsync(x => x.ThemeId == theme.Id);
 
-            // Get User Progress for this module
-            // We might have multiple entries if we track history, but usually we want the latest or aggregated status.
-            // For this design, let's assume we want to sum up points or show the "best" status.
-            // Or if UserProgress is one-per-module-per-user (state), we fetch that.
-            // Let's assume UserProgress is a log of attempts. We want to aggregate.
-            
+            // Get User Progress for this theme
+            // Fetch all attempts for this theme
             var userProgresses = await _userProgressCollection
-                .Find(x => x.UserId == userId && x.ModuleId == moduleId)
+                .Find(x => x.UserId == userId && x.ThemeId == theme.Id)
                 .SortByDescending(x => x.Date)
                 .ToListAsync();
 
             if (userProgresses.Any())
             {
-                var bestAttempt = userProgresses.OrderByDescending(x => x.Points).First();
-                var latestAttempt = userProgresses.First(); 
+                var latestAttempt = userProgresses.First();
 
-                dto.TotalPoints = userProgresses.Sum(x => x.Points); // Cumulative points or best score? Let's do Cumulative for "XP" feel.
+                // Logic: 
+                // TotalPoints: Sum of best score per Part? Or just sum of all experience?
+                // Let's go with "Sum of all points earned" (XP style)
+                dto.TotalPoints = userProgresses.Sum(x => x.Points);
+                
                 dto.LastPlayed = latestAttempt.Date;
+                
+                // Mastery: If any attempt on this theme (or majority of parts?) is mastered.
+                // Simplified: If they have at least one Mastered attempt on the Theme (global mode) or all parts?
+                // Let's look for any Mastered entry for this ThemeId.
                 dto.IsMastered = userProgresses.Any(x => x.IsMastered);
                 
-                // Determine mastery label based on points or explicit mastery
-                // For now, let's just fetch the Masteries for this module and see if we can calculate it
-                // Or simply use the logic: if IsMastered -> "Expert", else determine by score.
-                // Simplified:
+                dto.QuestionsAnswered = userProgresses.Sum(x => x.CorrectAnswers); // Approximate
+
                 if (dto.IsMastered) dto.CurrentMasteryLabel = "Maître";
-                else if (dto.TotalPoints > 100) dto.CurrentMasteryLabel = "Avancé"; // Arbitrary threshold
-                else if (dto.TotalPoints > 50) dto.CurrentMasteryLabel = "Intermédiaire";
+                else if (dto.TotalPoints > 100) dto.CurrentMasteryLabel = "Avancé";
+                else if (dto.TotalPoints > 20) dto.CurrentMasteryLabel = "Intermédiaire";
                 else dto.CurrentMasteryLabel = "Novice";
-                
-                // Track questions answered (unique)
-                // This would require storing answered question IDs in UserProgress. 
-                // For now, let's roughly estimate or leave as 0 if not tracked.
-                // If we want to be precise, UserProgress should have a list of answered IDs.
+
+                // Populate Parts Progression
+                // Group by PartId to get stats per part
+                var partGroups = userProgresses
+                    .Where(x => !string.IsNullOrEmpty(x.PartId))
+                    .GroupBy(x => x.PartId);
+
+
+                foreach (var group in partGroups)
+                {
+                    var partId = group.Key;
+                    var bestPartAttempt = group.OrderByDescending(x => x.Points).FirstOrDefault();
+                    var latestPartAttempt = group.OrderByDescending(x => x.Date).FirstOrDefault();
+
+                    if (bestPartAttempt != null)
+                    {
+                        // Get total questions for this specific part
+                        var totalQuestionsForPart = (int)await _quizCollection.CountDocumentsAsync(x => x.PartId == partId);
+                        
+                        dto.Parts.Add(new PartProgressionDto
+                        {
+                            PartId = partId,
+                            Score = bestPartAttempt.Points, // Best score
+                            TotalQuestions = totalQuestionsForPart,
+                            IsMastered = group.Any(x => x.IsMastered), // Mastered if any attempt is mastered
+                            LastPlayed = latestPartAttempt?.Date ?? DateTime.MinValue,
+                            Attempts = group.Count()
+                        });
+                    }
+                }
             }
 
             viewModel.Modules.Add(dto);
@@ -90,11 +131,5 @@ public class ProgressionService : IProgressionService
         viewModel.ModulesMasteredCount = viewModel.Modules.Count(m => m.IsMastered);
 
         return viewModel;
-    }
-
-    private string Capitalize(string input)
-    {
-        if (string.IsNullOrEmpty(input)) return input;
-        return char.ToUpper(input[0]) + input.Substring(1);
     }
 }
