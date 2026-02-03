@@ -89,24 +89,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Quick Stats (Optional Compact Block) -->
-            <div class="bg-brand-wood/10 border border-brand-gold/10 rounded-2xl p-6 backdrop-blur-md">
-                <div class="flex items-center justify-between mb-4">
-                     <h3 class="text-xs font-bold uppercase tracking-widest text-brand-parchment/50">Statistiques</h3>
-                     <i class="fas fa-chart-pie text-brand-gold/50"></i>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                     <div class="text-center p-3 bg-brand-dark/30 rounded-xl">
-                        <div class="text-xl font-serif-title font-bold text-brand-gold">3</div>
-                        <div class="text-[10px] text-brand-parchment/60 uppercase">Modules</div>
-                     </div>
-                     <div class="text-center p-3 bg-brand-dark/30 rounded-xl">
-                        <div class="text-xl font-serif-title font-bold text-brand-parchment">12</div>
-                        <div class="text-[10px] text-brand-parchment/60 uppercase">Heures</div>
-                     </div>
-                </div>
-            </div>
         </div>
 
         <!-- Right Column: Forms -->
@@ -138,16 +120,6 @@
               <div class="space-y-1.5">
                 <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Email</label>
                 <input :value="user?.email" type="email" disabled class="input-field opacity-60 cursor-not-allowed bg-brand-dark/50" />
-              </div>
-
-               <div class="space-y-1.5">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Date de naissance</label>
-                <input v-model="profileForm.dateOfBirth" type="date" class="input-field [color-scheme:dark]" />
-              </div>
-
-              <div class="space-y-1.5 md:col-span-2">
-                <label class="text-[10px] font-bold uppercase tracking-widest text-brand-parchment/50 ml-1">Bio</label>
-                <textarea v-model="profileForm.bio" rows="2" class="input-field resize-none bg-brand-dark/20" placeholder="Quelques mots sur vous..."></textarea>
               </div>
 
               <div class="md:col-span-2 pt-2">

@@ -238,6 +238,9 @@ const changeLocale = (code: string) => {
 
 const gameService = new GameService()
 const router = useRouter()
+const route = useRoute()
+const themeId = computed(() => route.query.themeId as string | undefined)
+const partId = computed(() => route.query.partId as string | undefined)
 
 // State
 const gameStarted = ref(false)
@@ -250,19 +253,38 @@ const numberInput = ref<number | ''>('')
 const score = ref(0)
 const totalQuestions = ref(0)
 const showToast = ref(false)
+const loading = ref(false)
 
 // Methods
-const startGame = async (count: number) => {
+const startGame = async (count?: number) => {
+    loading.value = true
     try {
-        quiz.value = await gameService.getQuizzForSoloPlayer(count, locale.value);
-        totalQuestions.value = quiz.value.length;
-        gameStarted.value = true;
-        currentQuestionIndex.value = 0;
-        resetQuestionState();
+        // If partId or themeId is present, we ignore count and fetch by those filters
+        // If neither is present, we use count (Global Mode)
+        quiz.value = await gameService.getQuizzForSoloPlayer(count, locale.value, themeId.value, partId.value);
+        
+        if (quiz.value.length > 0) {
+            totalQuestions.value = quiz.value.length;
+            gameStarted.value = true;
+            currentQuestionIndex.value = 0;
+            resetQuestionState();
+        } else {
+            console.warn("No questions found");
+            // Handle empty quiz context?
+        }
     } catch (e) {
         console.error("Failed to load quiz", e);
+    } finally {
+        loading.value = false
     }
 }
+
+// Auto-start if themeId or partId provided
+onMounted(() => {
+    if (themeId.value || partId.value) {
+        startGame() // No count needed for targeted mode
+    }
+})
 
 const selectOption = (option: string) => {
     if (hasAnswered.value) return;

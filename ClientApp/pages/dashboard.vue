@@ -11,62 +11,136 @@
     <!-- Global Header -->
     <AppHeader />
 
-    <main class="flex-grow container mx-auto px-4 pt-6 pb-12 relative z-10 max-w-6xl">
-      
-      <!-- Welcome Section -->
-      <div class="mb-8 text-center md:text-left flex items-baseline gap-4">
-        <h1 class="text-2xl md:text-3xl font-serif-title font-bold tracking-wide text-brand-parchment animate-fade-in">
-          <span class="opacity-70">Salam,</span> 
-          <span class="text-brand-gold drop-shadow-md"> {{ authStore.user?.username }}</span>
-        </h1>
-        <p class="text-brand-parchment/60 text-sm md:text-base font-light hidden md:block">Continue ton apprentissage.</p>
-      </div>
+    <main class="flex-grow container mx-auto px-3 pt-4 pb-8 md:px-4 md:pt-6 md:pb-12 relative z-10 max-w-7xl">
 
-      <!-- Stats Overview (Compact) -->
-      <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8 animate-fade-in-up">
+      <!-- Feature Header: Theme Selection with Dropdown -->
+      <div class="flex flex-col md:flex-row justify-between items-end mb-4 md:mb-8 gap-3 md:gap-4 border-b border-brand-gold/10 pb-4 md:pb-6 animate-fade-in delay-200 relative z-30">
         
-        <!-- Modules Mastered -->
-        <div class="bg-brand-wood/10 border border-brand-gold/10 p-4 rounded-xl backdrop-blur-md relative overflow-hidden group hover:border-brand-gold/30 transition-colors duration-300 flex items-center gap-4">
-            <div class="p-3 bg-brand-gold/5 rounded-full group-hover:bg-brand-gold/10 transition-colors">
-                <i class="fas fa-certificate text-2xl text-brand-gold"></i>
+        <div class="hidden md:block">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center text-lg shadow-lg shadow-brand-gold/20">
+                <i class="fas fa-book-reader"></i>
             </div>
-            <div>
-                 <div class="text-brand-parchment/60 font-bold uppercase text-[0.65rem] tracking-widest">Maîtrisés</div>
-                 <div class="text-2xl font-serif-title font-bold text-brand-parchment leading-none">{{ progression?.modulesMasteredCount || 0 }}</div>
-            </div>
+            <h1 class="text-2xl md:text-3xl font-serif-title font-bold text-brand-parchment">Programme</h1>
+          </div>
+          <p class="text-brand-parchment/60 text-sm">Sélectionnez un thème pour explorer les modules.</p>
         </div>
 
-        <!-- Total XP -->
-        <div class="bg-brand-wood/10 border border-brand-gold/10 p-4 rounded-xl backdrop-blur-md relative overflow-hidden group hover:border-brand-gold/30 transition-colors duration-300 flex items-center gap-4">
-             <div class="p-3 bg-brand-gold/5 rounded-full group-hover:bg-brand-gold/10 transition-colors">
-                <i class="fas fa-fire text-2xl text-brand-gold"></i>
-            </div>
-            <div>
-              <div class="text-brand-parchment/60 font-bold uppercase text-[0.65rem] tracking-widest">Total XP</div>
-              <div class="text-2xl font-serif-title font-bold text-brand-gold drop-shadow-[0_0_5px_rgba(195,151,18,0.3)] leading-none">{{ progression?.globalPoints || 0 }}</div>
-            </div>
-        </div>
+        <!-- Theme Filter Dropdown (Custom UI) -->
+        <div class="relative w-full md:w-72" ref="dropdownRef">
+           <label class="block text-brand-gold/60 text-[0.65rem] font-bold uppercase tracking-widest mb-1.5 ml-1">
+               Changer de thème
+           </label>
+           
+           <button 
+                @click="isDropdownOpen = !isDropdownOpen"
+                class="w-full flex items-center justify-between bg-brand-wood/20 border border-brand-gold/20 text-brand-parchment py-3 px-4 rounded-xl hover:bg-brand-wood/30 hover:border-brand-gold/40 transition-all duration-300 group shadow-lg backdrop-blur-md"
+           >
+                <div class="flex items-center gap-3">
+                    <div class="w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold text-xs border border-brand-gold/10 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <span class="font-serif-title font-bold text-lg tracking-wide">{{ currentTheme?.title || 'Sélectionner' }}</span>
+                </div>
+                <i class="fas fa-chevron-down text-brand-gold/50 text-xs transition-transform duration-300" :class="{ 'rotate-180': isDropdownOpen }"></i>
+           </button>
 
-        <!-- Rank -->
-        <div class="bg-brand-wood/10 border border-brand-gold/10 p-4 rounded-xl backdrop-blur-md relative overflow-hidden group hover:border-brand-gold/30 transition-colors duration-300 col-span-2 lg:col-span-1 flex items-center gap-4">
-            <div class="p-3 bg-brand-gold/5 rounded-full group-hover:bg-brand-gold/10 transition-colors">
-                <i class="fas fa-chess-knight text-2xl text-brand-gold"></i>
-            </div>
-            <div>
-               <div class="text-brand-parchment/60 font-bold uppercase text-[0.65rem] tracking-widest">Niveau</div>
-               <div class="text-2xl font-serif-title font-bold text-brand-parchment leading-none">Apprenti</div> 
-           </div>
+           <!-- Dropdown Menu -->
+           <transition
+                enter-active-class="transition duration-200 ease-out"
+                enter-from-class="transform scale-95 opacity-0 -translate-y-2"
+                enter-to-class="transform scale-100 opacity-100 translate-y-0"
+                leave-active-class="transition duration-150 ease-in"
+                leave-from-class="transform scale-100 opacity-100 translate-y-0"
+                leave-to-class="transform scale-95 opacity-0 -translate-y-2"
+           >
+               <div v-if="isDropdownOpen" class="absolute top-full left-0 right-0 mt-2 bg-brand-dark/95 border border-brand-gold/20 rounded-xl shadow-2xl overflow-hidden z-50 backdrop-blur-xl">
+                    <div v-if="themes && themes.length > 0">
+                        <button 
+                            v-for="theme in themes" 
+                            :key="theme.id"
+                            @click="selectTheme(theme.id)"
+                            class="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-brand-wood/30 transition-colors group/item border-b border-brand-white/5 last:border-0"
+                            :class="{ 'bg-brand-gold/5': selectedThemeId === theme.id }"
+                        >
+                            <span class="font-serif-title text-brand-parchment group-hover/item:text-brand-gold transition-colors" :class="{ 'font-bold text-brand-gold': selectedThemeId === theme.id }">
+                                {{ theme.title }}
+                            </span>
+                            <i v-if="selectedThemeId === theme.id" class="fas fa-check text-brand-gold text-xs"></i>
+                        </button>
+                    </div>
+                    <div v-else class="p-4 text-center text-brand-parchment/40 text-sm italic">
+                        Aucun thème disponible
+                    </div>
+               </div>
+           </transition>
         </div>
       </div>
 
-      <!-- Themes Grid -->
-      <h2 class="text-xl md:text-2xl font-serif-title font-bold mb-6 flex items-center gap-3 text-brand-parchment animate-fade-in delay-200">
-        <span class="w-8 h-8 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center text-sm shadow-lg">
-            <i class="fas fa-book-open"></i>
-        </span>
-        Programme
-      </h2>
-      
+      <!-- Active Theme Content -->
+      <div v-if="currentTheme" class="animate-fade-in-up delay-300 relative z-20">
+        
+        <!-- Theme Description Box -->
+        <div class="mb-6 md:mb-10 p-4 md:p-6 lg:p-8 rounded-xl md:rounded-2xl bg-gradient-to-r from-brand-wood/10 to-transparent border border-brand-gold/5 backdrop-blur-sm relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none">
+                 <i class="fas fa-mosque text-9xl text-brand-gold"></i>
+            </div>
+            <div class="relative z-10 flex flex-row gap-4 md:gap-6 items-start md:items-center">
+                 <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold border border-brand-gold/20 shadow-inner flex-shrink-0">
+                    <i class="fas fa-quran text-2xl md:text-3xl"></i>
+                 </div>
+                 <div>
+                     <h2 class="text-xl md:text-3xl font-serif-title font-bold text-brand-gold mb-1 md:mb-2">{{ currentTheme.title }}</h2>
+                     <p class="text-brand-parchment/70 max-w-3xl text-sm md:text-base leading-relaxed font-light line-clamp-2 md:line-clamp-none">{{ currentTheme.description }}</p>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Quizzes Grid (Flattened) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5">
+             <div v-if="flatParts.length === 0" class="col-span-full text-center py-12 border border-dashed border-brand-white/10 rounded-xl bg-brand-wood/5 text-brand-parchment/40 italic text-base">
+                <i class="fas fa-hourglass-start mb-3 block text-2xl opacity-50"></i>
+                Aucun quiz disponible pour ce thème pour le moment.
+            </div>
+
+            <div v-for="part in flatParts" :key="part.id" 
+                 class="group relative flex flex-col justify-between h-full p-4 md:p-5 rounded-xl bg-brand-wood/10 border border-brand-gold/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-brand-wood/20 hover:border-brand-gold/30 hover:shadow-xl hover:shadow-brand-gold/5"
+            >
+
+                 <!-- Content -->
+                <div class="relative z-10 mb-4">
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                         <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-brand-gold shadow-[0_0_8px] shadow-brand-gold"></span>
+                            <span class="text-brand-gold/80 text-[0.65rem] font-bold uppercase tracking-widest">Quiz</span>
+                         </div>
+                         <div class="text-brand-parchment/20 group-hover:text-brand-gold/40 transition-colors">
+                             <i class="fas fa-tasks"></i>
+                         </div>
+                    </div>
+
+                    <h4 class="font-bold text-brand-parchment text-lg leading-snug mb-2 group-hover:text-white transition-colors min-h-[3.5rem]">
+                        {{ part.title }}
+                    </h4>
+                    <p class="text-brand-parchment/50 text-xs leading-relaxed line-clamp-3" v-if="part.description">{{ part.description }}</p>
+                </div>
+
+                <!-- Action Footer -->
+                <div class="relative z-10 pt-4 mt-auto border-t border-brand-white/5 flex items-center justify-end">
+                    <NuxtLink 
+                        :to="`/quizz?themeId=${currentTheme.id}&partId=${part.id}`"
+                        class="w-full px-4 py-3 bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-widest rounded-lg shadow-lg shadow-brand-gold/10 hover:bg-white hover:text-brand-dark hover:shadow-brand-gold/30 transition-all duration-300 flex items-center justify-center gap-2"
+                    >
+                        <span>Commencer</span>
+                        <i class="fas fa-play text-[0.6rem]"></i>
+                    </NuxtLink>
+                </div>
+            </div>
+        </div>
+
+      </div>
+
+      <!-- Loading/Error States -->
       <div v-if="pendingThemes" class="flex justify-center py-20">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-gold"></div>
       </div>
@@ -74,105 +148,16 @@
       <div v-else-if="errorThemes" class="text-center py-10 px-6 text-red-300 bg-red-900/10 rounded-xl border border-red-500/20 backdrop-blur-sm">
         <i class="fas fa-exclamation-circle text-2xl mb-2"></i>
         <p>Une erreur est survenue lors du chargement des contenus.</p>
+        <button @click="() => refresh()" class="mt-4 text-sm underline text-brand-gold hover:text-white">Réessayer</button>
       </div>
 
-      <div v-else class="grid grid-cols-1 gap-4 animate-fade-in-up delay-300">
-        <!-- Theme Card (Compact) -->
-        <div v-for="theme in themes" :key="theme.id" 
-             class="bg-brand-wood/5 border border-brand-gold/10 rounded-xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-brand-gold/5"
-             :class="{ 'ring-1 ring-brand-gold/30 bg-brand-wood/10': expandedThemes.includes(theme.id) }">
-            
-            <!-- Theme Header (Clickable & Compact) -->
-            <div class="p-4 flex flex-col md:flex-row gap-4 md:items-center justify-between cursor-pointer group" @click="toggleTheme(theme.id)">
-                <div class="flex-1">
-                     <div class="flex items-center gap-3 mb-1">
-                        <span class="px-2 py-0.5 rounded text-[0.6rem] bg-brand-gold/10 text-brand-gold font-bold uppercase tracking-wider">Thème</span>
-                        <h3 class="text-lg font-bold text-brand-parchment font-serif-title tracking-wide group-hover:text-brand-gold transition-colors">{{ theme.title }}</h3>
-                     </div>
-                     <p class="text-brand-parchment/60 text-sm leading-snug max-w-4xl truncate">{{ theme.description }}</p>
-                </div>
-                 <div class="flex items-center gap-3 self-end md:self-center">
-                    <span class="text-brand-parchment/40 text-[0.65rem] font-medium uppercase tracking-widest group-hover:text-brand-gold/70 transition-colors">
-                        {{ expandedThemes.includes(theme.id) ? 'Fermer' : 'Ouvrir' }}
-                    </span>
-                    <div class="h-8 w-8 rounded-full bg-brand-dark border border-brand-gold/20 flex items-center justify-center text-brand-gold transition-all duration-300 group-hover:border-brand-gold" :class="{ 'rotate-180 bg-brand-gold text-brand-dark': expandedThemes.includes(theme.id) }">
-                        <i class="fas fa-chevron-down text-xs"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Expanded Content (Subjects & Parts) -->
-            <transition
-                enter-active-class="transition-[max-height] duration-500 ease-in-out overflow-hidden"
-                enter-from-class="max-h-0 opacity-0"
-                enter-to-class="max-h-[2000px] opacity-100"
-                leave-active-class="transition-[max-height] duration-300 ease-in-out overflow-hidden"
-                leave-from-class="max-h-[2000px] opacity-100"
-                leave-to-class="max-h-0 opacity-0"
-            >
-                <div v-show="expandedThemes.includes(theme.id)" class="border-t border-brand-gold/5 bg-black/20">
-                    <div class="p-4 space-y-6">
-                        <div v-if="!theme.subjects || theme.subjects.length === 0" class="text-center py-4 text-brand-parchment/40 italic text-sm">
-                            Aucun sujet disponible.
-                        </div>
-
-                        <div v-for="subject in theme.subjects" :key="subject.id" class="relative pl-4 md:pl-0">
-                            <!-- Subject Connect line (Mobile) -->
-                            <div class="absolute left-0 top-0 bottom-0 w-px bg-brand-gold/20 md:hidden"></div>
-
-                            <!-- Subject Header (Compact) -->
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-6 h-6 rounded-md bg-brand-gold/10 flex items-center justify-center text-brand-gold shadow-sm ring-1 ring-brand-gold/20">
-                                    <i class="fas fa-scroll text-xs"></i>
-                                </div>
-                                <h4 class="text-base font-bold text-brand-parchment font-serif-title">{{ subject.title }}</h4>
-                                <div class="h-px flex-grow bg-brand-gold/10"></div>
-                            </div>
-                            
-                            <!-- Parts Grid (Compact) -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                                 <div v-if="!subject.parts || subject.parts.length === 0" class="col-span-full py-2 px-4 rounded-lg bg-brand-wood/5 text-brand-parchment/40 text-xs italic border border-brand-white/5">
-                                    Bientôt disponible
-                                </div>
-
-                                <div v-for="part in subject.parts" :key="part.id" 
-                                     class="flex flex-col justify-between p-3 rounded-lg bg-brand-dark/40 border border-brand-gold/5 hover:border-brand-gold/30 hover:bg-brand-wood/10 transition-all duration-300 group/card relative overflow-hidden">
-                                     
-                                     <!-- Hover Glow -->
-                                     <div class="absolute inset-0 bg-gradient-to-br from-brand-gold/0 to-brand-gold/5 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-
-                                    <div class="relative z-10 mb-2">
-                                        <div class="flex justify-between items-start gap-2">
-                                            <h5 class="text-brand-parchment font-bold text-sm leading-tight mb-1 line-clamp-1" :title="part.title">{{ part.title }}</h5>
-                                        </div>
-                                        <p class="text-brand-parchment/50 text-[0.65rem] line-clamp-2 leading-snug" v-if="part.description">{{ part.description }}</p>
-                                    </div>
-                                    
-                                    <div class="relative z-10 pt-2 border-t border-white/5 flex items-center justify-between mt-auto">
-                                        <span class="text-brand-gold/60 text-[0.6rem] font-medium uppercase tracking-wider">Quiz</span>
-                                        <NuxtLink 
-                                            :to="`/games/${theme.id}/${subject.id}/${part.id}`"
-                                            class="flex items-center gap-1.5 px-3 py-1.5 bg-brand-gold text-brand-dark text-[0.65rem] font-bold uppercase tracking-wider roundedHover:bg-white hover:text-brand-dark hover:scale-105 hover:shadow-md hover:shadow-brand-gold/20 transition-all duration-300 transform active:scale-95"
-                                        >
-                                            Jouer
-                                            <i class="fas fa-play text-[0.5rem]"></i>
-                                        </NuxtLink>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
-        </div>
-      </div>
     </main>
 
     <!-- Global Footer -->
     <AppFooter />
     
     <!-- Mobile Navigation -->
-    <AppBottomNav />
+    <!-- <AppBottomNav /> -->
 
   </div>
 </template>
@@ -187,7 +172,6 @@ definePageMeta({
 })
 
 const authStore = useAuthStore()
-const router = useRouter()
 const config = useRuntimeConfig()
 
 // Types matching Backend Entities
@@ -195,13 +179,14 @@ interface Part {
     id: string
     title: string
     description?: string
+    subjectId?: string // Helper for linking back if needed in flattened view
 }
 
 interface Subject {
     id: string
     title: string
     parts: Part[]
-    description?: string // Added description
+    description?: string
 }
 
 interface Theme {
@@ -220,28 +205,56 @@ const { data: progression } = await useAsyncData('user-progression', async () =>
 })
 
 // Fetch Themes
-const { data: themes, pending: pendingThemes, error: errorThemes } = await useFetch<Theme[]>(`${config.public.apiBase}/Theme`)
+const { data: themes, pending: pendingThemes, error: errorThemes, refresh } = await useFetch<Theme[]>(`${config.public.apiBase}/Theme`)
 
-// Accordion Logic
-const expandedThemes = ref<string[]>([])
+const selectedThemeId = ref<string | null>(null)
 
-const toggleTheme = (id: string) => {
-    if (expandedThemes.value.includes(id)) {
-        expandedThemes.value = expandedThemes.value.filter(t => t !== id)
-    } else {
-        expandedThemes.value.push(id)
-    }
-}
+const currentTheme = computed(() => {
+    return themes.value?.find(t => t.id === selectedThemeId.value) || null
+})
 
-// Auto-expand first theme if available
+// Compute flattened parts from the current theme subjects
+const flatParts = computed(() => {
+    if (!currentTheme.value || !currentTheme.value.subjects) return []
+    
+    return currentTheme.value.subjects.flatMap(subject => {
+        return (subject.parts || []).map(part => ({
+            ...part,
+            subjectId: subject.id // Attach subject ID for URL construction
+        }))
+    })
+})
+
+// Auto-select first theme
 watch(themes, (newThemes) => {
-    if (newThemes && newThemes.length > 0) {
-        // Only expand the first one by default
-        if (expandedThemes.value.length === 0) {
-             expandedThemes.value = [newThemes[0].id]
-        }
+    if (newThemes && newThemes.length > 0 && !selectedThemeId.value) {
+        selectedThemeId.value = newThemes[0].id
     }
 }, { immediate: true })
+
+// Dropdown Logic
+const isDropdownOpen = ref(false)
+const dropdownRef = ref<HTMLElement | null>(null)
+
+const selectTheme = (id: string) => {
+    selectedThemeId.value = id
+    isDropdownOpen.value = false
+}
+
+// Close dropdown when clicking outside
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside)
+})
+
+const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.value && !dropdownRef.value.contains(event.target as Node)) {
+        isDropdownOpen.value = false
+    }
+}
 
 </script>
 

@@ -32,6 +32,9 @@ export const useAuthStore = defineStore('auth', {
 
       if (userCookie.value) {
         this.user = userCookie.value
+      } else if (this.token) {
+        // If we have token but no user cookie (e.g. cleared), try to fetch
+        this.fetchUserProfile()
       }
     },
 
@@ -198,35 +201,23 @@ export const useAuthStore = defineStore('auth', {
 
     async fetchUserProfile() {
       const config = useRuntimeConfig()
-      // You might need a specific endpoint to get the user profile derived from the token
-      // Assuming /api/auth/me or similar, or just extracting from token payload if possible (but clean architecture adheres to separate fetch)
-      // Let's assume we can fetch user details. If LoginRequest doesnt return user, we need to fetch it.
-      // Based on AuthController, Login returns Token, Expiration, RefreshToken. So we rely on token only.
-      // We can iterate on this later. For now, we decode basic info?
-      // Actually `useApi().getProfile()` was used in the old code. We should reuse that if possible.
-      // But `useApi` depends on `authStore` headers so we need the token set first.
 
-      // Circular dependency risk if useApi calls authStore.
-      // We'll implement a light fetch here or rely on useApi outside store definition?
-      // Let's implement a direct fetch to /api/users/profile if it exists (assuming based on old code)
-
-      // For now, let's try to fetch profile using the generic fetch with auth headers
       if (!this.token) return
 
       try {
-        // We can't use `useApi` easily inside store setup without care.
-        // Let's do a direct fetch for now.
-        // Assuming a profile endpoint exists that returns UserProfile
-        // Based on `fetchUserProfile` in old code calling `api.getProfile()`
-        // We will assume `GET /api/users/profile` exists or similar.
+        const userProfile = await $fetch(`${config.public.apiBase}/User/me`, {
+          headers: { Authorization: `Bearer ${this.token}` }
+        })
 
-        // If we don't have the endpoint handy in context, we will skip implementation logic 
-        // and just set a dummy user or wait for next step.
-        // WAIT: Old code L35 `await api.getProfile()`.
-
-        // Implementation Note: We should fetch user profile to populate `this.user`.
+        if (userProfile) {
+          this.user = userProfile
+          // Update cookie in case of refresh
+          const userCookie = useCookie<any>('auth_user', { maxAge: 60 * 60 * 24 * 7 })
+          userCookie.value = userProfile
+        }
       } catch (e) {
-        console.error(e)
+        console.error('Error fetching user profile:', e)
+        // Optionally clear session if token is invalid, but let's be safe for now
       }
     },
 

@@ -60,9 +60,23 @@ public class QuizService
 
     // Creating this for backward compatibility with LobbyService
     // It flattens all questions from all themes/subjects/parts
-    public async Task<List<QuizItem>> GetQuestionsForQuiz(int? count, string? lang = "fr")
+    // Updated to support filtering by Theme OR Part
+    public async Task<List<QuizItem>> GetQuestionsForQuiz(int? count, string? lang = "fr", string? themeId = null, string? partId = null)
     {
-        var allQuestions = await _quizCollection.Find(_ => true).ToListAsync();
+        var builder = Builders<QuizItem>.Filter;
+        var filter = builder.Empty;
+
+        if (!string.IsNullOrEmpty(themeId))
+        {
+            filter &= builder.Eq(q => q.ThemeId, themeId);
+        }
+        
+        if (!string.IsNullOrEmpty(partId))
+        {
+            filter &= builder.Eq(q => q.PartId, partId);
+        }
+
+        var allQuestions = await _quizCollection.Find(filter).ToListAsync();
 
         if (count.HasValue && count.Value < allQuestions.Count)
         {

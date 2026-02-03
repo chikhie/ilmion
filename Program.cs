@@ -101,7 +101,7 @@ builder.Services.AddControllers();
 // Configuration CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("ProdCors", policy =>
+    options.AddPolicy("DevCors", policy =>
     {
         policy
             .SetIsOriginAllowed(origin => true) // Allow any origin but reflect it for credentials support
@@ -110,13 +110,13 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 
-    // options.AddPolicy("ProdCors", policy =>
-    // {
-    //     policy
-    //         .WithOrigins("https://ilmanar.site", "https://api.ilmanar.site", "https://ilmanar.chikhibra.workers.dev")
-    //         .AllowAnyMethod()
-    //         .AllowAnyHeader();
-    // });
+    options.AddPolicy("ProdCors", policy =>
+    {
+        policy
+            .WithOrigins("https://ilmanar.site", "https://api.ilmanar.site", "https://ilmanar.chikhibra.workers.dev")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
 
 });
 

@@ -18,9 +18,6 @@
             <NuxtLink to="/dashboard" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
               Dashboard
             </NuxtLink>
-            <NuxtLink to="/themes" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
-              Thèmes
-            </NuxtLink>
             
             <!-- User Dropdown -->
             <div class="relative ml-4 border-l border-white/10 pl-6" ref="dropdownRef">
@@ -32,7 +29,7 @@
                         <img v-if="authStore.user?.profilePicture" :src="authStore.user.profilePicture" class="w-full h-full object-cover" />
                         <span v-else>{{ authStore.user?.username?.charAt(0).toUpperCase() }}</span>
                     </div>
-                    <span class="text-sm font-bold uppercase tracking-widest">{{ authStore.user?.username || 'Profil' }}</span>
+                    <span class="text-sm font-bold uppercase tracking-widest">{{ authStore.user?.username }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': userDropdownOpen }" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
@@ -73,9 +70,10 @@
           </div>
         </nav>
 
-        <!-- Mobile menu button (Hidden as we switched to Bottom Nav) -->
+        <!-- Mobile menu button -->
         <button
-          class="hidden" 
+          @click="mobileMenuOpen = !mobileMenuOpen"
+          class="lg:hidden p-2 text-brand-gold hover:text-white transition-colors focus:outline-none"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -105,28 +103,35 @@
         leave-from-class="opacity-100 translate-y-0"
         leave-to-class="opacity-0 -translate-y-4"
       >
-        <div v-if="mobileMenuOpen" class="md:hidden py-6 border-t border-white/5 bg-[#082540]/95 backdrop-blur-2xl px-2">
-          <nav class="flex flex-col space-y-2">
+        <div v-if="mobileMenuOpen" class="lg:hidden absolute top-full left-0 right-0 border-t border-brand-gold/10 bg-[#082540]/95 backdrop-blur-xl px-4 py-6 shadow-2xl z-50">
+          <nav class="flex flex-col space-y-3">
 
             <template v-if="isAuthenticated">
               <NuxtLink
                 to="/dashboard"
-                class="px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-2xl transition-all font-bold text-sm uppercase tracking-widest"
+                class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-bold text-sm uppercase tracking-widest group"
+                active-class="!text-brand-gold bg-brand-gold/5"
                 @click="mobileMenuOpen = false"
               >
+                <i class="fas fa-th-large w-5 text-center group-hover:text-brand-gold transition-colors"></i>
                 Dashboard
               </NuxtLink>
+              
               <NuxtLink
                 to="/profile"
-                class="px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-2xl transition-all font-bold text-sm uppercase tracking-widest"
+                class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-bold text-sm uppercase tracking-widest group"
+                active-class="!text-brand-gold bg-brand-gold/5"
                 @click="mobileMenuOpen = false"
               >
+                <i class="fas fa-user-circle w-5 text-center group-hover:text-brand-gold transition-colors"></i>
                 Mon profil
               </NuxtLink>
+              
               <button
                 @click="handleLogout"
-                class="px-4 py-3 text-red-400/80 hover:text-red-400 hover:bg-red-500/10 rounded-2xl transition-all text-left font-bold text-sm uppercase tracking-widest"
+                class="flex items-center gap-3 w-full px-4 py-3 text-red-400/80 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all text-left font-bold text-sm uppercase tracking-widest group"
               >
+                <i class="fas fa-sign-out-alt w-5 text-center group-hover:text-red-400 transition-colors"></i>
                 Déconnexion
               </button>
             </template>
@@ -146,6 +151,11 @@ const dropdownRef = ref<HTMLElement | null>(null)
 
 // Close dropdown when clicking outside
 onMounted(() => {
+    // Fetch profile if connected (to get picture and username if not fully loaded)
+    if (authStore.isLoggedIn) {
+        authStore.fetchUserProfile()
+    }
+
     document.addEventListener('click', (e) => {
         if (dropdownRef.value && !dropdownRef.value.contains(e.target as Node)) {
             userDropdownOpen.value = false

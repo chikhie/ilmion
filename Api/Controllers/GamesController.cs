@@ -18,9 +18,9 @@ public class GamesController : ControllerBase
     }
 
     [HttpGet("quizzes")]
-    public async Task<ActionResult<IEnumerable<QuizItem>>> GetQuizzes([FromQuery] int? count, [FromQuery] string? lang = "fr")
+    public async Task<ActionResult<IEnumerable<QuizItem>>> GetQuizzes([FromQuery] int? count, [FromQuery] string? lang = "fr", [FromQuery] string? themeId = null, [FromQuery] string? partId = null)
     {
-        var questions = await _quizService.GetQuestionsForQuiz(count, lang);
+        var questions = await _quizService.GetQuestionsForQuiz(count, lang, themeId, partId);
         return Ok(questions);
     }
 
