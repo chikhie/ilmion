@@ -79,8 +79,8 @@
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-6 w-full max-w-lg animate-fade-in-up delay-300">
-            <NuxtLink to="/quizz" class="group flex-1 relative px-8 py-5 bg-brand-gold text-brand-dark rounded-xl font-bold text-xl uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all duration-300 overflow-hidden whitespace-nowrap">
-                <span class="relative z-10 flex items-center justify-center gap-3">
+            <NuxtLink to="/quizz" class="group flex-1 relative px-8 py-5 bg-brand-gold text-brand-dark rounded-xl font-bold text-xl uppercase tracking-wider shadow-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all duration-300 overflow-hidden flex items-center justify-center">
+                <span class="relative z-10 flex items-center justify-center gap-3 whitespace-nowrap">
                     {{ $t('home.startQuiz') }}
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -89,8 +89,8 @@
                 <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
             </NuxtLink>
             
-            <NuxtLink to="/register" class="group flex-1 relative px-8 py-5 border-2 border-brand-gold text-brand-gold rounded-xl font-bold text-xl uppercase tracking-wider hover:bg-brand-gold/10 transition-all duration-300 overflow-hidden whitespace-nowrap">
-                <span class="relative z-10 flex items-center justify-center gap-3">
+            <NuxtLink to="/register" class="group flex-1 relative px-8 py-5 border-2 border-brand-gold text-brand-gold rounded-xl font-bold text-xl uppercase tracking-wider hover:bg-brand-gold/10 transition-all duration-300 overflow-hidden flex items-center justify-center">
+                <span class="relative z-10 flex items-center justify-center gap-3 whitespace-nowrap">
                     {{ $t('home.register') }}
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
