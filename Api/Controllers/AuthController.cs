@@ -41,13 +41,13 @@ public class AuthController : ControllerBase
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null || !user.EmailConfirmed)
-            return Unauthorized("Utilisateur inexistant ou e-mail non confirmÃ©.");
+            return Unauthorized("email ou mot de passe incorrect.");
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
         if (!result.Succeeded)
-            return Unauthorized("Mot de passe incorrect.");
+            return Unauthorized("email ou mot de passe incorrect.");
 
-        // GÃ©nÃ©rer les claims (infos stockÃ©es dans le token)
+        // Générer les claims (infos stockées dans le token)
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),

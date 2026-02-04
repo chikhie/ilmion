@@ -168,10 +168,15 @@ const form = ref({
 const errorMessage = ref('')
 
 const isFormValid = computed(() => {
+  const hasDigit = /\d/.test(form.value.password)
+  const hasNonAlphanumeric = /[^a-zA-Z0-9]/.test(form.value.password)
+  
   return (
     form.value.username.length >= 3 &&
     form.value.email.includes('@') &&
-    form.value.password.length >= 6
+    form.value.password.length >= 6 &&
+    hasDigit &&
+    hasNonAlphanumeric
   )
 })
 
@@ -186,6 +191,12 @@ const validationMessage = computed(() => {
   }
   if (form.value.password.length < 6) {
     return 'Le mot de passe doit contenir au moins 6 caractères'
+  }
+  if (!/\d/.test(form.value.password)) {
+    return 'Le mot de passe doit contenir au moins un chiffre'
+  }
+  if (!/[^a-zA-Z0-9]/.test(form.value.password)) {
+    return 'Le mot de passe doit contenir au moins un caractère spécial'
   }
   
   return ''
