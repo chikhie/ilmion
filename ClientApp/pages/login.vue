@@ -184,7 +184,7 @@ const validationMessage = computed(() => {
   if (!/[0-9]/.test(form.value.password)) {
     return 'Le mot de passe doit contenir au moins un chiffre'
   }
-  if (!/[!@#$%^&*(),.?":{}|<>]/.test(form.value.password)) {
+  if (!/[!@#$%^&*(),.?":{}|<>-]/.test(form.value.password)) {
     return 'Le mot de passe doit contenir au moins un caractère spécial'
   }
   return ''
