@@ -88,7 +88,7 @@
           <div class="relative group pt-2">
             <button
               type="submit"
-              :disabled="authStore.loading || !isFormValid"
+              :disabled="!isMounted || authStore.loading || !isFormValid"
               class="w-full bg-brand-gold text-brand-dark py-4 rounded-2xl font-bold text-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
             >
               <span v-if="!authStore.loading">Se connecter</span>
@@ -178,8 +178,11 @@ const validationMessage = computed(() => {
   return ''
 })
 
+const isMounted = ref(false)
+
 // Afficher le message de succès si redirection depuis register
 onMounted(() => {
+  isMounted.value = true
   if (route.query.registered === 'true') {
     successMessage.value = 'Inscription réussie ! Veuillez vérifier votre email pour confirmer votre compte.'
   } else if (route.query.verify === 'true') {
@@ -198,7 +201,12 @@ const handleLogin = async () => {
     const redirect = route.query.redirect as string
     router.push(redirect || '/dashboard')
   } else {
-    errorMessage.value = result.message || 'Erreur de connexion'
+    // Check for specific error messages or default to generic
+    if (result.message === 'Invalid credentials' || result.message === 'User not found') {
+        errorMessage.value = 'Email ou mot de passe incorrect.'
+    } else {
+        errorMessage.value = result.message || 'Erreur de connexion'
+    }
   }
 }
 </script>
