@@ -112,10 +112,13 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'fr'
+      },
       title: 'ILMANAR',
       meta: [
         { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
         { name: 'description', content: 'Plateforme éducative pour apprendre l\'histoire islamique et l\'arabe' },
         { name: 'theme-color', content: '#0F172A' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
