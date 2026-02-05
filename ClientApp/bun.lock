@@ -7,11 +7,9 @@
         "@microsoft/signalr": "^10.0.0",
         "@nuxtjs/i18n": "^10.2.1",
         "@pinia/nuxt": "^0.5.1",
-        "hls.js": "^1.6.15",
         "nuxt": "^3.13.0",
         "pinia": "^2.1.7",
         "posthog-js": "^1.336.4",
-        "sharp": "^0.34.5",
         "vue": "latest",
       },
       "devDependencies": {
@@ -20,6 +18,7 @@
         "@nuxtjs/tailwindcss": "^6.12.0",
         "@types/node": "^25.0.3",
         "@vite-pwa/nuxt": "^1.1.0",
+        "sharp": "^0.34.5",
         "vue-tsc": "^3.2.1",
       },
     },
@@ -1244,8 +1243,6 @@
     "has-tostringtag": ["has-tostringtag@1.0.2", "", { "dependencies": { "has-symbols": "^1.0.3" } }, "sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw=="],
 
     "hasown": ["hasown@2.0.2", "", { "dependencies": { "function-bind": "^1.1.2" } }, "sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ=="],
-
-    "hls.js": ["hls.js@1.6.15", "", {}, "sha512-E3a5VwgXimGHwpRGV+WxRTKeSp2DW5DI5MWv34ulL3t5UNmyJWCQ1KmLEHbYzcfThfXG8amBL+fCYPneGHC4VA=="],
 
     "hookable": ["hookable@5.5.3", "", {}, "sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ=="],
 
