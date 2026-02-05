@@ -3,12 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
-    '@vite-pwa/nuxt',
-    '@nuxtjs/i18n'
-  ],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vite-pwa/nuxt', '@nuxtjs/i18n', '@nuxtjs/sitemap'],
+
+  site: {
+    url: 'https://ilmanar.site'
+  },
 
   i18n: {
     locales: [
@@ -145,4 +144,3 @@ export default defineNuxtConfig({
   },
 
 })
-

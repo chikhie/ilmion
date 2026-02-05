@@ -13,6 +13,7 @@
   "dependencies": {
     "@microsoft/signalr": "^10.0.0",
     "@nuxtjs/i18n": "^10.2.1",
+    "@nuxtjs/sitemap": "^7.6.0",
     "@pinia/nuxt": "^0.5.1",
     "nuxt": "^3.13.0",
     "pinia": "^2.1.7",
