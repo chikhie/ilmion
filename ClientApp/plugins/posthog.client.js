@@ -36,7 +36,7 @@ export default defineNuxtPlugin(nuxtApp => {
                     }
                 })
             }).catch(err => console.error('Failed to load PostHog', err));
-        }, 3000); // 3s delay
+        }, 3000);
     }
 
     return {
