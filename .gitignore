@@ -34,3 +34,5 @@ postgres_data/
 appsettings.Development.json
 appsettings.json
 appsettings.Production.json
+ClientApp/lighthouse-report.report.html
+ClientApp/lighthouse-report.report.json

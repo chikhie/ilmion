@@ -1,6 +1,3 @@
-import { defineNuxtPlugin } from '#app'
-import posthog from 'posthog-js'
-
 export default defineNuxtPlugin(nuxtApp => {
     const runtimeConfig = useRuntimeConfig();
     const posthogKey = runtimeConfig.public.posthogPublicKey;
@@ -16,13 +13,29 @@ export default defineNuxtPlugin(nuxtApp => {
         return;
     }
 
-    const posthogClient = posthog.init(posthogKey, {
-        api_host: window.location.origin + '/ingest',
-        defaults: runtimeConfig.public.posthogDefaults,
-        loaded: (posthog) => {
-            if (import.meta.env.MODE === 'development') posthog.debug();
+    const posthogClient = {
+        capture: (...args) => {
+            // Placeholder: Could queue events here if critical, 
+            // but for now we just rely on the real instance loading.
+            if (window.posthog) {
+                window.posthog.capture(...args);
+            }
         }
-    })
+    };
+
+    // Lazy load PostHog
+    if (import.meta.client) {
+        import('posthog-js').then(({ default: posthog }) => {
+            posthog.init(posthogKey, {
+                api_host: window.location.origin + '/ingest',
+                defaults: runtimeConfig.public.posthogDefaults,
+                loaded: (ph) => {
+                    if (import.meta.env.MODE === 'development') ph.debug();
+                    // Expose globally if needed or just let it run
+                }
+            })
+        }).catch(err => console.error('Failed to load PostHog', err));
+    }
 
     return {
         provide: {

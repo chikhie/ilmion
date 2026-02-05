@@ -14,7 +14,7 @@
     <!-- Header Actions -->
     <div class="absolute top-6 right-6 z-20 flex items-center gap-4">
         <!-- Login Button -->
-        <NuxtLink to="/login" class="px-5 py-2.5 rounded-xl border border-brand-gold/30 bg-brand-wood/10 backdrop-blur-sm text-brand-gold font-bold text-sm uppercase tracking-wide hover:bg-brand-gold hover:text-brand-dark transition-all duration-300">
+        <NuxtLink to="/login" class="px-5 py-2.5 rounded-xl border border-brand-gold/30 bg-brand-wood/10 backdrop-blur-sm text-brand-parchment font-bold text-sm uppercase tracking-wide hover:bg-brand-gold hover:text-brand-dark transition-all duration-300">
             {{ $t('common.login') }}
         </NuxtLink>
 
@@ -23,6 +23,7 @@
             <button 
                 @click="isLangMenuOpen = !isLangMenuOpen"
                 class="px-3 py-2.5 rounded-xl border border-brand-gold/30 bg-brand-wood/10 backdrop-blur-sm text-brand-parchment hover:border-brand-gold/60 transition-all duration-200 flex items-center gap-2"
+                aria-label="Changer la langue"
             >
                 <span class="text-xl">{{ locale === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
                 <span class="text-sm font-medium uppercase tracking-wide">{{ locale }}</span>
@@ -54,8 +55,8 @@
     <div class="relative z-10 flex-grow flex flex-col items-center justify-center container mx-auto px-4 py-16 text-center">
         
         <!-- Logo / Icon Placeholder -->
-        <div class="mb-8 p-6 rounded-full border border-brand-gold/20 bg-brand-wood/10 backdrop-blur-sm shadow-[0_0_30px_rgba(195,151,18,0.1)] animate-fade-in-down">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="mb-8 p-6 rounded-full border border-brand-gold/20 bg-brand-wood/10 backdrop-blur-sm shadow-[0_0_30px_rgba(195,151,18,0.1)] animate-fade-in-down" style="width: 112px; height: 112px;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="64" height="64" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
         </div>

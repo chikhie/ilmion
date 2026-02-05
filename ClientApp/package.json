@@ -14,11 +14,9 @@
     "@microsoft/signalr": "^10.0.0",
     "@nuxtjs/i18n": "^10.2.1",
     "@pinia/nuxt": "^0.5.1",
-    "hls.js": "^1.6.15",
     "nuxt": "^3.13.0",
     "pinia": "^2.1.7",
     "posthog-js": "^1.336.4",
-    "sharp": "^0.34.5",
     "vue": "latest"
   },
   "devDependencies": {
@@ -27,6 +25,7 @@
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@types/node": "^25.0.3",
     "@vite-pwa/nuxt": "^1.1.0",
+    "sharp": "^0.34.5",
     "vue-tsc": "^3.2.1"
   }
 }

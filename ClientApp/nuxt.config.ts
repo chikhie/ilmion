@@ -25,7 +25,7 @@ export default defineNuxtConfig({
       redirectOn: 'root'
     }
   },
-  googleFonts: {
+  /* googleFonts: {
     families: {
       Merriweather: [400, 700],
       'Libre+Baskerville': [400, 700],
@@ -35,8 +35,8 @@ export default defineNuxtConfig({
     },
     display: 'swap',
     download: true,
-    base64: true
-  },
+    base64: false
+  }, */
 
   pwa: {
     registerType: 'autoUpdate',
@@ -122,8 +122,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'manifest', href: '/manifest.webmanifest' },
-        { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', integrity: 'sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==', crossorigin: 'anonymous', referrerpolicy: 'no-referrer' }
+        { rel: 'manifest', href: '/manifest.webmanifest' }
       ]
     }
   },
@@ -132,6 +131,19 @@ export default defineNuxtConfig({
     server: {
       fs: {
         strict: false
+      }
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('posthog-js')) {
+                return 'posthog';
+              }
+            }
+          }
+        }
       }
     }
   },

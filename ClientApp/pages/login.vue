@@ -33,7 +33,7 @@
 
           <!-- Email -->
           <div class="space-y-2">
-            <label for="email" class="block text-xs font-bold uppercase tracking-widest text-brand-parchment/60 ml-1">
+            <label for="email" class="block text-xs font-bold uppercase tracking-widest text-brand-parchment/90 ml-1">
               Email
             </label>
             <input
@@ -48,7 +48,7 @@
 
           <!-- Password -->
           <div class="space-y-2">
-            <label for="password" class="block text-xs font-bold uppercase tracking-widest text-brand-parchment/60 ml-1">
+            <label for="password" class="block text-xs font-bold uppercase tracking-widest text-brand-parchment/90 ml-1">
               Mot de passe
             </label>
             <div class="relative group">
@@ -65,6 +65,7 @@
                 @click="showPassword = !showPassword"
                 class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-gold/60 hover:text-brand-gold transition-colors"
                 title="Afficher/Masquer le mot de passe"
+                aria-label="Afficher ou masquer le mot de passe"
               >
                 <svg v-if="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
