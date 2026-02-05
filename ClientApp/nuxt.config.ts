@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
-    '@nuxtjs/google-fonts',
     '@nuxtjs/i18n'
   ],
 
@@ -25,18 +24,6 @@ export default defineNuxtConfig({
       redirectOn: 'root'
     }
   },
-  /* googleFonts: {
-    families: {
-      Merriweather: [400, 700],
-      'Libre+Baskerville': [400, 700],
-      Inter: [400, 600],
-      'Source+Sans+3': [400, 600],
-      Amiri: [400, 700]
-    },
-    display: 'swap',
-    download: true,
-    base64: false
-  }, */
 
   pwa: {
     registerType: 'autoUpdate',
@@ -66,7 +53,7 @@ export default defineNuxtConfig({
     workbox: {
       navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MB limit for Google Fonts
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
     },
     client: {
       installPrompt: true,
@@ -101,9 +88,14 @@ export default defineNuxtConfig({
   // Configuration du build
   nitro: {
     routeRules: {
-      '/ingest/static/**': { proxy: 'https://eu-assets.i.posthog.com/static/**' },
-      '/ingest/array/**': { proxy: 'https://eu-assets.i.posthog.com/array/**' },
-      '/ingest/**': { proxy: 'https://eu.i.posthog.com/**' },
+      '/ingest/static/**': { proxy: 'https://eu-assets.i.posthog.com/static/**', headers: { 'cache-control': 'public, max-age=3600, stale-while-revalidate=86400' } },
+      '/ingest/array/**': { proxy: 'https://eu-assets.i.posthog.com/array/**', headers: { 'cache-control': 'public, max-age=3600, stale-while-revalidate=86400' } },
+      '/ingest/**': { proxy: 'https://eu.i.posthog.com/**', headers: { 'cache-control': 'public, max-age=3600, stale-while-revalidate=86400' } },
+      '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+      '/**/*.png': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+      '/**/*.svg': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+      '/**/*.js': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+      '/**/*.css': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } }
     },
     // output: {
     //   publicDir: '../wwwroot'

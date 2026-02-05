@@ -20,7 +20,7 @@
   },
   link: [
     { rel: 'icon', type: 'image/svg+xml', href: '/Ilmanar.svg' },
-    { rel: 'preload', as: 'image', href: '/patterns/arabesque.png' }
+    { rel: 'preload', as: 'image', href: '/patterns/arabesque.png', fetchpriority: 'high' }
   ]
 })
 </script>
