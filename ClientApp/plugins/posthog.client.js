@@ -25,16 +25,18 @@ export default defineNuxtPlugin(nuxtApp => {
 
     // Lazy load PostHog
     if (import.meta.client) {
-        import('posthog-js').then(({ default: posthog }) => {
-            posthog.init(posthogKey, {
-                api_host: window.location.origin + '/ingest',
-                defaults: runtimeConfig.public.posthogDefaults,
-                loaded: (ph) => {
-                    if (import.meta.env.MODE === 'development') ph.debug();
-                    // Expose globally if needed or just let it run
-                }
-            })
-        }).catch(err => console.error('Failed to load PostHog', err));
+        // Defer loading to prioritize FCP/LCP
+        setTimeout(() => {
+            import('posthog-js').then(({ default: posthog }) => {
+                posthog.init(posthogKey, {
+                    api_host: window.location.origin + '/ingest',
+                    defaults: runtimeConfig.public.posthogDefaults,
+                    loaded: (ph) => {
+                        if (import.meta.env.MODE === 'development') ph.debug();
+                    }
+                })
+            }).catch(err => console.error('Failed to load PostHog', err));
+        }, 3000); // 3s delay
     }
 
     return {

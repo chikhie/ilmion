@@ -137,6 +137,7 @@ export default defineNuxtConfig({
       }
     },
     build: {
+      target: 'esnext',
       rollupOptions: {
         output: {
           manualChunks(id) {
