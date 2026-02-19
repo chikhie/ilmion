@@ -3,7 +3,20 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vite-pwa/nuxt', '@nuxtjs/i18n', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@vite-pwa/nuxt', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/google-fonts'],
+
+  googleFonts: {
+    families: {
+      'Merriweather': [300, 400, 700, 900],
+      'Libre+Baskerville': [400, 700],
+      'Inter': [100, 300, 400, 500, 700, 900],
+      'Source+Sans+3': [300, 400, 600, 700],
+      'Amiri': [400, 700],
+    },
+    display: 'swap',
+    prefetch: true,
+    preconnect: true,
+  },
 
   site: {
     url: 'https://ilmanar.site'
@@ -116,7 +129,8 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'manifest', href: '/manifest.webmanifest' }
+        { rel: 'manifest', href: '/manifest.webmanifest' },
+        { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', integrity: 'sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==', crossorigin: 'anonymous', referrerpolicy: 'no-referrer' }
       ]
     }
   },
