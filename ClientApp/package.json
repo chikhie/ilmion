@@ -15,6 +15,7 @@
     "@nuxtjs/i18n": "^10.2.1",
     "@nuxtjs/sitemap": "^7.6.0",
     "@pinia/nuxt": "^0.5.1",
+    "hls.js": "^1.6.15",
     "nuxt": "^3.13.0",
     "pinia": "^2.1.7",
     "posthog-js": "^1.336.4",
