@@ -89,7 +89,7 @@
           <div class="relative group pt-2">
             <button
               type="submit"
-              :disabled="!isMounted || authStore.loading || !isFormValid"
+              :disabled="authStore.loading || !isFormValid"
               class="w-full bg-brand-gold text-brand-dark py-4 rounded-2xl font-bold text-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
             >
               <span v-if="!authStore.loading">Se connecter</span>

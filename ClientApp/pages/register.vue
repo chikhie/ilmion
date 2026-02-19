@@ -176,7 +176,7 @@ const isFormValid = computed(() => {
     form.value.password.length >= 6 &&
     /[A-Z]/.test(form.value.password) &&
     /\d/.test(form.value.password) &&
-    /[!@#$%^&*(),.?":{}|<>]/.test(form.value.password)
+    /[!@#$%^&*(),.?":{}|<>-]/.test(form.value.password)
   )
 })
 

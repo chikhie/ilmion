@@ -15,7 +15,6 @@
            class="w-full h-full object-contain" 
            controls 
            preload="auto"
-           poster="/images/video-placeholder.png"
          >
            Votre navigateur ne supporte pas la lecture de vidéos.
          </video>
