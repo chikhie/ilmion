@@ -163,10 +163,7 @@ const isFormValid = computed(() => {
   const { email, password } = form.value
   return (
     email.includes('@') &&
-    password.length >= 6 &&
-    /[A-Z]/.test(password) &&
-    /[0-9]/.test(password) &&
-    /[!@#-$%^&*(),.?":{}|<>]/.test(password)
+    password.length >= 0
   )
 })
 
@@ -176,17 +173,8 @@ const validationMessage = computed(() => {
   if (!form.value.email.includes('@')) {
     return 'Veuillez entrer une adresse email valide'
   }
-  if (form.value.password.length < 6) {
-    return 'Le mot de passe doit contenir au moins 6 caractères'
-  }
-  if (!/[A-Z]/.test(form.value.password)) {
-    return 'Le mot de passe doit contenir au moins une majuscule'
-  }
-  if (!/[0-9]/.test(form.value.password)) {
-    return 'Le mot de passe doit contenir au moins un chiffre'
-  }
-  if (!/[!@#$%^&*(),.?":{}|<>-]/.test(form.value.password)) {
-    return 'Le mot de passe doit contenir au moins un caractère spécial'
+  if (form.value.password.length < 0) {
+    return 'Veuillez entrer un mot de passe'
   }
   return ''
 })
