@@ -13,15 +13,15 @@
           
           <!-- Authenticated -->
           <div class="flex items-center space-x-8">
-
-
-            <NuxtLink to="/videos" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
-              Vidéos
-            </NuxtLink>
-
             <NuxtLink to="/dashboard" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
               Dashboard
             </NuxtLink>
+
+            <NuxtLink to="/articles" class="text-sm font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest" active-class="!text-brand-gold">
+              Articles
+            </NuxtLink>
+
+
             
             <!-- User Dropdown -->
             <div class="relative ml-4 border-l border-white/10 pl-6" ref="dropdownRef">

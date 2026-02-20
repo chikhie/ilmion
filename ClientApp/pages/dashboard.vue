@@ -179,6 +179,20 @@
 
       </div>
 
+      <!-- Articles Section -->
+      <NuxtLink to="/articles" class="block mt-6 md:mt-10 p-4 md:p-6 rounded-xl md:rounded-2xl bg-brand-wood/10 border border-brand-gold/10 backdrop-blur-sm relative overflow-hidden group hover:border-brand-gold/30 hover:bg-brand-wood/20 transition-all duration-300 animate-fade-in-up delay-300">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-brand-gold/10 flex items-center justify-center text-brand-gold border border-brand-gold/20 flex-shrink-0 group-hover:bg-brand-gold/20 transition-colors">
+            <i class="fas fa-book-open text-xl"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-serif-title font-bold text-brand-parchment group-hover:text-white transition-colors">Articles & Leçons</h3>
+            <p class="text-brand-parchment/50 text-sm">Explorez les fondements de l'islam à travers des articles détaillés.</p>
+          </div>
+          <i class="fas fa-arrow-right text-brand-gold/30 group-hover:text-brand-gold group-hover:translate-x-1 transition-all duration-300"></i>
+        </div>
+      </NuxtLink>
+
       <!-- Loading/Error States -->
       <div v-if="pendingThemes" class="flex justify-center py-20">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-gold"></div>

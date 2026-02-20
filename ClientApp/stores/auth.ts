@@ -188,15 +188,16 @@ export const useAuthStore = defineStore('auth', {
     clearSession() {
       this.user = null
       this.token = null
-      this.refreshToken = null // Clear state
+      this.refreshToken = null
 
-      const tokenCookie = useCookie('auth_token')
+      // Force cookie expiration by setting maxAge to 0
+      const tokenCookie = useCookie('auth_token', { maxAge: 0 })
       tokenCookie.value = null
 
-      const refreshTokenCookie = useCookie('auth_refresh_token')
+      const refreshTokenCookie = useCookie('auth_refresh_token', { maxAge: 0 })
       refreshTokenCookie.value = null
 
-      const userCookie = useCookie('auth_user')
+      const userCookie = useCookie('auth_user', { maxAge: 0 })
       userCookie.value = null
     },
 

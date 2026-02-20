@@ -99,6 +99,22 @@
                 </span>
             </NuxtLink>
         </div>
+
+        <!-- Articles Link -->
+        <NuxtLink to="/articles" class="group mt-8 w-full max-w-lg flex items-center gap-4 px-6 py-5 rounded-2xl border border-brand-gold/20 bg-brand-wood/10 backdrop-blur-sm hover:bg-brand-gold/10 hover:border-brand-gold/40 transition-all duration-300 animate-fade-in-up delay-500">
+            <div class="w-12 h-12 rounded-xl bg-brand-gold/15 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-gold/25 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+            </div>
+            <div class="flex-1 text-left">
+                <span class="block text-brand-parchment font-bold text-base">Articles & Leçons</span>
+                <span class="block text-brand-parchment/50 text-sm">Explorez les fondements de l'islam à travers des articles détaillés.</span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-brand-gold/40 group-hover:text-brand-gold group-hover:translate-x-1 transition-all flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </NuxtLink>
     </div>
     
     <!-- Footer Decorative Line -->
