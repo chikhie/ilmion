@@ -120,6 +120,16 @@
                 <i class="fas fa-th-large w-5 text-center group-hover:text-brand-gold transition-colors"></i>
                 Dashboard
               </NuxtLink>
+
+              <NuxtLink
+                to="/articles"
+                class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-bold text-sm uppercase tracking-widest group"
+                active-class="!text-brand-gold bg-brand-gold/5"
+                @click="mobileMenuOpen = false"
+              >
+                <i class="fas fa-book w-5 text-center group-hover:text-brand-gold transition-colors"></i>
+                Articles
+              </NuxtLink>
               
               <NuxtLink
                 to="/profile"
