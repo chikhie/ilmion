@@ -60,6 +60,16 @@ const articles = [
     icon: '🕌',
     tags: ['Tawhid', 'Piliers', 'Conditions'],
   },
+  {
+    slug: 'tawhid',
+    to: '/articles/tawhid',
+    title: "Le Tawhid — L'Unicité d'Allah",
+    arabic: 'التوحيد',
+    description: 'Définition, les trois catégories indissociables (Rububiyyah, Uluhiyyah, Asma wa Sifat), règles fondamentales et mérites.',
+    category: 'Aqida',
+    icon: '☪️',
+    tags: ['Unicité', 'Catégories', 'Mérites'],
+  },
 ]
 
 onMounted(() => {
