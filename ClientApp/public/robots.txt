@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-# Sitemap: https://ilmanar.com/sitemap.xml
+# Sitemap: https://ilmanar.site/sitemap.xml
