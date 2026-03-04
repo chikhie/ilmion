@@ -1,0 +1,37 @@
+Score: 55.00000000000001
+
+=== Opportunities ===
+- Reduce unused CSS (150ms)
+  * @font-face{font-display:swap;font-family:Amiri;font-style:normal;font-weight:400;src:url(data:font/… - Wasted: 2211.96KB / undefinedms
+  * *,::backdrop,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw… - Wasted: 43.70KB / undefinedms
+  * https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css - Wasted: 18.27KB / undefinedms
+- Reduce unused JavaScript (600ms)
+  * http://localhost:3000/_nuxt/CYA7_8gh.js - Wasted: 100.43KB / undefinedms
+
+=== Metrics ===
+first-contentful-paint: 14.4 s (Score: 0) / Weight: 10
+largest-contentful-paint: 14.7 s (Score: 0) / Weight: 25
+total-blocking-time: 30 ms (Score: 1) / Weight: 30
+cumulative-layout-shift: 0 (Score: 1) / Weight: 25
+speed-index: 14.4 s (Score: 0.01) / Weight: 10
+
+=== Diagnostics ===
+- cache-insight: Use efficient cache lifetimes
+  http://localhost:3000/patterns/arabesque.png
+- lcp-discovery-insight: LCP request discovery
+  {"type":"checklist","items":{"priorityHinted":{"label":"fetchpriority=high should be applied","value":false},"requestDiscoverable":{"label":"Request is discoverable in initial document","value":true},"eagerlyLoaded":{"label":"lazy load not applied","value":true}}}
+  {"type":"node","lhId":"page-0-DIV","path":"1,HTML,1,BODY,0,DIV,0,DIV,0,MAIN,1,DIV,0,DIV,0,DIV","selector":"main.flex-grow > div.h-full > div.absolute > div.absolute","boundingRect":{"top":0,"bottom":806,"left":0,"right":412,"width":412,"height":806},"snippet":"<div class=\"absolute inset-0 opacity-[0.03]\" style=\"background-image:url('/patterns/arabesque.png');\" data-v-05dafe26=\"\">","nodeLabel":"main.flex-grow > div.h-full > div.absolute > div.absolute"}
+- network-dependency-tree-insight: Network dependency tree
+  {"type":"list-section","value":{"type":"network-tree","chains":{"D232479BE6B0BEA05B91CDBDEDE17C1D":{"url":"http://localhost:3000/","navStartToEndTime":165,"transferSize":2330974,"isLongest":true,"children":{"20528.10":{"url":"http://localhost:3000/_nuxt/n4iP_16o.js","navStartToEndTime":179,"transferSize":5450,"isLongest":true,"children":{"20528.152":{"url":"http://localhost:3000/_nuxt/Bb1IFu9A.js","navStartToEndTime":2198,"transferSize":0,"isLongest":true,"children":{}},"20528.151":{"url":"http://localhost:3000/_nuxt/Bg599x2p.js","navStartToEndTime":2197,"transferSize":0,"children":{}},"20528.150":{"url":"http://localhost:3000/_nuxt/Xpb7rO1n.js","navStartToEndTime":2197,"transferSize":0,"children":{}},"20528.148":{"url":"http://localhost:3000/_nuxt/D4S50XIS.js","navStartToEndTime":2196,"transferSize":0,"children":{}},"20528.146":{"url":"http://localhost:3000/_nuxt/CV9zE2Za.js","navStartToEndTime":2196,"transferSize":0,"children":{}},"20528.147":{"url":"http://localhost:3000/_nuxt/BWufpkA2.js","navStartToEndTime":2195,"transferSize":0,"children":{}},"20528.145":{"url":"http://localhost:3000/_nuxt/B94lM3GJ.js","navStartToEndTime":2195,"transferSize":0,"children":{}},"20528.144":{"url":"http://localhost:3000/_nuxt/BXU6TS-N.js","navStartToEndTime":2194,"transferSize":0,"children":{}},"20528.149":{"url":"http://localhost:3000/_nuxt/quizz._FDpfnRP.css","navStartToEndTime":2193,"transferSize":0,"children":{}}}},"20528.5":{"url":"http://localhost:3000/_nuxt/CYA7_8gh.js","navStartToEndTime":183,"transferSize":258946,"children":{"20528.86":{"url":"http://localhost:3000/_nuxt/BIl4cyR9.js","navStartToEndTime":382,"transferSize":6095,"children":{}},"20528.83":{"url":"http://localhost:3000/_i18n/xS5IY54t/fr/messages.json","navStartToEndTime":362,"transferSize":1297,"children":{}},"20528.12":{"url":"http://localhost:3000/_nuxt/index.DW-MvxGX.css","navStartToEndTime":240,"transferSize":1223,"children":{}}}},"20528.9":{"url":"http://localhost:3000/_nuxt/DK4gExmJ.js","navStartToEndTime":179,"transferSize":6803,"children":{}},"20528.7":{"url":"http://localhost:3000/_nuxt/BnBKO33J.js","navStartToEndTime":178,"transferSize":921,"children":{}},"20528.8":{"url":"http://localhost:3000/_nuxt/DlAUqK2U.js","navStartToEndTime":178,"transferSize":421,"children":{}},"20528.6":{"url":"http://localhost:3000/_nuxt/CW6j3cXs.js","navStartToEndTime":177,"transferSize":716,"children":{}},"20528.2":{"url":"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css","navStartToEndTime":173,"transferSize":19435,"children":{}}}}},"longestChain":{"duration":2198}}}
+  {"type":"list-section","title":"Preconnected origins","description":"[preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints help the browser establish a connection earlier in the page load, saving time when the first request for that origin is made. The following are the origins that the page preconnected to.","value":{"type":"text","value":"no origins were preconnected"}}
+  {"type":"list-section","title":"Preconnect candidates","description":"Add [preconnect](https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect/) hints to your most important origins, but try to use no more than 4.","value":{"type":"text","value":"No additional origins are good candidates for preconnecting"}}
+- render-blocking-insight: Render blocking requests
+  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
+- unused-css-rules: Reduce unused CSS
+  @font-face{font-display:swap;font-family:Amiri;font-style:normal;font-weight:400;src:url(data:font/…
+  *,::backdrop,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw…
+  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
+- unused-javascript: Reduce unused JavaScript
+  http://localhost:3000/_nuxt/CYA7_8gh.js
+- bf-cache: Page prevented back/forward cache restoration
+  {"reason":"Internal error.","failureType":"Not actionable","subItems":{"type":"subitems","items":[{"frameUrl":"http://localhost:3000/"}]},"protocolReason":"IgnoreEventAndEvict"}
