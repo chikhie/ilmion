@@ -102,8 +102,9 @@ definePageMeta({
   layout: false
 })
 
-useHead({
-  title: 'Mot de passe oublié'
+useSeoMeta({
+  title: 'Mot de passe oublié | Ilmanar',
+  description: 'Récupérez l\'accès à votre compte Ilmanar en réinitialisant votre mot de passe.'
 })
 
 const email = ref('')

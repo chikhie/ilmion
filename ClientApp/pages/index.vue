@@ -123,6 +123,11 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Accueil | Ilmanar',
+  description: 'Apprenez et approfondissez vos connaissances sur l\'Islam. Participez à des quiz interactifs pour évaluer vos acquis.'
+})
+
 const { locale, locales, setLocale } = useI18n()
 const isLangMenuOpen = ref(false)
 const authStore = useAuthStore()

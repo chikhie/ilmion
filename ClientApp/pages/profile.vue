@@ -181,8 +181,9 @@ definePageMeta({
   layout: false // Custom layout control
 })
 
-useHead({
-  title: 'Mon profil - Ilmanar'
+useSeoMeta({
+  title: 'Mon profil | Ilmanar',
+  description: 'Gérez vos informations personnelles et vos préférences sur Ilmanar.'
 })
 
 const api = useApi()

@@ -29,7 +29,7 @@ export default defineNuxtConfig({
     ],
     defaultLocale: 'fr',
     langDir: 'locales',
-    strategy: 'no_prefix',
+    strategy: 'prefix_except_default',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
@@ -63,7 +63,6 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {
-      navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
     },
@@ -73,8 +72,6 @@ export default defineNuxtConfig({
     devOptions: {
       enabled: true,
       suppressWarnings: true,
-      navigateFallback: '/',
-      navigateFallbackAllowlist: [/^\/$/],
       type: 'module',
     },
   },

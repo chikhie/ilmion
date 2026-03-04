@@ -62,4 +62,9 @@ const route = useRoute()
 const themeId = route.params.themeId
 
 const { data: theme, pending, error } = await useFetch(`/api/theme/${themeId}`)
+
+useSeoMeta({
+  title: () => theme.value ? `${theme.value.title} | Ilmanar` : 'Thème | Ilmanar',
+  description: () => theme.value ? theme.value.description : 'Explorez ce thème et ses quiz.'
+})
 </script>

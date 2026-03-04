@@ -62,13 +62,14 @@ onMounted(() => {
   }
 })
 
+useSeoMeta({
+  title: () => `${videoTitle.value} | Ilmanar`,
+  description: () => `Regardez la vidéo ${videoTitle.value} sur Ilmanar.`
+})
+
 useHead({
-  title: videoTitle.value,
-  meta: [
-    { name: 'description', content: `Regardez la vidéo ${videoTitle.value} sur Ilmanar.` }
-  ],
   script: [
-      { src: 'https://cdn.jsdelivr.net/npm/hls.js@latest', tagPosition: 'bodyClose' } // Load hls.js from CDN if not in package.json
+      { src: 'https://cdn.jsdelivr.net/npm/hls.js@latest', tagPosition: 'bodyClose' }
   ]
 })
 </script>

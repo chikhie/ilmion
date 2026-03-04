@@ -103,8 +103,9 @@ definePageMeta({
   layout: false
 })
 
-useHead({
-  title: 'Confirmation d\'email'
+useSeoMeta({
+  title: 'Confirmation d\'email | Ilmanar',
+  description: 'Confirmez votre adresse email pour activer votre compte Ilmanar.'
 })
 
 const route = useRoute()

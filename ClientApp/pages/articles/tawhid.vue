@@ -242,7 +242,10 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: false })
-useHead({ title: "Le Tawhid — L'Unicité d'Allah" })
+useSeoMeta({
+  title: 'Le Tawhid — L\'Unicité d\'Allah | Ilmanar',
+  description: 'Définition, Catégories et Mérites du Tawhid. Apprenez ce qui constitue le fondement de l\'Islam.'
+})
 
 const pageRef = ref<HTMLElement | null>(null)
 const introRef = ref<HTMLElement | null>(null)

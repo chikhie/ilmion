@@ -229,6 +229,11 @@ import { useRouter, useRoute } from 'vue-router';
 
 const { locale, locales, setLocale, t } = useI18n()
 
+useSeoMeta({
+  title: 'Quiz Islamique | Ilmanar',
+  description: 'Testez vos connaissances sur l\'islam avec nos quiz interactifs. Choisissez votre niveau et commencez à apprendre.'
+})
+
 // Computed for available locales with proper typing
 const availableLocales = computed(() => 
     (locales.value as Array<{ code: string; name: string }>)

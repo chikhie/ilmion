@@ -216,6 +216,11 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Parcours | Ilmanar',
+  description: 'Suivez votre progression et explorez vos thèmes d\'apprentissage sur Ilmanar.'
+})
+
 import { useAuthStore } from '~/stores/auth'
 import { progressionService } from '~/services/progression.service'
 

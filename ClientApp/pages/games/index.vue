@@ -44,4 +44,9 @@
 
 <script setup>
 const { data: themes, pending, error } = await useFetch('/api/theme')
+
+useSeoMeta({
+  title: 'Thèmes & Quiz | Ilmanar',
+  description: 'Explorez nos thèmes et testez vos connaissances islamiques avec nos quiz éducatifs.'
+})
 </script>

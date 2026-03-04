@@ -47,7 +47,10 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: false })
-useHead({ title: 'Articles & Leçons' })
+useSeoMeta({
+  title: 'Articles & Leçons | Ilmanar',
+  description: 'Explorez les fondements de l\'islam à travers des articles détaillés et illustrés.'
+})
 
 const articles = [
   {

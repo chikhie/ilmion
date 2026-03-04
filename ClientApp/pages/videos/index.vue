@@ -98,10 +98,8 @@ onMounted(async () => {
     }
 })
 
-useHead({
-  title: 'Vidéos',
-  meta: [
-    { name: 'description', content: 'Explorez notre bibliothèque de vidéos éducatives sur Ilmanar.' }
-  ]
+useSeoMeta({
+  title: 'Bibliothèque Vidéo | Ilmanar',
+  description: 'Explorez notre bibliothèque de vidéos éducatives sur Ilmanar.'
 })
 </script>

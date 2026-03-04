@@ -273,7 +273,10 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: false })
-useHead({ title: "L'Attestation de Foi" })
+useSeoMeta({
+  title: 'La Double Attestation de Foi (Ash-Shahadatayn) | Ilmanar',
+  description: 'Significations, Piliers et Conditions de la double attestation de foi (Lā ilāha illa Allāh et Muhammad Rasūl Allāh).'
+})
 
 const pageRef = ref<HTMLElement | null>(null)
 const introRef = ref<HTMLElement | null>(null)

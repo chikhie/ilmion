@@ -142,8 +142,9 @@ definePageMeta({
   layout: false
 })
 
-useHead({
-  title: 'Connexion'
+useSeoMeta({
+  title: 'Connexion | Ilmanar',
+  description: 'Connectez-vous à votre compte Ilmanar pour continuer votre apprentissage.'
 })
 
 const authStore = useAuthStore()

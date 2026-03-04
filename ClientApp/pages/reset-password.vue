@@ -159,8 +159,9 @@ definePageMeta({
   layout: false
 })
 
-useHead({
-  title: 'Réinitialiser le mot de passe'
+useSeoMeta({
+  title: 'Réinitialiser le mot de passe | Ilmanar',
+  description: 'Choisissez un nouveau mot de passe pour votre compte Ilmanar.'
 })
 
 const authStore = useAuthStore()

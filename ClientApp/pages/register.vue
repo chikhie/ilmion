@@ -152,8 +152,9 @@ definePageMeta({
   layout: false
 })
 
-useHead({
-  title: 'Inscription'
+useSeoMeta({
+  title: 'Inscription | Ilmanar',
+  description: 'Créez un compte Ilmanar pour commencer à apprendre l\'Islam.'
 })
 
 const authStore = useAuthStore()
