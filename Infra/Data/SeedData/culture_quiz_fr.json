@@ -1,1240 +1,238 @@
 {
     "questions": [
         {
-            "type": "number",
-            "text": "Combien y a-t-il de piliers de l'islam ?",
-            "correctAnswer": "5",
-            "explanation": "L'islam repose sur 5 piliers : l'attestation de foi, la prière, la zakat, le jeûne et le pèlerinage."
-        },
-        {
-            "type": "number",
-            "text": "Combien y a-t-il de piliers de la foi (Imane) ?",
-            "correctAnswer": "6",
-            "explanation": "Les 6 piliers de la foi sont : croire en Allah, Ses anges, Ses livres, Ses messagers, au Jour Dernier et au Destin."
-        },
-        {
             "type": "choice",
-            "text": "Quel est le premier pilier de l'islam ?",
+            "text": "Quel est le symbole chimique de l'eau ?",
             "options": [
-                "La Salat",
-                "La Shahada",
-                "Le Hajj",
-                "La Zakat"
+                "CO2",
+                "H2O",
+                "O2",
+                "NaCl"
             ],
-            "correctAnswer": "La Shahada",
-            "explanation": "L'attestation de foi (Shahada) est la porte d'entrée dans l'islam."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle est la prière qui s'effectue au milieu de la journée, juste après que le soleil a dépassé le zénith ?",
-            "options": [
-                "Fajr",
-                "Dhuhr",
-                "Asr",
-                "Maghrib"
-            ],
-            "correctAnswer": "Dhuhr",
-            "explanation": "Dhuhr est la deuxième prière obligatoire de la journée."
+            "correctAnswer": "H2O",
+            "explanation": "La molécule d'eau est composée de deux atomes d'hydrogène (H) et d'un atome d'oxygène (O)."
         },
         {
             "type": "number",
-            "text": "Combien d'unités de prière (Rakats) contient la prière du Maghrib (coucher du soleil) ?",
-            "correctAnswer": "3",
-            "explanation": "La prière du Maghrib est composée de 3 Rakats obligatoires."
-        },
-        {
-            "type": "number",
-            "text": "Combien d'unités de prière (Rakats) contient la prière du Fajr (aube) ?",
-            "correctAnswer": "2",
-            "explanation": "La prière du Fajr est composée de 2 Rakats."
+            "text": "Combien de liaisons covalentes un atome de carbone peut-il généralement former ?",
+            "correctAnswer": "4",
+            "explanation": "Le carbone est tétravalent, ce qui signifie qu'il possède 4 électrons sur sa couche externe et peut former 4 liaisons covalentes."
         },
         {
             "type": "choice",
-            "text": "Quelle sourate doit être obligatoirement récitée à chaque unité de prière ?",
+            "text": "Quelle particule subatomique porte une charge électrique négative ?",
             "options": [
-                "Al-Ikhlas",
-                "Al-Fatiha",
-                "An-Nas",
-                "Al-Falaq"
+                "Le proton",
+                "Le neutron",
+                "L'électron",
+                "Le photon"
             ],
-            "correctAnswer": "Al-Fatiha",
-            "explanation": "La récitation de la sourate Al-Fatiha est un pilier de la prière ; la prière n'est pas valide sans elle."
-        },
-        {
-            "type": "choice",
-            "text": "Comment appelle-t-on les ablutions sèches faites avec de la terre ou de la pierre ?",
-            "options": [
-                "Woudou",
-                "Ghusl",
-                "Tayammum",
-                "Istinja"
-            ],
-            "correctAnswer": "Tayammum",
-            "explanation": "Le Tayammum remplace l'eau lorsqu'elle est absente ou qu'on ne peut pas l'utiliser pour des raisons médicales."
-        },
-        {
-            "type": "choice",
-            "text": "Vers quelle ville les musulmans se tournent-ils pour prier (la Qibla) ?",
-            "options": [
-                "Médine",
-                "Jérusalem",
-                "La Mecque",
-                "Le Caire"
-            ],
-            "correctAnswer": "La Mecque",
-            "explanation": "La Qibla est la direction de la Kaaba, située à La Mecque."
+            "correctAnswer": "L'électron",
+            "explanation": "L'électron a une charge élémentaire négative, tandis que le proton est positif et le neutron est neutre."
         },
         {
             "type": "boolean",
-            "text": "Le rire à voix haute annule-t-il la prière ?",
+            "text": "La vitesse de la lumière dans le vide est d'environ 300 000 km/s.",
             "correctAnswer": "true",
-            "explanation": "Le rire sonore invalide la prière (et selon certains avis, les ablutions)."
+            "explanation": "La vitesse exacte de la lumière dans le vide est de 299 792 458 m/s, souvent arrondie à 300 000 km/s."
         },
         {
             "type": "choice",
-            "text": "Quel est le plus grand péché en Islam, considéré comme le premier annulatif ?",
+            "text": "Quel est le gaz le plus abondant dans l'atmosphère terrestre ?",
             "options": [
-                "Le meurtre",
-                "Le Shirk (Polythéisme)",
-                "Le vol",
-                "L'adultère"
+                "L'oxygène",
+                "Le dioxyde de carbone",
+                "L'azote",
+                "L'argon"
             ],
-            "correctAnswer": "Le Shirk (Polythéisme)",
-            "explanation": "Le Shirk (associer des partenaires à Allah) est le seul péché qu'Allah ne pardonne pas s'il n'est pas suivi de repentir avant la mort."
-        },
-        {
-            "type": "boolean",
-            "text": "La sorcellerie est-elle considérée comme un annulatif de l'islam ?",
-            "correctAnswer": "true",
-            "explanation": "La pratique de la sorcellerie est un acte de mécréance majeure."
+            "correctAnswer": "L'azote",
+            "explanation": "L'atmosphère terrestre est composée à environ 78 % de diazote (azote) et 21 % de dioxygène."
         },
         {
             "type": "choice",
-            "text": "Quel est le jugement de celui qui se moque d'un aspect de la religion d'Allah ?",
+            "text": "Quelle est l'unité de mesure de la force dans le Système international (SI) ?",
             "options": [
-                "C'est un petit péché",
-                "C'est détestable mais permis",
-                "C'est un annulatif de l'islam",
-                "Cela n'a pas d'importance"
+                "Le Joule",
+                "Le Newton",
+                "Le Watt",
+                "Le Pascal"
             ],
-            "correctAnswer": "C'est un annulatif de l'islam",
-            "explanation": "La moquerie envers Allah, Son Prophète ou Ses signes fait sortir de l'islam (Sourate At-Tawbah)."
-        },
-        {
-            "type": "choice",
-            "text": "Comment s'appelait le père du Prophète Muhammad ?",
-            "options": [
-                "Abu Talib",
-                "Abdullah",
-                "Abdul-Muttalib",
-                "Hamza"
-            ],
-            "correctAnswer": "Abdullah",
-            "explanation": "Le père du Prophète s'appelait Abdullah ibn Abd al-Muttalib."
-        },
-        {
-            "type": "choice",
-            "text": "Comment s'appelait la mère du Prophète Muhammad ?",
-            "options": [
-                "Aicha",
-                "Khadija",
-                "Amina",
-                "Halima"
-            ],
-            "correctAnswer": "Amina",
-            "explanation": "Sa mère était Amina bint Wahb."
-        },
-        {
-            "type": "choice",
-            "text": "Qui était le grand-père paternel du Prophète, qui l'a pris en charge après la mort de sa mère ?",
-            "options": [
-                "Abu Lahab",
-                "Abdullah",
-                "Abdul-Muttalib",
-                "Abbas"
-            ],
-            "correctAnswer": "Abdul-Muttalib",
-            "explanation": "Abdul-Muttalib a élevé le Prophète après la mort de sa mère Amina."
-        },
-        {
-            "type": "choice",
-            "text": "Quel oncle du Prophète l'a protégé pendant des années sans jamais se convertir à l'islam ?",
-            "options": [
-                "Abu Lahab",
-                "Hamza",
-                "Abu Talib",
-                "Abbas"
-            ],
-            "correctAnswer": "Abu Talib",
-            "explanation": "Abu Talib, le père d'Ali, a protégé son neveu Muhammad jusqu'à sa mort, bien qu'il soit resté sur la religion de ses ancêtres."
-        },
-        {
-            "type": "choice",
-            "text": "Qui fut la première épouse du Prophète Muhammad ?",
-            "options": [
-                "Aicha",
-                "Khadija",
-                "Sawda",
-                "Hafsa"
-            ],
-            "correctAnswer": "Khadija",
-            "explanation": "Khadija bint Khuwaylid fut la première épouse du Prophète et la première personne à croire en sa mission."
-        },
-        {
-            "type": "choice",
-            "text": "Laquelle de ces femmes est une fille du Prophète Muhammad ?",
-            "options": [
-                "Asma",
-                "Fatima",
-                "Sumayyah",
-                "Amina"
-            ],
-            "correctAnswer": "Fatima",
-            "explanation": "Fatima Zahra est l'une des quatre filles du Prophète."
+            "correctAnswer": "Le Newton",
+            "explanation": "L'unité de force est le Newton (N), nommé en l'honneur d'Isaac Newton."
         },
         {
             "type": "number",
-            "text": "Combien de fils le Prophète Muhammad a-t-il eus (tous décédés en bas âge) ?",
-            "correctAnswer": "3",
-            "explanation": "Il a eu 3 fils : Qasim, Abdullah et Ibrahim."
-        },
-        {
-            "type": "choice",
-            "text": "Qui était la nourrice du Prophète Muhammad ?",
-            "options": [
-                "Barakah",
-                "Halima As-Sa'diyya",
-                "Sumayyah",
-                "Thuwaybah"
-            ],
-            "correctAnswer": "Halima As-Sa'diyya",
-            "explanation": "Halima, de la tribu des Banu Sa'd, fut sa nourrice dans le désert."
-        },
-        {
-            "type": "choice",
-            "text": "À quelle tribu appartenait le Prophète Muhammad ?",
-            "options": [
-                "Aws",
-                "Khazraj",
-                "Quraysh",
-                "Thaqif"
-            ],
-            "correctAnswer": "Quraysh",
-            "explanation": "Le Prophète faisait partie de la noble tribu de Quraysh à La Mecque."
-        },
-        {
-            "type": "choice",
-            "text": "Qui est le premier homme créé par Allah et le premier prophète ?",
-            "options": [
-                "Nuh (Noé)",
-                "Ibrahim (Abraham)",
-                "Adam",
-                "Moussa (Moïse)"
-            ],
-            "correctAnswer": "Adam",
-            "explanation": "Adam est le père de l'humanité et le premier prophète."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a construit l'Arche pour échapper au Déluge ?",
-            "options": [
-                "Ibrahim",
-                "Nuh (Noé)",
-                "Younous (Jonas)",
-                "Lout (Loth)"
-            ],
-            "correctAnswer": "Nuh (Noé)",
-            "explanation": "Nuh a construit l'Arche sur ordre d'Allah pour sauver les croyants et les animaux."
-        },
-        {
-            "type": "choice",
-            "text": "Qui est surnommé 'Khalil Allah' (L'ami intime d'Allah) ?",
-            "options": [
-                "Moussa",
-                "Ibrahim (Abraham)",
-                "Issa (Jésus)",
-                "Daoud (David)"
-            ],
-            "correctAnswer": "Ibrahim (Abraham)",
-            "explanation": "Ibrahim a reçu ce titre honorifique pour sa dévotion totale."
-        },
-        {
-            "type": "choice",
-            "text": "Quel fils d'Ibrahim devait être sacrifié avant qu'Allah ne le remplace par un bélier ?",
-            "options": [
-                "Ishaq (Isaac)",
-                "Ismaël",
-                "Yacoub (Jacob)",
-                "Yusuf (Joseph)"
-            ],
-            "correctAnswer": "Ismaël",
-            "explanation": "Selon la tradition islamique, c'est Ismaël qui était l'enfant du sacrifice."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a été avalé par un grand poisson (ou baleine) ?",
-            "options": [
-                "Moussa",
-                "Younous (Jonas)",
-                "Ayyoub (Job)",
-                "Yahya"
-            ],
-            "correctAnswer": "Younous (Jonas)",
-            "explanation": "Younous (Dhun-Nun) a été avalé par le poisson après avoir quitté son peuple sans permission."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a parlé au berceau pour défendre sa mère Maryam (Marie) ?",
-            "options": [
-                "Yahya",
-                "Issa (Jésus)",
-                "Moussa",
-                "Ibrahim"
-            ],
-            "correctAnswer": "Issa (Jésus)",
-            "explanation": "Issa a parlé miraculeusement dès sa naissance pour disculper sa mère."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a fendu la Mer Rouge avec son bâton ?",
-            "options": [
-                "Issa",
-                "Moussa (Moïse)",
-                "Haroun (Aaron)",
-                "Daoud"
-            ],
-            "correctAnswer": "Moussa (Moïse)",
-            "explanation": "Moussa a fendu la mer par la permission d'Allah pour sauver les enfants d'Israël de Pharaon."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète pouvait comprendre le langage des animaux et commander aux Djinns ?",
-            "options": [
-                "Daoud",
-                "Soulayman (Salomon)",
-                "Yusuf",
-                "Ibrahim"
-            ],
-            "correctAnswer": "Soulayman (Salomon)",
-            "explanation": "Allah a accordé à Soulayman un royaume immense et le pouvoir sur les animaux et les Djinns."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a été jeté dans un puits par ses frères ?",
-            "options": [
-                "Yusuf (Joseph)",
-                "Yacoub",
-                "Binyamin",
-                "Ismaël"
-            ],
-            "correctAnswer": "Yusuf (Joseph)",
-            "explanation": "Yusuf a été trahi par ses frères jaloux, jeté dans un puits, puis vendu en Égypte."
-        },
-        {
-            "type": "choice",
-            "text": "Quel livre sacré a été révélé au prophète Daoud (David) ?",
-            "options": [
-                "La Torah",
-                "L'Injil (Évangile)",
-                "Le Zabour (Psaumes)",
-                "Les Feuillets"
-            ],
-            "correctAnswer": "Le Zabour (Psaumes)",
-            "explanation": "Le Zabour est le livre révélé à Daoud."
-        },
-        {
-            "type": "choice",
-            "text": "Durant quel mois islamique les musulmans jeûnent-ils ?",
-            "options": [
-                "Rajab",
-                "Cha'ban",
-                "Ramadan",
-                "Muharram"
-            ],
-            "correctAnswer": "Ramadan",
-            "explanation": "Le Ramadan est le 9ème mois du calendrier hégirien et le mois du jeûne obligatoire."
-        },
-        {
-            "type": "choice",
-            "text": "Comment appelle-t-on le repas pris avant l'aube durant le Ramadan ?",
-            "options": [
-                "Iftar",
-                "Suhoor",
-                "Walima",
-                "Aqiqah"
-            ],
-            "correctAnswer": "Suhoor",
-            "explanation": "Le Suhoor est le repas béni pris avant le début du jeûne à l'aube."
-        },
-        {
-            "type": "choice",
-            "text": "Comment appelle-t-on la nuit durant le Ramadan qui est meilleure que 1000 mois ?",
-            "options": [
-                "Laylat al-Miraj",
-                "Laylat al-Qadr (Nuit du Destin)",
-                "Laylat al-Bara'at",
-                "Mawlid"
-            ],
-            "correctAnswer": "Laylat al-Qadr (Nuit du Destin)",
-            "explanation": "C'est durant cette nuit que le Coran a commencé à être révélé."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle fête marque la fin du mois de Ramadan ?",
-            "options": [
-                "Eid al-Adha",
-                "Eid al-Fitr",
-                "Achoura",
-                "Mawlid"
-            ],
-            "correctAnswer": "Eid al-Fitr",
-            "explanation": "L'Eid al-Fitr est la fête de la rupture du jeûne."
-        },
-        {
-            "type": "choice",
-            "text": "Comment s'appelle la prière nocturne spécifique effectuée en groupe pendant le Ramadan ?",
-            "options": [
-                "Tahajjud",
-                "Tarawih",
-                "Duha",
-                "Witr"
-            ],
-            "correctAnswer": "Tarawih",
-            "explanation": "Les Tarawih sont les prières surérogatoires accomplies après la prière de l'Isha pendant le Ramadan."
-        },
-        {
-            "type": "number",
-            "text": "Quel est le montant (pourcentage) de la Zakat sur l'argent épargné pendant un an ?",
-            "correctAnswer": "2.5",
-            "explanation": "Le taux de la Zakat Al-Maal est généralement de 2,5 %."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle est la sourate la plus longue du Coran ?",
-            "options": [
-                "Al-Ma'ida",
-                "Al-Baqara",
-                "Al-Imran",
-                "An-Nisa"
-            ],
-            "correctAnswer": "Al-Baqara",
-            "explanation": "La sourate Al-Baqara (La Vache) est la deuxième sourate et la plus longue."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle est la sourate la plus courte du Coran ?",
-            "options": [
-                "Al-Asr",
-                "Al-Ikhlas",
-                "Al-Kawthar",
-                "An-Nas"
-            ],
-            "correctAnswer": "Al-Kawthar",
-            "explanation": "La sourate Al-Kawthar (L'Abondance) ne contient que 3 versets et est la plus courte."
-        },
-        {
-            "type": "number",
-            "text": "Pendant combien d'années le Coran a-t-il été révélé au Prophète ?",
-            "correctAnswer": "23",
-            "explanation": "La révélation a duré environ 23 ans (13 à La Mecque et 10 à Médine)."
-        },
-        {
-            "type": "choice",
-            "text": "Quel ange était chargé de transmettre la révélation au Prophète ?",
-            "options": [
-                "Mikail",
-                "Israfil",
-                "Jibril (Gabriel)",
-                "Malik"
-            ],
-            "correctAnswer": "Jibril (Gabriel)",
-            "explanation": "L'ange Jibril est l'ange de la révélation."
-        },
-        {
-            "type": "choice",
-            "text": "Où le Prophète a-t-il reçu la première révélation ?",
-            "options": [
-                "Chez lui",
-                "À la Kaaba",
-                "Dans la grotte de Hira",
-                "Dans la grotte de Thawr"
-            ],
-            "correctAnswer": "Dans la grotte de Hira",
-            "explanation": "C'est dans la grotte de Hira, sur le Mont An-Nour, que les premiers versets ont été révélés."
-        },
-        {
-            "type": "choice",
-            "text": "Quels furent les premiers mots révélés du Coran ?",
-            "options": [
-                "Prie",
-                "Lis (Iqra)",
-                "Dis : Il est Allah",
-                "Louange à Allah"
-            ],
-            "correctAnswer": "Lis (Iqra)",
-            "explanation": "Le premier mot révélé fut 'Iqra' (Lis/Récite) de la sourate Al-Alaq."
-        },
-        {
-            "type": "choice",
-            "text": "Quel compagnon est surnommé 'As-Siddiq' (Le Véridique) ?",
-            "options": [
-                "Omar ibn al-Khattab",
-                "Othman ibn Affan",
-                "Ali ibn Abi Talib",
-                "Abu Bakr"
-            ],
-            "correctAnswer": "Abu Bakr",
-            "explanation": "Abu Bakr a reçu ce titre pour sa foi inébranlable, notamment lors de l'épisode du voyage nocturne."
-        },
-        {
-            "type": "choice",
-            "text": "Quel compagnon est surnommé 'Al-Farouq' (Celui qui discerne le vrai du faux) ?",
-            "options": [
-                "Abu Bakr",
-                "Omar ibn al-Khattab",
-                "Ali ibn Abi Talib",
-                "Hamza"
-            ],
-            "correctAnswer": "Omar ibn al-Khattab",
-            "explanation": "C'est le Prophète qui a donné ce surnom à Omar."
-        },
-        {
-            "type": "choice",
-            "text": "Lequel de ces hommes n'est pas l'un des 'Califes Bien Guidés' (Rashidun) ?",
-            "options": [
-                "Muawiya",
-                "Abu Bakr",
-                "Omar",
-                "Ali"
-            ],
-            "correctAnswer": "Muawiya",
-            "explanation": "Les quatre califes bien guidés sont Abu Bakr, Omar, Othman et Ali."
-        },
-        {
-            "type": "choice",
-            "text": "En quelle année de l'Hégire a eu lieu la grande bataille de Badr ?",
-            "options": [
-                "1 ère année",
-                "2 ème année",
-                "3 ème année",
-                "5 ème année"
-            ],
-            "correctAnswer": "2 ème année",
-            "explanation": "La bataille de Badr a eu lieu durant le Ramadan de l'an 2 de l'Hégire."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle prière ne comporte ni inclinaison (Ruku) ni prosternation (Sujud) ?",
-            "options": [
-                "La prière de l'Eid",
-                "La prière funéraire (Janaza)",
-                "La prière du Witr",
-                "La prière de l'éclipse"
-            ],
-            "correctAnswer": "La prière funéraire (Janaza)",
-            "explanation": "La prière mortuaire se fait debout avec 4 Takbirs."
-        },
-        {
-            "type": "choice",
-            "text": "Quel est le nom de la source d'eau qui a jailli sous les pieds d'Ismaël à La Mecque ?",
-            "options": [
-                "Al-Kawthar",
-                "Tasnim",
-                "Zamzam",
-                "Salsabil"
-            ],
-            "correctAnswer": "Zamzam",
-            "explanation": "L'eau de Zamzam a jailli pour abreuver Hajar et son fils Ismaël."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète est connu pour sa patience légendaire face à la maladie et la perte de ses biens ?",
-            "options": [
-                "Ayyoub (Job)",
-                "Yacoub",
-                "Moussa",
-                "Younous"
-            ],
-            "correctAnswer": "Ayyoub (Job)",
-            "explanation": "Ayyoub est l'exemple coranique de la patience (Sabr) face à l'épreuve."
-        },
-        {
-            "type": "choice",
-            "text": "Quel est le nom de la première mosquée construite par le Prophète à Médine (ou juste avant d'y entrer) ?",
-            "options": [
-                "Masjid An-Nabawi",
-                "Masjid Al-Haram",
-                "Masjid Quba",
-                "Masjid Al-Aqsa"
-            ],
-            "correctAnswer": "Masjid Quba",
-            "explanation": "La mosquée de Quba est la première mosquée bâtie en Islam."
-        },
-        {
-            "type": "boolean",
-            "text": "Est-il permis de jeûner le jour de l'Eid ?",
-            "correctAnswer": "false",
-            "explanation": "Il est strictement interdit de jeûner les jours de l'Eid al-Fitr et de l'Eid al-Adha."
-        },
-        {
-            "type": "choice",
-            "text": "Quel acte marque la fin de l'état de sacralisation (Ihram) lors du Hajj ou de la Omra ?",
-            "options": [
-                "Le sacrifice",
-                "La coupe des cheveux",
-                "Le Tawaf",
-                "La lapidation"
-            ],
-            "correctAnswer": "La coupe des cheveux",
-            "explanation": "Se raser ou se couper les cheveux (Tahallul) marque la sortie de l'état d'Ihram."
-        },
-        {
-            "type": "choice",
-            "text": "Combien de tours doit-on effectuer autour de la Kaaba lors du Tawaf ?",
-            "options": [
-                "5",
-                "7",
-                "10",
-                "3"
-            ],
+            "text": "Quel est le pH d'une solution parfaitement neutre à 25°C ?",
             "correctAnswer": "7",
-            "explanation": "Le Tawaf consiste en 7 tours autour de la Kaaba."
-        },
-        {
-            "type": "choice",
-            "text": "Entre quelles collines effectue-t-on la marche rapide (Sa'i) ?",
-            "options": [
-                "Arafat et Mina",
-                "Safa et Marwa",
-                "Thawr et Nour",
-                "Uhud et Badr"
-            ],
-            "correctAnswer": "Safa et Marwa",
-            "explanation": "Le Sa'i consiste à faire 7 allers-retours entre les monts Safa et Marwa."
-        },
-        {
-            "type": "choice",
-            "text": "Quel est le jour le plus important de la semaine pour les musulmans ?",
-            "options": [
-                "Lundi",
-                "Jeudi",
-                "Vendredi (Joumou'a)",
-                "Samedi"
-            ],
-            "correctAnswer": "Vendredi (Joumou'a)",
-            "explanation": "Le vendredi est le meilleur jour de la semaine sur lequel le soleil s'est levé."
-        },
-        {
-            "type": "choice",
-            "text": "Que signifie le mot 'Islam' ?",
-            "options": [
-                "Paix",
-                "Soumission (à Allah)",
-                "Amour",
-                "Fraternité"
-            ],
-            "correctAnswer": "Soumission (à Allah)",
-            "explanation": "Bien que lié à la racine de la paix, Islam signifie techniquement la soumission à la volonté d'Allah."
-        },
-        {
-            "type": "choice",
-            "text": "Qui a construit la Kaaba avec son fils ?",
-            "options": [
-                "Adam",
-                "Ibrahim",
-                "Nuh",
-                "Muhammad"
-            ],
-            "correctAnswer": "Ibrahim",
-            "explanation": "Ibrahim et son fils Ismaël ont élevé les fondations de la Maison (Kaaba)."
-        },
-        {
-            "type": "choice",
-            "text": "Quel oncle du Prophète est maudit dans une sourate du Coran ?",
-            "options": [
-                "Abu Talib",
-                "Abbas",
-                "Abu Lahab",
-                "Hamza"
-            ],
-            "correctAnswer": "Abu Lahab",
-            "explanation": "La sourate Al-Masad (Tabbat) a été révélée concernant Abu Lahab et sa femme."
-        },
-        {
-            "type": "choice",
-            "text": "Laquelle de ces batailles fut une défaite pour les musulmans à cause de la désobéissance des archers ?",
-            "options": [
-                "Badr",
-                "Uhud",
-                "Khandaq",
-                "Tabouk"
-            ],
-            "correctAnswer": "Uhud",
-            "explanation": "À Uhud, les archers ont quitté leur poste pensant la bataille finie, ce qui a permis à l'ennemi de contre-attaquer."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a reçu la Torah ?",
-            "options": [
-                "Issa",
-                "Moussa",
-                "Daoud",
-                "Ibrahim"
-            ],
-            "correctAnswer": "Moussa",
-            "explanation": "La Torah a été révélée à Moussa (Moïse)."
-        },
-        {
-            "type": "choice",
-            "text": "Qui est la femme de Pharaon citée en exemple pour les croyants dans le Coran ?",
-            "options": [
-                "Hajar",
-                "Asiya",
-                "Maryam",
-                "Khadija"
-            ],
-            "correctAnswer": "Asiya",
-            "explanation": "Asiya bint Muzahim est la femme de Pharaon qui a cru en Moussa et Allah."
-        },
-        {
-            "type": "choice",
-            "text": "Combien de noms d'Allah (Asma ul-Husna) sont généralement mentionnés dans le hadith célèbre ?",
-            "options": [
-                "77",
-                "99",
-                "100",
-                "66"
-            ],
-            "correctAnswer": "99",
-            "explanation": "Le hadith mentionne qu'Allah a 99 noms ; celui qui les assimile entrera au Paradis."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle sourate équivaut au tiers du Coran en lecture ?",
-            "options": [
-                "Al-Fatiha",
-                "Al-Ikhlas",
-                "Al-Falaq",
-                "Al-Kafirun"
-            ],
-            "correctAnswer": "Al-Ikhlas",
-            "explanation": "La sourate Al-Ikhlas (Le Monothéisme pur) est considérée comme équivalente à un tiers du Coran."
-        },
-        {
-            "type": "choice",
-            "text": "Qu'est-ce que le 'Ghusl' ?",
-            "options": [
-                "Les petites ablutions",
-                "Le lavage mortuaire",
-                "Les grandes ablutions (bain rituel)",
-                "Le lavage des mains"
-            ],
-            "correctAnswer": "Les grandes ablutions (bain rituel)",
-            "explanation": "Le Ghusl est le lavage complet du corps nécessaire après l'état d'impureté majeure."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle prière surérogatoire est fortement recommandée en milieu de matinée ?",
-            "options": [
-                "Witr",
-                "Duha",
-                "Tahajjud",
-                "Rawatib"
-            ],
-            "correctAnswer": "Duha",
-            "explanation": "La prière de Duha s'accomplit après le lever du soleil et avant le zénith."
+            "explanation": "Sur une échelle de 0 à 14, un pH de 7 indique une solution neutre, comme l'eau pure."
         },
         {
             "type": "boolean",
-            "text": "Le musulman doit-il croire aux livres révélés avant le Coran (Torah, Évangile, Psaumes) dans leur forme originelle ?",
-            "correctAnswer": "true",
-            "explanation": "C'est un pilier de la foi de croire qu'Allah a révélé des livres à ses prophètes, bien que les versions actuelles puissent être altérées."
-        },
-        {
-            "type": "choice",
-            "text": "Qui sera le compagnon du Prophète Issa lors de son retour à la fin des temps ?",
-            "options": [
-                "Le Mahdi",
-                "Le Dajjal",
-                "Khidr",
-                "Ilyas"
-            ],
-            "correctAnswer": "Le Mahdi",
-            "explanation": "Issa descendra et priera derrière le Mahdi selon la tradition prophétique."
-        },
-        {
-            "type": "choice",
-            "text": "Quel ange est chargé de souffler dans la Trompe le Jour du Jugement ?",
-            "options": [
-                "Jibril",
-                "Mikail",
-                "Israfil",
-                "Malik"
-            ],
-            "correctAnswer": "Israfil",
-            "explanation": "Israfil est l'ange désigné pour souffler dans la Trompe (As-Sour)."
-        },
-        {
-            "type": "choice",
-            "text": "Comment s'appelle le gardien de l'Enfer ?",
-            "options": [
-                "Ridwan",
-                "Malik",
-                "Munkar",
-                "Nakir"
-            ],
-            "correctAnswer": "Malik",
-            "explanation": "Malik est le gardien principal de l'Enfer."
-        },
-        {
-            "type": "choice",
-            "text": "Comment s'appelle le gardien du Paradis ?",
-            "options": [
-                "Ridwan",
-                "Malik",
-                "Jibril",
-                "Mikail"
-            ],
-            "correctAnswer": "Ridwan",
-            "explanation": "Ridwan est traditionnellement connu comme le gardien du Paradis."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle ville est devenue la capitale de l'État islamique après l'Hégire ?",
-            "options": [
-                "La Mecque",
-                "Taïf",
-                "Médine (Yathrib)",
-                "Jérusalem"
-            ],
-            "correctAnswer": "Médine (Yathrib)",
-            "explanation": "Médine est devenue le centre de la communauté musulmane après l'émigration du Prophète."
-        },
-        {
-            "type": "choice",
-            "text": "Combien de portes le Paradis possède-t-il ?",
-            "options": [
-                "7",
-                "8",
-                "99",
-                "12"
-            ],
-            "correctAnswer": "8",
-            "explanation": "Le Paradis possède 8 portes, dont l'une est réservée aux jeûneurs (Ar-Rayyan)."
-        },
-        {
-            "type": "choice",
-            "text": "Comment s'appelle la porte du Paradis réservée à ceux qui jeûnent ?",
-            "options": [
-                "Bab as-Salat",
-                "Bab al-Jihad",
-                "Ar-Rayyan",
-                "Bab as-Sadaqa"
-            ],
-            "correctAnswer": "Ar-Rayyan",
-            "explanation": "Ar-Rayyan est la porte exclusive des jeûneurs."
-        },
-        {
-            "type": "choice",
-            "text": "Quel est le nom de la monture du Prophète lors du voyage nocturne (Isra et Miraj) ?",
-            "options": [
-                "Al-Qaswa",
-                "Al-Buraq",
-                "Duldul",
-                "Al-Abda"
-            ],
-            "correctAnswer": "Al-Buraq",
-            "explanation": "Al-Buraq est la créature fantastique qui a transporté le Prophète de La Mecque à Jérusalem puis aux cieux."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète n'a pas de père ?",
-            "options": [
-                "Adam",
-                "Issa (Jésus)",
-                "Ibrahim",
-                "Yahya"
-            ],
-            "correctAnswer": "Issa (Jésus)",
-            "explanation": "Issa est né miraculeusement de la Vierge Marie sans père."
-        },
-        {
-            "type": "boolean",
-            "text": "Adam a-t-il un père et une mère ?",
+            "text": "L'eau bout toujours à 100°C, quelle que soit l'altitude.",
             "correctAnswer": "false",
-            "explanation": "Adam a été créé directement par Allah sans père ni mère."
+            "explanation": "La température d'ébullition dépend de la pression atmosphérique. En altitude, la pression est plus faible, donc l'eau bout à une température inférieure à 100°C."
         },
         {
             "type": "choice",
-            "text": "Quelle femme est considérée comme l'une des 4 meilleures femmes de l'univers et la fille d'Imran ?",
+            "text": "Qui a formulé la célèbre équation E=mc² ?",
             "options": [
-                "Maryam (Marie)",
-                "Aicha",
-                "Hafsa",
-                "Bilqis"
+                "Isaac Newton",
+                "Marie Curie",
+                "Albert Einstein",
+                "Niels Bohr"
             ],
-            "correctAnswer": "Maryam (Marie)",
-            "explanation": "Maryam bint Imran est l'une des femmes parfaites selon la tradition."
+            "correctAnswer": "Albert Einstein",
+            "explanation": "Albert Einstein a formulé cette équation en 1905 dans le cadre de sa théorie de la relativité restreinte."
         },
         {
             "type": "choice",
-            "text": "Quel calife a ordonné la compilation finale du Coran en un seul livre standardisé ?",
+            "text": "Comment appelle-t-on le passage direct de l'état solide à l'état gazeux ?",
             "options": [
-                "Abu Bakr",
-                "Omar",
-                "Othman",
-                "Ali"
+                "La fusion",
+                "La vaporisation",
+                "La sublimation",
+                "La condensation"
             ],
-            "correctAnswer": "Othman",
-            "explanation": "C'est sous le califat d'Othman ibn Affan que le Coran a été standardisé et copié."
+            "correctAnswer": "La sublimation",
+            "explanation": "La sublimation est la transition de phase directe du solide au gaz, sans passer par l'état liquide."
         },
         {
             "type": "choice",
-            "text": "Quel est le 'Sayyid al-Istighfar' ?",
+            "text": "Quel est le symbole chimique de l'or ?",
             "options": [
-                "Une prière de nuit",
-                "La meilleure formule de demande de pardon",
-                "Un type de Zakat",
-                "Un pèlerinage"
+                "Or",
+                "Ag",
+                "Au",
+                "Fe"
             ],
-            "correctAnswer": "La meilleure formule de demande de pardon",
-            "explanation": "C'est une invocation spécifique enseignée par le Prophète pour demander pardon à Allah."
-        },
-        {
-            "type": "choice",
-            "text": "Qu'est-ce que le 'Tashahhud' ?",
-            "options": [
-                "L'ouverture de la prière",
-                "La récitation faite assis dans la prière",
-                "L'appel à la prière",
-                "La prosternation"
-            ],
-            "correctAnswer": "La récitation faite assis dans la prière",
-            "explanation": "Le Tashahhud est récité en position assise (Jalsa) pendant la prière."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle bataille fut la première grande victoire des musulmans ?",
-            "options": [
-                "Uhud",
-                "Badr",
-                "La Tranchée",
-                "Hunayn"
-            ],
-            "correctAnswer": "Badr",
-            "explanation": "Badr est la première victoire décisive."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a été élevé au ciel et n'est pas mort ?",
-            "options": [
-                "Moussa",
-                "Ibrahim",
-                "Issa",
-                "Yusuf"
-            ],
-            "correctAnswer": "Issa",
-            "explanation": "Selon le Coran, Issa n'a pas été tué ni crucifié, mais élevé vers Allah."
+            "correctAnswer": "Au",
+            "explanation": "Le symbole 'Au' vient du mot latin 'aurum' qui signifie or."
         },
         {
             "type": "number",
-            "text": "Combien de fois par jour les musulmans se prosternent-ils au minimum dans les prières obligatoires ?",
-            "correctAnswer": "34",
-            "explanation": "Il y a 17 Rakats obligatoires par jour, et chaque Rakat contient 2 prosternations : 17 * 2 = 34."
-        },
-        {
-            "type": "choice",
-            "text": "Quel est le nom de l'ange de la mort ?",
-            "options": [
-                "Malik",
-                "Azrael (Malak al-Mawt)",
-                "Ridwan",
-                "Munkar"
-            ],
-            "correctAnswer": "Azrael (Malak al-Mawt)",
-            "explanation": "Bien que le nom Azrael soit courant dans la tradition, le Coran l'appelle 'L'Ange de la Mort' (Malak al-Mawt)."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle sourate est appelée 'Le Cœur du Coran' ?",
-            "options": [
-                "Al-Mulk",
-                "Yasin",
-                "Ar-Rahman",
-                "Al-Waqi'a"
-            ],
-            "correctAnswer": "Yasin",
-            "explanation": "La sourate Yasin est souvent désignée ainsi dans les traditions."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle sourate protège du châtiment de la tombe si on la récite chaque nuit ?",
-            "options": [
-                "Al-Mulk",
-                "Al-Waqi'a",
-                "Yasin",
-                "Al-Kahf"
-            ],
-            "correctAnswer": "Al-Mulk",
-            "explanation": "La sourate Al-Mulk (La Royauté) est protectrice contre le supplice de la tombe."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle sourate est recommandé de lire le vendredi ?",
-            "options": [
-                "Al-Kahf (La Caverne)",
-                "Al-Baqara",
-                "Yusuf",
-                "Maryam"
-            ],
-            "correctAnswer": "Al-Kahf (La Caverne)",
-            "explanation": "Lire la sourate Al-Kahf le vendredi illumine le croyant d'une lumière jusqu'au vendredi suivant."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle est la durée d'un jour auprès d'Allah selon le Coran (dans certains versets) ?",
-            "options": [
-                "100 ans",
-                "1 000 ans",
-                "50 000 ans",
-                "10 000 ans"
-            ],
-            "correctAnswer": "1 000 ans",
-            "explanation": "Le Coran mentionne qu'un jour auprès de Lui est comme 1000 ans de ce que vous comptez (Sourate Al-Hajj)."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a été envoyé au peuple de Thamoud ?",
-            "options": [
-                "Houd",
-                "Salih",
-                "Shu'ayb",
-                "Lout"
-            ],
-            "correctAnswer": "Salih",
-            "explanation": "Le prophète Salih a été envoyé aux Thamoud avec le miracle de la chamelle."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a été envoyé au peuple de 'Ad ?",
-            "options": [
-                "Houd",
-                "Salih",
-                "Nuh",
-                "Ibrahim"
-            ],
-            "correctAnswer": "Houd",
-            "explanation": "Le prophète Houd a été envoyé aux 'Ad."
-        },
-        {
-            "type": "choice",
-            "text": "Quel prophète a été envoyé à Madyan ?",
-            "options": [
-                "Shu'ayb",
-                "Moussa",
-                "Ayyoub",
-                "Younous"
-            ],
-            "correctAnswer": "Shu'ayb",
-            "explanation": "Shu'ayb a prêché aux gens de Madyan qui trichaient sur les poids et mesures."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle est la seule femme mentionnée par son prénom dans le Coran ?",
-            "options": [
-                "Khadija",
-                "Aicha",
-                "Maryam",
-                "Fatima"
-            ],
-            "correctAnswer": "Maryam",
-            "explanation": "Seule Maryam (mère de Jésus) est citée nommément. Les autres sont désignées par leur lien de parenté (femme de, mère de...)."
-        },
-        {
-            "type": "choice",
-            "text": "Qui a tué Jalout (Goliath) ?",
-            "options": [
-                "Moussa",
-                "Daoud (David)",
-                "Talout (Saül)",
-                "Soulayman"
-            ],
-            "correctAnswer": "Daoud (David)",
-            "explanation": "Daoud, alors jeune, a tué le géant Jalout avec sa fronde."
-        },
-        {
-            "type": "choice",
-            "text": "Quel compagnon avait la plus belle voix pour réciter le Coran, à qui le Prophète a dit qu'il avait reçu une 'flûte de la famille de David' ?",
-            "options": [
-                "Bilal",
-                "Abu Musa Al-Ash'ari",
-                "Ibn Mas'ud",
-                "Zayd ibn Thabit"
-            ],
-            "correctAnswer": "Abu Musa Al-Ash'ari",
-            "explanation": "Abu Musa Al-Ash'ari était réputé pour sa magnifique récitation."
-        },
-        {
-            "type": "choice",
-            "text": "Qui fut le premier muezzin de l'Islam ?",
-            "options": [
-                "Zayd ibn Harithah",
-                "Bilal ibn Rabah",
-                "Salman al-Farisi",
-                "Ammar ibn Yasir"
-            ],
-            "correctAnswer": "Bilal ibn Rabah",
-            "explanation": "Bilal, l'ancien esclave abyssin, a été choisi par le Prophète pour faire l'appel à la prière."
-        },
-        {
-            "type": "choice",
-            "text": "Quel est le 'Dhikr' ?",
-            "options": [
-                "L'aumône",
-                "Le rappel et l'évocation d'Allah",
-                "Le pèlerinage",
-                "La guerre sainte"
-            ],
-            "correctAnswer": "Le rappel et l'évocation d'Allah",
-            "explanation": "Le Dhikr englobe toutes les formes de rappel d'Allah (SubhanAllah, Alhamdulillah, etc.)."
-        },
-        {
-            "type": "choice",
-            "text": "Dans quelle ville le Prophète est-il enterré ?",
-            "options": [
-                "La Mecque",
-                "Jérusalem",
-                "Médine",
-                "Taïf"
-            ],
-            "correctAnswer": "Médine",
-            "explanation": "Il est enterré dans sa mosquée à Médine."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle est la définition de l'Ihsan (l'Excellence) selon le hadith de Jibril ?",
-            "options": [
-                "Prier 5 fois par jour",
-                "Adorer Allah comme si tu Le voyais",
-                "Donner beaucoup d'argent",
-                "Jeûner le lundi et jeudi"
-            ],
-            "correctAnswer": "Adorer Allah comme si tu Le voyais",
-            "explanation": "L'Ihsan est d'adorer Allah comme si tu Le voyais, car si tu ne Le vois pas, Lui te voit."
-        },
-        {
-            "type": "choice",
-            "text": "Qu'est-ce que le 'Witr' ?",
-            "options": [
-                "Une prière impaire effectuée la nuit",
-                "Une prière du matin",
-                "L'appel à la prière",
-                "Le lavage des pieds"
-            ],
-            "correctAnswer": "Une prière impaire effectuée la nuit",
-            "explanation": "Le Witr est la dernière prière de la nuit, composée d'un nombre impair de Rakats (souvent 1 ou 3)."
-        },
-        {
-            "type": "choice",
-            "text": "Qui sont les 'Gens du Livre' (Ahl al-Kitab) ?",
-            "options": [
-                "Les musulmans",
-                "Les juifs et les chrétiens",
-                "Les polythéistes",
-                "Les athées"
-            ],
-            "correctAnswer": "Les juifs et les chrétiens",
-            "explanation": "Ce terme désigne ceux qui ont reçu des écritures révélées avant le Coran."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle est la récompense d'un Hajj accepté (Mabrour) ?",
-            "options": [
-                "La richesse",
-                "Le Paradis",
-                "Une longue vie",
-                "La célébrité"
-            ],
-            "correctAnswer": "Le Paradis",
-            "explanation": "Le Prophète a dit qu'un Hajj accepté n'a d'autre récompense que le Paradis."
-        },
-        {
-            "type": "choice",
-            "text": "Quelle femme du Prophète a rapporté le plus de hadiths ?",
-            "options": [
-                "Khadija",
-                "Hafsa",
-                "Aicha",
-                "Umm Salama"
-            ],
-            "correctAnswer": "Aicha",
-            "explanation": "Aicha est l'une des plus grandes transmetteuses de savoir de l'Islam."
-        },
-        {
-            "type": "choice",
-            "text": "Quel âge avait le Prophète à sa mort ?",
-            "options": [
-                "60",
-                "63",
-                "65",
-                "70"
-            ],
-            "correctAnswer": "63",
-            "explanation": "Il est décédé à 63 ans."
-        },
-        {
-            "type": "choice",
-            "text": "Quel âge avait le Prophète lors de la première révélation ?",
-            "options": [
-                "25",
-                "30",
-                "40",
-                "50"
-            ],
-            "correctAnswer": "40",
-            "explanation": "La mission prophétique a commencé à ses 40 ans."
-        },
-        {
-            "type": "choice",
-            "text": "Quel cousin du Prophète a dormi dans son lit la nuit de l'Hégire pour tromper les assassins ?",
-            "options": [
-                "Jafar",
-                "Ali",
-                "Abbas",
-                "Aqil"
-            ],
-            "correctAnswer": "Ali",
-            "explanation": "Ali ibn Abi Talib a pris la place du Prophète dans son lit, risquant sa vie."
+            "text": "Quel est le numéro atomique (nombre de protons) de l'hydrogène ?",
+            "correctAnswer": "1",
+            "explanation": "L'hydrogène est le premier élément du tableau périodique et possède 1 seul proton."
         },
         {
             "type": "boolean",
-            "text": "Est-il permis de prier juste au moment où le soleil se lève ?",
+            "text": "Le son se propage plus rapidement dans l'eau que dans l'air.",
+            "correctAnswer": "true",
+            "explanation": "La vitesse du son est d'environ 340 m/s dans l'air, mais d'environ 1500 m/s dans l'eau, car les molécules y sont plus rapprochées."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle grandeur électrique se mesure en Volts ?",
+            "options": [
+                "L'intensité",
+                "La résistance",
+                "La puissance",
+                "La tension"
+            ],
+            "correctAnswer": "La tension",
+            "explanation": "La tension électrique (ou différence de potentiel) se mesure en Volts (V). L'intensité se mesure en Ampères."
+        },
+        {
+            "type": "number",
+            "text": "À quelle température (arrondie à l'entier) en degrés Celsius correspond le zéro absolu ?",
+            "correctAnswer": "-273",
+            "explanation": "Le zéro absolu est la température la plus basse possible, équivalente à 0 Kelvin ou environ -273,15 °C."
+        },
+        {
+            "type": "choice",
+            "text": "Quel acide est le composant principal du vinaigre ?",
+            "options": [
+                "L'acide chlorhydrique",
+                "L'acide citrique",
+                "L'acide acétique",
+                "L'acide sulfurique"
+            ],
+            "correctAnswer": "L'acide acétique",
+            "explanation": "Le vinaigre est une solution aqueuse contenant principalement de l'acide acétique (acide éthanoïque)."
+        },
+        {
+            "type": "boolean",
+            "text": "Une solution dont le pH est de 3 est considérée comme basique.",
             "correctAnswer": "false",
-            "explanation": "Il est interdit de prier exactement au moment du lever, du zénith et du coucher du soleil."
+            "explanation": "Un pH inférieur à 7 indique une solution acide. Les solutions basiques ont un pH supérieur à 7."
         },
         {
             "type": "choice",
-            "text": "Qu'est-ce que 'Zakat al-Fitr' ?",
+            "text": "Quel instrument utilise-t-on pour mesurer la pression atmosphérique ?",
             "options": [
-                "L'aumône obligatoire sur la richesse",
-                "L'aumône de fin de Ramadan",
-                "Une aumône volontaire",
-                "La taxe foncière"
+                "Un thermomètre",
+                "Un baromètre",
+                "Un hygromètre",
+                "Un anémomètre"
             ],
-            "correctAnswer": "L'aumône de fin de Ramadan",
-            "explanation": "C'est une aumône (généralement en nourriture) donnée avant la prière de l'Eid al-Fitr pour purifier le jeûneur."
+            "correctAnswer": "Un baromètre",
+            "explanation": "Le baromètre mesure la pression de l'air ambiant, ce qui est très utile pour les prévisions météorologiques."
         },
         {
             "type": "choice",
-            "text": "Dans quelle direction doit-on orienter un défunt musulman dans sa tombe ?",
+            "text": "Que se passe-t-il si une ampoule grille dans un circuit entièrement branché en série ?",
             "options": [
-                "Vers l'Est",
-                "Vers l'Ouest",
-                "Vers la Qibla",
-                "Vers le ciel"
+                "Les autres brillent plus fort",
+                "Les autres s'éteignent",
+                "Rien ne change",
+                "Le circuit prend feu"
             ],
-            "correctAnswer": "Vers la Qibla",
-            "explanation": "Le corps est placé sur le côté droit, le visage tourné vers la Qibla (La Mecque)."
+            "correctAnswer": "Les autres s'éteignent",
+            "explanation": "Dans un circuit en série, il n'y a qu'une seule boucle. Si un composant est coupé (comme une ampoule grillée), le courant ne peut plus circuler du tout."
+        },
+        {
+            "type": "boolean",
+            "text": "Les isotopes d'un élément chimique ont le même nombre de protons mais un nombre différent de neutrons.",
+            "correctAnswer": "true",
+            "explanation": "C'est la définition même des isotopes : ils appartiennent au même élément (même numéro atomique Z) mais ont des masses atomiques différentes."
+        },
+        {
+            "type": "choice",
+            "text": "Quel type d'énergie est directement associé à la vitesse et au mouvement d'un objet ?",
+            "options": [
+                "L'énergie potentielle",
+                "L'énergie thermique",
+                "L'énergie cinétique",
+                "L'énergie chimique"
+            ],
+            "correctAnswer": "L'énergie cinétique",
+            "explanation": "L'énergie cinétique (Ec = 1/2 m v²) dépend de la masse et de la vitesse de l'objet en mouvement."
+        },
+        {
+            "type": "choice",
+            "text": "Quel métal a la particularité d'être liquide à température ambiante ?",
+            "options": [
+                "Le fer",
+                "Le mercure",
+                "Le plomb",
+                "Le cuivre"
+            ],
+            "correctAnswer": "Le mercure",
+            "explanation": "Le mercure (Hg) est le seul métal qui se présente sous forme liquide aux conditions normales de température et de pression."
+        },
+        {
+            "type": "choice",
+            "text": "De quelles particules est composé le noyau d'un atome ?",
+            "options": [
+                "Protons et électrons",
+                "Neutrons et électrons",
+                "Protons et neutrons",
+                "Seulement des protons"
+            ],
+            "correctAnswer": "Protons et neutrons",
+            "explanation": "Le noyau est constitué de nucléons, c'est-à-dire les protons (positifs) et les neutrons (neutres)."
+        },
+        {
+            "type": "boolean",
+            "text": "La rouille est le résultat d'une réaction d'oxydation du fer.",
+            "correctAnswer": "true",
+            "explanation": "La formation de la rouille est une réaction lente d'oxydo-réduction où le fer réagit avec le dioxygène de l'air en présence d'eau."
+        },
+        {
+            "type": "number",
+            "text": "Combien d'électrons possède un atome de carbone neutre (Numéro atomique Z = 6) ?",
+            "correctAnswer": "6",
+            "explanation": "Dans un atome neutre, le nombre d'électrons est égal au nombre de protons, indiqué par le numéro atomique Z."
         }
     ]
 }

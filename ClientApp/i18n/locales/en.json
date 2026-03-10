@@ -1,11 +1,11 @@
 {
     "home": {
-        "title": "Knowledge is a",
-        "titleHighlight": "Light",
-        "subtitle": "Learn and deepen your knowledge of Islam",
-        "description": "Take part in interactive quizzes to assess your knowledge and learn at your own pace the principles and history of Islam.",
-        "startQuiz": "Start Quiz",
-        "register": "Sign Up"
+        "title": "Master",
+        "titleHighlight": "Science & Math",
+        "subtitle": "Learn by doing with interactive concepts",
+        "description": "Join a community of learners. Explore mathematics, physics, and computer science through visual lessons and stimulating challenges.",
+        "startQuiz": "Start Exploring",
+        "register": "Sign Up for Free"
     },
     "quiz": {
         "title": "General Quiz",
@@ -23,7 +23,7 @@
         "playAgain": "Restart quiz",
         "backToHomeBtn": "Back to home",
         "scoreMessages": {
-            "perfect": "Excellent! Mashallah",
+            "perfect": "Excellent! A true genius!",
             "great": "Great job!",
             "good": "Well done!",
             "keep": "Keep learning!"

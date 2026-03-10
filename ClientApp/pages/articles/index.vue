@@ -10,9 +10,9 @@
 
     <!-- Header -->
     <header class="page-header">
-      <div class="header-badge">✦ المكتبة ✦</div>
-      <h1>Articles & Leçons</h1>
-      <p class="header-desc">Explorez les fondements de l'islam à travers des articles détaillés et illustrés.</p>
+      <div class="header-badge">⚛️ Bibliothèque ⚛️</div>
+      <h1>Articles & Théories</h1>
+      <p class="header-desc">Explorez les fondements à travers des articles détaillés et illustrés.</p>
     </header>
 
     <!-- Articles Grid -->
@@ -96,66 +96,76 @@ onUnmounted(() => {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #082540;
-  color: #DDE1E7;
-  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  background: #1e1f22;
+  color: #f2f3f5;
+  font-family: 'Inter', sans-serif;
   padding-top: 58px;
+  position: relative;
+}
+
+.articles-page::before {
+  content: '';
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(#00B578 1px, transparent 1px), radial-gradient(#00B578 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
+  background-position: 0 0, 20px 20px;
+  opacity: 0.07;
 }
 
 /* ── Nav ── */
 .top-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   padding: 1rem 1.5rem;
-  background: rgba(8, 37, 64, 0.85); backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(195, 151, 18, 0.15);
+  background: rgba(30, 31, 34, 0.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(43, 45, 49, 1);
 }
 .back-link {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  color: #C39712; font-weight: 600; text-decoration: none;
+  color: #00B578; font-weight: 600; text-decoration: none;
   transition: opacity 0.2s;
 }
 .back-link:hover { opacity: 0.8; }
 
 /* ── Header ── */
 .page-header {
-  text-align: center; padding: 4rem 1.5rem 2rem;
+  text-align: center; padding: 4rem 1.5rem 2rem; position: relative; z-index: 1;
 }
 .header-badge {
-  display: inline-block; font-family: 'Amiri', serif; font-size: 1.1rem;
-  color: #C39712; margin-bottom: 1.5rem; letter-spacing: 0.2em;
+  display: inline-block; font-family: 'Inter', sans-serif; font-size: 1.1rem;
+  font-weight: 800; color: #00B578; margin-bottom: 1.5rem; letter-spacing: 0.2em;
 }
 .page-header h1 {
-  font-family: 'Merriweather', serif; font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800; margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fff 30%, #C39712 100%);
+  font-family: 'Inter', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 900; margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 30%, #00B578 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .header-desc {
-  color: rgba(221, 225, 231, 0.7); font-size: 1.1rem; max-width: 550px; margin: 0 auto;
+  color: #b5bac1; font-size: 1.1rem; max-width: 550px; margin: 0 auto; font-weight: 500;
 }
 
 /* ── Articles Grid ── */
 .articles-container {
   max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem;
   display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  gap: 1.5rem; position: relative; z-index: 1;
 }
 .article-card {
   position: relative;
   border-radius: 1.25rem; padding: 2rem;
-  background: rgba(26, 60, 90, 0.2);
-  border: 1px solid rgba(195, 151, 18, 0.15);
+  background: rgba(43, 45, 49, 0.5);
+  border: 1px solid rgba(0, 181, 120, 0.15);
   backdrop-filter: blur(8px);
-  text-decoration: none; color: #DDE1E7;
+  text-decoration: none; color: #f2f3f5;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0; animation: cardAppear 0.6s forwards;
   display: flex; flex-direction: column; gap: 0.75rem;
 }
 .article-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(195, 151, 18, 0.4);
-  box-shadow: 0 12px 40px rgba(195, 151, 18, 0.1);
+  border-color: rgba(0, 181, 120, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 181, 120, 0.1);
 }
 
 @keyframes cardAppear {
@@ -165,38 +175,38 @@ onUnmounted(() => {
 
 .card-category {
   display: inline-block; align-self: flex-start;
-  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.15em; color: #C39712;
+  font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.15em; color: #00B578;
   padding: 0.25rem 0.75rem; border-radius: 999px;
-  background: rgba(195, 151, 18, 0.1); border: 1px solid rgba(195, 151, 18, 0.2);
+  background: rgba(0, 181, 120, 0.1); border: 1px solid rgba(0, 181, 120, 0.2);
 }
 .card-icon { font-size: 2.5rem; }
 .card-title {
-  font-family: 'Merriweather', serif; font-size: 1.3rem;
-  font-weight: 700; color: #fff; line-height: 1.4;
+  font-family: 'Inter', sans-serif; font-size: 1.3rem;
+  font-weight: 800; color: #fff; line-height: 1.4;
 }
 .card-arabic {
   font-family: 'Amiri', serif; font-size: 1.5rem;
-  color: #C39712; direction: rtl;
+  color: #00B578; direction: rtl;
 }
 .card-desc {
-  color: rgba(221, 225, 231, 0.7); font-size: 0.9rem; line-height: 1.6;
+  color: #b5bac1; font-size: 0.9rem; line-height: 1.6; font-weight: 500;
 }
 .card-footer {
   display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto;
 }
 .card-tag {
-  font-size: 0.75rem; padding: 0.2rem 0.6rem;
-  border-radius: 0.5rem; background: rgba(221, 225, 231, 0.06);
-  color: rgba(221, 225, 231, 0.5); border: 1px solid rgba(221, 225, 231, 0.08);
+  font-size: 0.75rem; padding: 0.2rem 0.6rem; font-weight: 600;
+  border-radius: 0.5rem; background: rgba(242, 243, 245, 0.06);
+  color: #949ba4; border: 1px solid rgba(242, 243, 245, 0.08);
 }
 .card-arrow {
   position: absolute; top: 2rem; right: 2rem;
-  color: rgba(195, 151, 18, 0.3);
+  color: rgba(0, 181, 120, 0.3);
   transition: all 0.3s;
 }
 .article-card:hover .card-arrow {
-  color: #C39712; transform: translateX(4px);
+  color: #00B578; transform: translateX(4px);
 }
 
 /* ── Coming Soon ── */

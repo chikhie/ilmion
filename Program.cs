@@ -23,7 +23,7 @@ JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration de la base de données (PostgreSQL ou SQLite selon l'environnement)
-var connectionString = builder.Configuration.GetConnectionString("DevDbConnection");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Configuration pour accepter les DateTime sans Kind=UTC dans PostgreSQL
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -113,7 +113,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("ProdCors", policy =>
     {
         policy
-            .WithOrigins("https://ilmanar.site", "https://api.ilmanar.site", "https://ilmanar.chikhibra.workers.dev")
+            .WithOrigins("https://ilmion.site", "https://api.ilmion.site")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
@@ -177,27 +177,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 var app = builder.Build();
-
-// app.UseExceptionHandler(errorApp =>
-// {
-//     errorApp.Run(async context =>
-//     {
-//         context.Response.StatusCode = 500;
-//         context.Response.ContentType = "application/json";
-
-//         // IMPORTANT : headers CORS même en cas d'erreur
-//         context.Response.Headers["Access-Control-Allow-Origin"] = "https://ilmanar.site";
-//         context.Response.Headers["Access-Control-Allow-Headers"] = "content-type, authorization";
-//         context.Response.Headers["Access-Control-Allow-Methods"] = "POST, OPTIONS";
-
-//         await context.Response.WriteAsync(
-//             System.Text.Json.JsonSerializer.Serialize(new
-//             {
-//                 error = "Internal Server Error"
-//             })
-//         );
-//     });
-// })wecls;
 
 
 // Configuration Swagger (uniquement en développement)

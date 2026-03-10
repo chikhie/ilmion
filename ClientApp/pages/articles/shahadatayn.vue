@@ -1,8 +1,9 @@
 <template>
   <div class="shahadatayn-page" ref="pageRef">
     <!-- Background Effects -->
-    <div class="bg-effects">
-      <div class="arabesque-overlay"></div>
+    <div class="bg-effects bg-[#1e1f22]">
+        <!-- Mathematical Tech Grid Pattern -->
+        <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#00B578 1px, transparent 1px), radial-gradient(#00B578 1px, transparent 1px); background-size: 40px 40px, 40px 40px; background-position: 0 0, 20px 20px;"></div>
     </div>
 
     <!-- Navigation Bar -->
@@ -58,13 +59,13 @@
     <section id="intro" class="intro-section" :class="{ visible: introVisible }" ref="introRef">
       <div class="section-container">
         <div class="intro-card">
-          <div class="ornament">✦</div>
+          <div class="ornament">⚛️</div>
           <p>La clé de voûte de l'islam réside dans la double attestation :</p>
           <blockquote class="arabic-quote">
             « أشهد أن لا إله إلا الله وأشهد أن محمداً رسول الله »
           </blockquote>
           <p class="translation">« Je témoigne qu'il n'y a de divinité digne d'adoration qu'Allah et je témoigne que Muhammad est le Messager d'Allah »</p>
-          <div class="ornament">✦</div>
+          <div class="ornament">⚛️</div>
         </div>
       </div>
     </section>
@@ -149,7 +150,7 @@
           </div>
           <div class="pillar-separator">
             <div class="separator-line"></div>
-            <span class="separator-icon">+</span>
+            <span class="separator-icon">∪</span>
             <div class="separator-line"></div>
           </div>
             <div class="pillar-card nafi">
@@ -227,7 +228,7 @@
           </div>
           <div class="pillar-separator">
             <div class="separator-line"></div>
-            <span class="separator-icon">&</span>
+            <span class="separator-icon">∩</span>
             <div class="separator-line"></div>
           </div>
           <div class="pillar-card rasul">
@@ -257,11 +258,11 @@
     <section id="conclusion" class="conclusion-section" :class="{ visible: conclVisible }" ref="conclRef">
       <div class="section-container">
         <div class="conclusion-card">
-          <div class="ornament gold">✦ ✦ ✦</div>
+          <div class="ornament gold">Δ</div>
           <h3>Conclusion</h3>
           <p>L'islam ne se résume pas à une simple prononciation verbale. Il repose sur la <strong>connaissance du sens du Tawhid</strong> (Unicité), la <strong>conviction du cœur</strong>, et la <strong>mise en pratique par les actes</strong> (obéissance et suivi du Prophète ﷺ).</p>
           <p class="conclusion-highlight">C'est uniquement en réunissant ces aspects que l'attestation de foi profite réellement à l'individu.</p>
-          <div class="ornament gold">✦ ✦ ✦</div>
+          <div class="ornament gold">Δ</div>
         </div>
       </div>
     </section>
@@ -444,9 +445,9 @@ onMounted(() => {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #082540;
-  color: #DDE1E7;
-  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  background: #1e1f22;
+  color: #f2f3f5;
+  font-family: 'Inter', sans-serif;
   padding-top: 58px;
 }
 
@@ -463,24 +464,24 @@ onMounted(() => {
 /* ── Nav ── */
 .top-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 1rem 1.5rem;
-  background: rgba(8, 37, 64, 0.85); backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(195, 151, 18, 0.15);
+  background: rgba(30, 31, 34, 0.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(43, 45, 49, 1);
   display: flex; align-items: center; justify-content: space-between;
 }
 .back-link {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  color: #C39712; font-weight: 600; text-decoration: none;
+  color: #00B578; font-weight: 600; text-decoration: none;
   transition: opacity 0.2s;
 }
 .back-link:hover { opacity: 0.8; }
 .toc-toggle {
-  width: 40px; height: 40px; border-radius: 0.75rem; border: 1px solid rgba(195, 151, 18, 0.3);
-  background: rgba(26, 60, 90, 0.3); color: #C39712; cursor: pointer;
+  width: 40px; height: 40px; border-radius: 0.75rem; border: 1px solid rgba(0, 181, 120, 0.3);
+  background: rgba(43, 45, 49, 0.5); color: #00B578; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.25s;
 }
 .toc-toggle:hover, .toc-toggle.active {
-  background: rgba(195, 151, 18, 0.15); border-color: #C39712;
+  background: rgba(0, 181, 120, 0.15); border-color: #00B578;
 }
 
 /* ── Table of Contents ── */
@@ -491,27 +492,27 @@ onMounted(() => {
 .toc-panel {
   position: absolute; top: 0; right: 0; bottom: 0;
   width: 320px; max-width: 85vw;
-  background: rgba(8, 37, 64, 0.97); backdrop-filter: blur(16px);
-  border-left: 1px solid rgba(195, 151, 18, 0.2);
+  background: rgba(43, 45, 49, 0.97); backdrop-filter: blur(16px);
+  border-left: 1px solid rgba(0, 181, 120, 0.2);
   padding: 1.5rem; overflow-y: auto;
   display: flex; flex-direction: column;
 }
 .toc-header {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 1.5rem; padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(195, 151, 18, 0.15);
+  border-bottom: 1px solid rgba(43, 45, 49, 1);
 }
 .toc-header h3 {
-  font-family: 'Merriweather', serif; font-size: 1.25rem;
-  color: #C39712; margin: 0;
+  font-family: 'Inter', sans-serif; font-size: 1.25rem; font-weight: 700;
+  color: #00B578; margin: 0;
 }
 .toc-close {
   width: 32px; height: 32px; border-radius: 0.5rem; border: none;
-  background: rgba(195, 151, 18, 0.1); color: #C39712; cursor: pointer;
+  background: rgba(0, 181, 120, 0.1); color: #00B578; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: background 0.2s;
 }
-.toc-close:hover { background: rgba(195, 151, 18, 0.2); }
+.toc-close:hover { background: rgba(0, 181, 120, 0.2); }
 .toc-list {
   list-style: none; padding: 0; margin: 0;
   display: flex; flex-direction: column; gap: 0.25rem;
@@ -519,25 +520,25 @@ onMounted(() => {
 .toc-link {
   display: flex; align-items: center; gap: 0.75rem;
   padding: 0.65rem 0.75rem; border-radius: 0.75rem;
-  text-decoration: none; color: rgba(221, 225, 231, 0.6);
-  transition: all 0.25s; font-size: 0.9rem;
+  text-decoration: none; color: #949ba4;
+  transition: all 0.25s; font-size: 0.9rem; font-weight: 600;
 }
-.toc-link:hover { background: rgba(195, 151, 18, 0.08); color: #DDE1E7; }
+.toc-link:hover { background: rgba(43, 45, 49, 0.8); color: #f2f3f5; }
 .toc-link.active {
-  background: rgba(195, 151, 18, 0.12); color: #C39712; font-weight: 600;
+  background: rgba(0, 181, 120, 0.12); color: #00B578; font-weight: 700;
 }
 .toc-link.toc-part {
-  font-weight: 700; font-size: 0.95rem; color: rgba(221, 225, 231, 0.85);
+  font-weight: 800; font-size: 0.95rem; color: #b5bac1;
   margin-top: 0.75rem;
 }
-.toc-link.toc-part.active { color: #C39712; }
+.toc-link.toc-part.active { color: #00B578; }
 .toc-link.toc-sub { padding-left: 1.75rem; font-size: 0.85rem; }
 .toc-dot {
   width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-  background: rgba(195, 151, 18, 0.3); transition: all 0.25s;
+  background: rgba(0, 181, 120, 0.3); transition: all 0.25s;
 }
 .toc-link.active .toc-dot {
-  background: #C39712; box-shadow: 0 0 8px rgba(195, 151, 18, 0.5);
+  background: #00B578; box-shadow: 0 0 8px rgba(0, 181, 120, 0.5);
   width: 8px; height: 8px;
 }
 .toc-link.toc-part .toc-dot { width: 8px; height: 8px; }
@@ -558,28 +559,28 @@ onMounted(() => {
 }
 .hero.visible { opacity: 1; transform: translateY(0); }
 .hero-badge {
-  display: inline-block; font-family: 'Amiri', serif; font-size: 1.5rem;
-  color: #C39712; margin-bottom: 2rem; letter-spacing: 0.1em;
-  padding: 0.5rem 2rem; border: 1px solid rgba(195, 151, 18, 0.3);
-  border-radius: 999px; background: rgba(195, 151, 18, 0.05);
+  display: inline-block; font-family: 'Inter', sans-serif; font-size: 1.5rem; font-weight: 800;
+  color: #00B578; margin-bottom: 2rem; letter-spacing: 0.1em;
+  padding: 0.5rem 2rem; border: 1px solid rgba(0, 181, 120, 0.3);
+  border-radius: 999px; background: rgba(0, 181, 120, 0.05);
 }
 .hero-title {
-  font-family: 'Merriweather', serif; font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800; color: #fff; margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fff 30%, #C39712 100%);
+  font-family: 'Inter', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900; color: #fff; margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 30%, #00B578 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .hero-subtitle {
-  font-family: 'Amiri', serif; font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: rgba(221, 225, 231, 0.8); margin-bottom: 0.75rem; direction: ltr;
+  font-family: 'Inter', sans-serif; font-size: clamp(1rem, 2.5vw, 1.25rem); font-weight: 700;
+  color: #b5bac1; margin-bottom: 0.75rem; direction: ltr;
 }
 .hero-desc {
-  font-size: 1.1rem; color: #C39712; font-weight: 600;
+  font-size: 1.1rem; color: #00B578; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.15em;
 }
 .scroll-indicator {
-  margin-top: 3rem; color: rgba(195, 151, 18, 0.5);
+  margin-top: 3rem; color: rgba(0, 181, 120, 0.5);
   animation: bounce 2s infinite;
 }
 @keyframes bounce {
@@ -591,18 +592,18 @@ onMounted(() => {
 .intro-section { position: relative; z-index: 1; padding: 4rem 0; opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
 .intro-section.visible { opacity: 1; transform: translateY(0); }
 .intro-card {
-  background: rgba(26, 60, 90, 0.3); border: 1px solid rgba(195, 151, 18, 0.2);
+  background: rgba(43, 45, 49, 0.5); border: 1px solid rgba(0, 181, 120, 0.2);
   border-radius: 1.5rem; padding: 2.5rem; text-align: center;
   backdrop-filter: blur(8px);
 }
-.ornament { color: #C39712; font-size: 1.5rem; margin: 1rem 0; }
+.ornament { color: #00B578; font-size: 1.5rem; margin: 1rem 0; }
 .arabic-quote {
   font-family: 'Amiri', serif; font-size: clamp(1.2rem, 3vw, 1.8rem);
-  color: #C39712; margin: 1.5rem 0; padding: 1rem; line-height: 2;
-  border-right: 3px solid #C39712; border-left: 3px solid #C39712;
+  color: #00B578; margin: 1.5rem 0; padding: 1rem; line-height: 2;
+  border-right: 3px solid #00B578; border-left: 3px solid #00B578;
   direction: rtl;
 }
-.translation { font-style: italic; color: rgba(221, 225, 231, 0.7); font-size: 0.95rem; }
+.translation { font-style: italic; color: #949ba4; font-size: 0.95rem; font-weight: 600; }
 
 /* ── Part Headers ── */
 .part-header {
@@ -613,35 +614,35 @@ onMounted(() => {
 }
 .part-header.visible { opacity: 1; transform: translateY(0); }
 .part-number {
-  display: inline-block; font-size: 0.85rem; font-weight: 700;
-  color: #C39712; letter-spacing: 0.3em; text-transform: uppercase;
-  padding: 0.4rem 1.5rem; border: 1px solid rgba(195, 151, 18, 0.4);
-  border-radius: 999px; margin-bottom: 1.5rem;
+  display: inline-block; font-size: 0.85rem; font-weight: 800;
+  color: #00B578; letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 0.4rem 1.5rem; border: 1px solid rgba(0, 181, 120, 0.4);
+  border-radius: 999px; margin-bottom: 1.5rem; background: rgba(0, 181, 120, 0.05);
 }
 .part-header h2 {
-  font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 700; color: #fff; margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif; font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800; color: #fff; margin-bottom: 1rem;
 }
 .part-arabic {
-  font-family: 'Amiri', serif; font-size: 2.5rem; color: #C39712;
+  font-family: 'Amiri', serif; font-size: 2.5rem; color: #00B578;
   margin-bottom: 0.5rem; direction: rtl;
 }
-.part-translation { color: rgba(221, 225, 231, 0.6); font-size: 1.1rem; }
+.part-translation { color: #b5bac1; font-size: 1.1rem; font-weight: 600; }
 
 /* ── Section Title ── */
 .section-title {
-  font-family: 'Merriweather', serif; font-size: 1.5rem;
-  font-weight: 700; color: #fff; margin-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif; font-size: 1.5rem;
+  font-weight: 800; color: #fff; margin-bottom: 1.5rem;
   display: flex; align-items: center; gap: 0.75rem;
 }
 .title-num {
   display: inline-flex; align-items: center; justify-content: center;
   width: 36px; height: 36px; border-radius: 50%;
-  background: linear-gradient(135deg, #C39712, #a07d0e);
-  color: #082540; font-weight: 800; font-size: 1rem;
+  background: #00B578;
+  color: #1e1f22; font-weight: 800; font-size: 1rem;
   font-family: 'Inter', sans-serif; flex-shrink: 0;
 }
-.section-intro { color: rgba(221, 225, 231, 0.7); margin-bottom: 1.5rem; }
+.section-intro { color: #b5bac1; margin-bottom: 1.5rem; font-weight: 600; }
 
 /* ── Carousel ── */
 .carousel-section, .conditions-section, .exigences-section, .signif2-section {
@@ -663,41 +664,41 @@ onMounted(() => {
   border-radius: 1.25rem; padding: 2.5rem 2rem; min-height: 280px;
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; text-align: center; gap: 0.75rem;
-  border: 1px solid rgba(195, 151, 18, 0.2);
+  border: 1px solid rgba(0, 181, 120, 0.2); background: rgba(43, 45, 49, 0.5);
   backdrop-filter: blur(8px);
 }
 .meaning-card.correct { background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.3); }
 .meaning-card.wrong { background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.2); }
 .card-icon {
   width: 48px; height: 48px; border-radius: 50%; display: flex;
-  align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;
+  align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800;
 }
 .correct .card-icon { background: rgba(16, 185, 129, 0.2); color: #10B981; }
 .wrong .card-icon { background: rgba(239, 68, 68, 0.2); color: #EF4444; }
-.meaning-card h4 { font-family: 'Merriweather', serif; font-size: 1.2rem; color: #fff; }
-.meaning-card p { color: rgba(221, 225, 231, 0.8); line-height: 1.6; }
-.arabic-inline { font-family: 'Amiri', serif; font-size: 1.3rem; color: #C39712; direction: rtl; }
-.card-note { font-size: 0.9rem; color: rgba(221, 225, 231, 0.6); font-style: italic; }
+.meaning-card h4 { font-family: 'Inter', sans-serif; font-size: 1.2rem; color: #fff; font-weight: 800; }
+.meaning-card p { color: #b5bac1; line-height: 1.6; font-weight: 500; }
+.arabic-inline { font-family: 'Amiri', serif; font-size: 1.3rem; color: #00B578; direction: rtl; }
+.card-note { font-size: 0.9rem; color: #949ba4; font-style: italic; }
 
 .carousel-controls {
   display: flex; align-items: center; justify-content: center;
   gap: 1rem; padding: 1.5rem 0;
 }
 .carousel-btn {
-  width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(195, 151, 18, 0.3);
-  background: rgba(26, 60, 90, 0.3); color: #C39712; cursor: pointer;
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(0, 181, 120, 0.3);
+  background: rgba(43, 45, 49, 0.5); color: #00B578; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
 }
-.carousel-btn:hover:not(:disabled) { background: rgba(195, 151, 18, 0.15); border-color: #C39712; }
+.carousel-btn:hover:not(:disabled) { background: rgba(0, 181, 120, 0.15); border-color: #00B578; }
 .carousel-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 .carousel-dots { display: flex; gap: 0.5rem; }
 .dot {
   width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(195, 151, 18, 0.3); cursor: pointer;
+  background: rgba(0, 181, 120, 0.3); cursor: pointer;
   transition: all 0.3s;
 }
-.dot.active { background: #C39712; transform: scale(1.3); }
+.dot.active { background: #00B578; transform: scale(1.3); }
 
 /* ── Pillar Cards ── */
 .pillars-section {
@@ -713,33 +714,33 @@ onMounted(() => {
 .pillar-card {
   flex: 1; min-width: 250px; border-radius: 1.25rem;
   padding: 2rem; text-align: center;
-  border: 1px solid rgba(195, 151, 18, 0.2);
-  background: rgba(26, 60, 90, 0.2); backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 181, 120, 0.2);
+  background: rgba(43, 45, 49, 0.5); backdrop-filter: blur(8px);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.pillar-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(195, 151, 18, 0.1); }
+.pillar-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0, 181, 120, 0.1); }
 .pillar-label {
-  font-family: 'Amiri', serif; font-size: 2rem; color: #C39712;
+  font-family: 'Amiri', serif; font-size: 2rem; color: #00B578;
   margin-bottom: 0.75rem; direction: rtl;
 }
-.pillar-card h4 { font-family: 'Merriweather', serif; color: #fff; font-size: 1.1rem; margin-bottom: 0.75rem; }
-.pillar-arabic { font-family: 'Amiri', serif; font-size: 1.3rem; color: #C39712; margin-bottom: 0.75rem; direction: rtl; }
+.pillar-card h4 { font-family: 'Inter', sans-serif; color: #fff; font-size: 1.1rem; margin-bottom: 0.75rem; font-weight: 800; }
+.pillar-arabic { font-family: 'Amiri', serif; font-size: 1.3rem; color: #00B578; margin-bottom: 0.75rem; direction: rtl; }
 .pillar-separator {
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; gap: 0.5rem; padding: 1rem 0;
 }
-.separator-line { width: 2px; height: 30px; background: rgba(195, 151, 18, 0.3); }
+.separator-line { width: 2px; height: 30px; background: rgba(0, 181, 120, 0.3); }
 .separator-icon {
   width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(195, 151, 18, 0.15); color: #C39712;
+  background: rgba(0, 181, 120, 0.15); color: #00B578;
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 1.1rem;
 }
 .pillars-summary {
   text-align: center; margin-top: 2rem; padding: 1.25rem;
-  border-radius: 1rem; background: rgba(195, 151, 18, 0.08);
-  border: 1px solid rgba(195, 151, 18, 0.2);
-  color: #C39712; font-weight: 600;
+  border-radius: 1rem; background: rgba(0, 181, 120, 0.08);
+  border: 1px solid rgba(0, 181, 120, 0.2);
+  color: #00B578; font-weight: 700;
 }
 
 /* ── Condition Cards ── */
@@ -747,27 +748,27 @@ onMounted(() => {
   border-radius: 1.25rem; padding: 2.5rem 2rem; min-height: 300px;
   display: flex; flex-direction: column; align-items: center;
   justify-content: center; text-align: center; gap: 0.75rem;
-  background: rgba(26, 60, 90, 0.25); border: 1px solid rgba(195, 151, 18, 0.2);
+  background: rgba(43, 45, 49, 0.5); border: 1px solid rgba(0, 181, 120, 0.2);
   backdrop-filter: blur(8px);
 }
 .cond-number {
   width: 40px; height: 40px; border-radius: 50%;
-  background: linear-gradient(135deg, #C39712, #a07d0e);
-  color: #082540; font-weight: 800; font-size: 1.1rem;
+  background: #00B578;
+  color: #1e1f22; font-weight: 800; font-size: 1.1rem;
   display: flex; align-items: center; justify-content: center;
 }
 .cond-arabic {
-  font-family: 'Amiri', serif; font-size: 2rem; color: #C39712; direction: rtl;
+  font-family: 'Amiri', serif; font-size: 2rem; color: #00B578; direction: rtl;
 }
-.condition-card h4 { font-family: 'Merriweather', serif; color: #fff; font-size: 1.1rem; }
-.condition-card p { color: rgba(221, 225, 231, 0.8); line-height: 1.7; max-width: 400px; }
+.condition-card h4 { font-family: 'Inter', sans-serif; font-weight: 800; color: #fff; font-size: 1.1rem; }
+.condition-card p { color: #b5bac1; line-height: 1.7; max-width: 400px; font-weight: 500; }
 
 /* ── Signif2 Card ── */
 .signif2-card { text-align: left; }
 .highlight-text {
-  font-size: 1.15rem; color: #C39712; font-weight: 600;
-  padding: 1rem; border-left: 3px solid #C39712;
-  background: rgba(195, 151, 18, 0.05); border-radius: 0 0.75rem 0.75rem 0;
+  font-size: 1.15rem; color: #00B578; font-weight: 700;
+  padding: 1rem; border-left: 3px solid #00B578;
+  background: rgba(0, 181, 120, 0.05); border-radius: 0 0.75rem 0.75rem 0;
   margin-top: 1rem;
 }
 
@@ -778,21 +779,21 @@ onMounted(() => {
 }
 .exig-card {
   border-radius: 1.25rem; padding: 1.75rem;
-  background: rgba(26, 60, 90, 0.25); border: 1px solid rgba(195, 151, 18, 0.15);
+  background: rgba(43, 45, 49, 0.5); border: 1px solid rgba(0, 181, 120, 0.15);
   display: flex; align-items: flex-start; gap: 1rem;
   backdrop-filter: blur(8px); transition: transform 0.3s, box-shadow 0.3s;
   opacity: 0; animation: cardFadeIn 0.6s forwards;
 }
 .exigences-section.visible .exig-card { opacity: 1; }
-.exig-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(195, 151, 18, 0.08); }
+.exig-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0, 181, 120, 0.08); }
 .exig-num {
   width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-  background: rgba(195, 151, 18, 0.15); color: #C39712;
+  background: rgba(0, 181, 120, 0.15); color: #00B578;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 0.85rem;
+  font-weight: 800; font-size: 0.85rem;
 }
 .exig-icon { font-size: 1.5rem; flex-shrink: 0; }
-.exig-card p { color: rgba(221, 225, 231, 0.8); line-height: 1.6; }
+.exig-card p { color: #b5bac1; line-height: 1.6; font-weight: 500; }
 
 @keyframes cardFadeIn {
   from { opacity: 0; transform: translateY(15px); }
@@ -808,26 +809,26 @@ onMounted(() => {
 .conclusion-section.visible { opacity: 1; transform: translateY(0); }
 .conclusion-card {
   text-align: center; padding: 3rem 2rem; border-radius: 1.5rem;
-  background: linear-gradient(135deg, rgba(195, 151, 18, 0.08), rgba(26, 60, 90, 0.2));
-  border: 1px solid rgba(195, 151, 18, 0.25);
+  background: linear-gradient(135deg, rgba(0, 181, 120, 0.08), rgba(43, 45, 49, 0.5));
+  border: 1px solid rgba(0, 181, 120, 0.25);
   backdrop-filter: blur(8px);
 }
 .conclusion-card h3 {
-  font-family: 'Merriweather', serif; font-size: 1.75rem;
-  color: #fff; margin-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif; font-size: 1.75rem;
+  color: #fff; margin-bottom: 1.5rem; font-weight: 800;
 }
-.conclusion-card p { color: rgba(221, 225, 231, 0.85); line-height: 1.8; margin-bottom: 1rem; }
-.conclusion-card strong { color: #C39712; }
+.conclusion-card p { color: #b5bac1; line-height: 1.8; margin-bottom: 1rem; font-weight: 500; }
+.conclusion-card strong { color: #00B578; font-weight: 700; }
 .conclusion-highlight {
-  font-size: 1.1rem; color: #C39712; font-weight: 600;
+  font-size: 1.1rem; color: #00B578; font-weight: 700;
   padding: 1rem; border-radius: 0.75rem;
-  background: rgba(195, 151, 18, 0.08); margin-top: 1rem;
+  background: rgba(0, 181, 120, 0.08); margin-top: 1rem;
 }
-.ornament.gold { color: #C39712; font-size: 1.25rem; letter-spacing: 0.5em; }
+.ornament.gold { color: #00B578; font-size: 1.25rem; letter-spacing: 0.5em; }
 
 /* ── Bottom ── */
 .bottom-line {
-  height: 3px; background: linear-gradient(90deg, transparent, #C39712, transparent);
+  height: 3px; background: linear-gradient(90deg, transparent, #00B578, transparent);
   position: relative; z-index: 1;
 }
 

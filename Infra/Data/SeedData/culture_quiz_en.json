@@ -1,1240 +1,238 @@
 {
     "questions": [
         {
-            "type": "number",
-            "text": "How many pillars of Islam are there?",
-            "correctAnswer": "5",
-            "explanation": "Islam is built on 5 pillars: the testimony of faith, prayer, zakat, fasting, and pilgrimage."
-        },
-        {
-            "type": "number",
-            "text": "How many pillars of faith (Iman) are there?",
-            "correctAnswer": "6",
-            "explanation": "The 6 pillars of faith are: belief in Allah, His angels, His books, His messengers, the Last Day, and Divine Destiny."
-        },
-        {
             "type": "choice",
-            "text": "What is the first pillar of Islam?",
+            "text": "What is the chemical symbol for water?",
             "options": [
-                "Salat",
-                "Shahada",
-                "Hajj",
-                "Zakat"
+                "CO2",
+                "H2O",
+                "O2",
+                "NaCl"
             ],
-            "correctAnswer": "Shahada",
-            "explanation": "The testimony of faith (Shahada) is the gateway into Islam."
-        },
-        {
-            "type": "choice",
-            "text": "Which prayer is performed in the middle of the day, just after the sun has passed its zenith?",
-            "options": [
-                "Fajr",
-                "Dhuhr",
-                "Asr",
-                "Maghrib"
-            ],
-            "correctAnswer": "Dhuhr",
-            "explanation": "Dhuhr is the second obligatory prayer of the day."
+            "correctAnswer": "H2O",
+            "explanation": "The water molecule is composed of two hydrogen (H) atoms and one oxygen (O) atom."
         },
         {
             "type": "number",
-            "text": "How many units of prayer (Rakats) does the Maghrib prayer (sunset) contain?",
-            "correctAnswer": "3",
-            "explanation": "The Maghrib prayer consists of 3 obligatory Rakats."
-        },
-        {
-            "type": "number",
-            "text": "How many units of prayer (Rakats) does the Fajr prayer (dawn) contain?",
-            "correctAnswer": "2",
-            "explanation": "The Fajr prayer consists of 2 Rakats."
+            "text": "How many covalent bonds can a carbon atom typically form?",
+            "correctAnswer": "4",
+            "explanation": "Carbon is tetravalent, meaning it has 4 electrons in its outer shell and can form 4 covalent bonds."
         },
         {
             "type": "choice",
-            "text": "Which surah must be recited in every unit of prayer?",
+            "text": "Which subatomic particle carries a negative electrical charge?",
             "options": [
-                "Al-Ikhlas",
-                "Al-Fatiha",
-                "An-Nas",
-                "Al-Falaq"
+                "Proton",
+                "Neutron",
+                "Electron",
+                "Photon"
             ],
-            "correctAnswer": "Al-Fatiha",
-            "explanation": "Reciting Surah Al-Fatiha is a pillar of prayer; the prayer is not valid without it."
-        },
-        {
-            "type": "choice",
-            "text": "What is the name of dry ablution performed with earth or stone?",
-            "options": [
-                "Wudu",
-                "Ghusl",
-                "Tayammum",
-                "Istinja"
-            ],
-            "correctAnswer": "Tayammum",
-            "explanation": "Tayammum replaces water when it is unavailable or cannot be used for medical reasons."
-        },
-        {
-            "type": "choice",
-            "text": "Towards which city do Muslims face when praying (the Qibla)?",
-            "options": [
-                "Medina",
-                "Jerusalem",
-                "Mecca",
-                "Cairo"
-            ],
-            "correctAnswer": "Mecca",
-            "explanation": "The Qibla is the direction of the Kaaba, located in Mecca."
+            "correctAnswer": "Electron",
+            "explanation": "The electron has a negative elementary charge, whereas the proton is positive and the neutron is neutral."
         },
         {
             "type": "boolean",
-            "text": "Does laughing out loud invalidate the prayer?",
+            "text": "The speed of light in a vacuum is approximately 300,000 km/s.",
             "correctAnswer": "true",
-            "explanation": "Loud laughter invalidates the prayer (and according to some opinions, the ablution as well)."
+            "explanation": "The exact speed of light in a vacuum is 299,792,458 m/s, often rounded to 300,000 km/s."
         },
         {
             "type": "choice",
-            "text": "What is the greatest sin in Islam, considered the first nullifier?",
+            "text": "What is the most abundant gas in the Earth's atmosphere?",
             "options": [
-                "Murder",
-                "Shirk (Polytheism)",
-                "Theft",
-                "Adultery"
+                "Oxygen",
+                "Carbon dioxide",
+                "Nitrogen",
+                "Argon"
             ],
-            "correctAnswer": "Shirk (Polytheism)",
-            "explanation": "Shirk (associating partners with Allah) is the only sin Allah does not forgive if not followed by repentance before death."
-        },
-        {
-            "type": "boolean",
-            "text": "Is sorcery considered a nullifier of Islam?",
-            "correctAnswer": "true",
-            "explanation": "The practice of sorcery is an act of major disbelief."
+            "correctAnswer": "Nitrogen",
+            "explanation": "The Earth's atmosphere is composed of about 78% nitrogen and 21% oxygen."
         },
         {
             "type": "choice",
-            "text": "What is the ruling for someone who mocks an aspect of Allah's religion?",
+            "text": "What is the unit of measurement for force in the International System of Units (SI)?",
             "options": [
-                "It is a minor sin",
-                "It is disliked but permissible",
-                "It is a nullifier of Islam",
-                "It does not matter"
+                "Joule",
+                "Newton",
+                "Watt",
+                "Pascal"
             ],
-            "correctAnswer": "It is a nullifier of Islam",
-            "explanation": "Mocking Allah, His Prophet, or His signs takes one out of Islam (Surah At-Tawbah)."
-        },
-        {
-            "type": "choice",
-            "text": "What was the name of Prophet Muhammad's father?",
-            "options": [
-                "Abu Talib",
-                "Abdullah",
-                "Abdul-Muttalib",
-                "Hamza"
-            ],
-            "correctAnswer": "Abdullah",
-            "explanation": "The Prophet's father was called Abdullah ibn Abd al-Muttalib."
-        },
-        {
-            "type": "choice",
-            "text": "What was the name of Prophet Muhammad's mother?",
-            "options": [
-                "Aisha",
-                "Khadijah",
-                "Amina",
-                "Halima"
-            ],
-            "correctAnswer": "Amina",
-            "explanation": "His mother was Amina bint Wahb."
-        },
-        {
-            "type": "choice",
-            "text": "Who was the paternal grandfather of the Prophet who took care of him after his mother's death?",
-            "options": [
-                "Abu Lahab",
-                "Abdullah",
-                "Abdul-Muttalib",
-                "Abbas"
-            ],
-            "correctAnswer": "Abdul-Muttalib",
-            "explanation": "Abdul-Muttalib raised the Prophet after the death of his mother Amina."
-        },
-        {
-            "type": "choice",
-            "text": "Which uncle of the Prophet protected him for years without ever converting to Islam?",
-            "options": [
-                "Abu Lahab",
-                "Hamza",
-                "Abu Talib",
-                "Abbas"
-            ],
-            "correctAnswer": "Abu Talib",
-            "explanation": "Abu Talib, Ali's father, protected his nephew Muhammad until his death, though he remained on the religion of his ancestors."
-        },
-        {
-            "type": "choice",
-            "text": "Who was the first wife of Prophet Muhammad?",
-            "options": [
-                "Aisha",
-                "Khadijah",
-                "Sawda",
-                "Hafsa"
-            ],
-            "correctAnswer": "Khadijah",
-            "explanation": "Khadijah bint Khuwaylid was the Prophet's first wife and the first person to believe in his mission."
-        },
-        {
-            "type": "choice",
-            "text": "Which of these women is a daughter of Prophet Muhammad?",
-            "options": [
-                "Asma",
-                "Fatima",
-                "Sumayyah",
-                "Amina"
-            ],
-            "correctAnswer": "Fatima",
-            "explanation": "Fatima Zahra is one of the four daughters of the Prophet."
+            "correctAnswer": "Newton",
+            "explanation": "The unit of force is the Newton (N), named in honor of Isaac Newton."
         },
         {
             "type": "number",
-            "text": "How many sons did Prophet Muhammad have (all died in infancy)?",
-            "correctAnswer": "3",
-            "explanation": "He had 3 sons: Qasim, Abdullah, and Ibrahim."
-        },
-        {
-            "type": "choice",
-            "text": "Who was the wet nurse of Prophet Muhammad?",
-            "options": [
-                "Barakah",
-                "Halima As-Sa'diyya",
-                "Sumayyah",
-                "Thuwaybah"
-            ],
-            "correctAnswer": "Halima As-Sa'diyya",
-            "explanation": "Halima, from the tribe of Banu Sa'd, was his wet nurse in the desert."
-        },
-        {
-            "type": "choice",
-            "text": "To which tribe did Prophet Muhammad belong?",
-            "options": [
-                "Aws",
-                "Khazraj",
-                "Quraysh",
-                "Thaqif"
-            ],
-            "correctAnswer": "Quraysh",
-            "explanation": "The Prophet was part of the noble Quraysh tribe in Mecca."
-        },
-        {
-            "type": "choice",
-            "text": "Who is the first man created by Allah and the first prophet?",
-            "options": [
-                "Nuh (Noah)",
-                "Ibrahim (Abraham)",
-                "Adam",
-                "Musa (Moses)"
-            ],
-            "correctAnswer": "Adam",
-            "explanation": "Adam is the father of humanity and the first prophet."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet built the Ark to escape the Flood?",
-            "options": [
-                "Ibrahim",
-                "Nuh (Noah)",
-                "Yunus (Jonah)",
-                "Lut (Lot)"
-            ],
-            "correctAnswer": "Nuh (Noah)",
-            "explanation": "Nuh built the Ark by Allah's command to save the believers and animals."
-        },
-        {
-            "type": "choice",
-            "text": "Who is called 'Khalil Allah' (The Close Friend of Allah)?",
-            "options": [
-                "Musa",
-                "Ibrahim (Abraham)",
-                "Isa (Jesus)",
-                "Dawud (David)"
-            ],
-            "correctAnswer": "Ibrahim (Abraham)",
-            "explanation": "Ibrahim received this honorific title for his complete devotion."
-        },
-        {
-            "type": "choice",
-            "text": "Which son of Ibrahim was to be sacrificed before Allah replaced him with a ram?",
-            "options": [
-                "Ishaq (Isaac)",
-                "Ismail",
-                "Yaqub (Jacob)",
-                "Yusuf (Joseph)"
-            ],
-            "correctAnswer": "Ismail",
-            "explanation": "According to Islamic tradition, it was Ismail who was the child of sacrifice."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet was swallowed by a large fish (or whale)?",
-            "options": [
-                "Musa",
-                "Yunus (Jonah)",
-                "Ayyub (Job)",
-                "Yahya"
-            ],
-            "correctAnswer": "Yunus (Jonah)",
-            "explanation": "Yunus (Dhun-Nun) was swallowed by the fish after leaving his people without permission."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet spoke from the cradle to defend his mother Maryam (Mary)?",
-            "options": [
-                "Yahya",
-                "Isa (Jesus)",
-                "Musa",
-                "Ibrahim"
-            ],
-            "correctAnswer": "Isa (Jesus)",
-            "explanation": "Isa spoke miraculously at birth to exonerate his mother."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet parted the Red Sea with his staff?",
-            "options": [
-                "Isa",
-                "Musa (Moses)",
-                "Harun (Aaron)",
-                "Dawud"
-            ],
-            "correctAnswer": "Musa (Moses)",
-            "explanation": "Musa parted the sea by Allah's permission to save the Children of Israel from Pharaoh."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet could understand the language of animals and command the Jinn?",
-            "options": [
-                "Dawud",
-                "Sulayman (Solomon)",
-                "Yusuf",
-                "Ibrahim"
-            ],
-            "correctAnswer": "Sulayman (Solomon)",
-            "explanation": "Allah granted Sulayman a vast kingdom and power over animals and Jinn."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet was thrown into a well by his brothers?",
-            "options": [
-                "Yusuf (Joseph)",
-                "Yaqub",
-                "Binyamin",
-                "Ismail"
-            ],
-            "correctAnswer": "Yusuf (Joseph)",
-            "explanation": "Yusuf was betrayed by his jealous brothers, thrown into a well, then sold in Egypt."
-        },
-        {
-            "type": "choice",
-            "text": "Which holy book was revealed to Prophet Dawud (David)?",
-            "options": [
-                "Torah",
-                "Injil (Gospel)",
-                "Zabur (Psalms)",
-                "The Scrolls"
-            ],
-            "correctAnswer": "Zabur (Psalms)",
-            "explanation": "The Zabur is the book revealed to Dawud."
-        },
-        {
-            "type": "choice",
-            "text": "During which Islamic month do Muslims fast?",
-            "options": [
-                "Rajab",
-                "Sha'ban",
-                "Ramadan",
-                "Muharram"
-            ],
-            "correctAnswer": "Ramadan",
-            "explanation": "Ramadan is the 9th month of the Hijri calendar and the month of obligatory fasting."
-        },
-        {
-            "type": "choice",
-            "text": "What is the pre-dawn meal taken during Ramadan called?",
-            "options": [
-                "Iftar",
-                "Suhoor",
-                "Walima",
-                "Aqiqah"
-            ],
-            "correctAnswer": "Suhoor",
-            "explanation": "Suhoor is the blessed meal taken before the fast begins at dawn."
-        },
-        {
-            "type": "choice",
-            "text": "What is the night during Ramadan that is better than 1000 months called?",
-            "options": [
-                "Laylat al-Miraj",
-                "Laylat al-Qadr (Night of Decree)",
-                "Laylat al-Bara'at",
-                "Mawlid"
-            ],
-            "correctAnswer": "Laylat al-Qadr (Night of Decree)",
-            "explanation": "It was during this night that the Quran began to be revealed."
-        },
-        {
-            "type": "choice",
-            "text": "Which festival marks the end of Ramadan?",
-            "options": [
-                "Eid al-Adha",
-                "Eid al-Fitr",
-                "Ashura",
-                "Mawlid"
-            ],
-            "correctAnswer": "Eid al-Fitr",
-            "explanation": "Eid al-Fitr is the festival of breaking the fast."
-        },
-        {
-            "type": "choice",
-            "text": "What is the nightly group prayer performed during Ramadan called?",
-            "options": [
-                "Tahajjud",
-                "Tarawih",
-                "Duha",
-                "Witr"
-            ],
-            "correctAnswer": "Tarawih",
-            "explanation": "Tarawih are the voluntary prayers performed after Isha prayer during Ramadan."
-        },
-        {
-            "type": "number",
-            "text": "What is the percentage of Zakat on money saved for one year?",
-            "correctAnswer": "2.5",
-            "explanation": "The rate of Zakat Al-Maal is generally 2.5%."
-        },
-        {
-            "type": "choice",
-            "text": "What is the longest surah in the Quran?",
-            "options": [
-                "Al-Ma'ida",
-                "Al-Baqara",
-                "Al-Imran",
-                "An-Nisa"
-            ],
-            "correctAnswer": "Al-Baqara",
-            "explanation": "Surah Al-Baqara (The Cow) is the second surah and the longest."
-        },
-        {
-            "type": "choice",
-            "text": "What is the shortest surah in the Quran?",
-            "options": [
-                "Al-Asr",
-                "Al-Ikhlas",
-                "Al-Kawthar",
-                "An-Nas"
-            ],
-            "correctAnswer": "Al-Kawthar",
-            "explanation": "Surah Al-Kawthar (The Abundance) contains only 3 verses and is the shortest."
-        },
-        {
-            "type": "number",
-            "text": "Over how many years was the Quran revealed to the Prophet?",
-            "correctAnswer": "23",
-            "explanation": "The revelation lasted about 23 years (13 in Mecca and 10 in Medina)."
-        },
-        {
-            "type": "choice",
-            "text": "Which angel was responsible for transmitting the revelation to the Prophet?",
-            "options": [
-                "Mikail",
-                "Israfil",
-                "Jibril (Gabriel)",
-                "Malik"
-            ],
-            "correctAnswer": "Jibril (Gabriel)",
-            "explanation": "Angel Jibril is the angel of revelation."
-        },
-        {
-            "type": "choice",
-            "text": "Where did the Prophet receive the first revelation?",
-            "options": [
-                "At home",
-                "At the Kaaba",
-                "In the Cave of Hira",
-                "In the Cave of Thawr"
-            ],
-            "correctAnswer": "In the Cave of Hira",
-            "explanation": "It was in the Cave of Hira, on Mount An-Nur, that the first verses were revealed."
-        },
-        {
-            "type": "choice",
-            "text": "What were the first words revealed of the Quran?",
-            "options": [
-                "Pray",
-                "Read (Iqra)",
-                "Say: He is Allah",
-                "Praise be to Allah"
-            ],
-            "correctAnswer": "Read (Iqra)",
-            "explanation": "The first word revealed was 'Iqra' (Read/Recite) from Surah Al-Alaq."
-        },
-        {
-            "type": "choice",
-            "text": "Which companion is nicknamed 'As-Siddiq' (The Truthful)?",
-            "options": [
-                "Umar ibn al-Khattab",
-                "Uthman ibn Affan",
-                "Ali ibn Abi Talib",
-                "Abu Bakr"
-            ],
-            "correctAnswer": "Abu Bakr",
-            "explanation": "Abu Bakr received this title for his unwavering faith, particularly during the Night Journey episode."
-        },
-        {
-            "type": "choice",
-            "text": "Which companion is nicknamed 'Al-Farooq' (The One Who Distinguishes Truth from Falsehood)?",
-            "options": [
-                "Abu Bakr",
-                "Umar ibn al-Khattab",
-                "Ali ibn Abi Talib",
-                "Hamza"
-            ],
-            "correctAnswer": "Umar ibn al-Khattab",
-            "explanation": "It was the Prophet who gave this nickname to Umar."
-        },
-        {
-            "type": "choice",
-            "text": "Which of these men is NOT one of the 'Rightly Guided Caliphs' (Rashidun)?",
-            "options": [
-                "Muawiya",
-                "Abu Bakr",
-                "Umar",
-                "Ali"
-            ],
-            "correctAnswer": "Muawiya",
-            "explanation": "The four rightly guided caliphs are Abu Bakr, Umar, Uthman, and Ali."
-        },
-        {
-            "type": "choice",
-            "text": "In which year of the Hijra did the great Battle of Badr take place?",
-            "options": [
-                "1st year",
-                "2nd year",
-                "3rd year",
-                "5th year"
-            ],
-            "correctAnswer": "2nd year",
-            "explanation": "The Battle of Badr took place during Ramadan in the 2nd year of Hijra."
-        },
-        {
-            "type": "choice",
-            "text": "Which prayer has no bowing (Ruku) or prostration (Sujud)?",
-            "options": [
-                "Eid prayer",
-                "Funeral prayer (Janaza)",
-                "Witr prayer",
-                "Eclipse prayer"
-            ],
-            "correctAnswer": "Funeral prayer (Janaza)",
-            "explanation": "The funeral prayer is performed standing with 4 Takbirs."
-        },
-        {
-            "type": "choice",
-            "text": "What is the name of the water source that sprang beneath Ismail's feet in Mecca?",
-            "options": [
-                "Al-Kawthar",
-                "Tasnim",
-                "Zamzam",
-                "Salsabil"
-            ],
-            "correctAnswer": "Zamzam",
-            "explanation": "Zamzam water sprang forth to quench Hajar and her son Ismail."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet is known for his legendary patience in the face of illness and loss of wealth?",
-            "options": [
-                "Ayyub (Job)",
-                "Yaqub",
-                "Musa",
-                "Yunus"
-            ],
-            "correctAnswer": "Ayyub (Job)",
-            "explanation": "Ayyub is the Quranic example of patience (Sabr) in the face of trials."
-        },
-        {
-            "type": "choice",
-            "text": "What is the name of the first mosque built by the Prophet in Medina (or just before entering)?",
-            "options": [
-                "Masjid An-Nabawi",
-                "Masjid Al-Haram",
-                "Masjid Quba",
-                "Masjid Al-Aqsa"
-            ],
-            "correctAnswer": "Masjid Quba",
-            "explanation": "Quba Mosque is the first mosque built in Islam."
-        },
-        {
-            "type": "boolean",
-            "text": "Is it permissible to fast on the day of Eid?",
-            "correctAnswer": "false",
-            "explanation": "It is strictly forbidden to fast on the days of Eid al-Fitr and Eid al-Adha."
-        },
-        {
-            "type": "choice",
-            "text": "Which act marks the end of the state of consecration (Ihram) during Hajj or Umrah?",
-            "options": [
-                "The sacrifice",
-                "Cutting the hair",
-                "Tawaf",
-                "The stoning"
-            ],
-            "correctAnswer": "Cutting the hair",
-            "explanation": "Shaving or cutting hair (Tahallul) marks the exit from the state of Ihram."
-        },
-        {
-            "type": "choice",
-            "text": "How many circuits around the Kaaba must be performed during Tawaf?",
-            "options": [
-                "5",
-                "7",
-                "10",
-                "3"
-            ],
+            "text": "What is the pH of a perfectly neutral solution at 25°C?",
             "correctAnswer": "7",
-            "explanation": "Tawaf consists of 7 circuits around the Kaaba."
-        },
-        {
-            "type": "choice",
-            "text": "Between which hills is the Sa'i (rapid walking) performed?",
-            "options": [
-                "Arafat and Mina",
-                "Safa and Marwa",
-                "Thawr and Nur",
-                "Uhud and Badr"
-            ],
-            "correctAnswer": "Safa and Marwa",
-            "explanation": "Sa'i consists of 7 trips back and forth between the hills of Safa and Marwa."
-        },
-        {
-            "type": "choice",
-            "text": "What is the most important day of the week for Muslims?",
-            "options": [
-                "Monday",
-                "Thursday",
-                "Friday (Jumu'ah)",
-                "Saturday"
-            ],
-            "correctAnswer": "Friday (Jumu'ah)",
-            "explanation": "Friday is the best day of the week upon which the sun has risen."
-        },
-        {
-            "type": "choice",
-            "text": "What does the word 'Islam' mean?",
-            "options": [
-                "Peace",
-                "Submission (to Allah)",
-                "Love",
-                "Brotherhood"
-            ],
-            "correctAnswer": "Submission (to Allah)",
-            "explanation": "Although related to the root of peace, Islam technically means submission to the will of Allah."
-        },
-        {
-            "type": "choice",
-            "text": "Who built the Kaaba with his son?",
-            "options": [
-                "Adam",
-                "Ibrahim",
-                "Nuh",
-                "Muhammad"
-            ],
-            "correctAnswer": "Ibrahim",
-            "explanation": "Ibrahim and his son Ismail raised the foundations of the House (Kaaba)."
-        },
-        {
-            "type": "choice",
-            "text": "Which uncle of the Prophet is cursed in a surah of the Quran?",
-            "options": [
-                "Abu Talib",
-                "Abbas",
-                "Abu Lahab",
-                "Hamza"
-            ],
-            "correctAnswer": "Abu Lahab",
-            "explanation": "Surah Al-Masad (Tabbat) was revealed concerning Abu Lahab and his wife."
-        },
-        {
-            "type": "choice",
-            "text": "Which of these battles was a defeat for the Muslims due to the disobedience of the archers?",
-            "options": [
-                "Badr",
-                "Uhud",
-                "Khandaq",
-                "Tabuk"
-            ],
-            "correctAnswer": "Uhud",
-            "explanation": "At Uhud, the archers left their post thinking the battle was over, allowing the enemy to counterattack."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet received the Torah?",
-            "options": [
-                "Isa",
-                "Musa",
-                "Dawud",
-                "Ibrahim"
-            ],
-            "correctAnswer": "Musa",
-            "explanation": "The Torah was revealed to Musa (Moses)."
-        },
-        {
-            "type": "choice",
-            "text": "Who is Pharaoh's wife cited as an example for believers in the Quran?",
-            "options": [
-                "Hajar",
-                "Asiya",
-                "Maryam",
-                "Khadijah"
-            ],
-            "correctAnswer": "Asiya",
-            "explanation": "Asiya bint Muzahim is Pharaoh's wife who believed in Musa and Allah."
-        },
-        {
-            "type": "choice",
-            "text": "How many names of Allah (Asma ul-Husna) are generally mentioned in the famous hadith?",
-            "options": [
-                "77",
-                "99",
-                "100",
-                "66"
-            ],
-            "correctAnswer": "99",
-            "explanation": "The hadith mentions that Allah has 99 names; whoever memorizes them will enter Paradise."
-        },
-        {
-            "type": "choice",
-            "text": "Which surah is equivalent to one-third of the Quran in recitation?",
-            "options": [
-                "Al-Fatiha",
-                "Al-Ikhlas",
-                "Al-Falaq",
-                "Al-Kafirun"
-            ],
-            "correctAnswer": "Al-Ikhlas",
-            "explanation": "Surah Al-Ikhlas (Pure Monotheism) is considered equivalent to one-third of the Quran."
-        },
-        {
-            "type": "choice",
-            "text": "What is 'Ghusl'?",
-            "options": [
-                "Minor ablution",
-                "Washing the deceased",
-                "Major ablution (ritual bath)",
-                "Hand washing"
-            ],
-            "correctAnswer": "Major ablution (ritual bath)",
-            "explanation": "Ghusl is the complete washing of the body necessary after a state of major impurity."
-        },
-        {
-            "type": "choice",
-            "text": "Which voluntary prayer is strongly recommended in mid-morning?",
-            "options": [
-                "Witr",
-                "Duha",
-                "Tahajjud",
-                "Rawatib"
-            ],
-            "correctAnswer": "Duha",
-            "explanation": "The Duha prayer is performed after sunrise and before the zenith."
+            "explanation": "On a scale from 0 to 14, a pH of 7 indicates a neutral solution, such as pure water."
         },
         {
             "type": "boolean",
-            "text": "Must Muslims believe in the books revealed before the Quran (Torah, Gospel, Psalms) in their original form?",
-            "correctAnswer": "true",
-            "explanation": "It is a pillar of faith to believe that Allah revealed books to His prophets, although current versions may be altered."
-        },
-        {
-            "type": "choice",
-            "text": "Who will be the companion of Prophet Isa at his return at the end of times?",
-            "options": [
-                "The Mahdi",
-                "The Dajjal",
-                "Khidr",
-                "Ilyas"
-            ],
-            "correctAnswer": "The Mahdi",
-            "explanation": "Isa will descend and pray behind the Mahdi according to prophetic tradition."
-        },
-        {
-            "type": "choice",
-            "text": "Which angel is tasked with blowing the Trumpet on the Day of Judgment?",
-            "options": [
-                "Jibril",
-                "Mikail",
-                "Israfil",
-                "Malik"
-            ],
-            "correctAnswer": "Israfil",
-            "explanation": "Israfil is the angel designated to blow the Trumpet (As-Sur)."
-        },
-        {
-            "type": "choice",
-            "text": "What is the name of the guardian of Hell?",
-            "options": [
-                "Ridwan",
-                "Malik",
-                "Munkar",
-                "Nakir"
-            ],
-            "correctAnswer": "Malik",
-            "explanation": "Malik is the chief guardian of Hell."
-        },
-        {
-            "type": "choice",
-            "text": "What is the name of the guardian of Paradise?",
-            "options": [
-                "Ridwan",
-                "Malik",
-                "Jibril",
-                "Mikail"
-            ],
-            "correctAnswer": "Ridwan",
-            "explanation": "Ridwan is traditionally known as the guardian of Paradise."
-        },
-        {
-            "type": "choice",
-            "text": "Which city became the capital of the Islamic state after the Hijra?",
-            "options": [
-                "Mecca",
-                "Taif",
-                "Medina (Yathrib)",
-                "Jerusalem"
-            ],
-            "correctAnswer": "Medina (Yathrib)",
-            "explanation": "Medina became the center of the Muslim community after the Prophet's emigration."
-        },
-        {
-            "type": "choice",
-            "text": "How many gates does Paradise have?",
-            "options": [
-                "7",
-                "8",
-                "99",
-                "12"
-            ],
-            "correctAnswer": "8",
-            "explanation": "Paradise has 8 gates, one of which is reserved for those who fast (Ar-Rayyan)."
-        },
-        {
-            "type": "choice",
-            "text": "What is the name of the gate of Paradise reserved for those who fast?",
-            "options": [
-                "Bab as-Salat",
-                "Bab al-Jihad",
-                "Ar-Rayyan",
-                "Bab as-Sadaqa"
-            ],
-            "correctAnswer": "Ar-Rayyan",
-            "explanation": "Ar-Rayyan is the exclusive gate for those who fast."
-        },
-        {
-            "type": "choice",
-            "text": "What is the name of the Prophet's mount during the Night Journey (Isra and Miraj)?",
-            "options": [
-                "Al-Qaswa",
-                "Al-Buraq",
-                "Duldul",
-                "Al-Abda"
-            ],
-            "correctAnswer": "Al-Buraq",
-            "explanation": "Al-Buraq is the fantastic creature that transported the Prophet from Mecca to Jerusalem and then to the heavens."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet has no father?",
-            "options": [
-                "Adam",
-                "Isa (Jesus)",
-                "Ibrahim",
-                "Yahya"
-            ],
-            "correctAnswer": "Isa (Jesus)",
-            "explanation": "Isa was born miraculously from the Virgin Mary without a father."
-        },
-        {
-            "type": "boolean",
-            "text": "Does Adam have a father and mother?",
+            "text": "Water always boils at 100°C, regardless of altitude.",
             "correctAnswer": "false",
-            "explanation": "Adam was created directly by Allah without father or mother."
+            "explanation": "The boiling point depends on atmospheric pressure. At high altitudes, the pressure is lower, so water boils at a temperature below 100°C."
         },
         {
             "type": "choice",
-            "text": "Which woman is considered one of the 4 best women in the universe and the daughter of Imran?",
+            "text": "Who formulated the famous equation E=mc²?",
             "options": [
-                "Maryam (Mary)",
-                "Aisha",
-                "Hafsa",
-                "Bilqis"
+                "Isaac Newton",
+                "Marie Curie",
+                "Albert Einstein",
+                "Niels Bohr"
             ],
-            "correctAnswer": "Maryam (Mary)",
-            "explanation": "Maryam bint Imran is one of the perfect women according to tradition."
+            "correctAnswer": "Albert Einstein",
+            "explanation": "Albert Einstein formulated this equation in 1905 as part of his theory of special relativity."
         },
         {
             "type": "choice",
-            "text": "Which caliph ordered the final compilation of the Quran into one standardized book?",
+            "text": "What is the direct transition from the solid state to the gaseous state called?",
             "options": [
-                "Abu Bakr",
-                "Umar",
-                "Uthman",
-                "Ali"
+                "Melting",
+                "Vaporization",
+                "Sublimation",
+                "Condensation"
             ],
-            "correctAnswer": "Uthman",
-            "explanation": "It was under the caliphate of Uthman ibn Affan that the Quran was standardized and copied."
+            "correctAnswer": "Sublimation",
+            "explanation": "Sublimation is the direct phase transition from solid to gas, without passing through the liquid state."
         },
         {
             "type": "choice",
-            "text": "What is 'Sayyid al-Istighfar'?",
+            "text": "What is the chemical symbol for gold?",
             "options": [
-                "A night prayer",
-                "The best formula for seeking forgiveness",
-                "A type of Zakat",
-                "A pilgrimage"
+                "Or",
+                "Ag",
+                "Au",
+                "Fe"
             ],
-            "correctAnswer": "The best formula for seeking forgiveness",
-            "explanation": "It is a specific supplication taught by the Prophet for asking Allah's forgiveness."
-        },
-        {
-            "type": "choice",
-            "text": "What is the 'Tashahhud'?",
-            "options": [
-                "The opening of prayer",
-                "The recitation made while sitting in prayer",
-                "The call to prayer",
-                "The prostration"
-            ],
-            "correctAnswer": "The recitation made while sitting in prayer",
-            "explanation": "The Tashahhud is recited in the sitting position (Jalsa) during prayer."
-        },
-        {
-            "type": "choice",
-            "text": "Which battle was the first great victory of the Muslims?",
-            "options": [
-                "Uhud",
-                "Badr",
-                "The Trench",
-                "Hunayn"
-            ],
-            "correctAnswer": "Badr",
-            "explanation": "Badr is the first decisive victory."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet was raised to the heavens and did not die?",
-            "options": [
-                "Musa",
-                "Ibrahim",
-                "Isa",
-                "Yusuf"
-            ],
-            "correctAnswer": "Isa",
-            "explanation": "According to the Quran, Isa was neither killed nor crucified, but raised to Allah."
+            "correctAnswer": "Au",
+            "explanation": "The symbol 'Au' comes from the Latin word 'aurum', which means gold."
         },
         {
             "type": "number",
-            "text": "How many times per day do Muslims prostrate at minimum in obligatory prayers?",
-            "correctAnswer": "34",
-            "explanation": "There are 17 obligatory Rakats per day, and each Rakat contains 2 prostrations: 17 * 2 = 34."
-        },
-        {
-            "type": "choice",
-            "text": "What is the name of the Angel of Death?",
-            "options": [
-                "Malik",
-                "Azrael (Malak al-Mawt)",
-                "Ridwan",
-                "Munkar"
-            ],
-            "correctAnswer": "Azrael (Malak al-Mawt)",
-            "explanation": "Although the name Azrael is common in tradition, the Quran calls him 'The Angel of Death' (Malak al-Mawt)."
-        },
-        {
-            "type": "choice",
-            "text": "Which surah is called 'The Heart of the Quran'?",
-            "options": [
-                "Al-Mulk",
-                "Yasin",
-                "Ar-Rahman",
-                "Al-Waqi'a"
-            ],
-            "correctAnswer": "Yasin",
-            "explanation": "Surah Yasin is often designated as such in traditions."
-        },
-        {
-            "type": "choice",
-            "text": "Which surah protects from the punishment of the grave if recited every night?",
-            "options": [
-                "Al-Mulk",
-                "Al-Waqi'a",
-                "Yasin",
-                "Al-Kahf"
-            ],
-            "correctAnswer": "Al-Mulk",
-            "explanation": "Surah Al-Mulk (The Sovereignty) is protective against the torment of the grave."
-        },
-        {
-            "type": "choice",
-            "text": "Which surah is recommended to read on Fridays?",
-            "options": [
-                "Al-Kahf (The Cave)",
-                "Al-Baqara",
-                "Yusuf",
-                "Maryam"
-            ],
-            "correctAnswer": "Al-Kahf (The Cave)",
-            "explanation": "Reading Surah Al-Kahf on Friday illuminates the believer with light until the following Friday."
-        },
-        {
-            "type": "choice",
-            "text": "What is the length of a day with Allah according to the Quran (in some verses)?",
-            "options": [
-                "100 years",
-                "1,000 years",
-                "50,000 years",
-                "10,000 years"
-            ],
-            "correctAnswer": "1,000 years",
-            "explanation": "The Quran mentions that a day with Him is like 1000 years of what you count (Surah Al-Hajj)."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet was sent to the people of Thamud?",
-            "options": [
-                "Hud",
-                "Salih",
-                "Shu'ayb",
-                "Lut"
-            ],
-            "correctAnswer": "Salih",
-            "explanation": "Prophet Salih was sent to the Thamud with the miracle of the she-camel."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet was sent to the people of 'Ad?",
-            "options": [
-                "Hud",
-                "Salih",
-                "Nuh",
-                "Ibrahim"
-            ],
-            "correctAnswer": "Hud",
-            "explanation": "Prophet Hud was sent to the 'Ad."
-        },
-        {
-            "type": "choice",
-            "text": "Which prophet was sent to Madyan?",
-            "options": [
-                "Shu'ayb",
-                "Musa",
-                "Ayyub",
-                "Yunus"
-            ],
-            "correctAnswer": "Shu'ayb",
-            "explanation": "Shu'ayb preached to the people of Madyan who cheated in weights and measures."
-        },
-        {
-            "type": "choice",
-            "text": "Who is the only woman mentioned by her first name in the Quran?",
-            "options": [
-                "Khadijah",
-                "Aisha",
-                "Maryam",
-                "Fatima"
-            ],
-            "correctAnswer": "Maryam",
-            "explanation": "Only Maryam (mother of Jesus) is mentioned by name. Others are referred to by their relationship (wife of, mother of...)."
-        },
-        {
-            "type": "choice",
-            "text": "Who killed Jalut (Goliath)?",
-            "options": [
-                "Musa",
-                "Dawud (David)",
-                "Talut (Saul)",
-                "Sulayman"
-            ],
-            "correctAnswer": "Dawud (David)",
-            "explanation": "Dawud, then young, killed the giant Jalut with his sling."
-        },
-        {
-            "type": "choice",
-            "text": "Which companion had the most beautiful voice for reciting the Quran, whom the Prophet said had received 'a flute from the family of David'?",
-            "options": [
-                "Bilal",
-                "Abu Musa Al-Ash'ari",
-                "Ibn Mas'ud",
-                "Zayd ibn Thabit"
-            ],
-            "correctAnswer": "Abu Musa Al-Ash'ari",
-            "explanation": "Abu Musa Al-Ash'ari was renowned for his magnificent recitation."
-        },
-        {
-            "type": "choice",
-            "text": "Who was the first muezzin of Islam?",
-            "options": [
-                "Zayd ibn Harithah",
-                "Bilal ibn Rabah",
-                "Salman al-Farisi",
-                "Ammar ibn Yasir"
-            ],
-            "correctAnswer": "Bilal ibn Rabah",
-            "explanation": "Bilal, the former Abyssinian slave, was chosen by the Prophet to make the call to prayer."
-        },
-        {
-            "type": "choice",
-            "text": "What is 'Dhikr'?",
-            "options": [
-                "Charity",
-                "The remembrance and mention of Allah",
-                "Pilgrimage",
-                "Holy war"
-            ],
-            "correctAnswer": "The remembrance and mention of Allah",
-            "explanation": "Dhikr encompasses all forms of remembering Allah (SubhanAllah, Alhamdulillah, etc.)."
-        },
-        {
-            "type": "choice",
-            "text": "In which city is the Prophet buried?",
-            "options": [
-                "Mecca",
-                "Jerusalem",
-                "Medina",
-                "Taif"
-            ],
-            "correctAnswer": "Medina",
-            "explanation": "He is buried in his mosque in Medina."
-        },
-        {
-            "type": "choice",
-            "text": "What is the definition of Ihsan (Excellence) according to the hadith of Jibril?",
-            "options": [
-                "Praying 5 times a day",
-                "Worshipping Allah as if you see Him",
-                "Giving a lot of money",
-                "Fasting on Monday and Thursday"
-            ],
-            "correctAnswer": "Worshipping Allah as if you see Him",
-            "explanation": "Ihsan is to worship Allah as if you see Him, for if you do not see Him, He sees you."
-        },
-        {
-            "type": "choice",
-            "text": "What is 'Witr'?",
-            "options": [
-                "An odd-numbered prayer performed at night",
-                "A morning prayer",
-                "The call to prayer",
-                "Washing the feet"
-            ],
-            "correctAnswer": "An odd-numbered prayer performed at night",
-            "explanation": "Witr is the last prayer of the night, consisting of an odd number of Rakats (often 1 or 3)."
-        },
-        {
-            "type": "choice",
-            "text": "Who are the 'People of the Book' (Ahl al-Kitab)?",
-            "options": [
-                "Muslims",
-                "Jews and Christians",
-                "Polytheists",
-                "Atheists"
-            ],
-            "correctAnswer": "Jews and Christians",
-            "explanation": "This term refers to those who received revealed scriptures before the Quran."
-        },
-        {
-            "type": "choice",
-            "text": "What is the reward for an accepted Hajj (Mabrur)?",
-            "options": [
-                "Wealth",
-                "Paradise",
-                "Long life",
-                "Fame"
-            ],
-            "correctAnswer": "Paradise",
-            "explanation": "The Prophet said that an accepted Hajj has no reward other than Paradise."
-        },
-        {
-            "type": "choice",
-            "text": "Which wife of the Prophet reported the most hadiths?",
-            "options": [
-                "Khadijah",
-                "Hafsa",
-                "Aisha",
-                "Umm Salama"
-            ],
-            "correctAnswer": "Aisha",
-            "explanation": "Aisha is one of the greatest transmitters of knowledge in Islam."
-        },
-        {
-            "type": "choice",
-            "text": "How old was the Prophet at his death?",
-            "options": [
-                "60",
-                "63",
-                "65",
-                "70"
-            ],
-            "correctAnswer": "63",
-            "explanation": "He died at 63 years old."
-        },
-        {
-            "type": "choice",
-            "text": "How old was the Prophet at the first revelation?",
-            "options": [
-                "25",
-                "30",
-                "40",
-                "50"
-            ],
-            "correctAnswer": "40",
-            "explanation": "The prophetic mission began at his 40 years of age."
-        },
-        {
-            "type": "choice",
-            "text": "Which cousin of the Prophet slept in his bed on the night of the Hijra to deceive the assassins?",
-            "options": [
-                "Jafar",
-                "Ali",
-                "Abbas",
-                "Aqil"
-            ],
-            "correctAnswer": "Ali",
-            "explanation": "Ali ibn Abi Talib took the Prophet's place in his bed, risking his life."
+            "text": "What is the atomic number (number of protons) of hydrogen?",
+            "correctAnswer": "1",
+            "explanation": "Hydrogen is the first element in the periodic table and has only 1 proton."
         },
         {
             "type": "boolean",
-            "text": "Is it permissible to pray exactly at sunrise?",
+            "text": "Sound travels faster in water than in air.",
+            "correctAnswer": "true",
+            "explanation": "The speed of sound is about 340 m/s in air, but around 1,500 m/s in water, because the molecules are closer together."
+        },
+        {
+            "type": "choice",
+            "text": "Which electrical quantity is measured in Volts?",
+            "options": [
+                "Current",
+                "Resistance",
+                "Power",
+                "Voltage"
+            ],
+            "correctAnswer": "Voltage",
+            "explanation": "Electrical voltage (or potential difference) is measured in Volts (V). Current is measured in Amperes."
+        },
+        {
+            "type": "number",
+            "text": "What temperature (rounded to the nearest integer) in degrees Celsius corresponds to absolute zero?",
+            "correctAnswer": "-273",
+            "explanation": "Absolute zero is the lowest possible temperature, equivalent to 0 Kelvin or approximately -273.15 °C."
+        },
+        {
+            "type": "choice",
+            "text": "Which acid is the main component of vinegar?",
+            "options": [
+                "Hydrochloric acid",
+                "Citric acid",
+                "Acetic acid",
+                "Sulfuric acid"
+            ],
+            "correctAnswer": "Acetic acid",
+            "explanation": "Vinegar is an aqueous solution containing mainly acetic acid (ethanoic acid)."
+        },
+        {
+            "type": "boolean",
+            "text": "A solution with a pH of 3 is considered basic.",
             "correctAnswer": "false",
-            "explanation": "It is forbidden to pray exactly at sunrise, zenith, and sunset."
+            "explanation": "A pH below 7 indicates an acidic solution. Basic solutions have a pH above 7."
         },
         {
             "type": "choice",
-            "text": "What is 'Zakat al-Fitr'?",
+            "text": "What instrument is used to measure atmospheric pressure?",
             "options": [
-                "Obligatory alms on wealth",
-                "Charity at the end of Ramadan",
-                "Voluntary charity",
-                "Land tax"
+                "Thermometer",
+                "Barometer",
+                "Hygrometer",
+                "Anemometer"
             ],
-            "correctAnswer": "Charity at the end of Ramadan",
-            "explanation": "It is a charity (usually in food) given before Eid al-Fitr prayer to purify the fasting person."
+            "correctAnswer": "Barometer",
+            "explanation": "A barometer measures ambient air pressure, which is very useful for weather forecasting."
         },
         {
             "type": "choice",
-            "text": "In which direction should a deceased Muslim be positioned in the grave?",
+            "text": "What happens if a light bulb burns out in a circuit connected entirely in series?",
             "options": [
-                "Towards the East",
-                "Towards the West",
-                "Towards the Qibla",
-                "Towards the sky"
+                "The others shine brighter",
+                "The others go out",
+                "Nothing changes",
+                "The circuit catches fire"
             ],
-            "correctAnswer": "Towards the Qibla",
-            "explanation": "The body is placed on its right side, with the face turned towards the Qibla (Mecca)."
+            "correctAnswer": "The others go out",
+            "explanation": "In a series circuit, there is only one loop. If a component is broken (like a burnt-out bulb), the current can no longer flow at all."
+        },
+        {
+            "type": "boolean",
+            "text": "Isotopes of a chemical element have the same number of protons but a different number of neutrons.",
+            "correctAnswer": "true",
+            "explanation": "This is the very definition of isotopes: they belong to the same element (same atomic number Z) but have different atomic masses."
+        },
+        {
+            "type": "choice",
+            "text": "What type of energy is directly associated with the speed and movement of an object?",
+            "options": [
+                "Potential energy",
+                "Thermal energy",
+                "Kinetic energy",
+                "Chemical energy"
+            ],
+            "correctAnswer": "Kinetic energy",
+            "explanation": "Kinetic energy (Ek = 1/2 m v²) depends on the mass and speed of the moving object."
+        },
+        {
+            "type": "choice",
+            "text": "Which metal is unique in being a liquid at room temperature?",
+            "options": [
+                "Iron",
+                "Mercury",
+                "Lead",
+                "Copper"
+            ],
+            "correctAnswer": "Mercury",
+            "explanation": "Mercury (Hg) is the only metal that is liquid under standard conditions for temperature and pressure."
+        },
+        {
+            "type": "choice",
+            "text": "Which particles make up the nucleus of an atom?",
+            "options": [
+                "Protons and electrons",
+                "Neutrons and electrons",
+                "Protons and neutrons",
+                "Only protons"
+            ],
+            "correctAnswer": "Protons and neutrons",
+            "explanation": "The nucleus is made up of nucleons, which are the protons (positive) and neutrons (neutral)."
+        },
+        {
+            "type": "boolean",
+            "text": "Rust is the result of an oxidation reaction of iron.",
+            "correctAnswer": "true",
+            "explanation": "The formation of rust is a slow oxidation-reduction reaction where iron reacts with oxygen from the air in the presence of water."
+        },
+        {
+            "type": "number",
+            "text": "How many electrons does a neutral carbon atom have (Atomic number Z = 6)?",
+            "correctAnswer": "6",
+            "explanation": "In a neutral atom, the number of electrons is equal to the number of protons, indicated by the atomic number Z."
         }
     ]
 }

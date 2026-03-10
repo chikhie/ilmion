@@ -1,26 +1,29 @@
 <template>
-  <div class="min-h-screen bg-brand-dark flex items-center justify-center px-4 py-8 sm:py-0 relative overflow-hidden font-sans-body">
+  <div class="min-h-screen bg-[#1e1f22] flex items-center justify-center px-4 py-8 sm:py-0 relative overflow-hidden font-sans text-[#f2f3f5]">
     <!-- Background Elements -->
-    <div class="absolute inset-0 z-0 pointer-events-none">
-        <!-- Abstract Pattern -->
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('/patterns/arabesque.png')"></div>
+    <div class="absolute inset-0 z-0 pointer-events-none bg-[#1e1f22]">
+        <!-- Mathematical Tech Grid Pattern -->
+        <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#00B578 1px, transparent 1px), radial-gradient(#00B578 1px, transparent 1px); background-size: 40px 40px, 40px 40px; background-position: 0 0, 20px 20px;"></div>
         
         <!-- Glow Effects -->
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-gold/10 rounded-full blur-[100px] animate-pulse-slow"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-brand-wood/10 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#00B578]/15 rounded-full blur-[100px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#00B578]/15 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
     </div>
 
     <div class="max-w-md w-full relative z-10 transition-all duration-300">
       <!-- Logo/Header -->
       <div class="text-center mb-8 animate-fade-in">
-        <div class="mb-6 inline-block p-4 rounded-full border border-brand-gold/20 bg-brand-wood/10 backdrop-blur-sm shadow-[0_0_30px_rgba(195,151,18,0.1)]">
-             <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-16 w-16 drop-shadow-2xl" />
+        <div class="mb-6 inline-flex items-center justify-center p-5 rounded-3xl bg-[#2b2d31] shadow-xl border-b-[4px] border-[#1e1f22] hover:-translate-y-1 transition-transform">
+          <!-- Science Icon Logo -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-[#00B578]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          </svg>
         </div>
-        <h1 class="text-3xl sm:text-4xl font-serif-title font-bold text-brand-parchment mb-2 drop-shadow-lg tracking-wide">ILMANAR</h1>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#f2f3f5] tracking-tight mb-2 drop-shadow-lg">ILMANAR</h1>
       </div>
 
       <!-- Login Form -->
-      <div class="bg-brand-wood/10 backdrop-blur-xl rounded-3xl p-8 border border-brand-gold/20 shadow-2xl animate-fade-in-up">
+      <div class="bg-[#2b2d31] backdrop-blur-xl rounded-[2rem] p-8 border border-[#1e1f22] shadow-[0_8px_30px_rgba(0,0,0,0.4)] animate-fade-in-up relative">
         <form @submit.prevent="handleLogin" class="space-y-6">
           <!-- Alert -->
           <div v-if="errorMessage" class="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-2xl text-sm text-center">
@@ -33,7 +36,7 @@
 
           <!-- Email -->
           <div class="space-y-2">
-            <label for="email" class="block text-xs font-bold uppercase tracking-widest text-brand-parchment/90 ml-1">
+            <label for="email" class="block text-xs font-bold uppercase tracking-widest text-[#b5bac1] ml-1">
               Email
             </label>
             <input
@@ -41,14 +44,14 @@
               v-model="form.email"
               type="email"
               required
-              class="w-full px-5 py-4 bg-brand-wood/20 border border-brand-gold/30 text-brand-parchment rounded-2xl focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold/50 placeholder-brand-parchment/30 transition-all outline-none"
+              class="w-full px-5 py-4 bg-[#1e1f22] border-2 border-transparent text-[#f2f3f5] rounded-2xl focus:border-[#00B578] focus:bg-[#2b2d31] placeholder-[#4f545c] transition-all outline-none"
               placeholder="votre@email.com"
             />
           </div>
 
           <!-- Password -->
           <div class="space-y-2">
-            <label for="password" class="block text-xs font-bold uppercase tracking-widest text-brand-parchment/90 ml-1">
+            <label for="password" class="block text-xs font-bold uppercase tracking-widest text-[#b5bac1] ml-1">
               Mot de passe
             </label>
             <div class="relative group">
@@ -57,13 +60,13 @@
                 v-model="form.password"
                 :type="showPassword ? 'text' : 'password'"
                 required
-                class="w-full px-5 py-4 bg-brand-wood/20 border border-brand-gold/30 text-brand-parchment rounded-2xl focus:ring-2 focus:ring-brand-gold/50 focus:border-brand-gold/50 placeholder-brand-parchment/30 transition-all outline-none"
+                class="w-full px-5 py-4 bg-[#1e1f22] border-2 border-transparent text-[#f2f3f5] rounded-2xl focus:border-[#00B578] focus:bg-[#2b2d31] placeholder-[#4f545c] transition-all outline-none"
                 placeholder="••••••••"
               />
               <button
                 type="button"
                 @click="showPassword = !showPassword"
-                class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-gold/60 hover:text-brand-gold transition-colors"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-[#949ba4] hover:text-[#f2f3f5] transition-colors"
                 title="Afficher/Masquer le mot de passe"
                 aria-label="Afficher ou masquer le mot de passe"
               >
@@ -80,17 +83,17 @@
 
           <!-- Forgot Password Link -->
           <div class="flex items-center justify-end text-xs px-1">
-            <NuxtLink to="/forgot-password" class="text-brand-gold hover:text-brand-gold/80 transition-colors font-bold uppercase tracking-wide">
+            <NuxtLink to="/forgot-password" class="text-[#00B578] hover:text-[#00895a] transition-colors font-bold uppercase tracking-wide">
               Mot de passe oublié ?
             </NuxtLink>
           </div>
 
           <!-- Submit Button -->
-          <div class="relative group pt-2">
+          <div class="relative group mt-8">
             <button
               type="submit"
               :disabled="authStore.loading || !isFormValid"
-              class="w-full bg-brand-gold text-brand-dark py-4 rounded-2xl font-bold text-lg hover:shadow-[0_0_20px_rgba(195,151,18,0.4)] transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
+              class="w-full bg-[#00B578] text-white py-4 rounded-2xl font-extrabold text-lg shadow-[0_6px_0_#00895a] hover:-translate-y-1 hover:shadow-[0_8px_0_#00895a] active:translate-y-1 active:shadow-[0_0px_0_#00895a] disabled:opacity-50 disabled:translate-y-0 disabled:shadow-[0_6px_0_#00895a] transition-all cursor-pointer uppercase tracking-wider"
             >
               <span v-if="!authStore.loading">Se connecter</span>
               <span v-else class="flex items-center justify-center">
@@ -117,9 +120,9 @@
         </form>
 
         <!-- Register Link -->
-        <div class="mt-8 text-center text-sm text-brand-parchment/60 font-medium">
+        <div class="mt-8 text-center text-sm text-[#949ba4] font-medium">
           Nouveau ici ?
-          <NuxtLink to="/register" class="text-brand-gold hover:text-brand-gold/80 hover:underline font-bold ml-1">
+          <NuxtLink to="/register" class="text-[#00B578] hover:text-[#00895a] hover:underline font-bold ml-1 transition-colors">
             Créer un compte
           </NuxtLink>
         </div>
@@ -127,7 +130,7 @@
 
       <!-- Back to Home -->
       <div class="mt-8 text-center animate-fade-in">
-        <NuxtLink to="/" class="text-xs text-brand-parchment/50 hover:text-brand-parchment transition-colors font-bold flex items-center justify-center gap-2 uppercase tracking-widest">
+        <NuxtLink to="/" class="text-xs text-[#949ba4] hover:text-[#f2f3f5] transition-colors font-bold flex items-center justify-center gap-2 uppercase tracking-widest">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
           Retour à l'accueil
         </NuxtLink>
@@ -144,7 +147,7 @@ definePageMeta({
 
 useSeoMeta({
   title: 'Connexion | Ilmanar',
-  description: 'Connectez-vous à votre compte Ilmanar pour continuer votre apprentissage.'
+  description: 'Connectez-vous pour continuer votre apprentissage.'
 })
 
 const authStore = useAuthStore()

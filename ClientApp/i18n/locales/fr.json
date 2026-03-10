@@ -1,11 +1,11 @@
 {
     "home": {
-        "title": "Le Savoir est une",
-        "titleHighlight": "Lumière",
-        "subtitle": "Apprenez et approfondissez vos connaissances sur l'Islam",
-        "description": "Participez à des quiz interactifs pour évaluer vos acquis et apprendre à votre rythme les principes et l'histoire de l'Islam.",
-        "startQuiz": "Lancer le Quiz",
-        "register": "S'inscrire"
+        "title": "Maîtrisez les",
+        "titleHighlight": "Sciences & Maths",
+        "subtitle": "Apprenez par la pratique avec des concepts interactifs",
+        "description": "Rejoignez une communauté d'apprenants. Explorez les mathématiques, la physique et l'informatique à travers des leçons visuelles et des défis stimulants.",
+        "startQuiz": "Commencer l'exploration",
+        "register": "S'inscrire gratuitement"
     },
     "quiz": {
         "title": "Quiz Général",
@@ -23,7 +23,7 @@
         "playAgain": "Relancer le quiz",
         "backToHomeBtn": "Retour à l'accueil",
         "scoreMessages": {
-            "perfect": "Excellent ! Mashallah",
+            "perfect": "Excellent ! Un vrai génie !",
             "great": "Très bon travail !",
             "good": "Bien joué !",
             "keep": "Continuez à apprendre !"
