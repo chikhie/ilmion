@@ -14,6 +14,9 @@ RUN bun install
 # Copie du reste du code source
 COPY . .
 
+# Remplacement de l'URL de l'API pour la production
+RUN sed -i 's|http://localhost:8080/api|https://api.ilmion.site/api|g' nuxt.config.ts
+
 # Construction de l'application Nuxt pour la production
 RUN bun run build
 
