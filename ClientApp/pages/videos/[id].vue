@@ -1,15 +1,15 @@
-<template>
-  <div class="min-h-screen bg-brand-dark pt-20 pb-12 font-sans-body text-brand-parchment flex flex-col items-center">
+﻿<template>
+  <div class="min-h-screen bg-[#1e1f22] pt-20 pb-12 font-sans text-gray-300 flex flex-col items-center">
     <div class="w-full max-w-6xl px-4 sm:px-6 lg:px-8">
       
       <!-- Back Button -->
-      <NuxtLink to="/videos" class="inline-flex items-center gap-2 text-brand-gold hover:text-white mb-8 transition-colors group">
+      <NuxtLink to="/videos" class="inline-flex items-center gap-2 text-[#00B578] hover:text-white mb-8 transition-colors group">
         <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
         <span>Retour à la bibliothèque</span>
       </NuxtLink>
 
       <!-- Video Player Container -->
-      <div class="bg-black rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-brand-gold/20 aspect-video relative group">
+      <div class="bg-black rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-[#00B578]/20 aspect-video relative group">
          <video 
            ref="videoPlayer" 
            class="w-full h-full object-contain" 
@@ -22,8 +22,8 @@
 
       <!-- Video Details -->
       <div class="mt-8">
-        <h1 class="text-3xl md:text-4xl font-serif-title font-bold text-brand-gold mb-4">{{ videoTitle }}</h1>
-        <p class="text-brand-parchment/80 leading-relaxed text-lg">
+        <h1 class="text-3xl md:text-4xl font-sans font-bold text-[#00B578] mb-4">{{ videoTitle }}</h1>
+        <p class="text-gray-300/80 leading-relaxed text-lg">
           Description de la vidéo (à implémenter si disponible). Profitez de ce contenu éducatif exclusif.
         </p>
       </div>

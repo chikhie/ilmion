@@ -1,7 +1,7 @@
 <template>
-  <div class="max-w-4xl mx-auto font-sans-body">
+  <div class="max-w-4xl mx-auto font-sans">
     <!-- Outer Card with Pattern Border (Matching Mockup) -->
-    <div class="bg-[#Fdfbf7] p-2 rounded-2xl md:rounded-[2.5rem] shadow-2xl relative overflow-hidden transform transition-all hover:scale-[1.005] duration-500 border border-brand-gold/20">
+    <div class="bg-[#Fdfbf7] p-2 rounded-2xl md:rounded-[2.5rem] shadow-2xl relative overflow-hidden transform transition-all hover:scale-[1.005] duration-500 border border-[#00B578]/20">
         <!-- Pattern Texture on Border -->
         <div class="absolute inset-0 pattern-geometric opacity-10 pointer-events-none"></div>
 
@@ -11,19 +11,19 @@
                 <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                 </div>
-                <h3 class="text-2xl font-serif-title font-bold text-brand-dark mb-2">Fin de la partie</h3>
-                <p class="text-brand-wood font-medium mb-8 leading-relaxed">{{ mpError }}</p>
-                <button @click="handleClose" class="px-8 py-3 bg-brand-dark text-brand-parchment rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-black transition-all">
+                <h3 class="text-2xl font-sans font-bold text-[#1e1f22] mb-2">Fin de la partie</h3>
+                <p class="text-[#2b2d31] font-medium mb-8 leading-relaxed">{{ mpError }}</p>
+                <button @click="handleClose" class="px-8 py-3 bg-[#1e1f22] text-gray-300 rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-black transition-all">
                     Retour aux jeux
                 </button>
             </div>
         </div>
         
         <!-- Inner Card with Line Border -->
-        <div class="bg-white rounded-xl md:rounded-[2rem] border-2 border-brand-dark/80 p-3 md:p-10 relative z-10 flex flex-col min-h-[350px] md:min-h-[600px]">
+        <div class="bg-white rounded-xl md:rounded-[2rem] border-2 border-[#1e1f22]/80 p-3 md:p-10 relative z-10 flex flex-col min-h-[350px] md:min-h-[600px]">
             
             <!-- Game Header (Compact) -->
-            <div class="flex justify-between items-center mb-2 md:mb-8 md:border-b md:border-brand-wood/10 md:pb-6 relative w-full">
+            <div class="flex justify-between items-center mb-2 md:mb-8 md:border-b md:border-[#2b2d31]/10 md:pb-6 relative w-full">
                 <!-- Left: Timer / Lobby Status -->
                 <div class="flex items-center gap-2">
                      <div v-if="!showResult && !answered && (!isMultiplayer || mpGameStarted)" class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 flex items-center justify-center font-bold text-sm md:text-lg shadow-inner bg-gray-50"
@@ -37,9 +37,9 @@
 
                 <!-- Right: Score / Player Count -->
                 <div class="flex flex-col items-end">
-                    <div class="text-base md:text-xl font-bold text-brand-dark">
+                    <div class="text-base md:text-xl font-bold text-[#1e1f22]">
                          <span v-if="!(isMultiplayer && !mpGameStarted)">
-                             <span class="text-brand-gold">{{ score }}</span><span class="text-gray-400 text-xs mx-0.5">/</span>{{ questions.length }}
+                             <span class="text-[#00B578]">{{ score }}</span><span class="text-gray-400 text-xs mx-0.5">/</span>{{ questions.length }}
                          </span>
                     </div>
                 </div>
@@ -47,41 +47,41 @@
 
             <!-- Loading State -->
             <div v-if="loading" class="text-center py-20 animate-pulse">
-               <p class="text-brand-wood font-serif-title italic text-xl">Recherche dans les archives...</p>
+               <p class="text-[#2b2d31] font-sans italic text-xl">Recherche dans les archives...</p>
             </div>
 
             <!-- MULTIPLAYER LOBBY -->
             <div v-else-if="isMultiplayer && !mpGameStarted" class="flex-grow flex flex-col items-center justify-center animate-fade-in relative z-10 w-full">
                 
                 <!-- GUEST USERNAME PROMPT -->
-                <div v-if="!hasMultiplayerIdentity" class="w-full max-w-sm bg-white p-8 rounded-2xl shadow-xl border border-brand-gold/20 text-center">
-                     <h3 class="text-xl font-serif-title font-bold text-brand-dark mb-4">Qui êtes-vous ?</h3>
-                     <p class="text-sm text-brand-wood/60 mb-6">Entrez un nom pour rejoindre la caravane</p>
+                <div v-if="!hasMultiplayerIdentity" class="w-full max-w-sm bg-white p-8 rounded-2xl shadow-xl border border-[#00B578]/20 text-center">
+                     <h3 class="text-xl font-sans font-bold text-[#1e1f22] mb-4">Qui êtes-vous ?</h3>
+                     <p class="text-sm text-[#2b2d31]/60 mb-6">Entrez un nom pour rejoindre la caravane</p>
                      
-                     <input v-model="guestUsername" @keyup.enter="confirmIdentity" placeholder="Votre nom..." class="w-full p-4 mb-4 bg-gray-50 border-2 border-brand-wood/10 rounded-xl text-center font-bold text-gray-900 focus:border-brand-gold outline-none" maxlength="15" />
+                     <input v-model="guestUsername" @keyup.enter="confirmIdentity" placeholder="Votre nom..." class="w-full p-4 mb-4 bg-gray-50 border-2 border-[#2b2d31]/10 rounded-xl text-center font-bold text-gray-900 focus:border-[#00B578] outline-none" maxlength="15" />
                      
-                     <button @click="confirmIdentity" :disabled="!guestUsername" class="w-full py-3 bg-brand-dark text-brand-parchment rounded-xl font-bold uppercase tracking-widest hover:bg-black disabled:opacity-50 transition-all">
+                     <button @click="confirmIdentity" :disabled="!guestUsername" class="w-full py-3 bg-[#1e1f22] text-gray-300 rounded-xl font-bold uppercase tracking-widest hover:bg-black disabled:opacity-50 transition-all">
                          Continuer
                      </button>
                 </div>
 
                 <!-- Initial Choice (Lobby Actions) -->
                 <div v-else-if="!currentCode" class="w-full max-w-md space-y-6">
-                    <h3 class="text-3xl font-serif-title font-bold text-center text-brand-dark mb-8">Rejoindre la Caravane</h3>
+                    <h3 class="text-3xl font-sans font-bold text-center text-[#1e1f22] mb-8">Rejoindre la Caravane</h3>
                     
-                    <button @click="handleCreateLobby" class="w-full py-5 bg-brand-dark text-brand-parchment rounded-2xl font-bold uppercase tracking-widest shadow-lg hover:bg-black hover:scale-[1.02] transition-all flex items-center justify-center gap-3">
+                    <button @click="handleCreateLobby" class="w-full py-5 bg-[#1e1f22] text-gray-300 rounded-2xl font-bold uppercase tracking-widest shadow-lg hover:bg-black hover:scale-[1.02] transition-all flex items-center justify-center gap-3">
                          <span>Créer une partie</span>
                          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     </button>
                     
                     <div class="relative">
-                        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-brand-wood/20"></div></div>
-                        <div class="relative flex justify-center text-xs uppercase tracking-widest text-brand-wood/60"><span class="bg-white px-2">Ou</span></div>
+                        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-[#2b2d31]/20"></div></div>
+                        <div class="relative flex justify-center text-xs uppercase tracking-widest text-[#2b2d31]/60"><span class="bg-white px-2">Ou</span></div>
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <input v-model="joinCodeDisplay" placeholder="Code de partie..." class="flex-1 p-4 bg-gray-50 border-2 border-brand-wood/10 rounded-xl text-center font-bold uppercase tracking-widest text-brand-dark focus:border-brand-gold outline-none" maxlength="6" />
-                        <button @click="handleJoinLobby" :disabled="!joinCodeDisplay" class="w-full sm:w-auto px-6 py-4 bg-brand-wood text-brand-parchment rounded-xl font-bold uppercase tracking-widest hover:bg-brand-gold disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        <input v-model="joinCodeDisplay" placeholder="Code de partie..." class="flex-1 p-4 bg-gray-50 border-2 border-[#2b2d31]/10 rounded-xl text-center font-bold uppercase tracking-widest text-[#1e1f22] focus:border-[#00B578] outline-none" maxlength="6" />
+                        <button @click="handleJoinLobby" :disabled="!joinCodeDisplay" class="w-full sm:w-auto px-6 py-4 bg-[#2b2d31] text-gray-300 rounded-xl font-bold uppercase tracking-widest hover:bg-[#00B578] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                             Rejoindre
                         </button>
                     </div>
@@ -91,27 +91,27 @@
 
                 <!-- Waiting Room -->
                 <div v-else class="w-full max-w-lg text-center">
-                    <div class="bg-brand-gold/10 rounded-2xl p-6 mb-8 border border-brand-gold/30 relative group">
-                        <p class="text-xs uppercase tracking-widest text-brand-wood/60 mb-1">Code de la partie</p>
-                        <p class="text-2xl md:text-3xl font-serif-title font-bold text-brand-dark tracking-[0.2em] mb-4">{{ currentCode }}</p>
+                    <div class="bg-[#00B578]/10 rounded-2xl p-6 mb-8 border border-[#00B578]/30 relative group">
+                        <p class="text-xs uppercase tracking-widest text-[#2b2d31]/60 mb-1">Code de la partie</p>
+                        <p class="text-2xl md:text-3xl font-sans font-bold text-[#1e1f22] tracking-[0.2em] mb-4">{{ currentCode }}</p>
                         
                         <div class="flex justify-center gap-3 mt-2 transition-opacity duration-300">
-                             <button @click="copyCode" class="text-xs font-bold uppercase tracking-widest text-brand-wood hover:text-brand-dark flex items-center gap-1 px-3 py-2 bg-white/50 rounded-lg hover:bg-white transition-colors">
+                             <button @click="copyCode" class="text-xs font-bold uppercase tracking-widest text-[#2b2d31] hover:text-[#1e1f22] flex items-center gap-1 px-3 py-2 bg-white/50 rounded-lg hover:bg-white transition-colors">
                                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
                                  Copier
                              </button>
-                             <button @click="copyInviteLink" class="text-xs font-bold uppercase tracking-widest text-brand-wood hover:text-brand-dark flex items-center gap-1 px-3 py-2 bg-white/50 rounded-lg hover:bg-white transition-colors">
+                             <button @click="copyInviteLink" class="text-xs font-bold uppercase tracking-widest text-[#2b2d31] hover:text-[#1e1f22] flex items-center gap-1 px-3 py-2 bg-white/50 rounded-lg hover:bg-white transition-colors">
                                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
                                  Inviter
                              </button>
                         </div>
                     </div>
 
-                    <h4 class="text-sm font-bold uppercase tracking-widest text-brand-wood mb-4">Joueurs en attente ({{ players.length }})</h4>
+                    <h4 class="text-sm font-bold uppercase tracking-widest text-[#2b2d31] mb-4">Joueurs en attente ({{ players.length }})</h4>
                     
                     <div class="flex flex-wrap justify-center gap-2 mb-6">
                         <div v-for="player in players" :key="player.connectionId" class="bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100 flex items-center gap-2 animate-scale-in">
-                            <div class="w-5 h-5 rounded-full bg-brand-dark text-brand-parchment flex items-center justify-center font-bold text-[10px]">
+                            <div class="w-5 h-5 rounded-full bg-[#1e1f22] text-gray-300 flex items-center justify-center font-bold text-[10px]">
                                 {{ player.username.charAt(0).toUpperCase() }}
                             </div>
                             <span class="text-xs font-bold text-gray-900 truncate max-w-[80px]">{{ player.username }}</span>
@@ -119,11 +119,11 @@
                     </div>
                     
                     <div class="space-y-3">
-                         <button v-if="isHost" @click="handleStartGame" class="w-full py-4 bg-brand-gold text-brand-dark rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-yellow-500 hover:scale-[1.02] transition-all relative overflow-hidden group">
+                         <button v-if="isHost" @click="handleStartGame" class="w-full py-4 bg-[#00B578] text-[#1e1f22] rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-yellow-500 hover:scale-[1.02] transition-all relative overflow-hidden group">
                              <span class="relative z-10">Lancer la caravane</span>
                              <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
                          </button>
-                         <p class="text-xs text-brand-wood/50 italic">{{ isHost ? 'Attendez que tous les joueurs soient prêts' : 'En attente du chef de caravane...' }}</p>
+                         <p class="text-xs text-[#2b2d31]/50 italic">{{ isHost ? 'Attendez que tous les joueurs soient prêts' : 'En attente du chef de caravane...' }}</p>
                     </div>
                 </div>
             </div>
@@ -131,42 +131,42 @@
             <!-- Result Screen -->
             <div v-else-if="showResult" class="text-center flex-grow flex flex-col justify-center items-center py-12 animate-fade-in relative z-10">
                 <div class="mb-8 relative">
-                    <div class="absolute inset-0 bg-brand-gold/10 rounded-full blur-2xl animate-pulse"></div>
+                    <div class="absolute inset-0 bg-[#00B578]/10 rounded-full blur-2xl animate-pulse"></div>
                     <span class="text-8xl drop-shadow-xl relative z-10 block animate-bounce-slow">
                         {{ score >= questions.length / 2 ? '🏆' : '🕯️' }}
                     </span>
                  </div>
                  
-                 <h3 class="text-4xl font-serif-title font-bold text-brand-dark mb-4">Quiz Terminé</h3>
-                 <p class="text-brand-wood font-medium text-lg mb-8 max-w-md mx-auto leading-relaxed">
+                 <h3 class="text-4xl font-sans font-bold text-[#1e1f22] mb-4">Quiz Terminé</h3>
+                 <p class="text-[#2b2d31] font-medium text-lg mb-8 max-w-md mx-auto leading-relaxed">
                     {{ getScoreMessage() }}
                  </p>
 
                  <!-- Multiplayer Leaderboard Summary (Simple) -->
                  <div v-if="isMultiplayer" class="w-full max-w-md mb-8 bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                     <h4 class="text-xs uppercase tracking-widest text-brand-wood/60 mb-4">Classement de la Caravane</h4>
+                     <h4 class="text-xs uppercase tracking-widest text-[#2b2d31]/60 mb-4">Classement de la Caravane</h4>
                      <div class="space-y-2">
-                         <div v-for="(p, i) in sortedPlayers" :key="p.connectionId" class="flex justify-between items-center p-2 rounded-lg" :class="players[i]?.connectionId === myConnectionId ? 'bg-brand-gold/20 border border-brand-gold/30' : ''">
+                         <div v-for="(p, i) in sortedPlayers" :key="p.connectionId" class="flex justify-between items-center p-2 rounded-lg" :class="players[i]?.connectionId === myConnectionId ? 'bg-[#00B578]/20 border border-[#00B578]/30' : ''">
                              <div class="flex items-center gap-2">
-                                 <span class="font-bold text-brand-dark w-6">{{ i + 1 }}.</span>
+                                 <span class="font-bold text-[#1e1f22] w-6">{{ i + 1 }}.</span>
                                  <span class="text-sm font-medium text-gray-900">{{ p.username }}</span>
                              </div>
-                             <span class="font-bold text-brand-dark">{{ p.score }} pts</span>
+                             <span class="font-bold text-[#1e1f22]">{{ p.score }} pts</span>
                          </div>
                      </div>
                  </div>
                  
-                    <button @click="handleShareResult" class="w-full py-4 mb-4 bg-brand-gold text-brand-dark rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-[#d4a81e] transition-all flex items-center justify-center gap-2 group relative overflow-hidden">
+                    <button @click="handleShareResult" class="w-full py-4 mb-4 bg-[#00B578] text-[#1e1f22] rounded-xl font-bold uppercase tracking-widest shadow-lg hover:bg-[#d4a81e] transition-all flex items-center justify-center gap-2 group relative overflow-hidden">
                         <span class="relative z-10">Partager mon résultat</span>
                         <svg class="w-5 h-5 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
                         <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                      </button>
 
                      <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
-                        <button @click="handleRetry" class="flex-1 py-4 border-2 border-brand-wood/20 text-brand-wood rounded-xl font-bold hover:bg-brand-wood/5 hover:border-brand-wood/40 transition-all uppercase tracking-widest text-xs">
+                        <button @click="handleRetry" class="flex-1 py-4 border-2 border-[#2b2d31]/20 text-[#2b2d31] rounded-xl font-bold hover:bg-[#2b2d31]/5 hover:border-[#2b2d31]/40 transition-all uppercase tracking-widest text-xs">
                           Recommencer
                         </button>
-                        <button @click="handleClose" class="flex-1 py-4 bg-brand-dark text-brand-parchment rounded-xl font-bold hover:bg-black transition-all shadow-xl hover:shadow-2xl uppercase tracking-widest text-xs">
+                        <button @click="handleClose" class="flex-1 py-4 bg-[#1e1f22] text-gray-300 rounded-xl font-bold hover:bg-black transition-all shadow-xl hover:shadow-2xl uppercase tracking-widest text-xs">
                           Retour aux jeux
                         </button>
                      </div>
@@ -176,7 +176,7 @@
             <div v-else class="flex-grow flex flex-col relative z-10">
                 
                 <!-- Question Text -->
-                <h3 class="text-2xl md:text-3xl font-serif-title font-bold text-center text-brand-dark mb-10 leading-relaxed drop-shadow-sm min-h-[4rem] flex items-center justify-center">
+                <h3 class="text-2xl md:text-3xl font-sans font-bold text-center text-[#1e1f22] mb-10 leading-relaxed drop-shadow-sm min-h-[4rem] flex items-center justify-center">
                   {{ currentQuestion.text }}
                 </h3>
 
@@ -196,7 +196,7 @@
                              <!-- Button Content -->
                              <div class="relative z-10 px-6 py-5 flex items-center w-full">
                                  <!-- Letter Block -->
-                                 <span class="mr-5 font-serif-title font-bold opacity-60 text-sm tracking-wider w-6">
+                                 <span class="mr-5 font-sans font-bold opacity-60 text-sm tracking-wider w-6">
                                      {{ String.fromCharCode(65 + (idx as number)) }}.
                                  </span>
                                  
@@ -232,20 +232,20 @@
                         placeholder="?"
                         :disabled="answered"
                         @keyup.enter="submitNumber"
-                        class="w-full p-8 bg-[#F0F4F8] border-2 border-brand-wood/20 rounded-[1.5rem] text-brand-dark focus:border-brand-gold focus:bg-white transition-all text-center text-5xl font-serif-title font-bold tracking-tighter outline-none shadow-inner"
+                        class="w-full p-8 bg-[#F0F4F8] border-2 border-[#2b2d31]/20 rounded-[1.5rem] text-[#1e1f22] focus:border-[#00B578] focus:bg-white transition-all text-center text-5xl font-sans font-bold tracking-tighter outline-none shadow-inner"
                         :class="{ 
                             'border-green-500 bg-green-50': answered && showFeedback && isCorrect, 
                             'border-red-500 bg-red-50': answered && showFeedback && !isCorrect,
-                            'border-brand-gold bg-white shadow-md': answered && !showFeedback 
+                            'border-[#00B578] bg-white shadow-md': answered && !showFeedback 
                         }"
                       />
                       <div class="absolute inset-0 pointer-events-none border border-black/5 rounded-[1.5rem]"></div>
                   </div>
                   
                   <div v-if="!answered" class="mt-8 text-center">
-                    <button @click="submitNumber" class="px-12 py-4 bg-brand-dark text-brand-parchment rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all uppercase tracking-widest text-sm relative overflow-hidden group">
+                    <button @click="submitNumber" class="px-12 py-4 bg-[#1e1f22] text-gray-300 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all uppercase tracking-widest text-sm relative overflow-hidden group">
                       <span class="relative z-10">Valider ma réponse</span>
-                      <div class="absolute inset-0 bg-brand-gold opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                      <div class="absolute inset-0 bg-[#00B578] opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     </button>
                   </div>
                 </div>
@@ -254,14 +254,14 @@
                 <div v-if="answered" class="mt-8 mx-auto max-w-2xl w-full animate-fade-in-up">
                     
                     <!-- Waiting for others message (Sync Mode) -->
-                    <div v-if="isMultiplayer && !showFeedback" class="bg-brand-wood/5 rounded-2xl p-6 border border-brand-wood/10 text-center animate-pulse">
-                         <p class="text-brand-wood font-medium italic text-sm">
+                    <div v-if="isMultiplayer && !showFeedback" class="bg-[#2b2d31]/5 rounded-2xl p-6 border border-[#2b2d31]/10 text-center animate-pulse">
+                         <p class="text-[#2b2d31] font-medium italic text-sm">
                             En attente des autres voyageurs...
                          </p>
                     </div>
 
                     <!-- Result (Only when showFeedback is true) -->
-                    <div v-else class="bg-brand-wood/5 rounded-2xl p-6 border border-brand-wood/10 flex gap-4 items-start relative overflow-hidden">
+                    <div v-else class="bg-[#2b2d31]/5 rounded-2xl p-6 border border-[#2b2d31]/10 flex gap-4 items-start relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full" :class="isCorrect ? 'bg-green-500' : 'bg-red-500'"></div>
                         
                         <div class="flex-1 pl-2">
@@ -269,12 +269,12 @@
                                  <h4 class="font-bold uppercase tracking-wider text-xs" :class="isCorrect ? 'text-green-700' : 'text-red-700'">
                                     {{ isCorrect ? 'Excellente réponse !' : 'Incorrect' }}
                                  </h4>
-                                 <span v-if="!isCorrect" class="text-xs text-brand-dark font-bold bg-white px-2 py-1 rounded border border-brand-dark/10">
+                                 <span v-if="!isCorrect" class="text-xs text-[#1e1f22] font-bold bg-white px-2 py-1 rounded border border-[#1e1f22]/10">
                                      Réponse : {{ currentQuestion.correctAnswer }}
                                  </span>
                              </div>
                              
-                             <p class="text-brand-wood font-medium italic text-sm leading-relaxed">
+                             <p class="text-[#2b2d31] font-medium italic text-sm leading-relaxed">
                                 {{ currentQuestion.explanation }}
                              </p>
                         </div>
@@ -285,24 +285,24 @@
                          <button 
                             v-if="!isMultiplayer || isHost"
                             @click="handleNextQuestionClick" 
-                            class="px-8 py-3 bg-brand-gold text-brand-dark font-bold rounded-full shadow-lg hover:bg-[#d4a81e] transition-all flex items-center gap-2 group animate-bounce-subtle">
+                            class="px-8 py-3 bg-[#00B578] text-[#1e1f22] font-bold rounded-full shadow-lg hover:bg-[#d4a81e] transition-all flex items-center gap-2 group animate-bounce-subtle">
                             <span>{{ currentQuestionIndex < questions.length - 1 ? 'Question suivante' : 'Voir les résultats' }}</span>
                             <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                          </button>
-                         <p v-else class="text-xs text-brand-wood/50 italic mt-2 animate-pulse">En attente du chef de caravane...</p>
+                         <p v-else class="text-xs text-[#2b2d31]/50 italic mt-2 animate-pulse">En attente du chef de caravane...</p>
                     </div>
                 </div>
 
                 <!-- Footer Slider Progress -->
                 <div class="mt-auto pt-10 px-4">
-                    <div class="w-full h-1 bg-brand-dark/5 rounded-full relative">
+                    <div class="w-full h-1 bg-[#1e1f22]/5 rounded-full relative">
                         <!-- Filled Part -->
-                        <div class="absolute top-0 left-0 h-full bg-brand-gold rounded-full transition-all duration-700"
+                        <div class="absolute top-0 left-0 h-full bg-[#00B578] rounded-full transition-all duration-700"
                              :style="{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }"></div>
                         <!-- Slider Knot -->
-                        <div class="absolute top-1/2 w-6 h-6 bg-white border-2 border-brand-gold rounded-full shadow-md flex items-center justify-center transition-all duration-700 transform -translate-y-1/2 -translate-x-1/2 z-10"
+                        <div class="absolute top-1/2 w-6 h-6 bg-white border-2 border-[#00B578] rounded-full shadow-md flex items-center justify-center transition-all duration-700 transform -translate-y-1/2 -translate-x-1/2 z-10"
                              :style="{ left: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }">
-                             <div class="w-1.5 h-1.5 bg-brand-gold rounded-full"></div>
+                             <div class="w-1.5 h-1.5 bg-[#00B578] rounded-full"></div>
                         </div>
                     </div>
                 </div>
@@ -312,11 +312,11 @@
         
         <!-- Toast Notification -->
         <div v-if="showToast" class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in-down">
-             <div class="px-6 py-4 bg-brand-dark/95 backdrop-blur-md border border-brand-gold rounded-full shadow-2xl flex items-center gap-3">
+             <div class="px-6 py-4 bg-[#1e1f22]/95 backdrop-blur-md border border-[#00B578] rounded-full shadow-2xl flex items-center gap-3">
                  <div class="bg-green-500/20 p-1 rounded-full">
-                     <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                     <svg class="w-5 h-5 text-[#00B578]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
                  </div>
-                 <span class="text-brand-parchment font-bold text-sm tracking-wide">Résultat copié !</span>
+                 <span class="text-gray-300 font-bold text-sm tracking-wide">Résultat copié !</span>
              </div>
         </div>
 
@@ -535,7 +535,7 @@ function handleTimeOut() {
 const timerClass = computed(() => {
   if (timeRemaining.value <= 5) return 'text-red-600 border-red-200 bg-red-50 animate-pulse'
   if (timeRemaining.value <= 10) return 'text-orange-500 border-orange-200 bg-orange-50'
-  return 'text-brand-dark border-brand-dark/20 bg-gray-50'
+  return 'text-[#1e1f22] border-[#1e1f22]/20 bg-gray-50'
 })
 
 // Multiplayer Actions
@@ -683,9 +683,9 @@ function getOptionStyles(option: string) {
         if (answered.value && isSelected) {
             // Selected but waiting for reveal -> Show as "Selected/Pending"
              styles = {
-                container: 'bg-[#F0F4F8] border-brand-gold shadow-md',
-                text: 'text-brand-dark font-bold',
-                corner: 'border-brand-gold opacity-100' // Gold corners to show selection
+                container: 'bg-[#F0F4F8] border-[#00B578] shadow-md',
+                text: 'text-[#1e1f22] font-bold',
+                corner: 'border-[#00B578] opacity-100' // Gold corners to show selection
              }
              return styles
         }

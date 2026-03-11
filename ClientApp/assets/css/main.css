@@ -1,54 +1,61 @@
-/* Global Design System Styles */
+/* Global Design System Styles - Science & Math Theme */
 
-/* Base Texture Utilities */
-
-/* Wood Texture - Dark, Warm, Subtle Noise */
-.bg-texture-wood {
-  background-color: #082540;
-  background-image:
-    linear-gradient(rgba(8, 37, 64, 0.95), rgba(8, 37, 64, 0.9)),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
-}
-
-/* Parchment Texture - Light, Paper-like, Subtle Grain */
-.bg-texture-parchment {
-  background-color: #DDE1E7;
-  background-image:
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(221, 225, 231, 0.1) 100%),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
-}
-
-/* Light Parchment - Cleaner for content areas */
-.bg-texture-parchment-light {
-  background-color: #f5f7fa;
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-}
-
-/* Geometric Pattern - Subtle Identity overlay */
-.pattern-geometric {
-  background-image: radial-gradient(#C39712 1px, transparent 1px);
-  background-size: 24px 24px;
-  opacity: 0.1;
-}
-
-/* Typography Overrides */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Merriweather', 'Libre Baskerville', serif;
-}
-
+/* Base Backgrounds */
 body {
-  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #1e1f22;
+  color: #e5e7eb;
   overscroll-behavior-y: none;
-  /* Disable pull-to-refresh */
 }
 
 html {
   overscroll-behavior-y: none;
-  /* Ensure it applies to root as well */
+}
+
+/* Math Grid Pattern */
+.bg-grid-pattern {
+  background-image: radial-gradient(#00B578 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.05;
+}
+
+/* Dotted Science Pattern */
+.bg-dots-pattern {
+  background-image: 
+    radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.1) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Glow Effects */
+.emerald-glow {
+  box-shadow: 0 0 20px rgba(0, 181, 120, 0.2);
+}
+
+.emerald-glow-strong {
+  box-shadow: 0 0 30px rgba(0, 181, 120, 0.4);
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1f22;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2b2d31;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00B578;
 }

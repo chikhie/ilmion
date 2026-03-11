@@ -1,12 +1,12 @@
 <template>
-  <div class="relative w-full max-w-lg mx-auto font-sans-body">
+  <div class="relative w-full max-w-lg mx-auto font-sans">
     <!-- Outer Card with Pattern Border -->
     <div class="bg-[#Fdfbf7] p-2 rounded-[2rem] shadow-2xl relative overflow-hidden transform transition-all hover:scale-[1.01] duration-500">
         <!-- Pattern Texture on Border -->
         <div class="absolute inset-0 pattern-geometric opacity-10 pointer-events-none"></div>
         
         <!-- Inner Card with Line Border -->
-        <div class="bg-white rounded-[1.5rem] border-2 border-brand-dark/80 p-6 md:p-8 relative z-10 flex flex-col min-h-[500px]">
+        <div class="bg-white rounded-[1.5rem] border-2 border-[#1e1f22]/80 p-6 md:p-8 relative z-10 flex flex-col min-h-[500px]">
             
             <!-- Top Calligraphy Icon -->
             <div class="flex justify-center mb-6">
@@ -22,13 +22,13 @@
 
             <!-- Header / Title -->
              <div class="text-center mb-8 h-20 flex items-center justify-center">
-                 <h2 class="text-2xl font-serif-title font-bold text-brand-dark leading-tight animate-fade-in">
+                 <h2 class="text-2xl font-sans font-bold text-[#1e1f22] leading-tight animate-fade-in">
                     {{ isFinished ? 'Résultats du Quiz' : currentQuestion?.question }}
                  </h2>
              </div>
             
             <!-- Loading -->
-            <div v-if="!quizData" class="text-brand-wood font-medium text-center p-10 animate-pulse">
+            <div v-if="!quizData" class="text-[#2b2d31] font-medium text-center p-10 animate-pulse">
               Chargement de la sagesse ancienne...
             </div>
 
@@ -51,7 +51,7 @@
                              <!-- Button Content -->
                              <div class="relative z-10 px-6 py-4 flex items-center w-full">
                                  <!-- Letter Block -->
-                                 <span class="mr-4 font-serif-title font-bold opacity-70 text-sm tracking-wider w-6">
+                                 <span class="mr-4 font-sans font-bold opacity-70 text-sm tracking-wider w-6">
                                      {{ String.fromCharCode(65 + optIndex) }}.
                                  </span>
                                  
@@ -61,7 +61,7 @@
                                  </span>
                                  
                                  <!-- Selection Checkmark -->
-                                 <div v-if="currentAnswer === optIndex" class="ml-2 text-brand-gold animate-scale-in">
+                                 <div v-if="currentAnswer === optIndex" class="ml-2 text-[#00B578] animate-scale-in">
                                     <svg class="w-6 h-6 bg-white rounded-full p-1 shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                                     </svg>
@@ -77,7 +77,7 @@
                     </button>
 
                     <!-- Feedback Area (Inline) -->
-                    <div v-if="hasAnsweredCurrent" class="mt-2 text-center animate-fade-in font-serif-title min-h-[1.5em] flex items-center justify-center gap-2"
+                    <div v-if="hasAnsweredCurrent" class="mt-2 text-center animate-fade-in font-sans min-h-[1.5em] flex items-center justify-center gap-2"
                          :class="isCurrentCorrect ? 'text-green-700' : 'text-red-700'">
                         <span v-if="isCurrentCorrect">✨ Correct !</span>
                         <span v-else>⚠️ La réponse était {{ currentQuestion.options[currentQuestion.correctAnswer] }}</span>
@@ -87,35 +87,35 @@
                 <!-- Result Step -->
                 <div v-else class="text-center flex-grow flex flex-col justify-center items-center animate-fade-in">
                     <div class="mb-4 relative">
-                         <div class="absolute inset-0 bg-brand-gold/20 blur-xl rounded-full animate-pulse"></div>
+                         <div class="absolute inset-0 bg-[#00B578]/20 blur-xl rounded-full animate-pulse"></div>
                          <div class="text-7xl relative drop-shadow-md py-4">
                             {{ score >= (quizData.questions.length / 2) ? '🏆' : '🕯️' }}
                          </div>
                     </div>
                     
-                    <p class="text-3xl font-serif-title font-bold text-brand-dark mb-4">
-                      Score : <span class="text-brand-gold text-4xl">{{ score }}</span> / {{ quizData.questions.length }}
+                    <p class="text-3xl font-sans font-bold text-[#1e1f22] mb-4">
+                      Score : <span class="text-[#00B578] text-4xl">{{ score }}</span> / {{ quizData.questions.length }}
                     </p>
                     
-                    <p class="text-brand-wood/80 font-serif-title italic mb-8 max-w-xs mx-auto">
+                    <p class="text-[#2b2d31]/80 font-sans italic mb-8 max-w-xs mx-auto">
                         {{ getScoreMessage() }}
                     </p>
                     
                     <div v-if="isDemo" class="w-full">
-                        <NuxtLink to="/register" class="group relative block w-full py-4 overflow-hidden rounded-xl bg-brand-dark text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-brand-gold/20">
+                        <NuxtLink to="/register" class="group relative block w-full py-4 overflow-hidden rounded-xl bg-[#1e1f22] text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-[#00B578]/20">
                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                            <span class="relative font-bold uppercase tracking-widest flex items-center justify-center gap-2">
                                Créer un compte
                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                            </span>
                         </NuxtLink>
-                        <div class="mt-4 flex items-center justify-center gap-2 text-xs text-brand-wood/60">
+                        <div class="mt-4 flex items-center justify-center gap-2 text-xs text-[#2b2d31]/60">
                              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                              <span>Sauvegardez votre progression</span>
                         </div>
                     </div>
                     <div v-else class="w-full">
-                         <button @click="resetQuiz" class="w-full py-3 border-2 border-brand-gold text-brand-dark font-bold rounded-lg hover:bg-brand-gold hover:text-white transition-colors uppercase tracking-wider">
+                         <button @click="resetQuiz" class="w-full py-3 border-2 border-[#00B578] text-[#1e1f22] font-bold rounded-lg hover:bg-[#00B578] hover:text-white transition-colors uppercase tracking-wider">
                              Rejouer
                          </button>
                     </div>
@@ -128,7 +128,7 @@
                          <button 
                             v-if="hasAnsweredCurrent && !isFinished"
                             @click="nextQuestion"
-                            class="px-6 py-2 bg-brand-gold text-brand-dark font-bold text-sm rounded-full shadow-lg hover:bg-[#d4a81e] hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center gap-2 animate-fade-in-up"
+                            class="px-6 py-2 bg-[#00B578] text-[#1e1f22] font-bold text-sm rounded-full shadow-lg hover:bg-[#d4a81e] hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center gap-2 animate-fade-in-up"
                          >
                             <span>Suivant</span>
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
