@@ -100,7 +100,7 @@
         </div>
 
         <!-- Articles Link -->
-        <NuxtLink to="/articles" class="group mt-12 w-full max-w-lg flex items-center gap-5 px-6 py-5 rounded-2xl bg-[#2b2d31] border border-[#1e1f22] hover:bg-[#313338] hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-500 shadow-xl">
+        <!-- <NuxtLink to="/articles" class="group mt-12 w-full max-w-lg flex items-center gap-5 px-6 py-5 rounded-2xl bg-[#2b2d31] border border-[#1e1f22] hover:bg-[#313338] hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-500 shadow-xl">
             <div class="w-14 h-14 rounded-2xl bg-[#00B578]/15 flex items-center justify-center flex-shrink-0 group-hover:bg-[#00B578]/30 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#00B578]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
@@ -113,7 +113,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#00B578] group-hover:translate-x-1 transition-all flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
-        </NuxtLink>
+        </NuxtLink> -->
     </div>
     
     <!-- Footer Decorative Line -->

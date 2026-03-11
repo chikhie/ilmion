@@ -19,9 +19,9 @@
               Dashboard
             </NuxtLink>
 
-            <NuxtLink to="/articles" class="text-sm font-bold text-[#949ba4] hover:text-[#dbdee1] transition-colors uppercase tracking-widest" active-class="!text-[#00B578]">
+            <!-- <NuxtLink to="/articles" class="text-sm font-bold text-[#949ba4] hover:text-[#dbdee1] transition-colors uppercase tracking-widest" active-class="!text-[#00B578]">
               Articles
-            </NuxtLink>
+            </NuxtLink> -->
 
 
             
