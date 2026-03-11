@@ -1,11 +1,12 @@
 <template>
-  <div class="min-h-screen bg-brand-dark flex flex-col relative overflow-hidden font-sans-body">
+  <div class="min-h-screen bg-[#1e1f22] text-white flex flex-col relative overflow-hidden font-sans">
     
     <!-- Background Texture -->
     <div class="absolute inset-0 z-0 pointer-events-none">
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('/patterns/arabesque.png')"></div>
-        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-brand-gold/5 rounded-full blur-[100px] animate-pulse-slow"></div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-wood/10 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
+        <div class="absolute inset-0 opacity-[0.05]" style="background-image: radial-gradient(#00B578 1px, transparent 1px); background-size: 40px 40px; background-position: 0 0;"></div>
+        <div class="absolute inset-0 opacity-[0.05]" style="background-image: radial-gradient(#00B578 1px, transparent 1px); background-size: 40px 40px; background-position: 20px 20px;"></div>
+        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#00B578]/10 rounded-full blur-[100px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#00B578]/5 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
     </div>
 
     <!-- Global Header -->
@@ -14,38 +15,38 @@
     <main class="flex-grow container mx-auto px-3 pt-4 pb-8 md:px-4 md:pt-6 md:pb-12 relative z-10 max-w-7xl">
 
       <!-- Feature Header: Theme Selection with Dropdown -->
-      <div class="flex flex-col md:flex-row justify-between items-end mb-4 md:mb-8 gap-3 md:gap-4 border-b border-brand-gold/10 pb-4 md:pb-6 animate-fade-in delay-200 relative z-30">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-4 md:mb-8 gap-3 md:gap-4 border-b border-[#00B578]/10 pb-4 md:pb-6 animate-fade-in delay-200 relative z-30">
         
         <div class="hidden md:block">
           <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center text-lg shadow-lg shadow-brand-gold/20">
-                <i class="fas fa-book-reader"></i>
+            <div class="w-10 h-10 rounded-lg bg-[#2b2d31]/80 border border-[#00B578]/30 text-[#00B578] flex items-center justify-center text-lg shadow-sm backdrop-blur-sm">
+                <i class="fas fa-atom"></i>
             </div>
             <div>
-                 <h1 class="text-2xl md:text-3xl font-serif-title font-bold text-brand-parchment">Parcours</h1>
-                 <div v-if="progression" class="flex items-center gap-2 text-xs text-brand-gold/80 animate-fade-in delay-200">
-                    <i class="fas fa-star"></i>
-                    <span>{{ progression.globalPoints }} XP</span>
-                    <span class="text-brand-parchment/20">|</span>
-                    <span>{{ progression.modulesMasteredCount }} Thèmes Maîtrisés</span>
+                 <h1 class="text-2xl md:text-3xl font-sans font-bold text-white tracking-wide">Parcours</h1>
+                 <div v-if="progression" class="flex items-center gap-2 text-xs text-[#00B578] animate-fade-in delay-200 mt-1">
+                    <i class="fas fa-star text-[0.6rem]"></i>
+                    <span class="font-bold tracking-wider">{{ progression.globalPoints }} XP</span>
+                    <span class="text-gray-600 px-1">|</span>
+                    <span class="font-bold tracking-wider">{{ progression.modulesMasteredCount }} Thèmes Maîtrisés</span>
                  </div>
             </div>
           </div>
-          <p class="text-brand-parchment/60 text-sm">Sélectionnez un thème pour explorer les modules.</p>
+          <p class="text-gray-400 text-sm mt-1">Sélectionnez un thème pour explorer les modules scientifiques.</p>
         </div>
 
         <!-- Theme Filter Dropdown (Custom UI) -->
         <div class="relative w-full md:w-72" ref="dropdownRef">
-           <label class="block text-brand-gold/60 text-[0.65rem] font-bold uppercase tracking-widest mb-1.5 ml-1">
+           <label class="block text-gray-500 text-[0.65rem] font-bold uppercase tracking-widest mb-1.5 ml-1">
                Changer de thème
            </label>
            
            <button 
                 @click="isDropdownOpen = !isDropdownOpen"
-                class="w-full flex items-center justify-between bg-brand-dark/40 border border-brand-gold/20 text-brand-parchment py-3 px-4 rounded-lg hover:border-brand-gold/40 transition-all duration-200 group backdrop-blur-sm"
+                class="w-full flex items-center justify-between bg-[#1e1f22]/80 border border-white/5 text-white py-3 px-4 rounded-xl hover:border-[#00B578]/50 focus:border-[#00B578]/50 focus:bg-[#1e1f22] focus:ring-1 focus:ring-[#00B578]/30 transition-all duration-200 group backdrop-blur-sm"
            >
-                <span class="font-serif-title font-medium text-base">{{ currentTheme?.title || 'Sélectionner un thème' }}</span>
-                <i class="fas fa-chevron-down text-brand-gold/50 text-xs transition-transform duration-200" :class="{ 'rotate-180': isDropdownOpen }"></i>
+                <span class="font-sans font-bold text-sm">{{ currentTheme?.title || 'Sélectionner un thème' }}</span>
+                <i class="fas fa-chevron-down text-gray-400 text-xs transition-transform duration-200" :class="{ 'rotate-180': isDropdownOpen }"></i>
            </button>
 
            <!-- Dropdown Menu -->
@@ -57,20 +58,20 @@
                 leave-from-class="transform scale-100 opacity-100 translate-y-0"
                 leave-to-class="transform scale-95 opacity-0 -translate-y-2"
            >
-               <div v-if="isDropdownOpen" class="absolute top-full left-0 right-0 mt-2 bg-brand-dark/95 border border-brand-gold/20 rounded-lg shadow-xl overflow-hidden z-50 backdrop-blur-xl">
+               <div v-if="isDropdownOpen" class="absolute top-full left-0 right-0 mt-2 bg-[#2b2d31]/95 border border-white/10 rounded-xl shadow-xl shadow-black/50 overflow-hidden z-50 backdrop-blur-xl">
                     <div v-if="themes && themes.length > 0">
                         <button 
                             v-for="theme in themes" 
                             :key="theme.id"
                             @click="selectTheme(theme.id)"
-                            class="w-full text-left px-4 py-3 hover:bg-brand-gold/5 transition-colors border-b border-brand-white/5 last:border-0"
+                            class="w-full text-left px-4 py-3 hover:bg-[#00B578]/10 transition-colors border-b border-white/5 last:border-0"
                         >
-                            <span class="font-serif-title text-sm" :class="selectedThemeId === theme.id ? 'font-semibold text-brand-gold' : 'font-normal text-brand-parchment/80'">
+                            <span class="font-sans text-sm" :class="selectedThemeId === theme.id ? 'font-bold text-[#00B578]' : 'font-medium text-gray-300'">
                                 {{ theme.title }}
                             </span>
                         </button>
                     </div>
-                    <div v-else class="p-4 text-center text-brand-parchment/40 text-sm italic">
+                    <div v-else class="p-4 text-center text-gray-500 text-sm italic">
                         Aucun thème disponible
                     </div>
                </div>
@@ -82,29 +83,29 @@
       <div v-if="currentTheme" class="animate-fade-in-up delay-300 relative z-20">
         
         <!-- Theme Description Box -->
-        <div class="mb-6 md:mb-10 p-4 md:p-6 lg:p-8 rounded-xl md:rounded-2xl bg-gradient-to-r from-brand-wood/10 to-transparent border border-brand-gold/5 backdrop-blur-sm relative overflow-hidden group">
-            <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none">
-                 <i class="fas fa-mosque text-9xl text-brand-gold"></i>
+        <div class="mb-6 md:mb-10 p-4 md:p-6 lg:p-8 rounded-xl md:rounded-2xl bg-[#2b2d31]/80 backdrop-blur-md border border-[#00B578]/20 relative overflow-hidden group hover:border-[#00B578]/50 transition-colors shadow-sm">
+            <div class="absolute top-0 right-0 p-4 opacity-[0.02] group-hover:opacity-10 transition-opacity duration-700 pointer-events-none scale-150 -translate-y-1/4 translate-x-1/4">
+                 <i class="fas fa-microscope text-9xl text-[#00B578]"></i>
             </div>
             <div class="relative z-10 flex flex-row gap-4 md:gap-6 items-start md:items-center">
-                 <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold border border-brand-gold/20 shadow-inner flex-shrink-0">
-                    <i class="fas fa-quran text-2xl md:text-3xl"></i>
+                 <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#1e1f22] border-2 border-[#00B578]/40 flex items-center justify-center text-[#00B578] shadow-inner flex-shrink-0 group-hover:border-[#00B578] transition-colors">
+                    <i class="fas fa-laptop-code text-2xl md:text-3xl"></i>
                  </div>
                  <div class="flex-1">
-                     <h2 class="text-xl md:text-3xl font-serif-title font-bold text-brand-gold mb-1 md:mb-2">{{ currentTheme.title }}</h2>
-                     <p class="text-brand-parchment/70 max-w-3xl text-sm md:text-base leading-relaxed font-light line-clamp-2 md:line-clamp-none mb-3">{{ currentTheme.description }}</p>
+                     <h2 class="text-xl md:text-3xl font-sans font-bold text-white tracking-wide mb-1 md:mb-2">{{ currentTheme.title }}</h2>
+                     <p class="text-gray-400 max-w-3xl text-sm md:text-base leading-relaxed line-clamp-2 md:line-clamp-none mb-4">{{ currentTheme.description }}</p>
                      
                      <!-- Theme Progress Bar -->
-                     <div v-if="themeProgress" class="max-w-md space-y-1.5">
-                         <div class="flex items-center justify-between text-xs">
-                             <span class="text-brand-parchment/50 font-medium">
+                     <div v-if="themeProgress" class="max-w-md space-y-2 lg:max-w-xl">
+                         <div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest">
+                             <span class="text-gray-500">
                                  {{ themeProgress.questionsAnswered }} / {{ themeProgress.totalQuestions }} questions
                              </span>
-                             <span class="text-brand-gold font-bold">{{ themeProgress.percentage }}%</span>
+                             <span class="text-[#00B578]">{{ themeProgress.percentage }}%</span>
                          </div>
-                         <div class="h-2 bg-brand-wood/20 rounded-full overflow-hidden border border-brand-gold/10">
+                         <div class="h-2 bg-[#1e1f22] rounded-full overflow-hidden border border-[#00B578]/20 relative">
                              <div 
-                                 class="h-full bg-gradient-to-r from-brand-gold via-yellow-500 to-brand-gold transition-all duration-700 ease-out"
+                                 class="absolute top-0 left-0 h-full bg-[#00B578] transition-all duration-700 ease-out rounded-full shadow-[0_0_10px_rgba(0,181,120,0.5)]"
                                  :style="{ width: `${themeProgress.percentage}%` }"
                              ></div>
                          </div>
@@ -114,50 +115,50 @@
         </div>
 
         <!-- Quizzes Grid (Flattened) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5">
-             <div v-if="flatParts.length === 0" class="col-span-full text-center py-12 border border-dashed border-brand-white/10 rounded-xl bg-brand-wood/5 text-brand-parchment/40 italic text-base">
-                <i class="fas fa-hourglass-start mb-3 block text-2xl opacity-50"></i>
-                Aucun quiz disponible pour ce thème pour le moment.
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+             <div v-if="flatParts.length === 0" class="col-span-full text-center py-12 border border-dashed border-white/10 rounded-2xl bg-[#2b2d31]/50 text-gray-500 italic text-base">
+                <i class="fas fa-flask mb-3 block text-2xl opacity-50"></i>
+                Aucun module disponible pour ce thème pour le moment.
             </div>
 
             <div v-for="part in flatParts" :key="part.id" 
-                 class="group relative flex flex-col justify-between h-full p-3 md:p-5 rounded-xl bg-brand-wood/10 border border-brand-gold/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-brand-wood/20 hover:border-brand-gold/30 hover:shadow-xl hover:shadow-brand-gold/5"
+                 class="group relative flex flex-col justify-between h-full p-4 md:p-6 rounded-2xl bg-[#2b2d31]/80 border border-[#00B578]/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#00B578]/50 hover:shadow-lg hover:shadow-[#00B578]/10"
             >
 
                  <!-- Content -->
-                <div class="relative z-10 mb-3 md:mb-4">
-                    <div class="flex items-start justify-between gap-3 mb-2 md:mb-3">
+                <div class="relative z-10 mb-4 md:mb-5">
+                    <div class="flex items-start justify-between gap-3 mb-3 md:mb-4">
                          <div class="flex items-center gap-2">
-                             <div v-if="part.isMastered" class="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-[0.6rem] border border-green-500/30" title="Maîtrisé">
+                             <div v-if="part.isMastered" class="w-6 h-6 rounded-full bg-[#00B578]/20 text-[#00B578] flex items-center justify-center text-[0.7rem] border border-[#00B578]/40" title="Maîtrisé">
                                  <i class="fas fa-check"></i>
                              </div>
-                             <div v-else-if="part.score && part.score > 0" class="px-1.5 py-0.5 rounded bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-[0.6rem] font-bold">
+                             <div v-else-if="part.score && part.score > 0" class="px-2 py-1 rounded bg-[#00B578]/10 border border-[#00B578]/30 text-[#00B578] text-[0.65rem] font-bold tracking-wider">
                                 {{ part.score }} pts
                              </div>
                              <div v-else class="flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-brand-gold shadow-[0_0_8px] shadow-brand-gold"></span>
-                                <span class="text-brand-gold/80 text-[0.65rem] font-bold uppercase tracking-widest">Quiz</span>
+                                <span class="w-2 h-2 rounded-full bg-[#00B578] shadow-[0_0_8px] shadow-[#00B578] animate-pulse"></span>
+                                <span class="text-[#00B578]/80 text-[0.65rem] font-bold uppercase tracking-widest">Nouveau</span>
                              </div>
                          </div>
-                         <div class="text-brand-parchment/20 group-hover:text-brand-gold/40 transition-colors">
-                             <i class="fas fa-tasks"></i>
+                         <div class="text-gray-600 group-hover:text-[#00B578]/50 transition-colors">
+                             <i class="fas fa-microchip text-lg"></i>
                          </div>
                     </div>
 
-                    <h4 class="font-bold text-brand-parchment text-base md:text-lg leading-snug mb-1.5 md:mb-2 group-hover:text-white transition-colors min-h-[2.5rem] md:min-h-[3.5rem]">
+                    <h4 class="font-bold text-white text-lg md:text-xl leading-snug mb-2 group-hover:text-[#00B578] transition-colors min-h-[2.5rem] md:min-h-[3rem]">
                         {{ part.title }}
                     </h4>
-                    <p class="text-brand-parchment/50 text-xs leading-relaxed line-clamp-2 md:line-clamp-3" v-if="part.description">{{ part.description }}</p>
+                    <p class="text-gray-400 text-sm leading-relaxed line-clamp-2 md:line-clamp-3" v-if="part.description">{{ part.description }}</p>
                     
                     <!-- Progress Bar -->
-                    <div class="mt-2 md:mt-3 space-y-1">
-                        <div class="flex items-center justify-between text-[0.65rem]">
-                            <span class="text-brand-parchment/40 font-medium">Progression</span>
-                            <span class="text-brand-gold font-bold">{{ part.progressPercentage || 0 }}%</span>
+                    <div class="mt-4 space-y-1.5">
+                        <div class="flex items-center justify-between text-[0.65rem] font-bold uppercase tracking-widest text-[#00B578]">
+                            <span>Progression</span>
+                            <span>{{ part.progressPercentage || 0 }}%</span>
                         </div>
-                        <div class="h-1.5 bg-brand-wood/20 rounded-full overflow-hidden border border-brand-gold/10">
+                        <div class="h-1.5 bg-[#1e1f22] rounded-full overflow-hidden border border-white/5 relative">
                             <div 
-                                class="h-full bg-gradient-to-r from-brand-gold to-yellow-500 transition-all duration-500 ease-out"
+                                class="absolute top-0 left-0 h-full bg-[#00B578] transition-all duration-500 ease-out shadow-[0_0_5px_rgba(0,181,120,0.5)] rounded-full"
                                 :style="{ width: `${part.progressPercentage || 0}%` }"
                             ></div>
                         </div>
@@ -165,13 +166,13 @@
                 </div>
 
                 <!-- Action Footer -->
-                <div class="relative z-10 pt-3 md:pt-4 mt-auto border-t border-brand-white/5 flex items-center justify-end">
+                <div class="relative z-10 pt-4 mt-auto border-t border-white/5 flex items-center justify-end">
                     <NuxtLink 
                         :to="`/quizz?themeId=${currentTheme.id}&partId=${part.id}`"
-                        class="w-full px-4 py-3 bg-brand-gold text-brand-dark font-bold text-xs uppercase tracking-widest rounded-lg shadow-lg shadow-brand-gold/10 hover:bg-white hover:text-brand-dark hover:shadow-brand-gold/30 transition-all duration-300 flex items-center justify-center gap-2"
+                        class="w-full px-4 py-3 bg-[#00B578] text-[#1e1f22] font-bold text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-[#00B578]/20 hover:bg-[#00C588] hover:shadow-[#00B578]/40 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2"
                     >
-                        <span>Commencer</span>
-                        <i class="fas fa-play text-[0.6rem]"></i>
+                        <span>Démarrer</span>
+                        <i class="fas fa-rocket text-[0.7rem] ml-1"></i>
                     </NuxtLink>
                 </div>
             </div>
@@ -180,28 +181,28 @@
       </div>
 
       <!-- Articles Section -->
-      <NuxtLink to="/articles" class="block mt-6 md:mt-10 p-4 md:p-6 rounded-xl md:rounded-2xl bg-brand-wood/10 border border-brand-gold/10 backdrop-blur-sm relative overflow-hidden group hover:border-brand-gold/30 hover:bg-brand-wood/20 transition-all duration-300 animate-fade-in-up delay-300">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-brand-gold/10 flex items-center justify-center text-brand-gold border border-brand-gold/20 flex-shrink-0 group-hover:bg-brand-gold/20 transition-colors">
-            <i class="fas fa-book-open text-xl"></i>
+      <NuxtLink to="/articles" class="block mt-6 md:mt-10 p-5 md:p-8 rounded-xl md:rounded-2xl bg-[#2b2d31]/80 border border-[#00B578]/20 backdrop-blur-md relative overflow-hidden group hover:border-[#00B578]/50 transition-colors duration-300 animate-fade-in-up delay-300 shadow-sm">
+        <div class="flex items-center gap-5">
+          <div class="w-14 h-14 rounded-xl bg-[#1e1f22] flex items-center justify-center text-[#00B578] border-2 border-[#00B578]/30 flex-shrink-0 group-hover:border-[#00B578] transition-colors shadow-inner">
+            <i class="fas fa-book-journal-whills text-2xl"></i>
           </div>
           <div class="flex-1">
-            <h3 class="text-lg font-serif-title font-bold text-brand-parchment group-hover:text-white transition-colors">Articles & Leçons</h3>
-            <p class="text-brand-parchment/50 text-sm">Explorez les fondements de l'islam à travers des articles détaillés.</p>
+            <h3 class="text-xl font-sans font-bold text-white group-hover:text-[#00B578] transition-colors mb-1">Articles & Logiques</h3>
+            <p class="text-gray-400 text-sm md:text-base">Explorez des fondements scientifiques et mathématiques via nos articles détaillés.</p>
           </div>
-          <i class="fas fa-arrow-right text-brand-gold/30 group-hover:text-brand-gold group-hover:translate-x-1 transition-all duration-300"></i>
+          <i class="fas fa-arrow-right text-gray-600 text-xl group-hover:text-[#00B578] group-hover:translate-x-2 transition-all duration-300"></i>
         </div>
       </NuxtLink>
 
       <!-- Loading/Error States -->
-      <div v-if="pendingThemes" class="flex justify-center py-20">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-gold"></div>
+      <div v-if="pendingThemes" class="flex justify-center py-20 relative z-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00B578]"></div>
       </div>
 
-      <div v-else-if="errorThemes" class="text-center py-10 px-6 text-red-300 bg-red-900/10 rounded-xl border border-red-500/20 backdrop-blur-sm">
-        <i class="fas fa-exclamation-circle text-2xl mb-2"></i>
-        <p>Une erreur est survenue lors du chargement des contenus.</p>
-        <button @click="() => refresh()" class="mt-4 text-sm underline text-brand-gold hover:text-white">Réessayer</button>
+      <div v-else-if="errorThemes" class="text-center py-10 px-6 text-red-400 bg-red-900/20 rounded-2xl border border-red-500/30 backdrop-blur-sm relative z-20">
+        <i class="fas fa-bug text-3xl mb-3 text-red-500"></i>
+        <p class="font-bold text-sm tracking-wide">Une erreur système est survenue.</p>
+        <button @click="() => refresh()" class="mt-5 px-6 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition-colors text-xs font-bold uppercase tracking-widest border border-red-500/30">Relancer le diagnostic</button>
       </div>
 
     </main>
@@ -217,8 +218,8 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Parcours | Ilmanar',
-  description: 'Suivez votre progression et explorez vos thèmes d\'apprentissage sur Ilmanar.'
+  title: 'Parcours | Ilmion',
+  description: 'Suivez votre progression et explorez vos thèmes d\'apprentissage sur Ilmion.'
 })
 
 import { useAuthStore } from '~/stores/auth'

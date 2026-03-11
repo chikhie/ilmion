@@ -1,0 +1,322 @@
+{
+    "questions": [
+        {
+            "type": "choice",
+            "text": "Quelle est la raison principale pour laquelle les atomes forment des liaisons chimiques ?",
+            "options": [
+                "Pour augmenter leur masse",
+                "Pour atteindre une configuration électronique stable",
+                "Pour changer d'état physique",
+                "Pour devenir radioactifs"
+            ],
+            "correctAnswer": "Pour atteindre une configuration électronique stable",
+            "explanation": "Les atomes se lient pour acquérir la configuration électronique du gaz rare le plus proche (règle de l'octet ou du duet), ce qui les rend plus stables."
+        },
+        {
+            "type": "number",
+            "text": "Quel est le numéro atomique (Z) de l'atome de carbone ?",
+            "correctAnswer": "6",
+            "explanation": "Le carbone possède 6 protons dans son noyau, son numéro atomique est donc de 6."
+        },
+        {
+            "type": "choice",
+            "text": "Que mesure principalement le pH dans une solution aqueuse ?",
+            "options": [
+                "La concentration en dioxygène",
+                "La température de la solution",
+                "La concentration en ions hydrogène (H+)",
+                "La conductivité électrique"
+            ],
+            "correctAnswer": "La concentration en ions hydrogène (H+)",
+            "explanation": "Le potentiel Hydrogène (pH) est une mesure de l'acidité d'une solution, directement liée à sa concentration en ions H+ (ou H3O+)."
+        },
+        {
+            "type": "choice",
+            "text": "Qu'est-ce qu'un isotope ?",
+            "options": [
+                "Un atome ayant gagné ou perdu un électron",
+                "Des atomes du même élément avec un nombre différent de neutrons",
+                "Une molécule composée de deux atomes identiques",
+                "Un atome radioactif artificiel"
+            ],
+            "correctAnswer": "Des atomes du même élément avec un nombre différent de neutrons",
+            "explanation": "Les isotopes ont le même nombre de protons (même numéro atomique) mais un nombre différent de neutrons, ce qui modifie leur masse."
+        },
+        {
+            "type": "choice",
+            "text": "Qu'est-ce qu'une liaison covalente ?",
+            "options": [
+                "Un transfert d'électrons d'un métal à un non-métal",
+                "La mise en commun d'électrons entre deux atomes non-métalliques",
+                "Une attraction magnétique entre deux noyaux",
+                "Une liaison formée par la chaleur uniquement"
+            ],
+            "correctAnswer": "La mise en commun d'électrons entre deux atomes non-métalliques",
+            "explanation": "Dans une liaison covalente, deux atomes partagent un ou plusieurs de leurs électrons de valence pour devenir stables."
+        },
+        {
+            "type": "choice",
+            "text": "Que se passe-t-il lors d'une réaction d'oxydation ?",
+            "options": [
+                "Une perte de protons",
+                "Un gain d'électrons",
+                "Une perte d'électrons",
+                "Un dégagement de froid"
+            ],
+            "correctAnswer": "Une perte d'électrons",
+            "explanation": "L'oxydation est une réaction au cours de laquelle un atome ou un ion perd un ou plusieurs électrons. L'inverse (gain d'électrons) est la réduction."
+        },
+        {
+            "type": "boolean",
+            "text": "Les gaz nobles (ou rares) sont très réactifs chimiquement.",
+            "correctAnswer": "false",
+            "explanation": "Les gaz nobles (hélium, néon, argon, etc.) ont une couche de valence complète, ce qui les rend chimiquement très stables et inertes."
+        },
+        {
+            "type": "boolean",
+            "text": "L'eau pure (H2O) est considérée comme un élément chimique.",
+            "correctAnswer": "false",
+            "explanation": "L'eau n'est pas un élément mais un composé chimique, car elle est formée de deux éléments différents : l'hydrogène et l'oxygène."
+        },
+        {
+            "type": "choice",
+            "text": "Quel est le gaz le plus abondant dans l'atmosphère terrestre ?",
+            "options": [
+                "Le dioxygène (O2)",
+                "Le dioxyde de carbone (CO2)",
+                "Le diazote (N2)",
+                "L'hélium (He)"
+            ],
+            "correctAnswer": "Le diazote (N2)",
+            "explanation": "L'atmosphère terrestre est composée à environ 78 % de diazote (azote) et 21 % de dioxygène."
+        },
+        {
+            "type": "choice",
+            "text": "Qu'est-ce qu'un catalyseur dans une réaction chimique ?",
+            "options": [
+                "Une substance qui bloque la réaction",
+                "Une substance qui accélère la réaction sans être consommée",
+                "Un produit issu de la réaction",
+                "Une source de chaleur"
+            ],
+            "correctAnswer": "Une substance qui accélère la réaction sans être consommée",
+            "explanation": "Un catalyseur abaisse l'énergie d'activation nécessaire, permettant à la réaction de se faire plus vite, et se retrouve intact à la fin."
+        },
+        {
+            "type": "choice",
+            "text": "Lequel de ces éléments est un métal liquide à température ambiante ?",
+            "options": [
+                "Le fer (Fe)",
+                "Le mercure (Hg)",
+                "Le plomb (Pb)",
+                "Le sodium (Na)"
+            ],
+            "correctAnswer": "Le mercure (Hg)",
+            "explanation": "Le mercure est le seul métal du tableau périodique à être liquide dans les conditions normales de température et de pression."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle est la formule chimique du sel de table (chlorure de sodium) ?",
+            "options": [
+                "NaOH",
+                "HCl",
+                "NaCl",
+                "Na2CO3"
+            ],
+            "correctAnswer": "NaCl",
+            "explanation": "Le sel de table est composé d'un ion sodium (Na+) et d'un ion chlorure (Cl-), formant le composé NaCl."
+        },
+        {
+            "type": "choice",
+            "text": "Quel chimiste a conçu la première version du tableau périodique des éléments ?",
+            "options": [
+                "Marie Curie",
+                "Antoine Lavoisier",
+                "Dmitri Mendeleïev",
+                "Louis Pasteur"
+            ],
+            "correctAnswer": "Dmitri Mendeleïev",
+            "explanation": "Le chimiste russe Dmitri Mendeleïev a publié en 1869 la première classification périodique basée sur la masse atomique et les propriétés chimiques."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle est l'unité de la quantité de matière dans le Système International ?",
+            "options": [
+                "Le gramme",
+                "Le litre",
+                "La mole",
+                "L'atome"
+            ],
+            "correctAnswer": "La mole",
+            "explanation": "La mole (mol) est l'unité qui exprime une quantité de matière, correspondant à environ 6,022 × 10²³ entités (constante d'Avogadro)."
+        },
+        {
+            "type": "boolean",
+            "text": "Une réaction exothermique absorbe de la chaleur de son environnement.",
+            "correctAnswer": "false",
+            "explanation": "C'est l'inverse : une réaction exothermique dégage (libère) de la chaleur. Une réaction qui absorbe de la chaleur est dite endothermique."
+        },
+        {
+            "type": "choice",
+            "text": "Comment s'appelle le passage direct de l'état gazeux à l'état solide (sans passer par le liquide) ?",
+            "options": [
+                "La condensation solide (ou déposition)",
+                "La sublimation",
+                "La fusion",
+                "La vaporisation"
+            ],
+            "correctAnswer": "La condensation solide (ou déposition)",
+            "explanation": "La condensation solide (parfois appelée cristallisation ou déposition) est le phénomène inverse de la sublimation."
+        },
+        {
+            "type": "choice",
+            "text": "Quel acide est principalement responsable de l'acidité des citrons ?",
+            "options": [
+                "L'acide sulfurique",
+                "L'acide chlorhydrique",
+                "L'acide citrique",
+                "L'acide acétique"
+            ],
+            "correctAnswer": "L'acide citrique",
+            "explanation": "Le citron, comme les autres agrumes, contient une grande quantité d'acide citrique."
+        },
+        {
+            "type": "boolean",
+            "text": "Le pH de l'eau pure à 25 °C est exactement de 7.",
+            "correctAnswer": "true",
+            "explanation": "L'eau pure est neutre ; à 25 °C, la concentration en ions H+ est égale à celle des ions HO-, donnant un pH de 7."
+        },
+        {
+            "type": "choice",
+            "text": "Quel gaz est généralement produit lorsqu'un acide réagit avec un métal (comme le zinc) ?",
+            "options": [
+                "Le dioxyde de carbone (CO2)",
+                "Le dihydrogène (H2)",
+                "Le dioxygène (O2)",
+                "Le chlore (Cl2)"
+            ],
+            "correctAnswer": "Le dihydrogène (H2)",
+            "explanation": "L'attaque d'un métal par un acide libère du gaz dihydrogène, qui produit une petite détonation à l'approche d'une flamme."
+        },
+        {
+            "type": "choice",
+            "text": "De quelle couleur devient le papier tournesol (papier pH) en présence d'une solution très acide ?",
+            "options": [
+                "Bleu",
+                "Vert",
+                "Rouge",
+                "Incolore"
+            ],
+            "correctAnswer": "Rouge",
+            "explanation": "Le papier indicateur universel ou papier tournesol prend une teinte rouge, orange ou jaune en milieu acide, et bleue en milieu basique."
+        },
+        {
+            "type": "choice",
+            "text": "Quel composant de l'atome a été découvert par J.J. Thomson en 1897 ?",
+            "options": [
+                "Le proton",
+                "Le neutron",
+                "Le noyau",
+                "L'électron"
+            ],
+            "correctAnswer": "L'électron",
+            "explanation": "Thomson a découvert l'électron grâce à ses expériences sur les tubes à rayons cathodiques."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle particule subatomique ne possède aucune charge électrique ?",
+            "options": [
+                "Le proton",
+                "L'électron",
+                "Le neutron",
+                "Le photon"
+            ],
+            "correctAnswer": "Le neutron",
+            "explanation": "Comme son nom l'indique, le neutron est électriquement neutre. Il se trouve dans le noyau de l'atome avec les protons."
+        },
+        {
+            "type": "choice",
+            "text": "Qu'indique le numéro atomique (Z) d'un élément chimique ?",
+            "options": [
+                "Le nombre de neutrons",
+                "Le nombre de protons dans le noyau",
+                "La masse totale de l'atome",
+                "Le nombre d'électrons sur la dernière couche"
+            ],
+            "correctAnswer": "Le nombre de protons dans le noyau",
+            "explanation": "Le numéro atomique Z correspond au nombre de protons, ce qui définit l'identité chimique de l'élément."
+        },
+        {
+            "type": "choice",
+            "text": "Comment appelle-t-on la famille des éléments de la première colonne du tableau périodique (hors hydrogène) ?",
+            "options": [
+                "Les halogènes",
+                "Les gaz nobles",
+                "Les métaux alcalins",
+                "Les métaux de transition"
+            ],
+            "correctAnswer": "Les métaux alcalins",
+            "explanation": "Les métaux alcalins (Lithium, Sodium, Potassium...) sont extrêmement réactifs, particulièrement au contact de l'eau."
+        },
+        {
+            "type": "boolean",
+            "text": "La fonte d'un glaçon est considérée comme une transformation chimique.",
+            "correctAnswer": "false",
+            "explanation": "C'est une transformation physique (changement d'état). La molécule reste H2O, il n'y a pas de nouvelle substance créée."
+        },
+        {
+            "type": "choice",
+            "text": "Quel est l'élément le plus léger de l'univers ?",
+            "options": [
+                "L'hélium",
+                "L'oxygène",
+                "Le carbone",
+                "L'hydrogène"
+            ],
+            "correctAnswer": "L'hydrogène",
+            "explanation": "L'hydrogène est l'élément numéro 1, le plus simple et le plus léger, constitué d'un seul proton et (généralement) d'un seul électron."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle est la formule chimique de l'ozone ?",
+            "options": [
+                "O2",
+                "O3",
+                "CO2",
+                "H2O2"
+            ],
+            "correctAnswer": "O3",
+            "explanation": "L'ozone est une molécule composée de trois atomes d'oxygène. C'est un gaz vital dans la stratosphère pour bloquer les UV, mais un polluant au niveau du sol."
+        },
+        {
+            "type": "choice",
+            "text": "Comment appelle-t-on un ion ayant une charge électrique positive ?",
+            "options": [
+                "Un anion",
+                "Un cation",
+                "Un isotope",
+                "Un nucléon"
+            ],
+            "correctAnswer": "Un cation",
+            "explanation": "Un cation est un ion chargé positivement (car il a perdu un ou plusieurs électrons). À l'inverse, un anion est chargé négativement."
+        },
+        {
+            "type": "boolean",
+            "text": "L'air que nous respirons est un corps pur.",
+            "correctAnswer": "false",
+            "explanation": "L'air est un mélange homogène de plusieurs gaz (principalement du diazote et du dioxygène), ce n'est donc pas un corps pur."
+        },
+        {
+            "type": "choice",
+            "text": "Quelle loi stipule que 'Rien ne se perd, rien ne se crée, tout se transforme' en chimie ?",
+            "options": [
+                "La loi des gaz parfaits",
+                "La loi de conservation de la masse (loi de Lavoisier)",
+                "La loi d'Avogadro",
+                "La loi des proportions définies"
+            ],
+            "correctAnswer": "La loi de conservation de la masse (loi de Lavoisier)",
+            "explanation": "Antoine Lavoisier a énoncé ce principe fondamental : lors d'une réaction chimique dans un système fermé, la masse totale des réactifs est toujours égale à celle des produits."
+        }
+    ]
+}

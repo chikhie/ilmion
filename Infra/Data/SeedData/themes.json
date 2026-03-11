@@ -1,241 +1,241 @@
 [
     {
-        "title": "Croyance",
-        "description": "Les fondements de la foi islamique.",
+        "title": "Physique & Chimie",
+        "description": "Les fondements des sciences de la matière et de l'énergie.",
         "subjects": [
             {
-                "title": "Tawheed & It’s Types",
+                "title": "Structure de la Matière",
                 "parts": [
                     {
-                        "title": "Introduction",
-                        "description": "Les catégories de l'Unicité.",
+                        "title": "Introduction aux atomes et aux états",
+                        "description": "Comprendre les bases de la matière qui nous entoure.",
                         "quiz": [
                             {
                                 "type": "choice",
-                                "text": "Que signifie le mot 'Tawheed' en langue arabe ?",
+                                "text": "Que signifie le mot 'Atome' en grec ancien ?",
                                 "options": [
-                                    "La prière",
-                                    "L'unicité / Rendre unique",
-                                    "L'adoration",
-                                    "La foi"
+                                    "Particule",
+                                    "Indivisible",
+                                    "Énergie",
+                                    "Minuscule"
                                 ],
-                                "correctAnswer": "L'unicité / Rendre unique",
-                                "explanation": "Tawheed vient de la racine 'Wahada' qui signifie unifier ou rendre unique."
+                                "correctAnswer": "Indivisible",
+                                "explanation": "Le mot atome vient du grec 'atomos' qui signifie 'qu'on ne peut diviser'."
                             },
                             {
                                 "type": "number",
-                                "text": "Combien y a-t-il de types (catégories) de Tawheed ?",
+                                "text": "Combien d'états classiques de la matière enseigne-t-on couramment au collège ?",
                                 "correctAnswer": "3",
-                                "explanation": "Il y a trois types de Tawheed : Ar-Rabubiyyah, Al-Uluhiyyah et Al-Asma' was-Sifat."
+                                "explanation": "Il y a principalement 3 états classiques : solide, liquide et gazeux (le plasma étant souvent abordé plus tard)."
                             },
                             {
                                 "type": "boolean",
-                                "text": "Peut-on devenir musulman en croyant seulement en deux des trois types de Tawheed ?",
-                                "correctAnswer": "false",
-                                "explanation": "Les trois types de Tawheed sont obligatoires."
+                                "text": "L'eau peut-elle exister simultanément sous forme solide, liquide et gazeuse (au point triple) ?",
+                                "correctAnswer": "true",
+                                "explanation": "Oui, au point triple (environ 0,01 °C et une pression spécifique), l'eau coexiste dans ces trois états."
                             }
                         ]
                     }
                 ]
             },
             {
-                "title": "Evidence of Tawheed",
+                "title": "Mécanique Newtonienne",
                 "parts": [
                     {
-                        "title": "Preuves textuelles",
-                        "description": "Les versets et la raison de la création.",
+                        "title": "Forces et mouvements",
+                        "description": "Les lois régissant le mouvement des corps physiques.",
                         "quiz": [
                             {
                                 "type": "choice",
-                                "text": "Quelle est la raison majeure pour laquelle Allah a créé les djinns et les humains ?",
+                                "text": "Quelle est la cause de la modification du mouvement d'un objet selon les lois de Newton ?",
                                 "options": [
-                                    "Pour peupler la Terre",
-                                    "Pour L'adorer Lui Seul",
-                                    "Pour vivre en communauté",
-                                    "Pour dominer les autres créatures"
+                                    "Une force nette",
+                                    "Sa masse",
+                                    "Son volume",
+                                    "Sa température"
                                 ],
-                                "correctAnswer": "Pour L'adorer Lui Seul",
-                                "explanation": "Allah dit dans le Coran (Adh-Dhariyat, 56) : « Et Je n'ai créé les djinns et les humains que pour qu'ils M'adorent. »"
+                                "correctAnswer": "Une force nette",
+                                "explanation": "La deuxième loi de Newton relie l'accélération d'un objet à la somme des forces qui s'y appliquent (F = ma)."
                             },
                             {
                                 "type": "choice",
-                                "text": "Quel verset prouve le Tawheed Ar-Rabubiyyah en montrant qu'Allah possède la création et le commandement ?",
+                                "text": "Quel principe énonce que 'pour chaque action, il y a une réaction égale et opposée' ?",
                                 "options": [
-                                    "« Adorez Allah... »",
-                                    "« N'est-ce pas à Lui qu'appartiennent la création et le commandement ? »",
-                                    "« Il n'y a rien qui Lui ressemble »",
-                                    "« À Allah appartiennent les plus beaux Noms »"
+                                    "La 1ère loi de Newton",
+                                    "La 2ème loi de Newton",
+                                    "La 3ème loi de Newton",
+                                    "La loi de la gravitation"
                                 ],
-                                "correctAnswer": "« N'est-ce pas à Lui qu'appartiennent la création et le commandement ? »",
-                                "explanation": "Ce verset de la sourate Al-A'raf (v.54) prouve Sa Seigneurie."
+                                "correctAnswer": "La 3ème loi de Newton",
+                                "explanation": "C'est le principe des actions réciproques (ou 3ème loi de Newton)."
                             }
                         ]
                     }
                 ]
             },
             {
-                "title": "Shahadatan",
+                "title": "Thermodynamique",
                 "parts": [
                     {
-                        "title": "L'attestation de foi",
-                        "description": "Signification de La Ilaha Illa Allah.",
+                        "title": "Chaleur et énergie",
+                        "description": "Les lois de la conservation et de la transformation de l'énergie.",
                         "quiz": [
                             {
                                 "type": "choice",
-                                "text": "Que dit le hadith concernant celui qui prononce 'La Ilaha Illa Allah' avec sincérité ?",
+                                "text": "Que stipule le premier principe de la thermodynamique concernant l'énergie ?",
                                 "options": [
-                                    "Il aura plus de richesses",
-                                    "Allah lui a interdit le feu de l'Enfer",
-                                    "Il n'aura plus de problèmes",
-                                    "Il sera exempté de prière"
+                                    "Elle se perd avec le temps",
+                                    "Elle se conserve",
+                                    "Elle augmente toujours",
+                                    "Elle dépend de la pression"
                                 ],
-                                "correctAnswer": "Allah lui a interdit le feu de l'Enfer",
-                                "explanation": "Le Prophète ﷺ a dit que le Feu est interdit à celui qui le dit sincèrement."
+                                "correctAnswer": "Elle se conserve",
+                                "explanation": "Le premier principe stipule que l'énergie totale d'un système isolé reste constante."
                             },
                             {
                                 "type": "choice",
-                                "text": "Quel est le plus grand pilier parmi les cinq piliers de l'Islam ?",
+                                "text": "Quelle est l'unité du Système International pour la température thermodynamique ?",
                                 "options": [
-                                    "La prière",
-                                    "Le jeûne",
-                                    "Le Tawheed (attestation de foi)",
-                                    "Le pèlerinage"
+                                    "Le degré Celsius",
+                                    "Le Fahrenheit",
+                                    "Le Kelvin",
+                                    "Le Joule"
                                 ],
-                                "correctAnswer": "Le Tawheed (attestation de foi)",
-                                "explanation": "C'est le fondement de l'Islam."
+                                "correctAnswer": "Le Kelvin",
+                                "explanation": "Le Kelvin (K) est l'unité légale de température, démarrant au zéro absolu."
                             }
                         ]
                     }
                 ]
             },
             {
-                "title": "Shirk",
+                "title": "Réactions Chimiques",
                 "parts": [
                     {
-                        "title": "Le Danger du Shirk",
-                        "description": "Définition et conséquences.",
+                        "title": "Acides et Bases",
+                        "description": "Étude du pH et des transformations chimiques.",
                         "quiz": [
                             {
                                 "type": "choice",
-                                "text": "Qu'est-ce que le Shirk (polythéisme) par rapport au Tawheed ?",
+                                "text": "Quel est le pH d'une solution chimiquement neutre à 25 °C ?",
                                 "options": [
-                                    "Son synonyme",
-                                    "Son opposé",
-                                    "Une branche",
-                                    "Un type"
+                                    "0",
+                                    "7",
+                                    "10",
+                                    "14"
                                 ],
-                                "correctAnswer": "Son opposé",
-                                "explanation": "Le Shirk est l'opposé du Tawheed Al-Uluhiyyah."
+                                "correctAnswer": "7",
+                                "explanation": "Sur une échelle de 0 à 14, un pH de 7 est neutre (comme l'eau pure)."
                             },
                             {
                                 "type": "choice",
-                                "text": "Que devient l'adoration effectuée sans Tawheed ?",
+                                "text": "Que produit généralement la réaction entre un acide fort et une base forte ?",
                                 "options": [
-                                    "Elle reste valide",
-                                    "Elle est récompensée au double",
-                                    "Elle devient du Shirk (polythéisme)",
-                                    "Elle est diminuée"
+                                    "Un gaz toxique",
+                                    "Un sel et de l'eau",
+                                    "Un métal",
+                                    "Une explosion nucléaire"
                                 ],
-                                "correctAnswer": "Elle devient du Shirk (polythéisme)",
-                                "explanation": "L'adoration sans Tawheed devient du Shirk et annule les œuvres."
+                                "correctAnswer": "Un sel et de l'eau",
+                                "explanation": "Une réaction de neutralisation acido-basique produit typiquement un sel et de l'eau."
                             }
                         ]
                     }
                 ]
             },
             {
-                "title": "Proofs Of Shirk",
+                "title": "Électricité",
                 "parts": [
                     {
-                        "title": "Arguments des polythéistes",
-                        "description": "Réfutation des arguments.",
+                        "title": "Les circuits électriques",
+                        "description": "Comprendre la tension, l'intensité et la résistance.",
                         "quiz": [
                             {
                                 "type": "choice",
-                                "text": "Pourquoi les polythéistes de La Mecque adoraient-ils des idoles selon leur propre argument ?",
+                                "text": "Comment appelle-t-on la grandeur qui caractérise l'opposition d'un matériau au passage du courant électrique ?",
                                 "options": [
-                                    "Pour remplacer Allah",
-                                    "Pour se rapprocher d'Allah par leur intermédiaire",
-                                    "Parce qu'ils ne croyaient pas en Allah",
-                                    "Par tradition"
+                                    "La tension",
+                                    "L'intensité",
+                                    "La résistance",
+                                    "La puissance"
                                 ],
-                                "correctAnswer": "Pour se rapprocher d'Allah par leur intermédiaire",
-                                "explanation": "Ils prétendaient chercher l'intercession pour se rapprocher d'Allah."
+                                "correctAnswer": "La résistance",
+                                "explanation": "La résistance électrique (mesurée en Ohms) freine le passage des électrons dans un circuit."
                             }
                         ]
                     }
                 ]
             },
             {
-                "title": "The Fundamentals Of Islam & Nullifiers Of Religion",
+                "title": "Cinématique",
                 "parts": [
                     {
-                        "title": "Les bases",
-                        "description": "Ce qui invalide l'Islam.",
+                        "title": "L'étude des trajectoires",
+                        "description": "Description mathématique du mouvement sans tenir compte des causes.",
                         "quiz": []
                     }
                 ]
             },
             {
-                "title": "Kufr “Infidelity”",
+                "title": "Mécanique Quantique",
                 "parts": [
                     {
-                        "title": "La Mécréance",
-                        "description": "Définitions et types.",
+                        "title": "Dualité onde-corpuscule",
+                        "description": "Le comportement de la matière à l'échelle de l'infiniment petit.",
                         "quiz": []
                     }
                 ]
             },
             {
-                "title": "Nifaq “Hypocrisy”",
+                "title": "Relativité",
                 "parts": [
                     {
-                        "title": "L'Hypocrisie",
-                        "description": "Signes et dangers.",
+                        "title": "Espace et Temps",
+                        "description": "Les théories d'Albert Einstein sur la gravité et la vitesse de la lumière.",
                         "quiz": []
                     }
                 ]
             },
             {
-                "title": "Al-Wala’ Wa Al-Bara’",
+                "title": "Tableau Périodique",
                 "parts": [
                     {
-                        "title": "Alliance et Désaveu",
-                        "description": "Aimer et détester pour Allah.",
+                        "title": "Classification des éléments",
+                        "description": "Organisation des atomes selon Mendeleïev.",
                         "quiz": []
                     }
                 ]
             },
             {
-                "title": "Ibadah “Worship”",
+                "title": "Optique",
                 "parts": [
                     {
-                        "title": "L'Adoration",
-                        "description": "Les types de Tawheed liés à l'adoration.",
+                        "title": "Lumière et lentilles",
+                        "description": "Le comportement des ondes lumineuses.",
                         "quiz": [
                             {
                                 "type": "choice",
-                                "text": "Qu'est-ce que le Tawheed Al-Uluhiyyah (Adoration) ?",
+                                "text": "Qu'est-ce que la réfraction de la lumière ?",
                                 "options": [
-                                    "Croire au Créateur",
-                                    "Vouer tous les actes d'adoration à Allah Seul",
-                                    "Connaître les Noms",
-                                    "Croire aux anges"
+                                    "Le rebond de la lumière sur un miroir",
+                                    "Le changement de direction de la lumière en changeant de milieu",
+                                    "L'absorption de la lumière par un objet noir",
+                                    "La séparation de la lumière en couleurs"
                                 ],
-                                "correctAnswer": "Vouer tous les actes d'adoration à Allah Seul",
-                                "explanation": "C'est l'unicité dans l'adoration."
+                                "correctAnswer": "Le changement de direction de la lumière en changeant de milieu",
+                                "explanation": "La réfraction est la déviation d'une onde lorsque sa vitesse change en passant d'un milieu à un autre."
                             },
                             {
                                 "type": "choice",
-                                "text": "Qu'est-ce que le Tawheed Ar-Rabubiyyah (Seigneurie) ?",
+                                "text": "Quelle est la vitesse approximative de la lumière dans le vide ?",
                                 "options": [
-                                    "Unicifier dans l'adoration",
-                                    "Unicifier dans les Noms",
-                                    "Unicifier dans Ses actions (création, subsistance...)",
-                                    "Invoquer Allah seul"
+                                    "300 km/s",
+                                    "3 000 km/s",
+                                    "300 000 km/s",
+                                    "3 000 000 km/s"
                                 ],
-                                "correctAnswer": "Unicifier dans Ses actions (création, subsistance...)",
-                                "explanation": "Reconnaître Allah comme seul Créateur et Maître."
+                                "correctAnswer": "300 000 km/s",
+                                "explanation": "La constante 'c' vaut environ 299 792 km/s, souvent arrondie à 300 000 km/s."
                             }
                         ]
                     }
@@ -244,27 +244,27 @@
         ]
     },
     {
-        "title": "Histoire Islamique",
-        "description": "Découvrez les grandes périodes de l'histoire.",
+        "title": "Mathématiques",
+        "description": "L'étude des nombres, des formes et des structures.",
         "subjects": [
             {
-                "title": "Al-Andalus",
+                "title": "Géométrie",
                 "parts": [
                     {
-                        "title": "L'Andalousie",
-                        "description": "L'âge d'or de l'Espagne musulmane.",
+                        "title": "Théorèmes fondamentaux",
+                        "description": "L'étude des figures et des propriétés de l'espace.",
                         "quiz": [
                             {
                                 "type": "choice",
-                                "text": "Quelle ville était la capitale du Califat omeyyade en Andalousie ?",
+                                "text": "Dans quel type de triangle s'applique le théorème de Pythagore ?",
                                 "options": [
-                                    "Séville",
-                                    "Grenade",
-                                    "Cordoue",
-                                    "Tolède"
+                                    "Le triangle isocèle",
+                                    "Le triangle équilatéral",
+                                    "Le triangle rectangle",
+                                    "Le triangle quelconque"
                                 ],
-                                "correctAnswer": "Cordoue",
-                                "explanation": "Cordoue était la capitale du Califat de Cordoue."
+                                "correctAnswer": "Le triangle rectangle",
+                                "explanation": "Le théorème de Pythagore (a² + b² = c²) s'applique uniquement dans un triangle possédant un angle droit (90 degrés)."
                             }
                         ]
                     }

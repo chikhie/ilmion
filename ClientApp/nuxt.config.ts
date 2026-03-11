@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: 'https://ilmanar.site'
+    url: 'https://ilmion.site'
   },
 
   i18n: {
@@ -41,9 +41,9 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
-      name: 'Ilmanar',
-      short_name: 'Ilmanar',
-      description: "Plateforme éducative pour apprendre l'histoire islamique et l'arabe",
+      name: 'Ilmion',
+      short_name: 'Ilmion',
+      description: "Plateforme éducative pour apprendre les sciences et les maths",
       start_url: '/',
       display: 'standalone',
       background_color: '#0F172A',
@@ -117,7 +117,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'fr'
       },
-      title: 'ILMANAR',
+      title: 'ILMION',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },

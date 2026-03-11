@@ -1,0 +1,322 @@
+{
+    "questions": [
+        {
+            "type": "choice",
+            "text": "What is the main reason why atoms form chemical bonds?",
+            "options": [
+                "To increase their mass",
+                "To achieve a stable electron configuration",
+                "To change their physical state",
+                "To become radioactive"
+            ],
+            "correctAnswer": "To achieve a stable electron configuration",
+            "explanation": "Atoms bond to acquire the electron configuration of the nearest noble gas (octet or duet rule), making them more stable."
+        },
+        {
+            "type": "number",
+            "text": "What is the atomic number (Z) of a carbon atom?",
+            "correctAnswer": "6",
+            "explanation": "Carbon has 6 protons in its nucleus, so its atomic number is 6."
+        },
+        {
+            "type": "choice",
+            "text": "What does pH primarily measure in an aqueous solution?",
+            "options": [
+                "The concentration of oxygen (O2)",
+                "The temperature of the solution",
+                "The concentration of hydrogen ions (H+)",
+                "Electrical conductivity"
+            ],
+            "correctAnswer": "The concentration of hydrogen ions (H+)",
+            "explanation": "Potential of Hydrogen (pH) is a measure of the acidity of a solution, directly related to its concentration of H+ (or H3O+) ions."
+        },
+        {
+            "type": "choice",
+            "text": "What is an isotope?",
+            "options": [
+                "An atom that has gained or lost an electron",
+                "Atoms of the same element with a different number of neutrons",
+                "A molecule composed of two identical atoms",
+                "An artificial radioactive atom"
+            ],
+            "correctAnswer": "Atoms of the same element with a different number of neutrons",
+            "explanation": "Isotopes have the same number of protons (same atomic number) but a different number of neutrons, which changes their mass."
+        },
+        {
+            "type": "choice",
+            "text": "What is a covalent bond?",
+            "options": [
+                "A transfer of electrons from a metal to a non-metal",
+                "The sharing of electrons between two non-metallic atoms",
+                "A magnetic attraction between two nuclei",
+                "A bond formed only by heat"
+            ],
+            "correctAnswer": "The sharing of electrons between two non-metallic atoms",
+            "explanation": "In a covalent bond, two atoms share one or more of their valence electrons to become stable."
+        },
+        {
+            "type": "choice",
+            "text": "What happens during an oxidation reaction?",
+            "options": [
+                "A loss of protons",
+                "A gain of electrons",
+                "A loss of electrons",
+                "A release of cold"
+            ],
+            "correctAnswer": "A loss of electrons",
+            "explanation": "Oxidation is a reaction in which an atom or ion loses one or more electrons. The reverse (gain of electrons) is reduction."
+        },
+        {
+            "type": "boolean",
+            "text": "Noble (or rare) gases are very chemically reactive.",
+            "correctAnswer": "false",
+            "explanation": "Noble gases (helium, neon, argon, etc.) have a full valence shell, making them chemically very stable and inert."
+        },
+        {
+            "type": "boolean",
+            "text": "Pure water (H2O) is considered a chemical element.",
+            "correctAnswer": "false",
+            "explanation": "Water is not an element but a chemical compound, as it is made of two different elements: hydrogen and oxygen."
+        },
+        {
+            "type": "choice",
+            "text": "What is the most abundant gas in the Earth's atmosphere?",
+            "options": [
+                "Oxygen (O2)",
+                "Carbon dioxide (CO2)",
+                "Nitrogen (N2)",
+                "Helium (He)"
+            ],
+            "correctAnswer": "Nitrogen (N2)",
+            "explanation": "The Earth's atmosphere is composed of about 78% nitrogen and 21% oxygen."
+        },
+        {
+            "type": "choice",
+            "text": "What is a catalyst in a chemical reaction?",
+            "options": [
+                "A substance that blocks the reaction",
+                "A substance that speeds up the reaction without being consumed",
+                "A product resulting from the reaction",
+                "A source of heat"
+            ],
+            "correctAnswer": "A substance that speeds up the reaction without being consumed",
+            "explanation": "A catalyst lowers the required activation energy, allowing the reaction to occur faster, and remains intact at the end."
+        },
+        {
+            "type": "choice",
+            "text": "Which of these elements is a liquid metal at room temperature?",
+            "options": [
+                "Iron (Fe)",
+                "Mercury (Hg)",
+                "Lead (Pb)",
+                "Sodium (Na)"
+            ],
+            "correctAnswer": "Mercury (Hg)",
+            "explanation": "Mercury is the only metal in the periodic table that is liquid under standard conditions of temperature and pressure."
+        },
+        {
+            "type": "choice",
+            "text": "What is the chemical formula for table salt (sodium chloride)?",
+            "options": [
+                "NaOH",
+                "HCl",
+                "NaCl",
+                "Na2CO3"
+            ],
+            "correctAnswer": "NaCl",
+            "explanation": "Table salt is composed of a sodium ion (Na+) and a chloride ion (Cl-), forming the compound NaCl."
+        },
+        {
+            "type": "choice",
+            "text": "Which chemist designed the first version of the periodic table of elements?",
+            "options": [
+                "Marie Curie",
+                "Antoine Lavoisier",
+                "Dmitri Mendeleev",
+                "Louis Pasteur"
+            ],
+            "correctAnswer": "Dmitri Mendeleev",
+            "explanation": "Russian chemist Dmitri Mendeleev published the first periodic classification based on atomic mass and chemical properties in 1869."
+        },
+        {
+            "type": "choice",
+            "text": "What is the International System unit for amount of substance?",
+            "options": [
+                "Gram",
+                "Liter",
+                "Mole",
+                "Atom"
+            ],
+            "correctAnswer": "Mole",
+            "explanation": "The mole (mol) is the unit that expresses an amount of substance, corresponding to approximately 6.022 × 10²³ entities (Avogadro's constant)."
+        },
+        {
+            "type": "boolean",
+            "text": "An exothermic reaction absorbs heat from its environment.",
+            "correctAnswer": "false",
+            "explanation": "It is the opposite: an exothermic reaction releases heat. A reaction that absorbs heat is called endothermic."
+        },
+        {
+            "type": "choice",
+            "text": "What is the direct transition from the gaseous state to the solid state (without passing through the liquid state) called?",
+            "options": [
+                "Deposition (or solid condensation)",
+                "Sublimation",
+                "Melting",
+                "Vaporization"
+            ],
+            "correctAnswer": "Deposition (or solid condensation)",
+            "explanation": "Deposition (sometimes called desublimation or solid condensation) is the reverse phenomenon of sublimation."
+        },
+        {
+            "type": "choice",
+            "text": "Which acid is primarily responsible for the acidity of lemons?",
+            "options": [
+                "Sulfuric acid",
+                "Hydrochloric acid",
+                "Citric acid",
+                "Acetic acid"
+            ],
+            "correctAnswer": "Citric acid",
+            "explanation": "Lemons, like other citrus fruits, contain a large amount of citric acid."
+        },
+        {
+            "type": "boolean",
+            "text": "The pH of pure water at 25 °C is exactly 7.",
+            "correctAnswer": "true",
+            "explanation": "Pure water is neutral; at 25 °C, the concentration of H+ ions is equal to that of OH- ions, giving a pH of 7."
+        },
+        {
+            "type": "choice",
+            "text": "What gas is typically produced when an acid reacts with a metal (such as zinc)?",
+            "options": [
+                "Carbon dioxide (CO2)",
+                "Hydrogen (H2)",
+                "Oxygen (O2)",
+                "Chlorine (Cl2)"
+            ],
+            "correctAnswer": "Hydrogen (H2)",
+            "explanation": "The attack of a metal by an acid releases hydrogen gas, which produces a small detonation when brought near a flame."
+        },
+        {
+            "type": "choice",
+            "text": "What color does litmus paper (pH paper) turn in the presence of a highly acidic solution?",
+            "options": [
+                "Blue",
+                "Green",
+                "Red",
+                "Colorless"
+            ],
+            "correctAnswer": "Red",
+            "explanation": "Universal indicator paper or litmus paper turns red, orange, or yellow in an acidic environment, and blue in a basic one."
+        },
+        {
+            "type": "choice",
+            "text": "Which component of the atom was discovered by J.J. Thomson in 1897?",
+            "options": [
+                "Proton",
+                "Neutron",
+                "Nucleus",
+                "Electron"
+            ],
+            "correctAnswer": "Electron",
+            "explanation": "Thomson discovered the electron through his experiments with cathode ray tubes."
+        },
+        {
+            "type": "choice",
+            "text": "Which subatomic particle has no electrical charge?",
+            "options": [
+                "Proton",
+                "Electron",
+                "Neutron",
+                "Photon"
+            ],
+            "correctAnswer": "Neutron",
+            "explanation": "As its name suggests, the neutron is electrically neutral. It is found in the nucleus of the atom along with protons."
+        },
+        {
+            "type": "choice",
+            "text": "What does the atomic number (Z) of a chemical element indicate?",
+            "options": [
+                "The number of neutrons",
+                "The number of protons in the nucleus",
+                "The total mass of the atom",
+                "The number of electrons in the outer shell"
+            ],
+            "correctAnswer": "The number of protons in the nucleus",
+            "explanation": "The atomic number Z corresponds to the number of protons, which defines the chemical identity of the element."
+        },
+        {
+            "type": "choice",
+            "text": "What is the family of elements in the first column of the periodic table (excluding hydrogen) called?",
+            "options": [
+                "Halogens",
+                "Noble gases",
+                "Alkali metals",
+                "Transition metals"
+            ],
+            "correctAnswer": "Alkali metals",
+            "explanation": "Alkali metals (Lithium, Sodium, Potassium...) are extremely reactive, especially in contact with water."
+        },
+        {
+            "type": "boolean",
+            "text": "The melting of an ice cube is considered a chemical transformation.",
+            "correctAnswer": "false",
+            "explanation": "It is a physical transformation (change of state). The molecule remains H2O, no new substance is created."
+        },
+        {
+            "type": "choice",
+            "text": "What is the lightest element in the universe?",
+            "options": [
+                "Helium",
+                "Oxygen",
+                "Carbon",
+                "Hydrogen"
+            ],
+            "correctAnswer": "Hydrogen",
+            "explanation": "Hydrogen is element number 1, the simplest and lightest, consisting of a single proton and (usually) a single electron."
+        },
+        {
+            "type": "choice",
+            "text": "What is the chemical formula for ozone?",
+            "options": [
+                "O2",
+                "O3",
+                "CO2",
+                "H2O2"
+            ],
+            "correctAnswer": "O3",
+            "explanation": "Ozone is a molecule composed of three oxygen atoms. It is a vital gas in the stratosphere for blocking UV rays, but a pollutant at ground level."
+        },
+        {
+            "type": "choice",
+            "text": "What do you call an ion with a positive electrical charge?",
+            "options": [
+                "Anion",
+                "Cation",
+                "Isotope",
+                "Nucleon"
+            ],
+            "correctAnswer": "Cation",
+            "explanation": "A cation is a positively charged ion (because it has lost one or more electrons). Conversely, an anion is negatively charged."
+        },
+        {
+            "type": "boolean",
+            "text": "The air we breathe is a pure substance.",
+            "correctAnswer": "false",
+            "explanation": "Air is a homogeneous mixture of several gases (mainly nitrogen and oxygen), so it is not a pure substance."
+        },
+        {
+            "type": "choice",
+            "text": "Which law states that 'Nothing is lost, nothing is created, everything is transformed' in chemistry?",
+            "options": [
+                "Ideal gas law",
+                "Law of conservation of mass (Lavoisier's law)",
+                "Avogadro's law",
+                "Law of definite proportions"
+            ],
+            "correctAnswer": "Law of conservation of mass (Lavoisier's law)",
+            "explanation": "Antoine Lavoisier stated this fundamental principle: during a chemical reaction in a closed system, the total mass of the reactants is always equal to that of the products."
+        }
+    ]
+}

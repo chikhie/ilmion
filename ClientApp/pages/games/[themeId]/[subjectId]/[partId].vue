@@ -43,8 +43,8 @@ const refreshKey = ref(0)
 const { data: questions, pending, error } = await useFetch(`/api/theme/${themeId}/subjects/${subjectId}/parts/${partId}/quiz`)
 
 useSeoMeta({
-  title: 'Quiz | Ilmanar',
-  description: 'Testez vos connaissances avec ce quiz interactif sur Ilmanar.'
+  title: 'Quiz | Ilmion',
+  description: 'Testez vos connaissances avec ce quiz interactif sur Ilmion.'
 })
 
 function goBack() {

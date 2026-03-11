@@ -99,7 +99,7 @@ onMounted(async () => {
 })
 
 useSeoMeta({
-  title: 'Bibliothèque Vidéo | Ilmanar',
-  description: 'Explorez notre bibliothèque de vidéos éducatives sur Ilmanar.'
+  title: 'Bibliothèque Vidéo | Ilmion',
+  description: 'Explorez notre bibliothèque de vidéos éducatives sur Ilmion.'
 })
 </script>

@@ -559,7 +559,7 @@ async function handleJoinLobby() {
 
 function confirmIdentity() {
     if (guestUsername.value) {
-        localStorage.setItem('ilmanar_guest_username', guestUsername.value)
+        localStorage.setItem('ilmion_guest_username', guestUsername.value)
         hasPseudo.value = true
     }
 }
@@ -640,13 +640,13 @@ async function handleRetry() {
 }
 
 async function handleShareResult() {
-    const text = `J'ai obtenu ${score.value}/${questions.value.length} au quiz "${props.title}" sur Ilmanar ! Peux-tu faire mieux ?`
+    const text = `J'ai obtenu ${score.value}/${questions.value.length} au quiz "${props.title}" sur Ilmion ! Peux-tu faire mieux ?`
     const url = window.location.href
 
     if (navigator.share) {
         try {
             await navigator.share({
-                title: 'Mon score Ilmanar',
+                title: 'Mon score Ilmion',
                 text: text,
                 url: url
             })
@@ -738,7 +738,7 @@ onMounted(() => {
   }
   
   // Check for stored guest username
-  const storedName = localStorage.getItem('ilmanar_guest_username')
+  const storedName = localStorage.getItem('ilmion_guest_username')
   if (storedName) {
       guestUsername.value = storedName
       hasPseudo.value = true
