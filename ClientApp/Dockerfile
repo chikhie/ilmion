@@ -4,8 +4,8 @@ FROM oven/bun:latest as builder
 # Définition du répertoire de travail
 WORKDIR /app
 
-# Copie des fichiers de configuration des dépendances
-COPY package.json bun.lock ./
+# Copie du fichier package.json uniquement (on ignore le lockfile pour éviter l'erreur 400)
+COPY package.json ./
 
 # Installation des dépendances avec Bun
 # (Le postinstall va lancer "nuxt prepare" tel que défini dans package.json)

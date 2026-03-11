@@ -13,7 +13,7 @@
     <div class="max-w-md w-full relative z-10">
       <!-- Logo/Header -->
       <div class="text-center mb-10 animate-fade-in">
-        <img src="/Ilmion.svg" alt="Ilmion Logo" class="h-20 w-20 mx-auto mb-6 drop-shadow-lg" />
+        <img src="/Ilmanar.svg" alt="Ilmanar Logo" class="h-20 w-20 mx-auto mb-6 drop-shadow-lg" />
         <h1 class="text-2xl sm:text-3xl font-black text-white uppercase mb-2 tracking-tighter">Confirmation Email</h1>
         <p class="text-[#00B578] font-medium">Activation de votre compte</p>
       </div>
