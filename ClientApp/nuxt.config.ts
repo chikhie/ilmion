@@ -91,7 +91,7 @@ export default defineNuxtConfig({
       apiBase: 'http://localhost:8080/api',
       posthogPublicKey: 'phc_EkRPpU3y5ViAqfURfPclVavjS5XfSS1p8KucKANbQp6',
       posthogHost: 'https://eu.i.posthog.com',
-      posthogDefaults: '2025-11-30'
+      posthogDefaults: '2026-01-30'
     }
   },
 
