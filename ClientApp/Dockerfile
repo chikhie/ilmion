@@ -1,5 +1,5 @@
 # Utilisation de l'image officielle Bun (https://hub.docker.com/r/oven/bun)
-FROM oven/bun:latest as builder
+FROM oven/bun:latest AS builder
 
 # Définition du répertoire de travail
 WORKDIR /app
@@ -21,7 +21,7 @@ RUN sed -i 's|http://localhost:8080/api|https://api.ilmion.site/api|g' nuxt.conf
 RUN bun run build
 
 # --- Étape de Production ---
-FROM oven/bun:slim as runner
+FROM oven/bun:slim AS runner
 
 # Définition du répertoire de travail
 WORKDIR /app
