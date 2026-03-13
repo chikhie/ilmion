@@ -89,7 +89,7 @@ export default defineNuxtConfig({
     public: {
       // Utilise la variable d'environnement NUXT_PUBLIC_API_BASE si définie, sinon valeur par défaut
       apiBase: 'http://localhost:8080/api',
-      posthogPublicKey: 'phc_D5CDrdjgn0dBxpXiMAfnIMjAV4wy1SxapFz8A6tKeqh',
+      posthogPublicKey: 'phc_EkRPpU3y5ViAqfURfPclVavjS5XfSS1p8KucKANbQp6',
       posthogHost: 'https://eu.i.posthog.com',
       posthogDefaults: '2025-11-30'
     }
