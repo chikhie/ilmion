@@ -1,223 +1,196 @@
 <template>
-  <div class="articles-page">
-    <!-- Nav -->
-    <nav class="top-nav">
-      <NuxtLink to="/" class="back-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Accueil
-      </NuxtLink>
-    </nav>
-
-    <!-- Header -->
-    <header class="page-header">
-      <div class="header-badge">⚛️ Bibliothèque ⚛️</div>
-      <h1>Articles & Théories</h1>
-      <p class="header-desc">Explorez les fondements à travers des articles détaillés et illustrés.</p>
-    </header>
-
-    <!-- Articles Grid -->
-    <div class="articles-container">
-      <NuxtLink
-        v-for="(article, idx) in articles"
-        :key="article.slug"
-        :to="article.to"
-        class="article-card"
-        :style="{ animationDelay: `${idx * 0.1}s` }"
-      >
-        <div class="card-category">{{ article.category }}</div>
-        <div class="card-icon">{{ article.icon }}</div>
-        <h2 class="card-title">{{ article.title }}</h2>
-        <p class="card-arabic">{{ article.arabic }}</p>
-        <p class="card-desc">{{ article.description }}</p>
-        <div class="card-footer">
-          <span class="card-tag" v-for="tag in article.tags" :key="tag">{{ tag }}</span>
-        </div>
-        <div class="card-arrow">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </NuxtLink>
+  <div class="h-full bg-[#1e1f22] flex flex-col relative overflow-hidden font-sans text-[#f2f3f5]">
+    
+    <!-- Background Elements -->
+    <div class="absolute inset-0 z-0 pointer-events-none bg-[#1e1f22]">
+        <!-- Mathematical Tech Grid Pattern -->
+        <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#0D99FF 1px, transparent 1px), radial-gradient(#00B578 1px, transparent 1px); background-size: 40px 40px, 40px 40px; background-position: 0 0, 20px 20px;"></div>
+        
+        <!-- Glow Effects (Brilliant Cyan & Emerald) -->
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#0D99FF]/15 rounded-full blur-[100px] animate-pulse-slow"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#00B578]/15 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
     </div>
 
-    <!-- Coming Soon -->
-    <div class="coming-soon">
-      <p>D'autres articles sont en cours de rédaction…</p>
+    <!-- Header Actions -->
+    <div class="absolute top-6 right-6 z-20 flex items-center gap-4">
+        <!-- Login Button -->
+        <NuxtLink to="/login" class="px-5 py-2.5 rounded-xl bg-[#2b2d31] border border-[#1e1f22] text-white font-bold text-sm hover:bg-[#313338] shadow-sm transition-all duration-200">
+            {{ $t('common.login') }}
+        </NuxtLink>
+
+        <!-- Language Dropdown -->
+        <div class="relative">
+            <button 
+                @click="isLangMenuOpen = !isLangMenuOpen"
+                class="px-3 py-2.5 rounded-xl bg-[#2b2d31] hover:bg-[#313338] text-[#dbdee1] transition-colors duration-200 flex items-center gap-2"
+                aria-label="Changer la langue"
+            >
+                <span class="text-xl">{{ locale === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
+                <span class="text-sm font-medium uppercase tracking-wide">{{ locale }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#00B578] transition-transform duration-200" :class="{ 'rotate-180': isLangMenuOpen }" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div 
+                v-if="isLangMenuOpen"
+                class="absolute top-full right-0 mt-2 w-full min-w-[100px] bg-[#2b2d31] border border-[#1e1f22] rounded-xl shadow-xl overflow-hidden animate-fade-in-up"
+            >
+                <button 
+                    v-for="loc in locales" 
+                    :key="loc.code"
+                    @click="setLocale(loc.code); isLangMenuOpen = false"
+                    class="w-full px-4 py-3 flex items-center gap-3 text-sm hover:bg-[#1e1f22] transition-colors"
+                    :class="locale === loc.code ? 'text-[#00B578] font-bold' : 'text-[#dbdee1]'"
+                >
+                    <span class="text-lg">{{ loc.code === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
+                    <span class="uppercase tracking-wide">{{ loc.code }}</span>
+                </button>
+            </div>
+        </div>
     </div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 flex-grow flex flex-col items-center justify-center container mx-auto px-4 py-16 text-center">
+        
+        <!-- Logo / Icon Placeholder -->
+        <div class="mb-8 p-5 rounded-3xl bg-[#2b2d31] shadow-xl border-b-[6px] border-[#1e1f22] animate-fade-in-down flex items-center justify-center transform hover:-translate-y-1 transition-transform" style="width: 112px; height: 112px;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-[#00B578]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-5xl md:text-7xl font-sans font-extrabold text-[#f2f3f5] mb-4 tracking-tight animate-fade-in max-w-4xl leading-tight">
+            {{ $t('home.title') }} <span class="text-[#00B578] relative inline-block">
+                {{ $t('home.titleHighlight') }}
+                <svg class="absolute -bottom-2 left-0 w-full h-3 text-[#00B578]/30" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                </svg>
+            </span>
+        </h1>
+        
+        <h2 class="text-xl md:text-2xl text-[#dbdee1] font-medium mb-8 animate-fade-in delay-200">
+            {{ $t('home.subtitle') }}
+        </h2>
+
+        <!-- Description -->
+        <p class="text-lg md:text-xl text-[#b5bac1] max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in delay-300">{{ $t('home.description') }}</p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-5 w-full max-w-xl mx-auto animate-fade-in-up delay-300 px-4">
+            <NuxtLink to="/quizz" class="group flex-1 relative px-8 py-5 bg-[#00B578] text-white rounded-2xl font-extrabold text-xl shadow-[0_8px_0_#00895a] hover:translate-y-1 hover:shadow-[0_4px_0_#00895a] active:translate-y-2 active:shadow-[0_0px_0_#00895a] transition-all flex items-center justify-center border-2 border-transparent">
+                <span class="relative z-10 flex items-center justify-center gap-3">
+                    {{ $t('home.startQuiz') }}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+            </NuxtLink>
+            
+            <NuxtLink to="/register" class="group flex-1 relative px-8 py-5 bg-transparent border-2 border-[#313338] text-white rounded-2xl font-extrabold text-xl shadow-[0_8px_0_#313338] hover:bg-[#2b2d31] hover:translate-y-1 hover:shadow-[0_4px_0_#313338] hover:border-[#42454a] hover:text-[#00B578] active:translate-y-2 active:shadow-[0_0px_0_#313338] transition-all flex items-center justify-center">
+                <span class="relative z-10 flex items-center justify-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#00B578] group-hover:scale-110 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+                    </svg>
+                    {{ $t('home.register') }}
+                </span>
+            </NuxtLink>
+        </div>
+
+        <!-- Articles Link -->
+        <!-- <NuxtLink to="/articles" class="group mt-12 w-full max-w-lg flex items-center gap-5 px-6 py-5 rounded-2xl bg-[#2b2d31] border border-[#1e1f22] hover:bg-[#313338] hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-500 shadow-xl">
+            <div class="w-14 h-14 rounded-2xl bg-[#00B578]/15 flex items-center justify-center flex-shrink-0 group-hover:bg-[#00B578]/30 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#00B578]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+            </div>
+            <div class="flex-1 text-left">
+                <span class="block text-white font-extrabold text-lg">Leçons Visuelles</span>
+                <span class="block text-[#b5bac1] text-sm mt-1">Explorez les mathématiques, la physique, et l'informatique interactivement.</span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#00B578] group-hover:translate-x-1 transition-all flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </NuxtLink> -->
+    </div>
+    
+    <!-- Footer Decorative Line -->
+    <div class="w-full h-2 bg-gradient-to-r from-[#1e1f22] via-[#00B578] to-[#1e1f22] mt-auto relative z-10"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-definePageMeta({ layout: false })
 useSeoMeta({
-  title: 'Articles & Leçons | Ilmanar',
-  description: 'Explorez les fondements de l\'islam à travers des articles détaillés et illustrés.'
+  title: 'Accueil | Mathématiques et Sciences',
+  description: 'Rejoignez une communauté d\'apprenants. Explorez les mathématiques, la physique et l\'informatique à travers des leçons visuelles et interactives.'
 })
 
-const articles = [
-  {
-    slug: 'shahadatayn',
-    to: '/articles/shahadatayn',
-    title: 'La Double Attestation de Foi',
-    arabic: 'الشهادتان',
-    description: 'Significations, piliers et conditions de « Lā ilāha illa Allāh » et « Muhammad Rasūl Allāh ».',
-    category: 'Aqida',
-    icon: '🕌',
-    tags: ['Tawhid', 'Piliers', 'Conditions'],
-  },
-  {
-    slug: 'tawhid',
-    to: '/articles/tawhid',
-    title: "Le Tawhid — L'Unicité d'Allah",
-    arabic: 'التوحيد',
-    description: 'Définition, les trois catégories indissociables (Rububiyyah, Uluhiyyah, Asma wa Sifat), règles fondamentales et mérites.',
-    category: 'Aqida',
-    icon: '☪️',
-    tags: ['Unicité', 'Catégories', 'Mérites'],
-  },
-]
+const { locale, locales, setLocale } = useI18n()
+const isLangMenuOpen = ref(false)
+const authStore = useAuthStore()
+const router = useRouter()
+
+definePageMeta({
+  layout: 'default'
+})
 
 onMounted(() => {
-  document.documentElement.style.overflow = 'hidden'
-  document.body.style.overflow = 'hidden'
-  document.documentElement.style.height = '100%'
-  document.body.style.height = '100%'
+    if (authStore.isLoggedIn) {
+        navigateTo('/dashboard')
+    }
 })
 
-onUnmounted(() => {
-  document.documentElement.style.overflow = ''
-  document.body.style.overflow = ''
-  document.documentElement.style.height = ''
-  document.body.style.height = ''
-})
+// Also watch for state changes (e.g. hydration)
+watch(() => authStore.isLoggedIn, (loggedIn) => {
+    if (loggedIn) {
+        navigateTo('/dashboard')
+    }
+}, { immediate: true })
 </script>
 
 <style scoped>
-
-.articles-page {
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background: #1e1f22;
-  color: #f2f3f5;
-  font-family: 'Inter', sans-serif;
-  padding-top: 58px;
-  position: relative;
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+  opacity: 0;
 }
 
-.articles-page::before {
-  content: '';
-  position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background-image: radial-gradient(#00B578 1px, transparent 1px), radial-gradient(#00B578 1px, transparent 1px);
-  background-size: 40px 40px, 40px 40px;
-  background-position: 0 0, 20px 20px;
-  opacity: 0.07;
+.animate-fade-in-down {
+    animation: fadeInDown 0.8s ease-out forwards;
+    opacity: 0;
 }
 
-/* ── Nav ── */
-.top-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-  padding: 1rem 1.5rem;
-  background: rgba(30, 31, 34, 0.85); backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(43, 45, 49, 1);
-}
-.back-link {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  color: #00B578; font-weight: 600; text-decoration: none;
-  transition: opacity 0.2s;
-}
-.back-link:hover { opacity: 0.8; }
-
-/* ── Header ── */
-.page-header {
-  text-align: center; padding: 4rem 1.5rem 2rem; position: relative; z-index: 1;
-}
-.header-badge {
-  display: inline-block; font-family: 'Inter', sans-serif; font-size: 1.1rem;
-  font-weight: 800; color: #00B578; margin-bottom: 1.5rem; letter-spacing: 0.2em;
-}
-.page-header h1 {
-  font-family: 'Inter', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 900; margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fff 30%, #00B578 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.header-desc {
-  color: #b5bac1; font-size: 1.1rem; max-width: 550px; margin: 0 auto; font-weight: 500;
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
 }
 
-/* ── Articles Grid ── */
-.articles-container {
-  max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem; position: relative; z-index: 1;
-}
-.article-card {
-  position: relative;
-  border-radius: 1.25rem; padding: 2rem;
-  background: rgba(43, 45, 49, 0.5);
-  border: 1px solid rgba(0, 181, 120, 0.15);
-  backdrop-filter: blur(8px);
-  text-decoration: none; color: #f2f3f5;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 0; animation: cardAppear 0.6s forwards;
-  display: flex; flex-direction: column; gap: 0.75rem;
-}
-.article-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(0, 181, 120, 0.4);
-  box-shadow: 0 12px 40px rgba(0, 181, 120, 0.1);
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-1000 { animation-delay: 1s; }
+
+.animate-pulse-slow {
+    animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes cardAppear {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
 
-.card-category {
-  display: inline-block; align-self: flex-start;
-  font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
-  letter-spacing: 0.15em; color: #00B578;
-  padding: 0.25rem 0.75rem; border-radius: 999px;
-  background: rgba(0, 181, 120, 0.1); border: 1px solid rgba(0, 181, 120, 0.2);
-}
-.card-icon { font-size: 2.5rem; }
-.card-title {
-  font-family: 'Inter', sans-serif; font-size: 1.3rem;
-  font-weight: 800; color: #fff; line-height: 1.4;
-}
-.card-arabic {
-  font-family: 'Amiri', serif; font-size: 1.5rem;
-  color: #00B578; direction: rtl;
-}
-.card-desc {
-  color: #b5bac1; font-size: 0.9rem; line-height: 1.6; font-weight: 500;
-}
-.card-footer {
-  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto;
-}
-.card-tag {
-  font-size: 0.75rem; padding: 0.2rem 0.6rem; font-weight: 600;
-  border-radius: 0.5rem; background: rgba(242, 243, 245, 0.06);
-  color: #949ba4; border: 1px solid rgba(242, 243, 245, 0.08);
-}
-.card-arrow {
-  position: absolute; top: 2rem; right: 2rem;
-  color: rgba(0, 181, 120, 0.3);
-  transition: all 0.3s;
-}
-.article-card:hover .card-arrow {
-  color: #00B578; transform: translateX(4px);
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Coming Soon ── */
-.coming-soon {
-  text-align: center; padding: 3rem 1.5rem 4rem;
-  color: rgba(221, 225, 231, 0.4); font-style: italic;
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Responsive ── */
-@media (max-width: 640px) {
-  .articles-container { grid-template-columns: 1fr; padding: 1.5rem 1rem; }
-  .page-header { padding: 3rem 1rem 1.5rem; }
+@keyframes pulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.2; }
 }
 </style>

@@ -11,45 +11,7 @@
         <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#00B578]/15 rounded-full blur-[120px] animate-pulse-slow delay-1000"></div>
     </div>
 
-    <!-- Header Actions -->
-    <div class="absolute top-6 right-6 z-20 flex items-center gap-4">
-        <!-- Login Button -->
-        <NuxtLink to="/login" class="px-5 py-2.5 rounded-xl bg-[#2b2d31] border border-[#1e1f22] text-white font-bold text-sm hover:bg-[#313338] shadow-sm transition-all duration-200">
-            {{ $t('common.login') }}
-        </NuxtLink>
 
-        <!-- Language Dropdown -->
-        <div class="relative">
-            <button 
-                @click="isLangMenuOpen = !isLangMenuOpen"
-                class="px-3 py-2.5 rounded-xl bg-[#2b2d31] hover:bg-[#313338] text-[#dbdee1] transition-colors duration-200 flex items-center gap-2"
-                aria-label="Changer la langue"
-            >
-                <span class="text-xl">{{ locale === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
-                <span class="text-sm font-medium uppercase tracking-wide">{{ locale }}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#00B578] transition-transform duration-200" :class="{ 'rotate-180': isLangMenuOpen }" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-            </button>
-
-            <!-- Dropdown Menu -->
-            <div 
-                v-if="isLangMenuOpen"
-                class="absolute top-full right-0 mt-2 w-full min-w-[100px] bg-[#2b2d31] border border-[#1e1f22] rounded-xl shadow-xl overflow-hidden animate-fade-in-up"
-            >
-                <button 
-                    v-for="loc in locales" 
-                    :key="loc.code"
-                    @click="setLocale(loc.code); isLangMenuOpen = false"
-                    class="w-full px-4 py-3 flex items-center gap-3 text-sm hover:bg-[#1e1f22] transition-colors"
-                    :class="locale === loc.code ? 'text-[#00B578] font-bold' : 'text-[#dbdee1]'"
-                >
-                    <span class="text-lg">{{ loc.code === 'fr' ? '🇫🇷' : '🇬🇧' }}</span>
-                    <span class="uppercase tracking-wide">{{ loc.code }}</span>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Main Content -->
     <div class="relative z-10 flex-grow flex flex-col items-center justify-center container mx-auto px-4 py-16 text-center">
@@ -78,42 +40,23 @@
         <!-- Description -->
         <p class="text-lg md:text-xl text-[#b5bac1] max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in delay-300">{{ $t('home.description') }}</p>
 
-        <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-5 w-full max-w-xl mx-auto animate-fade-in-up delay-300 px-4">
-            <NuxtLink to="/quizz" class="group flex-1 relative px-8 py-5 bg-[#00B578] text-white rounded-2xl font-extrabold text-xl shadow-[0_8px_0_#00895a] hover:translate-y-1 hover:shadow-[0_4px_0_#00895a] active:translate-y-2 active:shadow-[0_0px_0_#00895a] transition-all flex items-center justify-center border-2 border-transparent">
-                <span class="relative z-10 flex items-center justify-center gap-3">
-                    {{ $t('home.startQuiz') }}
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </span>
-            </NuxtLink>
-            
-            <NuxtLink to="/register" class="group flex-1 relative px-8 py-5 bg-transparent border-2 border-[#313338] text-white rounded-2xl font-extrabold text-xl shadow-[0_8px_0_#313338] hover:bg-[#2b2d31] hover:translate-y-1 hover:shadow-[0_4px_0_#313338] hover:border-[#42454a] hover:text-[#00B578] active:translate-y-2 active:shadow-[0_0px_0_#313338] transition-all flex items-center justify-center">
-                <span class="relative z-10 flex items-center justify-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#00B578] group-hover:scale-110 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
-                    </svg>
-                    {{ $t('home.register') }}
-                </span>
-            </NuxtLink>
-        </div>
+
 
         <!-- Articles Link -->
-        <!-- <NuxtLink to="/articles" class="group mt-12 w-full max-w-lg flex items-center gap-5 px-6 py-5 rounded-2xl bg-[#2b2d31] border border-[#1e1f22] hover:bg-[#313338] hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-500 shadow-xl">
+        <NuxtLink to="/articles/de-quoi-est-constitue-un-atome" class="group mt-12 w-full max-w-lg flex items-center gap-5 px-6 py-5 rounded-2xl bg-[#2b2d31] border border-[#1e1f22] hover:bg-[#313338] hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-500 shadow-xl">
             <div class="w-14 h-14 rounded-2xl bg-[#00B578]/15 flex items-center justify-center flex-shrink-0 group-hover:bg-[#00B578]/30 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-[#00B578]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                 </svg>
             </div>
             <div class="flex-1 text-left">
-                <span class="block text-white font-extrabold text-lg">Leçons Visuelles</span>
-                <span class="block text-[#b5bac1] text-sm mt-1">Explorez les mathématiques, la physique, et l'informatique interactivement.</span>
+                <span class="block text-white font-extrabold text-lg">Article à la une</span>
+                <span class="block text-[#b5bac1] text-sm mt-1">De quoi est constitué un atome ? Le guide complet.</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#00B578] group-hover:translate-x-1 transition-all flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
-        </NuxtLink> -->
+        </NuxtLink>
     </div>
     
     <!-- Footer Decorative Line -->
@@ -127,8 +70,7 @@ useSeoMeta({
   description: 'Rejoignez une communauté d\'apprenants. Explorez les mathématiques, la physique et l\'informatique à travers des leçons visuelles et interactives.'
 })
 
-const { locale, locales, setLocale } = useI18n()
-const isLangMenuOpen = ref(false)
+
 const authStore = useAuthStore()
 const router = useRouter()
 
