@@ -1,0 +1,37 @@
+{
+    "Jwt": {
+        "Key": "#xaluTOmPJF7etLeWzDi5FlrPFbbI&xENGcM&Qa0fmkAx7D8irtq1XWO@5O6pnUS",
+        "Issuer": "IlmionApi",
+        "Audience": "IlmionClient"
+    },
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "AllowedHosts": "*",
+    "ConnectionStrings": {
+        "DefaultConnection": "Host=192.168.1.43;Port=5432;Database=ilmion-prod;Username=Admin-1423;Password=iA7fme6lLxDcjk1e8kTd"
+    },
+    "Smtp": {
+        "Host": "sandbox.smtp.mailtrap.io",
+        "Port": "2525",
+        "User": "46d4f631295690",
+        "Pass": "262e8af16e06b3",
+        "From": "noreply@ilmion.site"
+    },
+    "Mailtrap": {
+        "ApiToken": "18abbe5984b8af368de5574546464f3a",
+        "FromEmail": "noreply@ilmion.site",
+        "FromName": "Ilmion"
+    },
+    "ComponentEncryption": {
+        "Key": "Vx8kR3mN9pQ2wE4rT6yU8iO0pA1sD3fG5hJ7kL9zX2cV4bN6mQ8wE0rT2yU4iO6p"
+    },
+    "MongoDbSettings": {
+        "ConnectionString": "mongodb://Admin-1423:qGv8vHGRjInHC1qCoqGP@192.168.1.43:27016",
+        "DatabaseName": "ilmion"
+    },
+    "FrontendUrl": "http://localhost:3000"
+}
